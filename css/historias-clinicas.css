@@ -1,0 +1,87 @@
+@charset"utf-8";
+ article, aside, footer, header, hgroup, nav, section, form {
+    display: block
+}
+body {
+    /* Exploradores Antiguos */
+    background-color: #F0F0F0;
+    /* Safari 4+ y Chrome 1+ */
+    background-image: -webkit-linear-gradient(top, #E0E0E0 0%, #F8F8F8 100%);
+    /* Firefox 3.6+ */
+    background-image: -moz-linear-gradient(left bottom, #E0E0E0 0%, #F8F8F8 100%);
+    /* Internet Explorer 5.5+ */
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E8E8E8, endColorstr=#F8F8F8, GradientType=0);
+    /* Internet Explorer 10+ */
+    background-image: -ms-linear-gradient(top, #E0E0E0 0%, #E8E8E8 50%, #F0F0F0 51%, #F8F8F8 100%);
+    /* Opera 11.10+ */
+    background-image:-o-linear-gradient(top, #E0E0E0 0%, #E8E8E8 50%, #F0F0F0 51%, #F8F8F8 100%);
+    background-repeat:repeat-x;
+    font-family:Arial, Verdana, sans-serif;
+    font-size:relative;
+    height:600px;
+    margin:0;
+    padding:0;
+}
+header .contenedor {
+    background-color:#20DD70;
+    height:auto;
+    min-height:55px;
+    border-bottom:1px solid #000;
+}
+header .contenido {
+    max-width:1090px;
+    margin:0 auto;
+    padding:0 5px;
+}
+header .contenido h1 {
+    color:#FFF;
+    margin:10px 10px 0 0;
+    float:left;
+    text-shadow: 0px 1px 1px #111;
+}
+header .presentacion {
+    max-width:1090px;
+    margin:0 auto;
+    padding:0 5px;
+    text-align:center;
+}
+#inicio-sesion {
+    background-color:#FAFAFA;
+    border:1px solid #999;
+    border-radius:10px;
+    height:300px;
+    margin:30px auto;
+    padding:10px 40px;
+    text-align:left;
+    width:250px;
+}
+input[type="submit"] {
+    background-color:#20DD70;
+    color:#FFF;
+    border:1px solid #000;
+    border-radius:5px;
+    cursor:pointer;
+    display:block;
+    height:28px;
+    margin:25px auto;
+    text-align:center;
+    width:150px;
+}
+input[type="submit"]:hover {
+    background-color:#A0FFC0;
+}
+#navcontainer a {
+    float:left;
+    text-decoration:none;
+    color:#FFF;
+    padding:0 10px;
+    border-left:1px solid #000;
+}
+form #nuevo-usuario {
+    align-content:center;
+    align-items:center;
+    /*margin: 0px auto;
+}
+form #n-usuario tr td {
+    margin: 0px auto;
+}*/
