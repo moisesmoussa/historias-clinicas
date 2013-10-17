@@ -77,11 +77,19 @@ input[type="submit"]:hover {
     padding:0 10px;
     border-left:1px solid #000;
 }
-form #nuevo-usuario {
-    align-content:center;
-    align-items:center;
-    /*margin: 0px auto;
+form #n-usuario {
+    margin: 0 auto;
 }
 form #n-usuario tr td {
-    margin: 0px auto;
-}*/
+    margin-right: 8px;
+}
+#registrar-usuario {
+    background-color:#FAFAFA;
+    border:1px solid #999;
+    border-radius:10px;
+    height:985px;
+    margin:30px auto;
+    padding:10px 40px;
+    text-align:left;
+    width:580px;
+}
