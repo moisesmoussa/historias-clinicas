@@ -1,0 +1,17 @@
+<option value=""></option>
+<option value="Apartaderos">Apartaderos</option>
+<option value="Cojedes">Cojedes</option>
+<option value="El Amparo">El Amparo</option>
+<option value="El Baúl">El Baúl</option>
+<option value="El Pao">El Pao</option>
+<option value="La Aguadita">La Aguadita</option>
+<option value="La Sierra">La Sierra</option>
+<option value="Las Vegas">Las Vegas</option>
+<option value="Libertad">Libertad</option>
+<option value="Macapo">Macapo</option>
+<option value="Manrique">Manrique</option>
+<option value="San Carlos">San Carlos</option>
+<option value="Sucre">Sucre</option>
+<option value="Tinaco">Tinaco</option>
+<option value="Tinaquillo">Tinaquillo</option>
+<option value="-OTRA-">-OTRA-</option>

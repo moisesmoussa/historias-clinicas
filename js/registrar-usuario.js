@@ -1,6 +1,6 @@
 function agregarUsuario() {
     $.ajax({
-        url: 'insertar/insertar-usuario.php',
+        url: 'insertar/usuario.php',
         type: 'POST',
         data: {
             NombreUsuario: $('#NombreUsuario').val(),
@@ -12,7 +12,6 @@ function agregarUsuario() {
             SegundoApellido: $('#SegundoApellido').val(),
             FechaNacimiento: $('#FechaNacimiento').val(),
             LugarNacimiento: $('#LugarNacimiento').val(),
-            Ficha: $('#Ficha').val(),
             Cedula: $('#Cedula').val(),
             Nacionalidad: $('#Nacionalidad').val(),
             Pasaporte: $('#Pasaporte').val(),

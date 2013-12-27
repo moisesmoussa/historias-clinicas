@@ -9,7 +9,6 @@
 session_start();
 
 $_POST['Nacionalidad'] = ucfirst($_POST['Nacionalidad']);
-$_POST['TipoUsuario'] = ucfirst($_POST['TipoUsuario']);
 $msg = NULL;
 $flag = 1;
 
@@ -27,8 +26,8 @@ if(isset($_SESSION['usuario'])) {
         
         require_once('../config.php');
     
-        $columnas = 'INSERT INTO "Usuario" (';
-        $valores = 'VALUES (';
+        $columnas = 'UPDATE usuario SET (';
+        $valores = '= (';
         $len = count($_POST);
         $cont = 1;
         
@@ -40,18 +39,18 @@ if(isset($_SESSION['usuario'])) {
             else
                 $dato = md5(GetSQLValueString($valor));
             if($cont == $len - 1)
-                $columnas .= sprintf('"%s") ', $clave);
+                $columnas .= sprintf('%s) ', $clave);
             else
-                $columnas .= sprintf('"%s",', $clave);
-            if($clave != "Cedula" && $clave != "Pasaporte" && $clave != "Ficha" && $clave != "TlfMovil" && $clave != "TlfCasa" && $clave != "CodigoPostal") 
+                $columnas .= sprintf('%s,', $clave);
+            if($clave != "Cedula" && $clave != "Pasaporte" && $clave != "TlfMovil" && $clave != "TlfCasa" && $clave != "CodigoPostal") 
                 if($cont == $len - 1)
-                    $valores .= sprintf('\'%s\');', $dato);
+                    $valores .= sprintf('\'%s\') WHERE nombreusuario = \'%s\';', $dato, $_POST['NombreUsuario']);
                 else
                     $valores .= sprintf('\'%s\',', $dato);
             elseif($cont == $len - 1)
-                    $valores .= sprintf('%s);', $dato);
+                    $valores .= sprintf('\'%s\');', $dato);
             else
-                    $valores .= sprintf('%s,', $dato);   
+                    $valores .= sprintf('\'%s\',', $dato);   
             $cont++;
         }
   

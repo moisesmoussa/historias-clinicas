@@ -1,30 +1,6 @@
-$(document).ready(function () {
-    $('#usuario').click(function () {
-        $.ajax({
-            url: 'logout.php',
-            success: function (data) {
-                document.location = 'index.php';
-            }
-        });
-    });
-
-    $("#perfil").click(function () {
-        $("#modperfil").slideToggle();
-    })
-
-    $("#insertar").click(function () {
-        $("#item-menu").slideToggle();
-    })
-
-    $('#EstadoReside').change(function () {
-        $("#CiudadReside").load("ciudades/" + $(this).val() + ".txt")
-    })
-
-})
-
-function actualizarUsuario() {
+function agregarUsuario() {
     $.ajax({
-        url: 'actualizar/usuario.php',
+        url: 'insertar/paciente.php',
         type: 'POST',
         data: {
             NombreUsuario: $('#NombreUsuario').val(),
@@ -39,6 +15,7 @@ function actualizarUsuario() {
             Cedula: $('#Cedula').val(),
             Nacionalidad: $('#Nacionalidad').val(),
             Pasaporte: $('#Pasaporte').val(),
+            TipoUsuario: $('#TipoUsuario').val(),
             EstadoResidencia: $('#EstadoResidencia').val(),
             CiudadResidencia: $('#CiudadResidencia').val(),
             ParroquiaResidencia: $('#ParroquiaResidencia').val(),
@@ -52,7 +29,8 @@ function actualizarUsuario() {
             TlfMovil: $('#TlfMovil').val(),
             TlfCasa: $('#TlfCasa').val(),
             CorreoElectronico: $('#CorreoElectronico').val(),
-            Especialidad: $('#Especialidad').val()
+            Especialidad: $('#Especialidad').val(),
+            FechaIngreso: $('#FechaIngreso').val()
         },
         beforeSend: function () {
             $('#status').html('Cargando...');
@@ -71,11 +49,14 @@ function actualizarUsuario() {
             }
 
             if (r.codigo == 2) {
-                alert('Usuario actualizado con éxito.');
+                $('#nuevo-usuario').each(function () {
+                    this.reset();
+                });
+                alert('Usuario agregado con éxito.');
             }
 
             if (r.codigo == 3) {
-                alert('No se pudo actualizar el usuario');
+                alert('No se pudo agregar el usuario, es posible que ya exista el usuario.');
             }
 
         }

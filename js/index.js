@@ -14,7 +14,7 @@ function login() {
                 if(r.codigo == 0) {
                     alert('Nombre de usuario y/o contraseña incorrectos.');   
                 } else if(r.codigo == 1) {
-                    document.location = 'usuario.php';
+                    document.location = r.tipousuario.concat('.php');
                 }
             } catch (error) {
                 alert(data);

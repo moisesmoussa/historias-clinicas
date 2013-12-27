@@ -1,0 +1,11 @@
+<option value=""></option>
+<option value="Caraballeda">Caraballeda</option>
+<option value="Carayaca">Carayaca</option>
+<option value="Catia La Mar">Catia La Mar</option>
+<option value="El Junko">El Junko</option>
+<option value="La Guaira">La Guaira</option>
+<option value="La Sabana">La Sabana</option>
+<option value="Macuto">Macuto</option>
+<option value="Maiquetía">Maiquetía</option>
+<option value="Naiguatá">Naiguatá</option>
+<option value="-OTRA-">-OTRA-</option>
