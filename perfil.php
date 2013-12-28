@@ -44,7 +44,7 @@
         </div>
     </header>
     <h1 align="center">
-        <b>Actualiza tu perfil desde aquí</b>
+        <b>Actualiza tu perfil</b>
     </h1>
     <section id="registrar-usuario">
         <h2 align="center">Perfil de Usuario</h2>
