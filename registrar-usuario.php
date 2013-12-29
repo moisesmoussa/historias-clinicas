@@ -41,7 +41,7 @@
                             <a href="registrar-usuario.php">Registrar</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);">Eliminar</a>
+                            <a href="eliminar-usuario.php">Eliminar</a>
                         </li>
                     </ul>
                 </nav>
@@ -65,7 +65,7 @@
         </div>
     </header>
     <section id="registrar-usuario">
-        <h2 align="center">Registro de Usuario</h2>
+        <h2 align="center">Registrar Usuarios</h2>
         <form id="nuevo-usuario" action="" onsubmit="javascript:return (agregarUsuario(), false);">
             <table id=n-usuario>
                 <tr>

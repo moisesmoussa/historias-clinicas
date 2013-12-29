@@ -122,6 +122,14 @@ form #n-usuario {
 form #n-usuario tr td {
     margin-right: 8px;
 }
+.area-frontal{
+    background-color: #FFF;
+    border-radius: 10px;
+    margin: 5% auto;
+    padding: 2% 5%;
+    text-align: left;
+    width:70%;
+}
 #registrar-usuario {
     background-color: #FFF;
     border-radius: 10px;
