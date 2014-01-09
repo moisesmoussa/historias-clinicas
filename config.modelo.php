@@ -1,8 +1,8 @@
 <?php
-$dbhost = 'localhost';
-$dbname = 'HistoriasClinicas';
-$dbuser = 'postgres';
-$dbpass = 'brilight7';
+$dbhost = '';
+$dbname = '';
+$dbuser = '';
+$dbpass = '';
 
 function GetSQLValueString($val) {
     return htmlentities(trim($val), ENT_QUOTES, 'UTF-8');
