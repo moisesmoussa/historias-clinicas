@@ -1,0 +1,7 @@
+RewriteEngine on
+
+RewriteRule ^(js|json|img|css|fonts)$ - [L]
+RewriteRule ^(js|json|img|css|fonts)/(.*)$ - [L]
+RewriteRule ^([a-z0-9-]+)/([a-z0-9-]+)/([a-z0-9-/]+)/?$ index.php?controller=$1&action=$2&params=$3
+RewriteRule ^([a-z0-9-]+)/([a-z0-9-]+)/?$ index.php?controller=$1&action=$2
+RewriteRule ^([a-z0-9-]+)/?$ index.php?controller=$1&action=index
