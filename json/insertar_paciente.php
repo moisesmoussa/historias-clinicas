@@ -2,18 +2,16 @@
 /*
     Codigos:
     0 = Algún campo está vacío
-    1 = Las contraseñas no coinciden
-    2 = Usuario insertado correctamente en la BD
-    3 = El usuario no se pudo insertar en la BD
+    1 = Paciente insertado correctamente en la BD
+    2 = El paciente no se pudo insertar en la BD
 */
 session_start();
 
 $_POST['Nacionalidad'] = ucfirst($_POST['Nacionalidad']);
-$_POST['TipoUsuario'] = ucfirst($_POST['TipoUsuario']);
 $msg = NULL;
 $flag = 1;
 
-if(isset($_SESSION['usuario'])) {
+if(isset($_SESSION['administrador']) || isset($_SESSION['medico']) || isset($_SESSION['enfermera'])) {
     foreach ($_POST as $valor)
         if(!isset($valor) || empty($valor)){
             $flag = 0;
@@ -21,49 +19,141 @@ if(isset($_SESSION['usuario'])) {
         }
     if(!flag)
         $msg['codigo'] = 0;
-    elseif($_POST['Clave'] != $_POST['clave2'])
-        $msg['codigo'] = 1;
     else {
         
         require_once('../config.php');
+        $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
     
-        $columnas = 'INSERT INTO usuario (';
+        $columnas = 'INSERT INTO paciente (';
         $valores = 'VALUES (';
         $len = count($_POST);
         $cont = 1;
         
+        if(!$_POST["Pasaporte"])
+			$_POST["Pasaporte"]=0;
+		if(!$_POST["SegundoApellido"])
+			$_POST["SegundoApellido"]="N/A";
+		if(!$_POST["SegundoNombre"])
+			$_POST["SegundoNombre"]="N/A";
+		if(!$_POST["Etnia"])
+			$_POST["Etnia"]="N/A";
+		if(!$_POST["Profesion"])
+			$_POST["Proseion"]="N/A";
+		if(!$_POST["CorreoElectronico"])
+			$_POST["CorreoElectronico"]="N/A";
+		if(!$_POST["MunicipioReside"])
+			$_POST["MunicipioReside"]="N/A";
+		if(!$_POST["ParroquiaReside"])
+			$_POST["ParroquiaReside"]="N/A";
+		if(!$_POST["LocalidadReside"])
+			$_POST["LocalidadReside"]="N/A";
+		if(!$_POST["UrbanizacionSectorZonaIndustrial"])
+			$_POST["UrbanizacionSectorZonaIndustrial"]="N/A";
+		if(!$_POST["AvenidaCarreraEsquina"])
+			$_POST["AvenidaCarreraEsquina"]="N/A";
+		if(!$_POST["EdificioQuintaGalpon"])
+			$_POST["EdificioQuintaGalpon"]="N/A";
+		if(!$_POST["PisoPlantaLocal"])
+			$_POST["PisoPlantaLocal"]="N/A";
+		if(!$_POST["PuntoReferencia"])
+			$_POST["PuntoReferencia"]="N/A";
+		if(!$_POST["TlfDomicilio"])
+			$_POST["TlfDomicilio"]=0;
+		if(!$_POST["DesdeCuandoFuma"])
+			$_POST["DesdeCuandoFuma"]=0;
+		if(!$_POST["CigarrillosDia"])
+			$_POST["CigarrillosDia"]=0;
+		if(!$_POST["AlcoholSemana"])
+			$_POST["AlcoholSemana"]=0;
+		if(!$_POST["OtrosEstiloVida"])
+			$_POST["OtrosEstiloVida"]="N/A";
+		if(!$_POST["OtrasPatologias"])
+			$_POST["OtrasPatologias"]="N/A";
+		if(!$_POST["Observaciones"])
+			$_POST["Observaciones"]="N/A";
+
+
+		if($_POST["Sexo"]=="Femenino")
+			$_POST["InicioCrecimientoTesticular"]="0";
+		else if($_POST["Sexo"]=="Masculino"){
+			$_POST["Telarquia"]=0;
+			$_POST["Menarquia"]=0;
+			$_POST["CicloMenstrual"]=0;
+			$_POST["Anticoncepcion"]="FALSE";
+			$_POST["ACO"]="FALSE";
+			$_POST["DIU"]="FALSE";
+			$_POST["OtroAnticonceptivo"]="FALSE";
+			$_POST["NroGestas"]=0;
+			$_POST["NroPartos"]=0;
+			$_POST["NroCesareas"]=0;
+			$_POST["NroAbortos"]=0;
+			$_POST["LegradoUterino"]="FALSE";
+		}
+
+		if($_POST["Pe_flag"]==0){
+			$_POST["CarnetPrenatal"]=0;
+			$_POST["NroConsultasPrenatal"]=0;
+			$_POST["NombreMadre"]="N/A";
+			$_POST["NombrePadre"]="N/A";
+			$_POST["TrastornosEmbarazo"]="FALSE";
+			$_POST["EmbarazoATermino"]="FALSE";
+			$_POST["PartoUnicoEspontaneo"]="FALSE";
+			$_POST["PartoForceps"]="FALSE";
+			$_POST["ComplicacionesParto"]="FALSE";
+			$_POST["ComplicacionesPuerperio"]="FALSE";
+			$_POST["TrastornosRecienNacido"]="FALSE";
+			$_POST["Reanimacion"]="FALSE";
+			$_POST["PesoAlNacer"]=0;
+			$_POST["TallaAlNacer"]=0;
+			$_POST["PerimetroCefalico"]=0;
+			$_POST["LactanciaExclusiva"]=0;
+			$_POST["LactanciaMixta"]=0;
+			$_POST["Ablactacion"]=0;
+			$_POST["EgresoRecienNacidoPatologico"]="FALSE";
+			$_POST["Asfixia"]="FALSE";
+			$_POST["EgresoRecienNacidoSano"]="FALSE";
+		}
+
+
+		if($_POST["Ps_flag"]==0){
+			$_POST["Cabeza"]=0;
+			$_POST["Social"]=0;
+			$_POST["SeSento"]=0;
+			$_POST["Gateo"]=0;
+			$_POST["SeParo"]=0;
+			$_POST["Camino"]=0;
+			$_POST["Comio"]=0;
+			$_POST["Palabras"]=0;
+			$_POST["ControlEsfinterVesical"]=0;
+			$_POST["ControlEsfinterAnal"]=0;
+		}
+        
         foreach ($_POST as $clave => $valor){
-            if($clave == "clave2")
-                continue;
-            if($clave != "Clave")
-                $dato = GetSQLValueString($valor);
-            else
-                $dato = md5(GetSQLValueString($valor));
             if($cont == $len - 1)
                 $columnas .= sprintf('%s) ', $clave);
             else
                 $columnas .= sprintf('%s,', $clave);
             if($clave != "Cedula" && $clave != "Pasaporte" && $clave != "TlfMovil" && $clave != "TlfCasa" && $clave != "CodigoPostal") 
                 if($cont == $len - 1)
-                    $valores .= sprintf('\'%s\');', $dato);
+                    $valores .= sprintf('\'%s\');', $valor);
                 else
-                    $valores .= sprintf('\'%s\',', $dato);
-            elseif($cont == $len - 1)
-                    $valores .= sprintf('\'%s\');', $dato);
+                    $valores .= sprintf('\'%s\',', $valor);
+            else if($cont == $len - 1)
+                    $valores .= sprintf('\'%s\');', $valor);
             else
-                    $valores .= sprintf('\'%s\',', $dato);   
+                    $valores .= sprintf('\'%s\',', $valor);   
             $cont++;
         }
   
         $query = $columnas . $valores;
         
-        if(pg_query($cnn, $query)) {
-            $msg['codigo'] = 2;
+        if(pg_query($query)) {
+            $msg['codigo'] = 1;
         } else {
-            $msg['codigo'] = 3;
+            $msg['codigo'] = 2;
         }
         
-        pg_close($cnn);
+        pg_close($conexion);
     }
 }
 echo json_encode($msg);

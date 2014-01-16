@@ -1,6 +1,6 @@
 <section id="registrar-usuario">
     <h2 align="center">Registrar Usuarios</h2>
-    <form id="nuevo-usuario" action="" onsubmit="javascript:return (agregarUsuario(), false);">
+    <form id="nuevo-usuario" action="">
         <table id=n-usuario>
             <tr>
                 <td>
@@ -39,7 +39,7 @@
                 <td>
                     <label for="FechaIngreso">Fecha Ingreso:</label>
                     <br>
-                    <input id="FechaIngreso" type="text" required>
+                    <input class="calendario" id="FechaIngreso" type="text" readonly="readonly" required>
                 </td>
             </tr>
             <tr>
@@ -75,7 +75,7 @@
                 <td>
                     <label for="FechaNacimiento">Fecha Nacimiento:</label>
                     <br>
-                    <input id="FechaNacimiento" type="text" required>
+                    <input class="calendario" id="FechaNacimiento" type="text" readonly="readonly" required>
                 </td>
                 <td>
                     <label for="LugarNacimiento">Lugar Nacimiento:</label>
@@ -95,14 +95,14 @@
                 <td>
                     <label for="Cedula">Cédula:</label>
                     <br>
-                    <input id="Cedula" type="text" onkeypress="javascript:return soloNumeros(event);" required>
+                    <input id="Cedula" class="numeros" type="text" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="Pasaporte">Pasaporte:</label>
                     <br>
-                    <input id="Pasaporte" type="text" onkeypress="javascript:return numeros(event);" required>
+                    <input id="Pasaporte" class="numeros" type="text" required>
                 </td>
                 <td>
                     <label for="Especialidad">Especialidad:</label>
@@ -121,12 +121,38 @@
                 <td>
                     <label for="EstadoResidencia">Estado:</label>
                     <br>
-                    <input id="EstadoResidencia" type="text" required>
+                    <select id="EstadoResidencia">
+                        <option value="vacio"></option>
+                        <option value="Amazonas">Amazonas</option>
+                        <option value="Anzoátegui">Anzoátegui</option>
+                        <option value="Apure">Apure</option>
+                        <option value="Aragua">Aragua</option>
+                        <option value="Barinas">Barinas</option>
+                        <option value="Bolívar">Bolívar</option>
+                        <option value="Carabobo">Carabobo</option>
+                        <option value="Cojedes">Cojedes</option>
+                        <option value="DeltaAmacuro">Delta Amacuro</option>
+                        <option value="DistritoCapital">Distrito Capital</option>
+                        <option value="Falcón">Falcón</option>
+                        <option value="Guárico">Guárico</option>
+                        <option value="Lara">Lara</option>
+                        <option value="Mérida">Mérida</option>
+                        <option value="Miranda">Miranda</option>
+                        <option value="Monagas">Monagas</option>
+                        <option value="NuevaEsparta">Nueva Esparta</option>
+                        <option value="Portuguesa">Portuguesa</option>
+                        <option value="Sucre">Sucre</option>
+                        <option value="Táchira">Táchira</option>
+                        <option value="Trujillo">Trujillo</option>
+                        <option value="Vargas">Vargas</option>
+                        <option value="Yaracuy">Yaracuy</option>
+                        <option value="Zulia">Zulia</option>
+                    </select>
                 </td>
                 <td>
                     <label for="CiudadResidencia">Ciudad:</label>
                     <br>
-                    <input id="CiudadResidencia" type="text" required>
+                    <select id="CiudadResidencia"></select>
                 </td>
                 <td>
                     <label for="MunicipioResidencia">Municipio:</label>
@@ -167,7 +193,7 @@
                 <td>
                     <label for="CodigoPostal">Código Postal:</label>
                     <br>
-                    <input id="CodigoPostal" type="text" onkeypress="javascript:return tlf(event);" required>
+                    <input id="CodigoPostal" class="numeros" type="text" required>
                 </td>
                 <td>
                     <label for="OtraDireccion">Otra Dirección:</label>
@@ -186,12 +212,12 @@
                 <td>
                     <label for="TlfMovil">Teléfono Móvil:</label>
                     <br>
-                    <input id="TlfMovil" type="text" onkeypress="javascript:return tlf(event);" required>
+                    <input id="TlfMovil" class="tlf" type="text" required>
                 </td>
                 <td>
                     <label for="TlfCasa">Teléfono de Casa:</label>
                     <br>
-                    <input id="TlfCasa" type="text" onkeypress="javascript:return tlf(event);" required>
+                    <input id="TlfCasa" class="tlf" type="text" required>
                 </td>
                 <td>
                     <label for="CorreoElectronico">Correo Electrónico:</label>
@@ -201,7 +227,7 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <input type="submit" value="Registrar Usuario">
+                    <a class="boton" href="javascript:void(0);">Registrar Usuario</a>
                 </td>
             </tr>
             <tr>

@@ -13,7 +13,7 @@ $_POST['TipoUsuario'] = ucfirst($_POST['TipoUsuario']);
 $msg = NULL;
 $flag = 1;
 
-if(isset($_SESSION['usuario'])) {
+if(isset($_SESSION['administrador']) || isset($_SESSION['medico']) || isset($_SESSION['enfermera'])) {
     foreach ($_POST as $valor)
         if(!isset($valor) || empty($valor)){
             $flag = 0;
@@ -26,6 +26,7 @@ if(isset($_SESSION['usuario'])) {
     else {
         
         require_once('../config.php');
+        $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
     
         $columnas = 'INSERT INTO usuario (';
         $valores = 'VALUES (';
@@ -36,9 +37,9 @@ if(isset($_SESSION['usuario'])) {
             if($clave == "clave2")
                 continue;
             if($clave != "Clave")
-                $dato = GetSQLValueString($valor);
+                $dato = $valor;
             else
-                $dato = md5(GetSQLValueString($valor));
+                $dato = md5($valor);
             if($cont == $len - 1)
                 $columnas .= sprintf('%s) ', $clave);
             else
@@ -57,13 +58,13 @@ if(isset($_SESSION['usuario'])) {
   
         $query = $columnas . $valores;
         
-        if(pg_query($cnn, $query)) {
+        if(pg_query($query)) {
             $msg['codigo'] = 2;
         } else {
             $msg['codigo'] = 3;
         }
         
-        pg_close($cnn);
+        pg_close($conexion);
     }
 }
 echo json_encode($msg);

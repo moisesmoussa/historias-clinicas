@@ -32,9 +32,9 @@ body {
 }
 header .contenedor {
     background-color: #67B9D4;
+    border-bottom: 2px solid #D44877;
     height: auto;
     min-height: 83px;
-    border-bottom: 2px solid #D44877;
 }
 header .contenido {
     color: #D44877;
@@ -101,7 +101,9 @@ input[readonly="readonly"] {
     font-size: 20px;
     height: 45px;
     margin: 45px auto;
+    outline: none;
     text-align: center;
+    text-decoration: none;
     width: 195px;
 }
 .boton:hover {

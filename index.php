@@ -21,15 +21,15 @@ if($app['controller'] == 'logout') {
 	header('Location: '.$app['basedir'].'/');
 }
 
-if(isset($_SESSION['administrador']) && $app['controller'] != 'administrador') {
+if(isset($_SESSION['administrador']) && $app['controller'] != 'administrador' && $app['controller'] != 'perfil') {
 	header('Location: '.$app['basedir'].'/administrador');
 }
 
-if(isset($_SESSION['medico']) && $app['controller'] != 'medico') {
+if(isset($_SESSION['medico']) && $app['controller'] != 'medico' && $app['controller'] != 'perfil') {
 	header('Location: '.$app['basedir'].'/medico');
 }
 
-if(isset($_SESSION['enfermera']) && $app['controller'] != 'enfermera') {
+if(isset($_SESSION['enfermera']) && $app['controller'] != 'enfermera' && $app['controller'] != 'perfil') {
 	header('Location: '.$app['basedir'].'/enfermera');
 }
 

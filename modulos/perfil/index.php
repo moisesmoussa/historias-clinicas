@@ -1,21 +1,3 @@
-<?php session_start();
-    if(!isset($_SESSION['usuario']))
-        header( 'Location: index.php');
-    
-    $usuario = NULL;
-
-    require_once('config.php');
-    
-    $result = pg_query($cnn, "SELECT * FROM usuario WHERE nombreusuario = '$_SESSION[usuario]'");
-    
-    if(pg_num_rows($result)) {
-        $usuario = array();
-    }
-    
-    $usuario = pg_fetch_assoc($result);
-    
-    pg_close($cnn);
-?>
 <h1 align="center">
     <b>Actualiza tu perfil</b>
 </h1>
@@ -34,7 +16,7 @@
                 <td>
                     <label for="NombreUsuario">Nombre de usuario:</label>
                     <br>
-                    <input id="NombreUsuario" type="text" value="<?php echo($usuario['nombreusuario']) ?>" readonly="readonly">
+                    <input id="NombreUsuario" type="text" value="" readonly="readonly">
                 </td>
                 <td>
                     <label for="Clave">Contraseña:</label>
@@ -51,7 +33,7 @@
                 <td>
                     <label for="TipoUsuario">Tipo de Usuario:</label>
                     <br>
-                    <select id="TipoUsuario" value="<?php echo($usuario['tipousuario']) ?>" disabled>
+                    <select id="TipoUsuario" value="" disabled>
                         <option value="administrador">Administrador</option>
                         <option value="medico">Medico</option>
                         <option value="enfermera">Enfermera</option>
@@ -60,7 +42,7 @@
                 <td>
                     <label for="FechaIngreso">Fecha Ingreso:</label>
                     <br>
-                    <input id="FechaIngreso" type="text" value="<?php echo($usuario['fechaingreso']) ?>" readonly="readonly">
+                    <input id="FechaIngreso" type="text" value="" readonly="readonly">
                 </td>
             </tr>
             <tr>
@@ -72,43 +54,43 @@
                 <td>
                     <label for="PrimerNombre">Primer Nombre:</label>
                     <br>
-                    <input id="PrimerNombre" type="text"value="<?php echo($usuario['primernombre']) ?>" required>
+                    <input id="PrimerNombre" type="text" value="" required>
                 </td>
                 <td>
                     <label for="SegundoNombre">Segundo Nombre:</label>
                     <br>
-                    <input id="SegundoNombre" type="text" value="<?php echo($usuario['segundonombre']) ?>" required>
+                    <input id="SegundoNombre" type="text" value="" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="PrimerApellido">Primer Apellido:</label>
                     <br>
-                    <input id="PrimerApellido" type="text" value="<?php echo($usuario['primerapellido']) ?>" required>
+                    <input id="PrimerApellido" type="text" value="" required>
                 </td>
                 <td>
                     <label for="SegundoApellido">Segundo Apellido:</label>
                     <br>
-                    <input id="SegundoApellido" type="text" value="<?php echo($usuario['segundoapellido']) ?>" required>
+                    <input id="SegundoApellido" type="text" value="" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="FechaNacimiento">Fecha Nacimiento:</label>
                     <br>
-                    <input id="FechaNacimiento" type="text" value="<?php echo($usuario['fechanacimiento']) ?>" required>
+                    <input id="FechaNacimiento" type="text" value="" required>
                 </td>
                 <td>
                     <label for="LugarNacimiento">Lugar Nacimiento:</label>
                     <br>
-                    <input id="LugarNacimiento" type="text" value="<?php echo($usuario['lugarnacimiento']) ?>" required>
+                    <input id="LugarNacimiento" type="text" value="" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="Nacionalidad">Nacionalidad:</label>
                     <br>
-                    <select id="Nacionalidad" value="<?php echo($usuario['nacionalidad']) ?>">
+                    <select id="Nacionalidad" value="">
                         <option value="v">V</option>
                         <option value="e">E</option>
                     </select>
@@ -116,19 +98,19 @@
                 <td>
                     <label for="Cedula">Cédula:</label>
                     <br>
-                    <input id="Cedula" type="text" onkeypress="javascript:return soloNumeros(event);" value="<?php echo($usuario['cedula']) ?>" required>
+                    <input id="Cedula" class="numeros" type="text" value="" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="Pasaporte">Pasaporte:</label>
                     <br>
-                    <input id="Pasaporte" type="text" onkeypress="javascript:return numeros(event);" value="<?php echo($usuario['pasaporte']) ?>" required>
+                    <input id="Pasaporte" class="numeros" type="text" value="" required>
                 </td>
                 <td>
                     <label for="Especialidad">Especialidad:</label>
                     <br>
-                    <input id="Especialidad" type="text" value="<?php echo($usuario['especialidad']) ?>" required>
+                    <input id="Especialidad" type="text" value="" required>
                 </td>
             </tr>
             <tr>
@@ -142,58 +124,84 @@
                 <td>
                     <label for="EstadoResidencia">Estado:</label>
                     <br>
-                    <input id="EstadoResidencia" type="text" value="<?php echo($usuario['estadoresidencia']) ?>" required>
+                    <select id="EstadoResidencia">
+                        <option value="vacio"></option>
+                        <option value="Amazonas">Amazonas</option>
+                        <option value="Anzoátegui">Anzoátegui</option>
+                        <option value="Apure">Apure</option>
+                        <option value="Aragua">Aragua</option>
+                        <option value="Barinas">Barinas</option>
+                        <option value="Bolívar">Bolívar</option>
+                        <option value="Carabobo">Carabobo</option>
+                        <option value="Cojedes">Cojedes</option>
+                        <option value="DeltaAmacuro">Delta Amacuro</option>
+                        <option value="DistritoCapital">Distrito Capital</option>
+                        <option value="Falcón">Falcón</option>
+                        <option value="Guárico">Guárico</option>
+                        <option value="Lara">Lara</option>
+                        <option value="Mérida">Mérida</option>
+                        <option value="Miranda">Miranda</option>
+                        <option value="Monagas">Monagas</option>
+                        <option value="NuevaEsparta">Nueva Esparta</option>
+                        <option value="Portuguesa">Portuguesa</option>
+                        <option value="Sucre">Sucre</option>
+                        <option value="Táchira">Táchira</option>
+                        <option value="Trujillo">Trujillo</option>
+                        <option value="Vargas">Vargas</option>
+                        <option value="Yaracuy">Yaracuy</option>
+                        <option value="Zulia">Zulia</option>
+                    </select>
                 </td>
                 <td>
                     <label for="CiudadResidencia">Ciudad:</label>
                     <br>
-                    <input id="CiudadResidencia" type="text" value="<?php echo($usuario['ciudadresidencia']) ?>" required>
+                    <input id="CiudadResidencia" type="text" value="" required>
                 </td>
                 <td>
                     <label for="MunicipioResidencia">Municipio:</label>
                     <br>
-                    <input id="MunicipioResidencia" type="text" value="<?php echo($usuario['municipioresidencia']) ?>" required>
+                    <input id="MunicipioResidencia" type="text" value="" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="ParroquiaResidencia">Parroquia:</label>
                     <br>
-                    <input id="ParroquiaResidencia" type="text" value="<?php echo($usuario['parroquiaresidencia']) ?>" required>
+                    <input id="ParroquiaResidencia" type="text" value="" required>
                 </td>
                 <td>
                     <label for="Urbanizacion_Sector_ZonaIndustrial">Urbanización/Sector:</label>
                     <br>
-                    <input id="Urbanizacion_Sector_ZonaIndustrial" type="text" value="<?php echo($usuario['urbanizacion_sector_zonaindustrial']) ?>" required>
+                    <input id="Urbanizacion_Sector_ZonaIndustrial" type="text" value="" required>
                 </td>
                 <td>
                     <label for="Avenida_Carrera_Esquina">Avenida/Carrera/Calle:</label>
                     <br>
-                    <input id="Avenida_Carrera_Esquina" type="text" value="<?php echo($usuario['avenida_carrera_esquina']) ?>" required>
+                    <input id="Avenida_Carrera_Esquina" type="text" value="" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="Edificio_Quinta_Galpon">Edificio/Quinta/Galpón:</label>
                     <br>
-                    <input id="Edificio_Quinta_Galpon" type="text" value="<?php echo($usuario['edificio_quinta_galpon']) ?>" required>
+                    <input id="Edificio_Quinta_Galpon" type="text" value="" required>
                 </td>
                 <td>
                     <label for="Piso_Planta_Local">Piso/Planta/Local:</label>
                     <br>
-                    <input id="Piso_Planta_Local" type="text" value="<?php echo($usuario['piso_planta_local']) ?>" required>
+                    <input id="Piso_Planta_Local" type="text" value="" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="CodigoPostal">Código Postal:</label>
                     <br>
-                    <input id="CodigoPostal" type="text" onkeypress="javascript:return tlf(event);" value="<?php echo($usuario['codigopostal']) ?>" required>
+                    <input id="CodigoPostal" class="numeros" type="text" value="" required>
                 </td>
                 <td>
                     <label for="OtraDireccion">Otra Dirección:</label>
                     <br>
-                    <input id="OtraDireccion" type="text" value="<?php echo($usuario['otradireccion']) ?>" required>
+                    <input id="OtraDireccion" type="text" value="" required>
                 </td>
             </tr>
             <tr>
@@ -207,17 +215,17 @@
                 <td>
                     <label for="TlfMovil">Teléfono Móvil:</label>
                     <br>
-                    <input id="TlfMovil" type="text" onkeypress="javascript:return tlf(event);" value="<?php echo($usuario['tlfmovil']) ?>" required>
+                    <input id="TlfMovil" class="tlf" type="text" value="" required>
                 </td>
                 <td>
                     <label for="TlfCasa">Teléfono de Casa:</label>
                     <br>
-                    <input id="TlfCasa" type="text" onkeypress="javascript:return tlf(event);" value="<?php echo($usuario['tlfcasa']) ?>" required>
+                    <input id="TlfCasa" class="tlf" type="text" value="" required>
                 </td>
                 <td>
                     <label for="CorreoElectronico">Correo Electrónico:</label>
                     <br>
-                    <input id="CorreoElectronico" type="text" value="<?php echo($usuario['correoelectronico']) ?>" required>
+                    <input id="CorreoElectronico" type="text" value="" required>
                 </td>
             </tr>
             <tr>

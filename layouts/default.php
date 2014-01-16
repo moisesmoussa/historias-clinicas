@@ -11,8 +11,10 @@
     <link href='<?php echo $app['basedir'].'/css/default.css'; ?>' rel='stylesheet' type='text/css'>
     <link href='<?php echo $app['basedir'].'/css/font-awesome.min.css'?>' rel='stylesheet' type='text/css'>
     <?php
-        if($app['controller'] == 'prueba')
-            echo "<link href='$app[basedir]/css/prematricula.css' rel='stylesheet' type='text/css'>";
+        if($app['controller'] == 'administrador' && $app['action'] == 'registrar-usuario')
+            echo "<link href='$app[basedir]/css/jquery.datetimepicker.css' rel='stylesheet' type='text/css'>";
+        if($app['controller'] == 'administrador')
+            echo "<link href='$app[basedir]/css/administrador.css' rel='stylesheet' type='text/css'>";
     ?>
 </head>
 
@@ -20,10 +22,16 @@
     <header id='menu'>
         <div class="contenedor">
             <section class="contenido">
-                <img src="img/logo.png" width="247" height="83">
+                <img src="<?php echo $app['basedir'].'/img/logo.png'; ?>" width="247" height="83">
             </section>
             <div class="navcontainer">
-                <a href="javascript:void(0);">Inicio</a>
+                <a href="<?php if(isset($_SESSION['administrador']))
+                                    echo $app['basedir'].'/administrador';
+                               else if(isset($_SESSION['medico']))
+                                    echo $app['basedir'].'/medico';
+                               else if(isset($_SESSION['enfermera']))
+                                    echo $app['basedir'].'/enfermera';
+                         ?>">Inicio</a>
                 <?php 
                     if (isset($_SESSION['administrador']) && $app['controller'] != 'perfil') 
                         echo '<a id="insertar" href="javascript:void(0);">Usuario</a>
@@ -33,14 +41,14 @@
                                     <a href="javascript:void(0);">Buscar</a>
                                 </li>
                                 <li>
-                                    <a href="'.$app['basedir'].'/administrador/registrar_usuario">Registrar</a>
+                                    <a href="'.$app['basedir'].'/administrador/registrar-usuario">Registrar</a>
                                 </li>
                                 <li>
-                                    <a href="'.$app['basedir'].'/administrador/eliminar_usuario">Eliminar</a>
+                                    <a href="'.$app['basedir'].'/administrador/eliminar-usuario">Eliminar</a>
                                 </li>
                             </ul>
                         </nav>
-                        <a href="'.$app['basedir'].'/administrador/consultar_pacientes">Pacientes
+                        <a href="'.$app['basedir'].'/administrador/consultar-pacientes">Pacientes
                             <i class="fa fa-stethoscope fa-fw"></i>
                         </a>';
                     else if (isset($_SESSION['medico']) && $app['controller'] != 'perfil')
@@ -51,7 +59,7 @@
                                     <a href="javascript:void(0);">Buscar</a>
                                 </li>
                                 <li>
-                                    <a href="'.$app['basedir'].'/medico/registrar_paciente">Registrar</a>
+                                    <a href="'.$app['basedir'].'/medico/registrar-paciente">Registrar</a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);">Eliminar</a>
@@ -85,13 +93,16 @@
 			/*
 				Aquí se renderizan las vistas o un error 404.
 			*/
-			if(!@include_once('modulos/'.str_replace('-', '_', $app['controller']).'/'.$app['action'].'.php'))
+			if(!@include_once('modulos/'.str_replace('-', '_', $app['controller'].'/'.$app['action'].'.php')))
 				require_once('modulos/errores/404.php');
-		?> 
+		?>
 	<?php echo '<script src="'.$app['basedir'].'/js/jquery-2.0.0.min.js"></script>'; ?>
+    <?php echo '<script src="'.$app['basedir'].'/js/jquery.validate.js"></script>'; ?>
     <?php echo '<script src="'.$app['basedir'].'/js/validaciones.js"></script>'; ?>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
 	<?php
+        if($app['controller'] == 'administrador' && $app['action'] == 'registrar-usuario')
+			echo '<script async defer src="'.$app['basedir'].'/js/jquery.datetimepicker.js"></script>';
 		if($app['controller'] == 'perfil')
 			echo '<script async defer src="'.$app['basedir'].'/js/perfil.js"></script>';
         if($app['controller'] == 'administrador')
