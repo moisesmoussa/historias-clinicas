@@ -15,6 +15,8 @@
                     <br>
                     <input id="NombreUsuario" type="text" required>
                 </td>
+            </tr>
+            <tr>
                 <td>
                     <label for="Clave">Contraseña:</label>
                     <br>
@@ -154,18 +156,8 @@
                     <br>
                     <select id="CiudadResidencia"></select>
                 </td>
-                <td>
-                    <label for="MunicipioResidencia">Municipio:</label>
-                    <br>
-                    <input id="MunicipioResidencia" type="text" required>
-                </td>
             </tr>
             <tr>
-                <td>
-                    <label for="ParroquiaResidencia">Parroquia:</label>
-                    <br>
-                    <input id="ParroquiaResidencia" type="text" required>
-                </td>
                 <td>
                     <label for="Urbanizacion_Sector_ZonaIndustrial">Urbanización/Sector:</label>
                     <br>
@@ -184,21 +176,16 @@
                     <input id="Edificio_Quinta_Galpon" type="text" required>
                 </td>
                 <td>
-                    <label for="Piso_Planta_Local">Piso/Planta/Local:</label>
-                    <br>
-                    <input id="Piso_Planta_Local" type="text" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <label for="CodigoPostal">Código Postal:</label>
                     <br>
                     <input id="CodigoPostal" class="numeros" type="text" required>
                 </td>
+            </tr>
+            <tr>
                 <td>
-                    <label for="OtraDireccion">Otra Dirección:</label>
+                    <label for="LugarTrabajo">Lugar de trabajo:</label>
                     <br>
-                    <input id="OtraDireccion" type="text" required>
+                    <input id="LugarTrabajo" type="text" required>
                 </td>
             </tr>
             <tr>
@@ -219,14 +206,16 @@
                     <br>
                     <input id="TlfCasa" class="tlf" type="text" required>
                 </td>
-                <td>
+            </tr>
+            <tr>
+                <td colspan="2">
                     <label for="CorreoElectronico">Correo Electrónico:</label>
                     <br>
                     <input id="CorreoElectronico" type="text" required>
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
+                <td colspan="2">
                     <a class="boton" href="javascript:void(0);">Registrar Usuario</a>
                 </td>
             </tr>

@@ -12,25 +12,23 @@ function actualizarUsuario() {
             SegundoNombre: $('#SegundoNombre').val(),
             PrimerApellido: $('#PrimerApellido').val(),
             SegundoApellido: $('#SegundoApellido').val(),
-            FechaNacimiento: $('#FechaNacimiento').val(),
+            FechaNacimiento: $('#FechaNacimiento').val().substr(3, 3) + $('#FechaNacimiento').val().substr(0, 3) + $('#FechaNacimiento').val().substr(6, 4),
             LugarNacimiento: $('#LugarNacimiento').val(),
             Cedula: $('#Cedula').val(),
             Nacionalidad: $('#Nacionalidad').val(),
             Pasaporte: $('#Pasaporte').val(),
             EstadoResidencia: $('#EstadoResidencia').val(),
             CiudadResidencia: $('#CiudadResidencia').val(),
-            ParroquiaResidencia: $('#ParroquiaResidencia').val(),
-            MunicipioResidencia: $('#MunicipioResidencia').val(),
             Urbanizacion_Sector_ZonaIndustrial: $('#Urbanizacion_Sector_ZonaIndustrial').val(),
             Avenida_Carrera_Esquina: $('#Avenida_Carrera_Esquina').val(),
             Edificio_Quinta_Galpon: $('#Edificio_Quinta_Galpon').val(),
-            Piso_Planta_Local: $('#Piso_Planta_Local').val(),
             CodigoPostal: $('#CodigoPostal').val(),
-            OtraDireccion: $('#OtraDireccion').val(),
+            lugar_trabajo: $('#LugarTrabajo').val(),
             TlfMovil: $('#TlfMovil').val(),
             TlfCasa: $('#TlfCasa').val(),
             CorreoElectronico: $('#CorreoElectronico').val(),
-            Especialidad: $('#Especialidad').val()
+            Especialidad: $('#Especialidad').val(),
+            FechaIngreso: $('#FechaIngreso').val().substr(3, 3) + $('#FechaIngreso').val().substr(0, 3) + $('#FechaIngreso').val().substr(6, 4)
         },
         beforeSend: function () {
             $('#status').html('Cargando...').show();
@@ -66,6 +64,8 @@ function actualizarUsuario() {
 $(document).ready(function () {
     $('#status').hide();
     
+    var fecha = new Date();
+    
     //Trae de la base de datos todos los datos del usuario
     $.ajax({
         async: false,
@@ -84,31 +84,39 @@ $(document).ready(function () {
                 $('#SegundoNombre').val(datos.usuario.segundonombre),
                 $('#PrimerApellido').val(datos.usuario.primerapellido),
                 $('#SegundoApellido').val(datos.usuario.segundoapellido),
-                $('#FechaNacimiento').val(datos.usuario.fechanacimiento),
+                $('#FechaNacimiento').val(datos.usuario.fechanacimiento.replace(/-/g,'/')),
                 $('#LugarNacimiento').val(datos.usuario.lugarnacimiento),
                 $('#Cedula').val(datos.usuario.cedula),
                 $('#Nacionalidad').val(datos.usuario.nacionalidad.toLowerCase()),
                 $('#Pasaporte').val(datos.usuario.pasaporte),
                 $('#EstadoResidencia').val(datos.usuario.estadoresidencia),
                 $('#CiudadResidencia').val(datos.usuario.ciudadresidencia),
-                $('#ParroquiaResidencia').val(datos.usuario.parroquiaresidencia),
-                $('#MunicipioResidencia').val(datos.usuario.municipioresidencia),
-                $('#Urbanizacion_Sector_ZonaIndustrial').val(datos.usuario.urbanizacion_sectir_zonaindustrial),
+                $('#Urbanizacion_Sector_ZonaIndustrial').val(datos.usuario.urbanizacion_sector_zonaindustrial),
                 $('#Avenida_Carrera_Esquina').val(datos.usuario.avenida_carrera_esquina),
                 $('#Edificio_Quinta_Galpon').val(datos.usuario.edificio_quinta_galpon),
-                $('#Piso_Planta_Local').val(datos.usuario.piso_planta_local),
                 $('#CodigoPostal').val(datos.usuario.codigopostal),
-                $('#OtraDireccion').val(datos.usuario.otradireccion),
+                $('#LugarTrabajo').val(datos.usuario.lugar_trabajo),
                 $('#TlfMovil').val(datos.usuario.tlfmovil),
                 $('#TlfCasa').val(datos.usuario.tlfcasa),
                 $('#CorreoElectronico').val(datos.usuario.correoelectronico),
                 $('#Especialidad').val(datos.usuario.especialidad)
+                $('#FechaIngreso').val(datos.usuario.fechaingreso.replace(/-/g,'/'))
             }
             else
                 alert('Lo sentimos no se encontraron los datos del usuario');
         }
     });
 
+    $('.calendario').datetimepicker({
+        lang: 'es',
+        timepicker: false,
+        scrollInput:false,
+        format: 'd/m/Y',
+        formatDate: 'Y/m/d',
+        minDate: '1900/01/01',
+        maxDate: fecha.getDate() + '/' + fecha.getMonth + '/' + fecha.getFullYear()
+    });
+    
     $('#EstadoResidencia').change(function () {
         $("#CiudadResidencia").load(basedir + "/ciudades/" + $(this).val() + ".txt")
     });
@@ -116,8 +124,4 @@ $(document).ready(function () {
     $('.boton').click(function () {
         actualizarUsuario();
     });
-
-    /*$('#Clave').change(function () {
-        $('#Clave2').prop('disabled','disabled');
-    });*/
 });

@@ -19,14 +19,11 @@ function agregarUsuario() {
             TipoUsuario: $('#TipoUsuario').val(),
             EstadoResidencia: $('#EstadoResidencia').val(),
             CiudadResidencia: $('#CiudadResidencia').val(),
-            ParroquiaResidencia: $('#ParroquiaResidencia').val(),
-            MunicipioResidencia: $('#MunicipioResidencia').val(),
             Urbanizacion_Sector_ZonaIndustrial: $('#Urbanizacion_Sector_ZonaIndustrial').val(),
             Avenida_Carrera_Esquina: $('#Avenida_Carrera_Esquina').val(),
             Edificio_Quinta_Galpon: $('#Edificio_Quinta_Galpon').val(),
-            Piso_Planta_Local: $('#Piso_Planta_Local').val(),
             CodigoPostal: $('#CodigoPostal').val(),
-            OtraDireccion: $('#OtraDireccion').val(),
+            lugar_trabajo: $('#LugarTrabajo').val(),
             TlfMovil: $('#TlfMovil').val(),
             TlfCasa: $('#TlfCasa').val(),
             CorreoElectronico: $('#CorreoElectronico').val(),
@@ -75,6 +72,7 @@ $(document).ready(function () {
     $('.calendario').datetimepicker({
         lang: 'es',
         timepicker: false,
+        scrollInput:false,
         format: 'd/m/Y',
         formatDate: 'Y/m/d',
         minDate: '1900/01/01',
@@ -84,21 +82,6 @@ $(document).ready(function () {
     $('#EstadoResidencia').change(function () {
         $("#CiudadResidencia").load(basedir + "/ciudades/" + $(this).val() + ".txt")
     });
-
-    /*$('#nuevo-usuario').validate({
-        rules: {
-            CorreoElectronico: {
-                required: true,
-                email: true
-            },
-        },
-        messages: {
-            CorreoElectronico: {
-                required: 'Campo requerido',
-                email: "Debe ingresar un e-mail válido."
-            }
-        }
-    });*/
 
     $('.boton').click(function () {
         agregarUsuario();

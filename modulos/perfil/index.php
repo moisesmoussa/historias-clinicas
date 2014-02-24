@@ -1,6 +1,3 @@
-<h1 align="center">
-    <b>Actualiza tu perfil</b>
-</h1>
 <section id="registrar-usuario">
     <h2 align="center">Perfil de Usuario</h2>
     <form id="act-usuario" action="">
@@ -18,6 +15,8 @@
                     <br>
                     <input id="NombreUsuario" type="text" value="" readonly="readonly">
                 </td>
+            </tr>
+            <tr>
                 <td>
                     <label for="Clave">Contraseña:</label>
                     <br>
@@ -42,7 +41,7 @@
                 <td>
                     <label for="FechaIngreso">Fecha Ingreso:</label>
                     <br>
-                    <input id="FechaIngreso" type="text" value="" readonly="readonly">
+                    <input class="calendario" id="FechaIngreso" type="text" readonly="readonly" required>
                 </td>
             </tr>
             <tr>
@@ -78,7 +77,7 @@
                 <td>
                     <label for="FechaNacimiento">Fecha Nacimiento:</label>
                     <br>
-                    <input id="FechaNacimiento" type="text" value="" required>
+                    <input class="calendario" id="FechaNacimiento" type="text" readonly="readonly" required>
                 </td>
                 <td>
                     <label for="LugarNacimiento">Lugar Nacimiento:</label>
@@ -157,18 +156,8 @@
                     <br>
                     <input id="CiudadResidencia" type="text" value="" required>
                 </td>
-                <td>
-                    <label for="MunicipioResidencia">Municipio:</label>
-                    <br>
-                    <input id="MunicipioResidencia" type="text" value="" required>
-                </td>
             </tr>
             <tr>
-                <td>
-                    <label for="ParroquiaResidencia">Parroquia:</label>
-                    <br>
-                    <input id="ParroquiaResidencia" type="text" value="" required>
-                </td>
                 <td>
                     <label for="Urbanizacion_Sector_ZonaIndustrial">Urbanización/Sector:</label>
                     <br>
@@ -187,21 +176,16 @@
                     <input id="Edificio_Quinta_Galpon" type="text" value="" required>
                 </td>
                 <td>
-                    <label for="Piso_Planta_Local">Piso/Planta/Local:</label>
-                    <br>
-                    <input id="Piso_Planta_Local" type="text" value="" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <label for="CodigoPostal">Código Postal:</label>
                     <br>
                     <input id="CodigoPostal" class="numeros" type="text" value="" required>
                 </td>
+            </tr>
+            <tr>
                 <td>
-                    <label for="OtraDireccion">Otra Dirección:</label>
+                    <label for="LugarTrabajo">Lugar de trabajo:</label>
                     <br>
-                    <input id="OtraDireccion" type="text" value="" required>
+                    <input id="LugarTrabajo" type="text" value="" required>
                 </td>
             </tr>
             <tr>
@@ -222,14 +206,16 @@
                     <br>
                     <input id="TlfCasa" class="tlf" type="text" value="" required>
                 </td>
-                <td>
+            </tr>
+            <tr>
+                <td colspan="2">
                     <label for="CorreoElectronico">Correo Electrónico:</label>
                     <br>
                     <input id="CorreoElectronico" type="text" value="" required>
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
+                <td colspan="2">
                     <a class="boton" href="javascript:void(0);">Guardar cambios</a>
                 </td>
             </tr>
