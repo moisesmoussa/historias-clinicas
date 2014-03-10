@@ -33,9 +33,9 @@
                     <label for="TipoUsuario">Tipo de Usuario:</label>
                     <br>
                     <select id="TipoUsuario" value="" disabled>
-                        <option value="administrador">Administrador</option>
-                        <option value="medico">Medico</option>
-                        <option value="enfermera">Enfermera</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Medico">Medico</option>
+                        <option value="Enfermera">Enfermera</option>
                     </select>
                 </td>
                 <td>
@@ -87,24 +87,9 @@
             </tr>
             <tr>
                 <td>
-                    <label for="Nacionalidad">Nacionalidad:</label>
-                    <br>
-                    <select id="Nacionalidad" value="">
-                        <option value="v">V</option>
-                        <option value="e">E</option>
-                    </select>
-                </td>
-                <td>
                     <label for="Cedula">Cédula:</label>
                     <br>
                     <input id="Cedula" class="numeros" type="text" value="" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="Pasaporte">Pasaporte:</label>
-                    <br>
-                    <input id="Pasaporte" class="numeros" type="text" value="" required>
                 </td>
                 <td>
                     <label for="Especialidad">Especialidad:</label>
@@ -154,7 +139,7 @@
                 <td>
                     <label for="CiudadResidencia">Ciudad:</label>
                     <br>
-                    <input id="CiudadResidencia" type="text" value="" required>
+                    <select id="CiudadResidencia"></select>
                 </td>
             </tr>
             <tr>

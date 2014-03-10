@@ -87,24 +87,9 @@
             </tr>
             <tr>
                 <td>
-                    <label for="Nacionalidad">Nacionalidad:</label>
-                    <br>
-                    <select id="Nacionalidad">
-                        <option value="v">V</option>
-                        <option value="e">E</option>
-                    </select>
-                </td>
-                <td>
                     <label for="Cedula">Cédula:</label>
                     <br>
                     <input id="Cedula" class="numeros" type="text" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="Pasaporte">Pasaporte:</label>
-                    <br>
-                    <input id="Pasaporte" class="numeros" type="text" required>
                 </td>
                 <td>
                     <label for="Especialidad">Especialidad:</label>

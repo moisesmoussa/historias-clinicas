@@ -18,6 +18,8 @@ $query = pg_query("SELECT * FROM usuario WHERE nombreusuario = '".$usuario."'");
 if(($resultado = pg_fetch_array($query))){
     $msg['flag'] = 1;
     $msg['usuario'] = $resultado;
+    $msg['usuario']['fechanacimiento'] = date("d-m-Y", strtotime($msg['usuario']['fechanacimiento']));
+    $msg['usuario']['fechaingreso'] = date("d-m-Y", strtotime($msg['usuario']['fechaingreso']));
 }else
     $msg['flag'] = 0;
 

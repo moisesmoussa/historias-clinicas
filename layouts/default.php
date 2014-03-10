@@ -97,12 +97,11 @@
 				require_once('modulos/errores/404.php');
 		?>
 	<?php echo '<script src="'.$app['basedir'].'/js/jquery-2.0.0.min.js"></script>'; ?>
-    <?php echo '<script src="'.$app['basedir'].'/js/jquery.validate.js"></script>'; ?>
     <?php echo '<script src="'.$app['basedir'].'/js/validaciones.js"></script>'; ?>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
 	<?php
         if(($app['controller'] == 'administrador' && $app['action'] == 'registrar-usuario') || $app['controller'] == 'perfil')
-			echo '<script async defer src="'.$app['basedir'].'/js/jquery.datetimepicker.js"></script>';
+			echo '<script defer src="'.$app['basedir'].'/js/jquery.datetimepicker.js"></script>';
 		if($app['controller'] == 'perfil')
 			echo '<script async defer src="'.$app['basedir'].'/js/perfil.js"></script>';
         if($app['controller'] == 'administrador')

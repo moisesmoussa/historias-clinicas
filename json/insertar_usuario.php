@@ -8,10 +8,11 @@
 */
 session_start();
 
-$_POST['Nacionalidad'] = ucfirst($_POST['Nacionalidad']);
-$_POST['TipoUsuario'] = ucfirst($_POST['TipoUsuario']);
 $msg = NULL;
 $flag = 1;
+$_POST['TipoUsuario'] = ucfirst($_POST['TipoUsuario']);
+$_POST['FechaNacimiento'] = date("Y-m-d", strtotime($_POST['FechaNacimiento']));
+$_POST['FechaIngreso'] = date("Y-m-d", strtotime($_POST['FechaIngreso']));
 
 if(isset($_SESSION['administrador']) || isset($_SESSION['medico']) || isset($_SESSION['enfermera'])) {
     foreach ($_POST as $valor)
@@ -44,15 +45,10 @@ if(isset($_SESSION['administrador']) || isset($_SESSION['medico']) || isset($_SE
                 $columnas .= sprintf('%s) ', $clave);
             else
                 $columnas .= sprintf('%s,', $clave);
-            if($clave != "Cedula" && $clave != "Pasaporte" && $clave != "TlfMovil" && $clave != "TlfCasa" && $clave != "CodigoPostal") 
-                if($cont == $len - 1)
-                    $valores .= sprintf('\'%s\');', $dato);
-                else
-                    $valores .= sprintf('\'%s\',', $dato);
-            elseif($cont == $len - 1)
-                    $valores .= sprintf('\'%s\');', $dato);
+            if($cont == $len - 1)
+                $valores .= sprintf('\'%s\');', $dato);
             else
-                    $valores .= sprintf('\'%s\',', $dato);   
+                $valores .= sprintf('\'%s\',', $dato);
             $cont++;
         }
   

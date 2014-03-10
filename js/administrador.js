@@ -11,11 +11,9 @@ function agregarUsuario() {
             SegundoNombre: $('#SegundoNombre').val(),
             PrimerApellido: $('#PrimerApellido').val(),
             SegundoApellido: $('#SegundoApellido').val(),
-            FechaNacimiento: $('#FechaNacimiento').val().substr(3, 3) + $('#FechaNacimiento').val().substr(0, 3) + $('#FechaNacimiento').val().substr(6, 4),
+            FechaNacimiento: $('#FechaNacimiento').val().replace(/\//g,'-'),
             LugarNacimiento: $('#LugarNacimiento').val(),
             Cedula: $('#Cedula').val(),
-            Nacionalidad: $('#Nacionalidad').val(),
-            Pasaporte: $('#Pasaporte').val(),
             TipoUsuario: $('#TipoUsuario').val(),
             EstadoResidencia: $('#EstadoResidencia').val(),
             CiudadResidencia: $('#CiudadResidencia').val(),
@@ -28,7 +26,7 @@ function agregarUsuario() {
             TlfCasa: $('#TlfCasa').val(),
             CorreoElectronico: $('#CorreoElectronico').val(),
             Especialidad: $('#Especialidad').val(),
-            FechaIngreso: $('#FechaIngreso').val().substr(3, 3) + $('#FechaIngreso').val().substr(0, 3) + $('#FechaIngreso').val().substr(6, 4)
+            FechaIngreso: $('#FechaIngreso').val().replace(/\//g,'-')
         },
         beforeSend: function () {
             $('#status').html('Guardando datos...').show();
@@ -38,7 +36,7 @@ function agregarUsuario() {
         },
         success: function (data) {
             var r = JSON.parse(data);
-
+            
             $('#status').hide();
 
             if (r.codigo == 0) {
@@ -72,11 +70,13 @@ $(document).ready(function () {
     $('.calendario').datetimepicker({
         lang: 'es',
         timepicker: false,
-        scrollInput:false,
-        format: 'd/m/Y',
-        formatDate: 'Y/m/d',
-        minDate: '1900/01/01',
-        maxDate: fecha.getDate() + '/' + fecha.getMonth + '/' + fecha.getFullYear()
+        scrollInput: false,
+        format:'d/m/Y',
+	    formatDate:'Y/m/d',
+        minDate: '1920/01/01',
+        maxDate: fecha.getFullYear() + '/' + fecha.getMonth + '/' + fecha.getDate(),
+        yearStart: 1920,
+        yearEnd: fecha.getFullYear()
     });
 
     $('#EstadoResidencia').change(function () {

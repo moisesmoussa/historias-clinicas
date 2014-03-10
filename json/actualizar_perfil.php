@@ -3,14 +3,15 @@
     Codigos:
     0 = Algún campo está vacío
     1 = Las contraseñas no coinciden
-    2 = Usuario insertado correctamente en la BD
-    3 = El usuario no se pudo insertar en la BD
+    2 = Usuario actualizado correctamente en la BD
+    3 = El usuario no se pudo actualizar en la BD
 */
 session_start();
 
-$_POST['Nacionalidad'] = ucfirst($_POST['Nacionalidad']);
 $msg = NULL;
 $flag = 1;
+$_POST['FechaNacimiento'] = date("Y-m-d", strtotime($_POST['FechaNacimiento']));
+$_POST['FechaIngreso'] = date("Y-m-d", strtotime($_POST['FechaIngreso']));
 
 if(isset($_SESSION['administrador']) || isset($_SESSION['medico']) || isset($_SESSION['enfermera'])) {
     foreach ($_POST as $valor)
@@ -42,16 +43,11 @@ if(isset($_SESSION['administrador']) || isset($_SESSION['medico']) || isset($_SE
             if($cont == $len - 1)
                 $columnas .= sprintf('%s) ', $clave);
             else
-                $columnas .= sprintf('%s,', $clave);
-            if($clave != "Cedula" && $clave != "Pasaporte" && $clave != "TlfMovil" && $clave != "TlfCasa" && $clave != "CodigoPostal") 
-                if($cont == $len - 1)
-                    $valores .= sprintf('\'%s\') WHERE nombreusuario = \'%s\';', $dato, $_POST['NombreUsuario']);
-                else
-                    $valores .= sprintf('\'%s\',', $dato);
-            elseif($cont == $len - 1)
-                    $valores .= sprintf('\'%s\');', $dato);
+                $columnas .= sprintf('%s,', $clave); 
+            if($cont == $len - 1)
+                $valores .= sprintf('\'%s\') WHERE nombreusuario = \'%s\';', $dato, $_POST['NombreUsuario']);
             else
-                    $valores .= sprintf('\'%s\',', $dato);   
+                $valores .= sprintf('\'%s\',', $dato);
             $cont++;
         }
   
