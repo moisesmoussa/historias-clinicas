@@ -144,21 +144,9 @@
             </tr>
             <tr>
                 <td>
-                    <label for="Urbanizacion_Sector_ZonaIndustrial">Urbanización/Sector:</label>
+                    <label for="Direccion">Dirección:</label>
                     <br>
-                    <input id="Urbanizacion_Sector_ZonaIndustrial" type="text" required>
-                </td>
-                <td>
-                    <label for="Avenida_Carrera_Esquina">Avenida/Carrera/Calle:</label>
-                    <br>
-                    <input id="Avenida_Carrera_Esquina" type="text" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="Edificio_Quinta_Galpon">Edificio/Quinta/Galpón:</label>
-                    <br>
-                    <input id="Edificio_Quinta_Galpon" type="text" required>
+                    <input id="Direccion" type="text" required>
                 </td>
                 <td>
                     <label for="CodigoPostal">Código Postal:</label>

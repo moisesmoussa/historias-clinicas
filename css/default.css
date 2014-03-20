@@ -101,6 +101,7 @@ input[readonly="readonly"] {
     font-size: 20px;
     height: 45px;
     margin: 45px auto;
+    padding-top: 18px;
     outline: none;
     text-align: center;
     text-decoration: none;

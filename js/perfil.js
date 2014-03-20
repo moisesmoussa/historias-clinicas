@@ -17,9 +17,7 @@ function actualizarUsuario() {
             Cedula: $('#Cedula').val(),
             EstadoResidencia: $('#EstadoResidencia').val(),
             CiudadResidencia: $('#CiudadResidencia').val(),
-            Urbanizacion_Sector_ZonaIndustrial: $('#Urbanizacion_Sector_ZonaIndustrial').val(),
-            Avenida_Carrera_Esquina: $('#Avenida_Carrera_Esquina').val(),
-            Edificio_Quinta_Galpon: $('#Edificio_Quinta_Galpon').val(),
+            Direccion: $('#Direccion').val(),
             CodigoPostal: $('#CodigoPostal').val(),
             lugar_trabajo: $('#LugarTrabajo').val(),
             TlfMovil: $('#TlfMovil').val(),
@@ -90,9 +88,7 @@ $(document).ready(function () {
                 $('#CiudadResidencia').load(basedir + "/ciudades/" + datos.usuario.estadoresidencia + ".txt", function (){
                     $(this).val(datos.usuario.ciudadresidencia);
                 });
-                $('#Urbanizacion_Sector_ZonaIndustrial').val(datos.usuario.urbanizacion_sector_zonaindustrial);
-                $('#Avenida_Carrera_Esquina').val(datos.usuario.avenida_carrera_esquina);
-                $('#Edificio_Quinta_Galpon').val(datos.usuario.edificio_quinta_galpon);
+                $('#Direccion').val(datos.usuario.direccion);
                 $('#CodigoPostal').val(datos.usuario.codigopostal);
                 $('#LugarTrabajo').val(datos.usuario.lugar_trabajo);
                 $('#TlfMovil').val(datos.usuario.tlfmovil);
