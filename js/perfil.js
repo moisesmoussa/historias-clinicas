@@ -32,7 +32,7 @@ function actualizarUsuario() {
         },
         success: function (data) {
             var r = JSON.parse(data);
-
+            
             $('#status').hide();
 
             if (r.codigo == 0) {
@@ -40,14 +40,10 @@ function actualizarUsuario() {
             }
 
             if (r.codigo == 1) {
-                alert('Las contraseñas no coinciden.');
-            }
-
-            if (r.codigo == 2) {
                 alert('Usuario actualizado con éxito.');
             }
 
-            if (r.codigo == 3) {
+            if (r.codigo == 2) {
                 alert('No se pudo actualizar el usuario');
             }
 
