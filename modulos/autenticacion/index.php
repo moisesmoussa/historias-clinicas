@@ -16,7 +16,7 @@
     <header id='menu'>
         <div class="contenedor">
             <section class="contenido">
-                <img src="img/logo.png" width="247" height="83">
+                <img src="<?php echo $app['basedir'].'/img/logo.png'; ?>" width="247" height="83">
             </section>
             <div class="navcontainer">
                 <label>
@@ -42,6 +42,7 @@
             <br>
             <div id="status"></div>
         </form>
+        <p id='registro'><a href='<?php echo $app['basedir'].'/registro/index'; ?>'>Registrarse</a> si no posee una cuenta para ingresar al sistema</p>
     </section>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
     <?php echo '<script src="'.$app['basedir'].'/js/jquery-2.0.0.min.js"></script>'; 

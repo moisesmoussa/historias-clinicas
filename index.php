@@ -29,8 +29,8 @@ if(isset($_SESSION['general']) && $app['controller'] != 'general' && $app['contr
 	header('Location: '.$app['basedir'].'/general');
 }
 
-if(!isset($_SESSION['administrador']) && !isset($_SESSION['general']))
+if(!isset($_SESSION['administrador']) && !isset($_SESSION['general']) && $app['controller'] != 'registro')
 	require_once('modulos/autenticacion/index.php');
-else 	
+else
 	require_once('layouts/default.php');
 ?>
