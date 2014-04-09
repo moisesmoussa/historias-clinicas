@@ -10,11 +10,10 @@ session_start();
 
 $msg = NULL;
 $flag = 1;
-$_POST['TipoUsuario'] = ucfirst($_POST['TipoUsuario']);
 $_POST['FechaNacimiento'] = date("Y-m-d", strtotime($_POST['FechaNacimiento']));
 $_POST['FechaIngreso'] = date("Y-m-d", strtotime($_POST['FechaIngreso']));
 
-if(isset($_SESSION['administrador']) || isset($_SESSION['medico']) || isset($_SESSION['enfermera'])) {
+if(isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     foreach ($_POST as $valor)
         if(!isset($valor) || empty($valor)){
             $flag = 0;
@@ -29,8 +28,8 @@ if(isset($_SESSION['administrador']) || isset($_SESSION['medico']) || isset($_SE
         require_once('../config.php');
         $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
     
-        $columnas = 'INSERT INTO usuario (';
-        $valores = 'VALUES (';
+        $columnas = 'INSERT INTO usuario (tipousuario, ';
+        $valores = 'VALUES (\'General\', ';
         $len = count($_POST);
         $cont = 1;
         

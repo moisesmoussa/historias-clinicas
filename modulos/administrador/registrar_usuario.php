@@ -1,5 +1,5 @@
 <section id="registrar-usuario">
-    <h2 align="center">Registrar Usuarios</h2>
+    <h2 align="center">Registro de Usuario</h2>
     <form id="nuevo-usuario" action="">
         <table id=n-usuario>
             <tr>
@@ -29,15 +29,6 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <label for="TipoUsuario">Tipo de Usuario:</label>
-                    <br>
-                    <select id="TipoUsuario">
-                        <option value="administrador">Administrador</option>
-                        <option value="medico">Medico</option>
-                        <option value="enfermera">Enfermera</option>
-                    </select>
-                </td>
                 <td>
                     <label for="FechaIngreso">Fecha Ingreso:</label>
                     <br>
@@ -189,7 +180,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <a class="boton" href="javascript:void(0);">Registrar Usuario</a>
+                    <a class="boton" href="javascript:void(0);">Registrar</a>
                 </td>
             </tr>
             <tr>

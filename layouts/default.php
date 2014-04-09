@@ -27,10 +27,8 @@
             <div class="navcontainer">
                 <a href="<?php if(isset($_SESSION['administrador']))
                                     echo $app['basedir'].'/administrador';
-                               else if(isset($_SESSION['medico']))
-                                    echo $app['basedir'].'/medico';
-                               else if(isset($_SESSION['enfermera']))
-                                    echo $app['basedir'].'/enfermera';
+                               else if(isset($_SESSION['general']))
+                                    echo $app['basedir'].'/general';
                          ?>">Inicio</a>
                 <?php 
                     if (isset($_SESSION['administrador']) && $app['controller'] != 'perfil') 
@@ -51,7 +49,7 @@
                         <a href="'.$app['basedir'].'/administrador/consultar-pacientes">Pacientes
                             <i class="fa fa-stethoscope fa-fw"></i>
                         </a>';
-                    else if (isset($_SESSION['medico']) && $app['controller'] != 'perfil')
+                    else if (isset($_SESSION['general']) && $app['controller'] != 'perfil')
                         echo '<a id="insertar" href="javascript:void(0);">Paciente</a>
                         <nav id="item-menu">
                             <ul>
@@ -59,7 +57,7 @@
                                     <a href="javascript:void(0);">Buscar</a>
                                 </li>
                                 <li>
-                                    <a href="'.$app['basedir'].'/medico/registrar-paciente">Registrar</a>
+                                    <a href="'.$app['basedir'].'/general/registrar-paciente">Registrar</a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);">Eliminar</a>
@@ -71,10 +69,8 @@
             <a id="perfil" href="javascript:void(0);">
                 <?php if(isset($_SESSION['administrador']))
                         echo $_SESSION['administrador'];
-                      else if(isset($_SESSION['medico']))
-                        echo $_SESSION['medico'];
-                      else if(isset($_SESSION['enfermera']))
-                        echo $_SESSION['enfermera'];
+                      else if(isset($_SESSION['general']))
+                        echo $_SESSION['general'];
                 ?>
             </a>
             <nav id="modperfil">
@@ -106,8 +102,8 @@
 			echo '<script async defer src="'.$app['basedir'].'/js/perfil.js"></script>';
         if($app['controller'] == 'administrador')
 			echo '<script async defer src="'.$app['basedir'].'/js/administrador.js"></script>';
-        if($app['controller'] == 'medico')
-			echo '<script async defer src="'.$app['basedir'].'/js/medico.js"></script>';
+        if($app['controller'] == 'general')
+			echo '<script async defer src="'.$app['basedir'].'/js/general.js"></script>';
 	?>
 </body>
 

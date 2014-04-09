@@ -83,7 +83,6 @@ $(document).ready(function () {
                 $('#FechaNacimiento').val(datos.usuario.fechanacimiento.replace(/-/g,'/'));
                 $('#LugarNacimiento').val(datos.usuario.lugarnacimiento);
                 $('#Cedula').val(datos.usuario.cedula);
-                $('#TipoUsuario').val(datos.usuario.tipousuario);
                 $('#EstadoResidencia').val(datos.usuario.estadoresidencia);
                 $('#CiudadResidencia').load(basedir + "/ciudades/" + datos.usuario.estadoresidencia + ".txt", function (){
                     $(this).val(datos.usuario.ciudadresidencia);

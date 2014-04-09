@@ -8,10 +8,8 @@ $msg = array();
 $usuario = '';
 if(isset($_SESSION['administrador']))
     $usuario = $_SESSION['administrador'];
-else if(isset($_SESSION['medico']))
-    $usuario = $_SESSION['medico'];
-else if(isset($_SESSION['enfermera']))
-    $usuario = $_SESSION['enfermera'];
+else if(isset($_SESSION['general']))
+    $usuario = $_SESSION['general'];
 
 $query = pg_query("SELECT * FROM usuario WHERE nombreusuario = '".$usuario."'");
 

@@ -25,15 +25,11 @@ if(isset($_SESSION['administrador']) && $app['controller'] != 'administrador' &&
 	header('Location: '.$app['basedir'].'/administrador');
 }
 
-if(isset($_SESSION['medico']) && $app['controller'] != 'medico' && $app['controller'] != 'perfil') {
-	header('Location: '.$app['basedir'].'/medico');
+if(isset($_SESSION['general']) && $app['controller'] != 'general' && $app['controller'] != 'perfil') {
+	header('Location: '.$app['basedir'].'/general');
 }
 
-if(isset($_SESSION['enfermera']) && $app['controller'] != 'enfermera' && $app['controller'] != 'perfil') {
-	header('Location: '.$app['basedir'].'/enfermera');
-}
-
-if(!isset($_SESSION['administrador']) && !isset($_SESSION['medico']) && !isset($_SESSION['enfermera']))
+if(!isset($_SESSION['administrador']) && !isset($_SESSION['general']))
 	require_once('modulos/autenticacion/index.php');
 else 	
 	require_once('layouts/default.php');

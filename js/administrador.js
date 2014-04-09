@@ -14,7 +14,6 @@ function agregarUsuario() {
             FechaNacimiento: $('#FechaNacimiento').val().replace(/\//g,'-'),
             LugarNacimiento: $('#LugarNacimiento').val(),
             Cedula: $('#Cedula').val(),
-            TipoUsuario: $('#TipoUsuario').val(),
             EstadoResidencia: $('#EstadoResidencia').val(),
             CiudadResidencia: $('#CiudadResidencia').val(),
             Direccion: $('#Direccion').val(),

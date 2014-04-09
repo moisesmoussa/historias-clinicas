@@ -13,7 +13,7 @@ $flag = 1;
 $_POST['FechaNacimiento'] = date("Y-m-d", strtotime($_POST['FechaNacimiento']));
 $_POST['FechaIngreso'] = date("Y-m-d", strtotime($_POST['FechaIngreso']));
 
-if(isset($_SESSION['administrador']) || isset($_SESSION['medico']) || isset($_SESSION['enfermera'])) {
+if(isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     foreach ($_POST as $valor)
         if(!isset($valor) || empty($valor)){
             $flag = 0;
