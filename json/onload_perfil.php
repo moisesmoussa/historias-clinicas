@@ -11,7 +11,7 @@ if(isset($_SESSION['administrador']))
 else if(isset($_SESSION['general']))
     $usuario = $_SESSION['general'];
 
-$query = pg_query("SELECT * FROM usuario WHERE nombreusuario = '".$usuario."'");
+$query = pg_query("SELECT * FROM usuario WHERE id = ".$usuario);
 
 if(($resultado = pg_fetch_array($query))){
     $msg['flag'] = 1;

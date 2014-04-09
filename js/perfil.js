@@ -6,8 +6,6 @@ function actualizarUsuario() {
         type: 'POST',
         data: {
             NombreUsuario: $('#NombreUsuario').val(),
-            Clave: $('#Clave').val(),
-            clave2: $('#clave2').val(),
             PrimerNombre: $('#PrimerNombre').val(),
             SegundoNombre: $('#SegundoNombre').val(),
             PrimerApellido: $('#PrimerApellido').val(),
@@ -74,8 +72,6 @@ $(document).ready(function () {
 
             if (datos.flag) {
                 $('#NombreUsuario').val(datos.usuario.nombreusuario);
-                $('#Clave').val(datos.usuario.clave);
-                $('#clave2').val(datos.usuario.clave);
                 $('#PrimerNombre').val(datos.usuario.primernombre);
                 $('#SegundoNombre').val(datos.usuario.segundonombre);
                 $('#PrimerApellido').val(datos.usuario.primerapellido);

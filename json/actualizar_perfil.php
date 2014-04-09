@@ -45,7 +45,7 @@ if(isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
             else
                 $columnas .= sprintf('%s,', $clave); 
             if($cont == $len - 1)
-                $valores .= sprintf('\'%s\') WHERE nombreusuario = \'%s\';', $dato, $_POST['NombreUsuario']);
+                $valores .= sprintf('\'%s\') WHERE id = \'%s\';', $dato, isset($_SESSION['administrador'])? $_SESSION['administrador'] : $_SESSION['general']);
             else
                 $valores .= sprintf('\'%s\',', $dato);
             $cont++;

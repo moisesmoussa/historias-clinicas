@@ -15,29 +15,6 @@
                     <br>
                     <input id="NombreUsuario" type="text" value="" readonly="readonly">
                 </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="Clave">Contraseña:</label>
-                    <br>
-                    <input id="Clave" type="password" required>
-                </td>
-                <td>
-                    <label for="clave2">Repetir Contraseña:</label>
-                    <br>
-                    <input id="clave2" type="password" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="TipoUsuario">Tipo de Usuario:</label>
-                    <br>
-                    <select id="TipoUsuario" value="" disabled>
-                        <option value="Administrador">Administrador</option>
-                        <option value="Medico">Medico</option>
-                        <option value="Enfermera">Enfermera</option>
-                    </select>
-                </td>
                 <td>
                     <label for="FechaIngreso">Fecha Ingreso:</label>
                     <br>

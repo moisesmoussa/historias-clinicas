@@ -67,10 +67,7 @@
                 ?>
             </div>
             <a id="perfil" href="javascript:void(0);">
-                <?php if(isset($_SESSION['administrador']))
-                        echo $_SESSION['administrador'];
-                      else if(isset($_SESSION['general']))
-                        echo $_SESSION['general'];
+                <?php echo $_SESSION['nombre'];
                 ?>
             </a>
             <nav id="modperfil">
