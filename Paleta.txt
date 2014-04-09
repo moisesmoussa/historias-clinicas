@@ -1,5 +1,5 @@
 6FC8E5 (Azul)
 67B9D4 (Azul más oscuro)
-D44877 (Fucsia)
+A14C5E (Ciruela)
 999999 (Gris oscuro)
 ECECEC (Gris bastante claro)

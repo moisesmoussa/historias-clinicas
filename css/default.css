@@ -32,12 +32,12 @@ body {
 }
 header .contenedor {
     background-color: #67B9D4;
-    border-bottom: 2px solid #D44877;
+    border-bottom: 2px solid #A14C5E;
     height: auto;
     min-height: 83px;
 }
 header .contenido {
-    color: #D44877;
+    color: #A14C5E;
     float: left;
     font-size: 28px;
     max-width: 100%;
@@ -45,14 +45,14 @@ header .contenido {
     padding: 0 5px;
 }
 header a {
-    color: #D44877;
+    color: #A14C5E;
     display: inline-block;
     font-size: 22px;
     padding: 32px 30px;
     text-decoration: none;
 }
 header label {
-    color: #D44877;
+    color: #A14C5E;
     display: inline-block;
     font-size: 30px;
     padding: 25px 100px;
@@ -67,7 +67,7 @@ header #perfil {
 #inicio-sesion {
     background-color: #FFF;
     border-radius: 10px;
-    color: #D44877;
+    color: #A14C5E;
     font-size: 25px;
     height: 380px;
     margin: 100px auto;
@@ -165,13 +165,13 @@ nav ul li {
     background: #FFF;
     right: 0;
     top: 82px;
-    border-bottom: 2px solid #D44877;
-    border-left: 2px solid #D44877;
-    border-right: 2px solid #D44877;
+    border-bottom: 2px solid #A14C5E;
+    border-left: 2px solid #A14C5E;
+    border-right: 2px solid #A14C5E;
 }
 #modperfil a {
     display: block;
-    color: #D44877;
+    color: #A14C5E;
 }
 select {
     border: 4px solid #6FC8E5;
@@ -191,11 +191,11 @@ select:focus {
     background: #FFF;
     left: 25%;
     top: 82px;
-    border-bottom: 2px solid #D44877;
-    border-left: 2px solid #D44877;
-    border-right: 2px solid #D44877;
+    border-bottom: 2px solid #A14C5E;
+    border-left: 2px solid #A14C5E;
+    border-right: 2px solid #A14C5E;
 }
 #item-menu a {
     display: block;
-    color: #D44877;
+    color: #A14C5E;
 }
