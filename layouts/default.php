@@ -68,7 +68,7 @@
             <nav id="modperfil">
                 <ul>
                     <li>
-                        <a href="'.$app['basedir'].'/perfil'.'">Modificar perfil</a>
+                        <a href="'.$app['basedir'].'/perfil'.'">Editar perfil</a>
                     </li>
                     <li>
                         <a id="usuario" href="'.$app['basedir'].'/logout'.'">Cerrar sesión</a>
