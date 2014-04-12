@@ -29,6 +29,8 @@
                                     echo $app['basedir'].'/administrador';
                                else if(isset($_SESSION['general']))
                                     echo $app['basedir'].'/general';
+                               else
+                                   echo $app['basedir'].'/autenticacion';
                          ?>">Inicio</a>
                 <?php 
                     if (isset($_SESSION['administrador']) && $app['controller'] != 'perfil') 
@@ -60,20 +62,20 @@
                         </nav>';
                 ?>
             </div>
-            <a id="perfil" href="javascript:void(0);">
-                <?php echo $_SESSION['nombre'];
-                ?>
+            <?php if ($app['controller'] != 'registro')
+                    echo '<a id="perfil" href="javascript:void(0);">'.$_SESSION['nombre'].'
             </a>
             <nav id="modperfil">
                 <ul>
                     <li>
-                        <a href="<?php echo $app['basedir'].'/perfil'; ?>">Modificar perfil</a>
+                        <a href="'.$app['basedir'].'/perfil'.'">Modificar perfil</a>
                     </li>
                     <li>
-                        <a id="usuario" href="<?php echo $app['basedir'].'/logout'; ?>">Cerrar sesión</a>
+                        <a id="usuario" href="'.$app['basedir'].'/logout'.'">Cerrar sesión</a>
                     </li>
                 </ul>
-            </nav>
+            </nav>';
+            ?>
         </div>
     </header>
 		<?php
