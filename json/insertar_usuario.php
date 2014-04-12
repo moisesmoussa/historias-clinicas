@@ -11,7 +11,6 @@ session_start();
 $msg = NULL;
 $flag = 1;
 $_POST['FechaNacimiento'] = date("Y-m-d", strtotime($_POST['FechaNacimiento']));
-$_POST['FechaIngreso'] = date("Y-m-d", strtotime($_POST['FechaIngreso']));
 
 foreach ($_POST as $valor)
     if(!isset($valor) || empty($valor)){
@@ -27,8 +26,9 @@ else {
     require_once('../config.php');
     $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
 
-    $columnas = 'INSERT INTO usuario (tipousuario, ';
-    $valores = 'VALUES (\'General\', ';
+    date_default_timezone_set('Etc/GMT+4');
+    $columnas = 'INSERT INTO usuario (tipousuario, fechaingreso, ';
+    $valores = 'VALUES (\'General\', \''.date("Y-m-d").'\', ';
     $len = count($_POST);
     $cont = 1;
 
@@ -39,14 +39,14 @@ else {
             $dato = $valor;
         else
             $dato = md5($valor);
-        if($cont == $len - 1)
+        if($cont == $len - 1){
             $columnas .= sprintf('%s) ', $clave);
-        else
-            $columnas .= sprintf('%s,', $clave);
-        if($cont == $len - 1)
             $valores .= sprintf('\'%s\');', $dato);
-        else
+        }
+        else {
+            $columnas .= sprintf('%s,', $clave);
             $valores .= sprintf('\'%s\',', $dato);
+        }
         $cont++;
     }
 

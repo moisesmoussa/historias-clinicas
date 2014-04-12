@@ -22,17 +22,12 @@
                     <br>
                     <input id="Clave" type="password" required>
                 </td>
+            </tr>
+            <tr>
                 <td>
                     <label for="clave2">Repetir Contraseña:</label>
                     <br>
                     <input id="clave2" type="password" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="FechaIngreso">Fecha Ingreso:</label>
-                    <br>
-                    <input class="calendario" id="FechaIngreso" type="text" readonly="readonly" required>
                 </td>
             </tr>
             <tr>

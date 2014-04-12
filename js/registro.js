@@ -22,8 +22,7 @@ function agregarUsuario() {
             TlfMovil: $('#TlfMovil').val(),
             TlfCasa: $('#TlfCasa').val(),
             CorreoElectronico: $('#CorreoElectronico').val(),
-            Especialidad: $('#Especialidad').val(),
-            FechaIngreso: $('#FechaIngreso').val().replace(/\//g,'-')
+            Especialidad: $('#Especialidad').val()
         },
         beforeSend: function () {
             $('#status').html('Guardando datos...').show();
