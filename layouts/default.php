@@ -34,17 +34,7 @@
                          ?>">Inicio</a>
                 <?php 
                     if (isset($_SESSION['administrador']) && $app['controller'] != 'perfil') 
-                        echo '<a id="insertar" href="javascript:void(0);">Usuario</a>
-                        <nav id="item-menu">
-                            <ul>
-                                <li>
-                                    <a href="javascript:void(0);">Buscar</a>
-                                </li>
-                                <li>
-                                    <a href="'.$app['basedir'].'/administrador/eliminar-usuario">Eliminar</a>
-                                </li>
-                            </ul>
-                        </nav>
+                        echo '<a id="insertar" href="'.$app['basedir'].'/administrador/usuario">Usuario</a>
                         <a href="'.$app['basedir'].'/administrador/consultar-pacientes">Pacientes
                             <i class="fa fa-stethoscope fa-fw"></i>
                         </a>';
@@ -71,7 +61,7 @@
                         <a href="'.$app['basedir'].'/perfil'.'">Editar perfil</a>
                     </li>
                     <li>
-                        <a id="usuario" href="'.$app['basedir'].'/logout'.'">Cerrar sesión</a>
+                        <a href="'.$app['basedir'].'/logout'.'">Cerrar sesión</a>
                     </li>
                 </ul>
             </nav>';

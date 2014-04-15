@@ -1,4 +1,8 @@
 <?php
+/* Códigos:
+    0 = No se pudo encontrar el usuario indicado en la BD
+    1 = Usuario encontrado en la BD
+*/
 require_once('../config.php');
 session_start();
 

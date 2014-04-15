@@ -1,4 +1,8 @@
 <?php
+/* Códigos:
+    0 = Usuario o clave inválida en el inicio de sesion
+    1 = Se ha iniciado la sesión del usuario correctamente
+*/
 require_once('../config.php');
 $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
 

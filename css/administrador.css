@@ -1,0 +1,25 @@
+#buscar-usuarios {
+    background-color: #FFF;
+    border-radius: 10px;
+    /*height: 800px;*/
+    margin: 30px auto;
+    padding: 15px 30px;
+    text-align: left;
+    width: 92%;
+}
+#usuarios{
+    border-collapse: collapse;
+    width: 100%;
+}
+#usuarios tr{
+    border-bottom: 1px solid #67B9D4;
+}
+#usuarios th{
+    background-color: #67B9D4;
+    border: 1px solid #FFF;
+    color: #FFF;
+    text-align: center;
+}
+#usuarios td{
+    padding: auto 2px;
+}
