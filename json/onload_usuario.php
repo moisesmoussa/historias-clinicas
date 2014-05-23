@@ -10,7 +10,7 @@ $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." 
 
 $msg = array();
 
-$query = pg_query("SELECT cedula, primerapellido, segundoapellido, primernombre, segundonombre, fechanacimiento, lugarnacimiento, fechaingreso, especialidad, nombreusuario, estadoresidencia, ciudadresidencia, direccion, codigopostal, lugar_trabajo, tlfmovil, tlfcasa, correoelectronico FROM usuario");
+$query = pg_query("SELECT id, cedula, primerapellido, segundoapellido, primernombre, segundonombre, fechanacimiento, lugarnacimiento, fechaingreso, especialidad, nombreusuario, estadoresidencia, ciudadresidencia, direccion, codigopostal, lugar_trabajo, tlfmovil, tlfcasa, correoelectronico FROM usuario");
 
 if($query){
     $msg['flag'] = 1;

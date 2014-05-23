@@ -3,6 +3,7 @@ var claveModificada = false;
 
 function login() {
     $.ajax({
+        async: false,
         url: basedir + '/json/login.php',
         type: 'POST',
         data: {
