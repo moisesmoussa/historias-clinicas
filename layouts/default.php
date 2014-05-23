@@ -31,12 +31,14 @@
                                     echo $app['basedir'].'/general';
                                else
                                    echo $app['basedir'].'/autenticacion';
-                         ?>">Inicio</a>
+                         ?>"><i class="fa fa-home fa-fw"></i>Inicio</a>
                 <?php 
                     if (isset($_SESSION['administrador']) && $app['controller'] != 'perfil') 
-                        echo '<a id="insertar" href="'.$app['basedir'].'/administrador/usuario">Usuario</a>
-                        <a href="'.$app['basedir'].'/administrador/consultar-pacientes">Pacientes
-                            <i class="fa fa-stethoscope fa-fw"></i>
+                        echo '<a id="insertar" href="'.$app['basedir'].'/administrador/usuario">
+                            <i class="fa fa-users fa-fw"></i>Usuarios
+                        </a>
+                        <a href="'.$app['basedir'].'/administrador/consultar-pacientes">
+                            <i class="fa fa-stethoscope fa-fw"></i>Pacientes
                         </a>';
                     else if (isset($_SESSION['general']) && $app['controller'] != 'perfil')
                         echo '<a id="insertar" href="javascript:void(0);">Paciente</a>
@@ -53,15 +55,15 @@
                 ?>
             </div>
             <?php if ($app['controller'] != 'registro')
-                    echo '<a id="perfil" href="javascript:void(0);">'.$_SESSION['nombre'].'
+                    echo '<a id="perfil" href="javascript:void(0);"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre'].'
             </a>
             <nav id="modperfil">
                 <ul>
                     <li>
-                        <a href="'.$app['basedir'].'/perfil'.'">Editar perfil</a>
+                        <a href="'.$app['basedir'].'/perfil'.'"><i class="fa fa-gears fa-fw"></i>Editar perfil</a>
                     </li>
                     <li>
-                        <a href="'.$app['basedir'].'/logout'.'">Cerrar sesión</a>
+                        <a href="'.$app['basedir'].'/logout'.'"><i class="fa fa-sign-out fa-fw"></i>Cerrar sesión</a>
                     </li>
                 </ul>
             </nav>';
