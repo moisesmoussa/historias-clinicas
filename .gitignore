@@ -3,3 +3,15 @@
 
 # Base de datos
 /Historias Clínicas.sql
+
+# Fuentes
+/css/font-awesome.min.css
+/fonts/*
+
+# Plugins
+/css/jquery.datetimepicker.css
+/js/jquery-2.0.0.min.js
+/js/jquery.datetimepicker.js
+
+# Extras
+Paleta.txt
