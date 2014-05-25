@@ -182,45 +182,9 @@
             </tr>
             <tr>
                 <td>
-                    <label for="MunicipioResidencia">Municipio de Residencia:</label>
+                    <label for="Direccion">Dirección:</label>
                     <br>
-                    <input type="text" id="MunicipioResidencia" name="MunicipioResidencia">
-                </td>
-                <td>
-                    <label for="ParroquiaResidencia">Parroquia de Residencia:</label>
-                    <br>
-                    <input type="text" id="ParroquiaResidencia" name="ParroquiaResidencia">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="LocalidadReside">Localidad de Residencia:</label>
-                    <br>
-                    <input type="text" id="LocalidadReside" name="LocalidadReside">
-                </td>
-                <td>
-                    <label for="Urbanizacion/Sector/ZonaIndustrial">Urbanizacion, Sector o Zona Industrial:</label>
-                    <br>
-                    <input type="text" id="UrbanizacionSectorZonaIndustrial" name="UrbanizacionSectorZonaIndustrial">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="AvenidaCarreraEsquina">Avenida, Carrera o Esquina:</label>
-                    <br>
-                    <input type="text" id="AvenidaCarreraEsquina" name="AvenidaCarreraEsquina">
-                </td>
-                <td>
-                    <label for="EdificioQuintaGalpon">Edificio, Quinta o Galpón:</label>
-                    <br>
-                    <input type="text" id="EdificioQuintaGalpon" name="EdificioQuintaGalpon">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="PisoPlantaLocal">Piso, Planta o Local:</label>
-                    <br>
-                    <input type="text" id="PisoPlantaLocal" name="PisoPlantaLocal">
+                    <input type="text" id="Direccion" name="Direccion">
                 </td>
                 <td>
                     <label for="CodigoPostal">Código Postal:</label>
