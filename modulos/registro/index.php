@@ -1,7 +1,7 @@
 <section id="registrar-usuario">
     <h2 align="center">Registro de Usuario</h2>
     <form id="nuevo-usuario" action="">
-        <table id=n-usuario>
+        <table class="formulario">
             <tr>
                 <td>
                     <h3>
@@ -179,7 +179,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     <div id="status"></div>
                 </td>
             </tr>

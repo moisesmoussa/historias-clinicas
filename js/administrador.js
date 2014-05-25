@@ -46,8 +46,33 @@ function eliminar_usuario(user){
 }
 
 $(document).ready(function () {
+    var fecha = new Date();
+    
     //Trae de la base de datos la información necesaria de todos los usuarios registrados
     cargar_usuarios();
+
+    $('.calendario').datetimepicker({
+        lang: 'es',
+        timepicker: false,
+        scrollInput: false,
+        format:'d/m/Y',
+	    formatDate:'Y/m/d',
+        minDate: '1920/01/01',
+        maxDate: fecha.getFullYear() + '/' + fecha.getMonth + '/' + fecha.getDate(),
+        yearStart: 1920,
+        yearEnd: fecha.getFullYear(),
+        onSelectDate:function(date) {
+            var edad = fecha.getFullYear() - parseInt($('#FechaNacimiento').val().substr(06));
+            if(date.getMonth() < fecha.getMonth() || (date.getMonth() == fecha.getMonth() && date.getDate() > fecha.getDate()))
+                edad--;
+            if(edad < 10)
+                $('#DesarrolloPsicomotor').load(basedir + "/formulario-pacientes/desarrollo-psicomotor.html"));
+        }
+    });
+    
+    $('#EstadoResidencia').change(function () {
+        $("#CiudadResidencia").load(basedir + "/ciudades/" + $(this).val() + ".txt");
+    });
     
     $(document).on('click','#usuarios tr .icono-tabla', function(){ 
         var confirmacion = confirm("¿Desea eliminar este usuario?");

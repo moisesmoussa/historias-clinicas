@@ -11,7 +11,7 @@
     <link href='<?php echo $app['basedir'].'/css/default.css'; ?>' rel='stylesheet' type='text/css'>
     <link href='<?php echo $app['basedir'].'/css/font-awesome.min.css'?>' rel='stylesheet' type='text/css'>
     <?php
-        if($app['controller'] == 'registro' || $app['controller'] == 'perfil')
+        if($app['controller'] == 'registro' || $app['controller'] == 'perfil' || ($app['controller'] == 'administrador' && $app['action'] == 'registrar-paciente'))
             echo "<link href='$app[basedir]/css/jquery.datetimepicker.css' rel='stylesheet' type='text/css'>";
         if($app['controller'] == 'administrador')
             echo "<link href='$app[basedir]/css/administrador.css' rel='stylesheet' type='text/css'>";
@@ -34,10 +34,10 @@
                          ?>"><i class="fa fa-home fa-fw"></i>Inicio</a>
                 <?php 
                     if (isset($_SESSION['administrador']) && $app['controller'] != 'perfil') 
-                        echo '<a id="insertar" href="'.$app['basedir'].'/administrador/usuario">
+                        echo '<a href="'.$app['basedir'].'/administrador/usuario">
                             <i class="fa fa-users fa-fw"></i>Usuarios
                         </a>
-                        <a href="'.$app['basedir'].'/administrador/consultar-pacientes">
+                        <a href="'.$app['basedir'].'/administrador/pacientes">
                             <i class="fa fa-stethoscope fa-fw"></i>Pacientes
                         </a>';
                     else if (isset($_SESSION['general']) && $app['controller'] != 'perfil')
@@ -81,7 +81,7 @@
     <?php echo '<script src="'.$app['basedir'].'/js/validaciones.js"></script>'; ?>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
 	<?php
-        if($app['controller'] == 'registro' || $app['controller'] == 'perfil')
+        if($app['controller'] == 'registro' || $app['controller'] == 'perfil' || ($app['controller'] == 'administrador' && $app['action'] == 'registrar-paciente'))
 			echo '<script defer src="'.$app['basedir'].'/js/jquery.datetimepicker.js"></script>';
 		if($app['controller'] == 'perfil')
 			echo '<script async defer src="'.$app['basedir'].'/js/perfil.js"></script>';
