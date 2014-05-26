@@ -7,7 +7,12 @@
 */
 session_start();
 
+$_POST['Educacion'] = ucfirst($_POST['Educacion']);
+$_POST['GrupoSanguineo'] = ucfirst($_POST['GrupoSanguineo']);
 $_POST['Nacionalidad'] = ucfirst($_POST['Nacionalidad']);
+$_POST['Sexo'] = ucfirst($_POST['Sexo']);
+$_POST['SituacionConyugal'] = ucfirst($_POST['SituacionConyugal']);
+$_POST['Fecha_Nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['Fecha_Nacimiento'])));
 $msg = NULL;
 $flag = 1;
 
@@ -23,13 +28,8 @@ if(isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
         
         require_once('../config.php');
         $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
-    
-        $columnas = 'INSERT INTO paciente (';
-        $valores = 'VALUES (';
-        $len = count($_POST);
-        $cont = 1;
         
-        if(!$_POST["SegundoApellido"])
+        /*if(!$_POST["SegundoApellido"])
 			$_POST["SegundoApellido"]="N/A";
 		if(!$_POST["SegundoNombre"])
 			$_POST["SegundoNombre"]="N/A";
@@ -74,45 +74,12 @@ if(isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
 			$_POST["NroCesareas"]=0;
 			$_POST["NroAbortos"]=0;
 			$_POST["LegradoUterino"]="FALSE";
-		}
-
-		if($_POST["Pe_flag"]==0){
-			$_POST["CarnetPrenatal"]=0;
-			$_POST["NroConsultasPrenatal"]=0;
-			$_POST["NombreMadre"]="N/A";
-			$_POST["NombrePadre"]="N/A";
-			$_POST["TrastornosEmbarazo"]="FALSE";
-			$_POST["EmbarazoATermino"]="FALSE";
-			$_POST["PartoUnicoEspontaneo"]="FALSE";
-			$_POST["PartoForceps"]="FALSE";
-			$_POST["ComplicacionesParto"]="FALSE";
-			$_POST["ComplicacionesPuerperio"]="FALSE";
-			$_POST["TrastornosRecienNacido"]="FALSE";
-			$_POST["Reanimacion"]="FALSE";
-			$_POST["PesoAlNacer"]=0;
-			$_POST["TallaAlNacer"]=0;
-			$_POST["PerimetroCefalico"]=0;
-			$_POST["LactanciaExclusiva"]=0;
-			$_POST["LactanciaMixta"]=0;
-			$_POST["Ablactacion"]=0;
-			$_POST["EgresoRecienNacidoPatologico"]="FALSE";
-			$_POST["Asfixia"]="FALSE";
-			$_POST["EgresoRecienNacidoSano"]="FALSE";
-		}
-
-
-		if($_POST["Ps_flag"]==0){
-			$_POST["Cabeza"]=0;
-			$_POST["Social"]=0;
-			$_POST["SeSento"]=0;
-			$_POST["Gateo"]=0;
-			$_POST["SeParo"]=0;
-			$_POST["Camino"]=0;
-			$_POST["Comio"]=0;
-			$_POST["Palabras"]=0;
-			$_POST["ControlEsfinterVesical"]=0;
-			$_POST["ControlEsfinterAnal"]=0;
-		}
+		}*/
+        
+        /*$columnas = 'INSERT INTO paciente (';
+        $valores = 'VALUES (';
+        $len = count($_POST);
+        $cont = 1;
         
         foreach ($_POST as $clave => $valor){
             if($cont == $len - 1)
@@ -131,30 +98,18 @@ if(isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
             $cont++;
         }
   
-        $query = $columnas . $valores;
+        $query = $columnas . $valores;*/
         
-        if(pg_query($query)) {
-            $msg['codigo'] = 1;
-        } else {
-            $msg['codigo'] = 2;
-        }
-        
-        pg_close($conexion);
-    }
-}
-echo json_encode($msg);
-
-	$query = pg_query ("
+        $query = "
 		INSERT INTO \"Paciente\" (
 			\"Nacionalidad\",
-			\"Cedula\",
-			\"Pasaporte\",
+			\"Documento_Identidad\",
 			\"PrimerApellido\",
 			\"SegundoApellido\",
 			\"PrimerNombre\",
 			\"SegundoNombre\",
 			\"Etnia\",
-			\"FechaNacimiento\",
+			\"Fecha_Nacimiento\",
 			\"Sexo\",
 			\"PaisNacimiento\",
 			\"SituacionConyugal\",
@@ -164,15 +119,9 @@ echo json_encode($msg);
 			\"Ocupacion\",
 			\"SeguridadSocial\",
 			\"CorreoElectronico\",
-			\"EstadoReside\",
-			\"CiudadReside\",
-			\"MunicipioReside\",
-			\"ParroquiaReside\",
-			\"LocalidadReside\",
-			\"Urbanizacion/Sector/ZonaIndustrial\",
-			\"Avenida/Carrera/Esquina\",
-			\"Edificio/Quinta/Galpon\",
-			\"Piso/Planta/Local\",
+			\"Estado_Residencia\",
+			\"Ciudad_Residencia\",
+			\"Direccion\",
 			\"CodigoPostal\",
 			\"PuntoReferencia\",
 			\"TlfDomicilio\",
@@ -288,14 +237,13 @@ echo json_encode($msg);
 
 		VALUES (
 			'".$_POST['Nacionalidad']."',
-			".$_POST['Cedula'].",
-			".$_POST['Pasaporte'].",
+			'".$_POST['DocumentoIdentidad']."',
 			'".$_POST['PrimerApellido']."',
 			'".$_POST['SegundoApellido']."',
 			'".$_POST['PrimerNombre']."',
 			'".$_POST['SegundoNombre']."',
 			'".$_POST['Etnia']."',
-			'".$_POST['AnioN']."-".$_POST['MesN']."-".$_POST['DiaN']."',
+			'".$_POST['Fecha_Nacimiento']."',
 			'".$_POST['Sexo']."',
 			'".$_POST['PaisNacimiento']."',
 			'".$_POST['SituacionConyugal']."',
@@ -305,15 +253,9 @@ echo json_encode($msg);
 			'".$_POST['Ocupacion']."',
 			".$_POST['SeguridadSocial'].",
 			'".$_POST['CorreoElectronico']."',
-			'".$_POST['EstadoReside']."',
-			'".$_POST['CiudadReside']."',
-			'".$_POST['MunicipioReside']."',
-			'".$_POST['ParroquiaReside']."',
-			'".$_POST['LocalidadReside']."',
-			'".$_POST['UrbanizacionSectorZonaIndustrial']."',
-			'".$_POST['AvenidaCarreraEsquina']."',
-			'".$_POST['EdificioQuintaGalpon']."',
-			'".$_POST['PisoPlantaLocal']."',
+			'".$_POST['EstadoResidencia']."',
+			'".$_POST['CiudadResidencia']."',
+			'".$_POST['Direccion']."',
 			".$_POST['CodigoPostal'].",
 			'".$_POST['PuntoReferencia']."',
 			".$_POST['TlfDomicilio'].",
@@ -425,14 +367,16 @@ echo json_encode($msg);
 			".$_POST['ControlEsfinterVesical'].",
 			".$_POST['ControlEsfinterAnal'].",
 			1
-		)"
-	);
-
-	if($query)
-		echo "Ingreso de paciente exitoso";
-	else {
-		echo "Hubo un error en el ingreso de paciente<br>";
-		echo pg_last_error();
-	}
-	pg_close($db);
+		)";
+        
+        /*if(pg_query($query)) {
+            $msg['codigo'] = 1;
+        } else {
+            $msg['codigo'] = 2;
+        }*/
+        
+        pg_close($conexion);
+    }
+}
+echo json_encode($query);
 ?>

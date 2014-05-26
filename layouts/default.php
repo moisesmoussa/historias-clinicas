@@ -81,7 +81,7 @@
     <?php echo '<script src="'.$app['basedir'].'/js/validaciones.js"></script>'; ?>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
 	<?php
-        if($app['controller'] == 'registro' || $app['controller'] == 'perfil' || ($app['controller'] == 'administrador' && $app['action'] == 'registrar-paciente'))
+        if($app['controller'] == 'registro' || $app['controller'] == 'perfil' || $app['controller'] == 'administrador')
 			echo '<script defer src="'.$app['basedir'].'/js/jquery.datetimepicker.js"></script>';
 		if($app['controller'] == 'perfil')
 			echo '<script async defer src="'.$app['basedir'].'/js/perfil.js"></script>';

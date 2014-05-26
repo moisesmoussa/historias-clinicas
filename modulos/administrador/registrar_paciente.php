@@ -57,9 +57,9 @@
                     <input type="text" id="Etnia" name="Etnia">
                 </td>
                 <td>
-                    <label for="FechaNacimiento">Fecha Nacimiento:</label>
+                    <label for="Fecha_Nacimiento">Fecha Nacimiento:</label>
                     <br>
-                    <input class="calendario" id="FechaNacimiento" name="FechaNacimiento" type="text" readonly="readonly" required>
+                    <input class="calendario" id="Fecha_Nacimiento" name="Fecha_Nacimiento" type="text" readonly="readonly" required>
                 </td>
             </tr>
             <tr>
@@ -732,7 +732,7 @@
             <?php @include_once('formulario-pacientes/desarrollo-psicomotor.html')?>
             <tr>
                 <td colspan="2">
-                    <a class="boton" href="javascript:void(0);">Enviar</a>
+                    <a class="boton" id="enviar-paciente" href="javascript:void(0);">Enviar</a>
                 </td>
             </tr>
             <tr>
