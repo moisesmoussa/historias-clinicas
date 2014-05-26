@@ -14,6 +14,10 @@
     text-align: left;
     width: 92%;
 }
+.descripcion{
+    font-size: 12px;
+    padding-left: 5px;
+}
 .icon {
     cursor: pointer;
 }

@@ -10,15 +10,20 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <label for="Identidad">Documento de identidad:</label>
+                <td>
+                    <label for="Nacionalidad">Nacionalidad:</label>
                     <br>
                     <select id="Nacionalidad" name="Nacionalidad">
-                        <option value=""></option>
-                        <option value="V">V-</option>
-                        <option value="E">E-</option>
+                        <option value="V" selected>Venezolana</option>
+                        <option value="E">Extranjera</option>
                     </select>
-                    <input type="text" class="numeros" id="Identidad" name="Identidad">
+                </td>
+                <td>
+                    <label for="DocumentoIdentidad">Documento de Identidad:</label>
+                    <br>
+                    <input type="text" id="DocumentoIdentidad" name="DocumentoIdentidad">
+                    <br>
+                    <span class="descripcion">Cédula o pasaporte</span>
                 </td>
             </tr>
             <tr>
