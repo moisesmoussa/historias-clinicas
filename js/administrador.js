@@ -66,7 +66,27 @@ $(document).ready(function () {
             if(date.getMonth() < fecha.getMonth() || (date.getMonth() == fecha.getMonth() && date.getDate() > fecha.getDate()))
                 edad--;
             if(edad < 10)
-                $('#DesarrolloPsicomotor').load(basedir + "/formulario-pacientes/desarrollo-psicomotor.html"));
+                $.ajax({
+                    async: false,
+                    url: basedir + '/formulario-pacientes/desarrollo-psicomotor.html',
+                    error: function () {
+                        alert('Disculpe no se pudo cargar la sección de \"Desarrollo psicomotor\" del formulario');
+                    },
+                    success: function (html) {
+                        $('#DesarrolloPsicomotor').after(html);
+                    }
+                });
+            if (edad < 19)
+                $.ajax({
+                    async: false,
+                    url: basedir + '/formulario-pacientes/antecedentes-perinatales.html',
+                    error: function () {
+                        alert('Disculpe no se pudo cargar la sección de \"Antecedentes perinatales\" del formulario');
+                    },
+                    success: function (html) {
+                        $('#AntecedentesPerinatales').after(html);
+                    }
+                });
         }
     });
     
