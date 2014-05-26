@@ -59,7 +59,7 @@
                 <td>
                     <label for="FechaNacimiento">Fecha Nacimiento:</label>
                     <br>
-                    <input class="calendario" id="FechaNacimiento" type="text" readonly="readonly" required>
+                    <input class="calendario" id="FechaNacimiento" name="FechaNacimiento" type="text" readonly="readonly" required>
                 </td>
             </tr>
             <tr>
@@ -209,13 +209,14 @@
                     <input type="text" class="numeros" id="TlfDomicilio" name="TlfDomicilio">
                 </td>
             </tr>
-            <tr id="AntecedentesPerinatales">
+            <tr>
                 <td colspan="2">
                     <label for="TlfMovil">Número de Teléfono Celular:</label>
                     <br>
                     <input type="text" class="numeros" id="TlfMovil" name="TlfMovil">
                 </td>
             </tr>
+            <?php @include_once('formulario-pacientes/antecedentes-perinatales.html')?>
             <tr>
                 <td colspan="2">
                     <h3>
@@ -721,13 +722,14 @@
                     <label>No</label>
                 </td>
             </tr>
-            <tr id="DesarrolloPsicomotor">
+            <tr>
                 <td colspan="2">
                     <label for="Observaciones">Indique, si es necesario, detalles sobre las patologías que padece o ha padecido el paciente</label>
                     <br>
                     <textarea id="Observaciones" name="Observaciones"></textarea>
                 </td>
             </tr>
+            <?php @include_once('formulario-pacientes/desarrollo-psicomotor.html')?>
             <tr>
                 <td colspan="2">
                     <a class="boton" href="javascript:void(0);">Enviar</a>

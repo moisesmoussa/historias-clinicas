@@ -48,6 +48,8 @@ function eliminar_usuario(user){
 $(document).ready(function () {
     var fecha = new Date();
     
+    $('.DesarrolloPsicomotor').hide();
+    $('.AntecedentesPerinatales').hide();
     //Trae de la base de datos la información necesaria de todos los usuarios registrados
     cargar_usuarios();
 
@@ -65,28 +67,16 @@ $(document).ready(function () {
             var edad = fecha.getFullYear() - parseInt($('#FechaNacimiento').val().substr(06));
             if(date.getMonth() < fecha.getMonth() || (date.getMonth() == fecha.getMonth() && date.getDate() > fecha.getDate()))
                 edad--;
+            
             if(edad < 10)
-                $.ajax({
-                    async: false,
-                    url: basedir + '/formulario-pacientes/desarrollo-psicomotor.html',
-                    error: function () {
-                        alert('Disculpe no se pudo cargar la sección de \"Desarrollo psicomotor\" del formulario');
-                    },
-                    success: function (html) {
-                        $('#DesarrolloPsicomotor').after(html);
-                    }
-                });
+                $('.DesarrolloPsicomotor').show();
+            else
+                $('.DesarrolloPsicomotor').hide();
+            
             if (edad < 19)
-                $.ajax({
-                    async: false,
-                    url: basedir + '/formulario-pacientes/antecedentes-perinatales.html',
-                    error: function () {
-                        alert('Disculpe no se pudo cargar la sección de \"Antecedentes perinatales\" del formulario');
-                    },
-                    success: function (html) {
-                        $('#AntecedentesPerinatales').after(html);
-                    }
-                });
+                $('.AntecedentesPerinatales').show();
+            else
+                $('.AntecedentesPerinatales').hide();
         }
     });
     
