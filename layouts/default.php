@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
     <link href='<?php echo $app['basedir'].'/css/default.css'; ?>' rel='stylesheet' type='text/css'>
-    <link href='<?php echo $app['basedir'].'/css/font-awesome.min.css'?>' rel='stylesheet' type='text/css'>
+    <link href='<?php echo $app['basedir'].'/css/font-awesome.min.css';?>' rel='stylesheet' type='text/css'>
     <?php
-        if($app['controller'] == 'registro' || $app['controller'] == 'perfil' || ($app['controller'] == 'administrador' && $app['action'] == 'registrar-paciente'))
+        if($app['controller'] == 'perfil' || ($app['controller'] == 'administrador' && ($app['action'] == 'registrar-paciente' || $app['action'] == 'registrar-usuario')))
             echo "<link href='$app[basedir]/css/jquery.datetimepicker.css' rel='stylesheet' type='text/css'>";
         if($app['controller'] == 'administrador')
             echo "<link href='$app[basedir]/css/administrador.css' rel='stylesheet' type='text/css'>";
@@ -25,7 +25,7 @@
                 <img src="<?php echo $app['basedir'].'/img/logo.png'; ?>" width="247" height="83">
             </section>
             <div class="navcontainer">
-                <a href="<?php if(isset($_SESSION['administrador']))
+                <a href="<?php if(isset($_SESSION['administrador']) || isset($_SESSION['super_administrador']))
                                     echo $app['basedir'].'/administrador';
                                else if(isset($_SESSION['general']))
                                     echo $app['basedir'].'/general';
@@ -33,7 +33,7 @@
                                    echo $app['basedir'].'/autenticacion';
                          ?>"><i class="fa fa-home fa-fw"></i>Inicio</a>
                 <?php 
-                    if (isset($_SESSION['administrador']) && $app['controller'] != 'perfil') 
+                    if ((isset($_SESSION['administrador']) || isset($_SESSION['super_administrador'])) && $app['controller'] != 'perfil') 
                         echo '<a href="'.$app['basedir'].'/administrador/usuario">
                             <i class="fa fa-users fa-fw"></i>Usuarios
                         </a>
@@ -54,8 +54,7 @@
                         </nav>';
                 ?>
             </div>
-            <?php if ($app['controller'] != 'registro')
-                    echo '<a id="perfil" href="javascript:void(0);"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre'].'
+            <?php echo '<a id="perfil" href="javascript:void(0);"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre'].'
             </a>
             <nav id="modperfil">
                 <ul>
@@ -81,7 +80,7 @@
     <?php echo '<script src="'.$app['basedir'].'/js/validaciones.js"></script>'; ?>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
 	<?php
-        if($app['controller'] == 'registro' || $app['controller'] == 'perfil' || $app['controller'] == 'administrador')
+        if($app['controller'] == 'perfil' || $app['controller'] == 'administrador')
 			echo '<script defer src="'.$app['basedir'].'/js/jquery.datetimepicker.js"></script>';
 		if($app['controller'] == 'perfil')
 			echo '<script async defer src="'.$app['basedir'].'/js/perfil.js"></script>';
@@ -89,8 +88,6 @@
 			echo '<script async defer src="'.$app['basedir'].'/js/administrador.js"></script>';
         if($app['controller'] == 'general')
 			echo '<script async defer src="'.$app['basedir'].'/js/general.js"></script>';
-        if($app['controller'] == 'registro')
-			echo '<script async defer src="'.$app['basedir'].'/js/registro.js"></script>';
 	?>
 </body>
 

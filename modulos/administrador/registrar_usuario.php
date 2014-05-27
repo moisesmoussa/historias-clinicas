@@ -11,23 +11,29 @@
             </tr>
             <tr>
                 <td>
-                    <label for="NombreUsuario">Nombre de usuario:</label>
+                    <label for="nombre_usuario">Nombre de Usuario:</label>
                     <br>
-                    <input id="NombreUsuario" type="text" required>
+                    <input id="nombre_usuario" name="nombre_usuario" type="text" required>
+                </td>
+                <td>
+                    <label for="tipo_usuario">Tipo de Usuario:</label>
+                    <br>
+                    <select id="tipo_usuario" name="tipo_usuario" required>
+                        <option value="Administrador">Administrador</option>
+                        <option value="General">General</option>
+                    </select>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="Clave">Contraseña:</label>
+                    <label for="clave">Contraseña:</label>
                     <br>
-                    <input id="Clave" type="password" required>
+                    <input id="clave" name="clave" type="password" required>
                 </td>
-            </tr>
-            <tr>
                 <td>
                     <label for="clave2">Repetir Contraseña:</label>
                     <br>
-                    <input id="clave2" type="password" required>
+                    <input id="clave2" name="clave2" type="password" required>
                 </td>
             </tr>
             <tr>
@@ -37,50 +43,50 @@
             </tr>
             <tr>
                 <td>
-                    <label for="PrimerNombre">Primer Nombre:</label>
+                    <label for="primer_nombre">Primer Nombre:</label>
                     <br>
-                    <input id="PrimerNombre" type="text" required>
+                    <input id="primer_nombre" name="primer_nombre" type="text" required>
                 </td>
                 <td>
-                    <label for="SegundoNombre">Segundo Nombre:</label>
+                    <label for="segundo_nombre">Segundo Nombre:</label>
                     <br>
-                    <input id="SegundoNombre" type="text" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="PrimerApellido">Primer Apellido:</label>
-                    <br>
-                    <input id="PrimerApellido" type="text" required>
-                </td>
-                <td>
-                    <label for="SegundoApellido">Segundo Apellido:</label>
-                    <br>
-                    <input id="SegundoApellido" type="text" required>
+                    <input id="segundo_nombre" name="segundo_nombre" type="text" required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="FechaNacimiento">Fecha Nacimiento:</label>
+                    <label for="primer_apellido">Primer Apellido:</label>
                     <br>
-                    <input class="calendario" id="FechaNacimiento" type="text" readonly="readonly" required>
+                    <input id="primer_apellido" name="primer_apellido" type="text" required>
                 </td>
                 <td>
-                    <label for="LugarNacimiento">Lugar Nacimiento:</label>
+                    <label for="segundo_apellido">Segundo Apellido:</label>
                     <br>
-                    <input id="LugarNacimiento" type="text" required>
+                    <input id="segundo_apellido" name="segundo_apellido" type="text" required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="Cedula">Cédula:</label>
+                    <label for="fecha_nacimiento">Fecha Nacimiento:</label>
                     <br>
-                    <input id="Cedula" class="numeros" type="text" required>
+                    <input class="calendario" id="fecha_nacimiento" name="fecha_nacimiento" type="text" readonly="readonly" required>
                 </td>
                 <td>
-                    <label for="Especialidad">Especialidad:</label>
+                    <label for="lugar_nacimiento">Lugar Nacimiento:</label>
                     <br>
-                    <input id="Especialidad" type="text" required>
+                    <input id="lugar_nacimiento" name="lugar_nacimiento" type="text" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="cedula">Cédula:</label>
+                    <br>
+                    <input id="cedula" name="cedula" class="numeros" type="text" required>
+                </td>
+                <td>
+                    <label for="especialidad">Especialidad:</label>
+                    <br>
+                    <input id="especialidad" name="especialidad" type="text" required>
                 </td>
             </tr>
             <tr>
@@ -92,9 +98,9 @@
             </tr>
             <tr>
                 <td>
-                    <label for="EstadoResidencia">Estado:</label>
+                    <label for="estado_residencia">Estado:</label>
                     <br>
-                    <select id="EstadoResidencia">
+                    <select id="estado_residencia" name="estado_residencia">
                         <option value="vacio"></option>
                         <option value="Amazonas">Amazonas</option>
                         <option value="Anzoátegui">Anzoátegui</option>
@@ -123,28 +129,28 @@
                     </select>
                 </td>
                 <td>
-                    <label for="CiudadResidencia">Ciudad:</label>
+                    <label for="ciudad_residencia">Ciudad:</label>
                     <br>
-                    <select id="CiudadResidencia"></select>
+                    <select id="ciudad_residencia" name="ciudad_residencia"></select>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="Direccion">Dirección:</label>
+                    <label for="direccion">Dirección:</label>
                     <br>
-                    <input id="Direccion" type="text" required>
+                    <input id="direccion" name="direccion" type="text" required>
                 </td>
                 <td>
-                    <label for="CodigoPostal">Código Postal:</label>
+                    <label for="codigo_postal">Código Postal:</label>
                     <br>
-                    <input id="CodigoPostal" class="numeros" type="text" required>
+                    <input id="codigo_postal" name="codigo_postal" class="numeros" type="text" required>
                 </td>
             </tr>
             <tr>
-                <td>
-                    <label for="LugarTrabajo">Lugar de trabajo:</label>
+                <td colspan="2">
+                    <label for="lugar_trabajo">Lugar de Trabajo:</label>
                     <br>
-                    <input id="LugarTrabajo" type="text" required>
+                    <input id="lugar_trabajo" name="lugar_trabajo" type="text" required>
                 </td>
             </tr>
             <tr>
@@ -156,21 +162,26 @@
             </tr>
             <tr>
                 <td>
-                    <label for="TlfMovil">Teléfono Móvil:</label>
+                    <label for="tlf_movil">Teléfono Móvil:</label>
                     <br>
-                    <input id="TlfMovil" class="tlf" type="text" required>
+                    <input id="tlf_movil" name="tlf_movil" class="tlf" type="text" required>
                 </td>
                 <td>
-                    <label for="TlfCasa">Teléfono de Casa:</label>
+                    <label for="tlf_casa">Teléfono de Casa:</label>
                     <br>
-                    <input id="TlfCasa" class="tlf" type="text" required>
+                    <input id="tlf_casa" name="tlf_casa" class="tlf" type="text" required>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <label for="CorreoElectronico">Correo Electrónico:</label>
+                <td>
+                    <label for="correo_electronico">Correo Electrónico:</label>
                     <br>
-                    <input id="CorreoElectronico" type="text" required>
+                    <input id="correo_electronico" name="correo_electronico" type="text" required>
+                </td>
+                <td>
+                    <label for="correo_alternativo">Correo Electrónico Alternativo:</label>
+                    <br>
+                    <input id="correo_alternativo" name="correo_alternativo" type="text" required>
                 </td>
             </tr>
             <tr>

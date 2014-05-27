@@ -42,7 +42,6 @@
             <br>
             <div id="status"></div>
         </form>
-        <p id='registro'><a href='<?php echo $app['basedir'].'/registro/index'; ?>'>Registrarse</a> si no posee una cuenta para ingresar al sistema</p>
     </section>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
     <?php echo '<script src="'.$app['basedir'].'/js/jquery-2.0.0.min.js"></script>'; 

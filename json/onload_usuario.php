@@ -10,7 +10,7 @@ $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." 
 
 $msg = array();
 
-$query = pg_query("SELECT id, cedula, primerapellido, segundoapellido, primernombre, segundonombre, fechanacimiento, lugarnacimiento, fechaingreso, especialidad, nombreusuario, estadoresidencia, ciudadresidencia, direccion, codigopostal, lugar_trabajo, tlfmovil, tlfcasa, correoelectronico FROM usuario");
+$query = pg_query("SELECT id, cedula, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, fecha_nacimiento, lugar_nacimiento, fecha_ingreso, especialidad, nombre_usuario, estado_residencia, ciudad_residencia, direccion, codigo_postal, lugar_trabajo, tlf_movil, tlf_casa, correo_electronico FROM usuario");
 
 if($query){
     $msg['flag'] = 1;
@@ -20,7 +20,7 @@ if($query){
     while(($resultado = pg_fetch_array($query))){
         $msg['usuario'][$cont] = $resultado;
         foreach($msg['usuario'][$cont] as $clave => $valor)
-            if($clave == "fechanacimiento" or $clave == "fechaingreso")
+            if($clave == "fecha_nacimiento" or $clave == "fecha_ingreso")
                 $msg['usuario'][$cont][$clave] = date("d-m-Y", strtotime($valor));
         $cont++;
     }

@@ -10,55 +10,65 @@ session_start();
 
 $msg = NULL;
 $flag = 1;
-$_POST['FechaNacimiento'] = date("Y-m-d", strtotime($_POST['FechaNacimiento']));
+$_POST['fecha_nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
+$_POST['tipo_usuario'] = ucfirst($_POST['tipo_usuario']);
 
-foreach ($_POST as $valor)
-    if(!isset($valor) || empty($valor)){
-        $flag = 0;
-        break;
-    }
-if(!flag)
-    $msg['codigo'] = 0;
-elseif($_POST['Clave'] != $_POST['clave2'])
-    $msg['codigo'] = 1;
-else {
-
-    require_once('../config.php');
-    $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
-
-    date_default_timezone_set('Etc/GMT+4');
-    $columnas = 'INSERT INTO usuario (tipousuario, fechaingreso, ';
-    $valores = 'VALUES (\'General\', \''.date("Y-m-d").'\', ';
-    $len = count($_POST);
-    $cont = 1;
-
-    foreach ($_POST as $clave => $valor){
-        if($clave == "clave2")
-            continue;
-        if($clave != "Clave")
-            $dato = $valor;
-        else
-            $dato = md5($valor);
-        if($cont == $len - 1){
-            $columnas .= sprintf('%s) ', $clave);
-            $valores .= sprintf('\'%s\');', $dato);
+if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
+    foreach ($_POST as $valor)
+        if(!isset($valor) || empty($valor)){
+            $flag = 0;
+            break;
         }
-        else {
-            $columnas .= sprintf('%s,', $clave);
-            $valores .= sprintf('\'%s\',', $dato);
+    if(!flag)
+        $msg['codigo'] = 0;
+    elseif($_POST['clave'] != $_POST['clave2'])
+        $msg['codigo'] = 1;
+    else {
+        
+        require_once('../config.php');
+        $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
+
+        if(isset($_SESSION['super_administrador']))
+            $id_usuario = $_SESSION['super_administrador'];
+        else if(isset($_SESSION['administrador']))
+            $id_usuario = $_SESSION['administrador'];
+        else if(isset($_SESSION['general']))
+            $id_usuario = $_SESSION['general'];
+        
+        date_default_timezone_set('Etc/GMT+4');
+        $columnas = 'INSERT INTO usuario (fecha_ingreso, fecha_ua, usuario_ua, creador, estado_actual, ';
+        $valores = 'VALUES (\''.date("Y-m-d").'\', \''.date("Y-m-d").'\', '.$id_usuario.', '.$id_usuario.', \'Activo\', ';
+        $len = count($_POST);
+        $cont = 1;
+
+        foreach ($_POST as $clave => $valor){
+            if($clave == "clave2")
+                continue;
+            if($clave != "clave")
+                $dato = $valor;
+            else
+                $dato = md5($valor);
+            if($cont == $len - 1){
+                $columnas .= sprintf('%s) ', $clave);
+                $valores .= sprintf('\'%s\');', $dato);
+            }
+            else {
+                $columnas .= sprintf('%s,', $clave);
+                $valores .= sprintf('\'%s\',', $dato);
+            }
+            $cont++;
         }
-        $cont++;
+
+        $query = $columnas . $valores;
+
+        if(pg_query($query)) {
+            $msg['codigo'] = 2;
+        } else {
+            $msg['codigo'] = 3;
+        }
+
+        pg_close($conexion);
     }
-
-    $query = $columnas . $valores;
-
-    if(pg_query($query)) {
-        $msg['codigo'] = 2;
-    } else {
-        $msg['codigo'] = 3;
-    }
-
-    pg_close($conexion);
 }
 echo json_encode($msg);
 ?>

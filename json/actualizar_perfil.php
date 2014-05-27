@@ -9,10 +9,10 @@ session_start();
 
 $msg = NULL;
 $flag = 1;
-$_POST['FechaNacimiento'] = date("Y-m-d", strtotime($_POST['FechaNacimiento']));
-$_POST['FechaIngreso'] = date("Y-m-d", strtotime($_POST['FechaIngreso']));
+$_POST['fecha_nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-'$_POST['fecha_nacimiento'])));
+$_POST['fecha_ingreso'] = date("Y-m-d", strtotime(str_replace('/','-'$_POST['fecha_ingreso'])));
 
-if(isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
+if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     foreach ($_POST as $valor)
         if(!isset($valor) || empty($valor)){
             $flag = 0;
@@ -30,7 +30,13 @@ if(isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     foreach ($_POST as $clave => $valor){
         if($cont == $len - 1) {
             $columnas .= sprintf('%s) ', $clave);
-            $valores .= sprintf('\'%s\') WHERE id = %d;', $valor, (isset($_SESSION['administrador'])? $_SESSION['administrador'] : $_SESSION['general']));
+            if(isset($_SESSION['super_administrador']))
+                $id_usuario = $_SESSION['super_administrador'];
+            else if(isset($_SESSION['administrador']))
+                $id_usuario = $_SESSION['administrador'];
+            else if(isset($_SESSION['general']))
+                $id_usuario = $_SESSION['general'];
+            $valores .= sprintf('\'%s\') WHERE id = %d;', $valor, $id_usuario);
         }
         else {
             $columnas .= sprintf('%s,', $clave); 

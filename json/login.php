@@ -7,14 +7,18 @@ require_once('../config.php');
 $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
 
 $msg = array();
-$login_query = pg_query("SELECT id, nombreusuario, tipousuario FROM usuario WHERE nombreusuario = '".$_POST['usuario']."' AND clave = '".md5($_POST['clave'])."'");
+$login_query = pg_query("SELECT id, nombre_usuario, tipo_usuario FROM usuario WHERE nombre_usuario = '".$_POST['usuario']."' AND clave = '".md5($_POST['clave'])."'");
 
 if(($resultado = pg_fetch_array($login_query))){
     session_start();
-    $_SESSION[strtolower($resultado['tipousuario'])] = $resultado['id'];
-    $_SESSION['nombre'] = $resultado['nombreusuario'];
+    $_SESSION[strtolower(str_replace(' ', '_', $resultado['tipo_usuario']))] = $resultado['id'];
+    $_SESSION['nombre'] = $resultado['nombre_usuario'];
     $msg['flag'] = 1;
-    $msg['msg'] = '/'.strtolower($resultado['tipousuario']);
+    if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
+        $modulo = '/administrador';
+    else
+        $modulo = '/'.strtolower($resultado['tipo_usuario']);
+    $msg['msg'] = $modulo;
 }
 else{
     $msg['flag'] = 0;

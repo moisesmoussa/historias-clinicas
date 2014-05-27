@@ -4,26 +4,7 @@ function actualizarUsuario() {
         async: false,
         url: basedir + '/json/actualizar_perfil.php',
         type: 'POST',
-        data: {
-            NombreUsuario: $('#NombreUsuario').val(),
-            PrimerNombre: $('#PrimerNombre').val(),
-            SegundoNombre: $('#SegundoNombre').val(),
-            PrimerApellido: $('#PrimerApellido').val(),
-            SegundoApellido: $('#SegundoApellido').val(),
-            FechaNacimiento: $('#FechaNacimiento').val().replace(/\//g,'-'),
-            LugarNacimiento: $('#LugarNacimiento').val(),
-            Cedula: $('#Cedula').val(),
-            EstadoResidencia: $('#EstadoResidencia').val(),
-            CiudadResidencia: $('#CiudadResidencia').val(),
-            Direccion: $('#Direccion').val(),
-            CodigoPostal: $('#CodigoPostal').val(),
-            lugar_trabajo: $('#LugarTrabajo').val(),
-            TlfMovil: $('#TlfMovil').val(),
-            TlfCasa: $('#TlfCasa').val(),
-            CorreoElectronico: $('#CorreoElectronico').val(),
-            Especialidad: $('#Especialidad').val(),
-            FechaIngreso: $('#FechaIngreso').val().replace(/\//g,'-')
-        },
+        data: $('#act-usuario').serialize(),
         beforeSend: function () {
             $('#status').html('Cargando...').show();
         },
@@ -67,26 +48,27 @@ $(document).ready(function () {
             var datos = JSON.parse(usuario);
 
             if (datos.flag) {
-                $('#NombreUsuario').val(datos.usuario.nombreusuario);
-                $('#PrimerNombre').val(datos.usuario.primernombre);
-                $('#SegundoNombre').val(datos.usuario.segundonombre);
-                $('#PrimerApellido').val(datos.usuario.primerapellido);
-                $('#SegundoApellido').val(datos.usuario.segundoapellido);
-                $('#FechaNacimiento').val(datos.usuario.fechanacimiento.replace(/-/g,'/'));
-                $('#LugarNacimiento').val(datos.usuario.lugarnacimiento);
-                $('#Cedula').val(datos.usuario.cedula);
-                $('#EstadoResidencia').val(datos.usuario.estadoresidencia);
-                $('#CiudadResidencia').load(basedir + "/ciudades/" + datos.usuario.estadoresidencia + ".txt", function (){
-                    $(this).val(datos.usuario.ciudadresidencia);
+                $('#nombre_usuario').val(datos.usuario.nombre_usuario);
+                $('#primer_nombre').val(datos.usuario.primer_nombre);
+                $('#segundo_nombre').val(datos.usuario.segundo_nombre);
+                $('#primer_apellido').val(datos.usuario.primer_apellido);
+                $('#segundo_apellido').val(datos.usuario.segundo_apellido);
+                $('#fecha_nacimiento').val(datos.usuario.fecha_nacimiento.replace(/-/g,'/'));
+                $('#lugar_nacimiento').val(datos.usuario.lugar_nacimiento);
+                $('#cedula').val(datos.usuario.cedula);
+                $('#estado_residencia').val(datos.usuario.estado_residencia);
+                $('#ciudad_residencia').load(basedir + "/ciudades/" + datos.usuario.estado_residencia + ".txt", function (){
+                    $(this).val(datos.usuario.ciudad_residencia);
                 });
-                $('#Direccion').val(datos.usuario.direccion);
-                $('#CodigoPostal').val(datos.usuario.codigopostal);
-                $('#LugarTrabajo').val(datos.usuario.lugar_trabajo);
-                $('#TlfMovil').val(datos.usuario.tlfmovil);
-                $('#TlfCasa').val(datos.usuario.tlfcasa);
-                $('#CorreoElectronico').val(datos.usuario.correoelectronico);
-                $('#Especialidad').val(datos.usuario.especialidad);
-                $('#FechaIngreso').val(datos.usuario.fechaingreso.replace(/-/g,'/'));
+                $('#direccion').val(datos.usuario.direccion);
+                $('#codigo_postal').val(datos.usuario.codigo_postal);
+                $('#lugar_trabajo').val(datos.usuario.lugar_trabajo);
+                $('#tlf_movil').val(datos.usuario.tlf_movil);
+                $('#tlf_casa').val(datos.usuario.tlf_casa);
+                $('#correo_electronico').val(datos.usuario.correo_electronico);
+                $('#correo_alternativo').val(datos.usuario.correo_alternativo);
+                $('#especialidad').val(datos.usuario.especialidad);
+                $('#fecha_ingreso').val(datos.usuario.fecha_ingreso.replace(/-/g,'/'));
             } else
                 alert('Lo sentimos no se encontraron los datos del usuario');
         }
@@ -104,8 +86,8 @@ $(document).ready(function () {
         yearEnd: fecha.getFullYear()
     });
 
-    $('#EstadoResidencia').change(function () {
-        $("#CiudadResidencia").load(basedir + "/ciudades/" + $(this).val() + ".txt")
+    $('#estado_residencia').change(function () {
+        $("#ciudad_residencia").load(basedir + "/ciudades/" + $(this).val() + ".txt")
     });
 
     $('.boton').click(function () {

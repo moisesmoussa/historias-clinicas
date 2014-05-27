@@ -21,7 +21,7 @@ if($app['controller'] == 'logout') {
 	header('Location: '.$app['basedir'].'/');
 }
 
-if(isset($_SESSION['administrador']) && $app['controller'] != 'administrador' && $app['controller'] != 'perfil') {
+if((isset($_SESSION['administrador']) || isset($_SESSION['super_administrador'])) && $app['controller'] != 'administrador' && $app['controller'] != 'perfil') {
 	header('Location: '.$app['basedir'].'/administrador');
 }
 
@@ -29,7 +29,7 @@ if(isset($_SESSION['general']) && $app['controller'] != 'general' && $app['contr
 	header('Location: '.$app['basedir'].'/general');
 }
 
-if(!isset($_SESSION['administrador']) && !isset($_SESSION['general']) && $app['controller'] != 'registro')
+if(!isset($_SESSION['super_administrador']) && !isset($_SESSION['administrador']) && !isset($_SESSION['general']))
 	require_once('modulos/autenticacion/index.php');
 else
 	require_once('layouts/default.php');

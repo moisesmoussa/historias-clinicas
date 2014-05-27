@@ -16,7 +16,7 @@ $_POST['Fecha_Nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST[
 $msg = NULL;
 $flag = 1;
 
-if(isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
+if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     foreach ($_POST as $valor)
         if(!isset($valor) || empty($valor)){
             $flag = 0;

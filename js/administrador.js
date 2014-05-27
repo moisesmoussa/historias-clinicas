@@ -1,3 +1,43 @@
+function agregarUsuario() {
+    $.ajax({
+        async: false,
+        url: basedir + '/json/insertar_usuario.php',
+        type: 'POST',
+        data: $('#nuevo-usuario').serialize(),
+        beforeSend: function () {
+            $('#status').html('Guardando datos...').show();
+        },
+        error: function () {
+            $('#status').html('Disculpe se presentó un error guardando la información').show();
+        },
+        success: function (data) {
+            var r = JSON.parse(data);
+            
+            $('#status').hide();
+            
+            if (r.codigo == 0) {
+                alert('Debe llenar todos los campos');
+            }
+
+            if (r.codigo == 1) {
+                alert('Las contraseñas no coinciden.');
+            }
+
+            if (r.codigo == 2) {
+                $('#nuevo-usuario').each(function () {
+                    this.reset();
+                });
+                alert('Usuario agregado exitosamente');
+            }
+
+            if (r.codigo == 3) {
+                alert('No se pudo agregar el usuario, es posible que ya exista el usuario.');
+            }
+
+        }
+    });
+}
+
 function cargar_usuarios() {
     $.ajax({
         async: false,
@@ -11,7 +51,7 @@ function cargar_usuarios() {
 
             if (datos.flag) {
                 for (var i in datos.usuario) {
-                    html += "<tr><td class='icono-tabla' data-id='" + datos.usuario[i].id + "'><i class='fa fa-trash-o fa-2x icon'></i></td><td>" + datos.usuario[i].primernombre + " " + datos.usuario[i].segundonombre + " " + datos.usuario[i].primerapellido + " " + datos.usuario[i].segundoapellido + "</td><td>" + datos.usuario[i].cedula + "</td><td>" + datos.usuario[i].fechanacimiento + "</td><td>" + datos.usuario[i].lugarnacimiento + "</td><td>" + datos.usuario[i].fechaingreso + "</td><td>" + datos.usuario[i].especialidad + "</td><td>" + datos.usuario[i].nombreusuario + "</td><td>" + datos.usuario[i].estadoresidencia + "</td><td>" + datos.usuario[i].ciudadresidencia + "</td><td>" + datos.usuario[i].direccion + "</td><td>" + datos.usuario[i].codigopostal + "</td><td>" + datos.usuario[i].lugar_trabajo + "</td><td>" + datos.usuario[i].tlfmovil + "</td><td>" + datos.usuario[i].tlfcasa + "</td><td>" + datos.usuario[i].correoelectronico + "</td></tr>";
+                    html += "<tr><td class='icono-tabla' data-id='" + datos.usuario[i].id + "'><i class='fa fa-trash-o fa-2x icon'></i></td><td>" + datos.usuario[i].primer_nombre + " " + datos.usuario[i].segundo_nombre + " " + datos.usuario[i].primer_apellido + " " + datos.usuario[i].segundo_apellido + "</td><td>" + datos.usuario[i].cedula + "</td><td>" + datos.usuario[i].fecha_nacimiento + "</td><td>" + datos.usuario[i].lugar_nacimiento + "</td><td>" + datos.usuario[i].fecha_ingreso + "</td><td>" + datos.usuario[i].especialidad + "</td><td>" + datos.usuario[i].nombre_usuario + "</td><td>" + datos.usuario[i].estado_residencia + "</td><td>" + datos.usuario[i].ciudad_residencia + "</td><td>" + datos.usuario[i].direccion + "</td><td>" + datos.usuario[i].codigo_postal + "</td><td>" + datos.usuario[i].lugar_trabajo + "</td><td>" + datos.usuario[i].tlf_movil + "</td><td>" + datos.usuario[i].tlf_casa + "</td><td>" + datos.usuario[i].correo_electronico + "</td></tr>";
                 }
 
                 $('#usuarios').html(html);
@@ -46,24 +86,28 @@ function eliminar_usuario(user) {
 
 $(document).ready(function () {
     var fecha = new Date();
-
+    $('#status').hide();
     $('.DesarrolloPsicomotor').hide();
     $('.AntecedentesPerinatales').hide();
+
     //Trae de la base de datos la información necesaria de todos los usuarios registrados
     cargar_usuarios();
-
+    
     $('.calendario').datetimepicker({
         lang: 'es',
         timepicker: false,
         scrollInput: false,
-        format: 'd/m/Y',
-        formatDate: 'Y/m/d',
+        format:'d/m/Y',
+	    formatDate:'Y/m/d',
         minDate: '1920/01/01',
         maxDate: fecha.getFullYear() + '/' + fecha.getMonth + '/' + fecha.getDate(),
         yearStart: 1920,
-        yearEnd: fecha.getFullYear(),
+        yearEnd: fecha.getFullYear()
+    });
+
+    $('#nuevo-paciente .calendario').datetimepicker({
         onSelectDate: function (date) {
-            var edad = fecha.getFullYear() - parseInt($('#Fecha_Nacimiento').val().substr(06));
+            var edad = fecha.getFullYear() - parseInt($('#fecha_nacimiento').val().substr(06));
             if (date.getMonth() < fecha.getMonth() || (date.getMonth() == fecha.getMonth() && date.getDate() > fecha.getDate()))
                 edad--;
 
@@ -79,10 +123,14 @@ $(document).ready(function () {
         }
     });
 
-    $('#EstadoResidencia').change(function () {
-        $("#CiudadResidencia").load(basedir + "/ciudades/" + $(this).val() + ".txt");
+    $('#estado_residencia').change(function () {
+        $("#ciudad_residencia").load(basedir + "/ciudades/" + $(this).val() + ".txt");
     });
 
+    $('.boton').click(function () {
+        agregarUsuario();
+    });
+    
     $('#enviar-paciente').click(function () {
         $.ajax({
             async: false,
@@ -96,7 +144,7 @@ $(document).ready(function () {
         });
 
     });
-
+    
     $(document).on('click', '#usuarios tr .icono-tabla', function () {
         var confirmacion = confirm("¿Desea eliminar este usuario?");
         if (confirmacion){
