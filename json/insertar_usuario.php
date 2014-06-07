@@ -26,7 +26,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
     else {
         
         require_once('../config.php');
-        $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
+        $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
 
         if(isset($_SESSION['super_administrador']))
             $id_usuario = $_SESSION['super_administrador'];

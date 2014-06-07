@@ -59,7 +59,10 @@
             <nav id="modperfil">
                 <ul>
                     <li>
-                        <a href="'.$app['basedir'].'/perfil'.'"><i class="fa fa-gears fa-fw"></i>Editar perfil</a>
+                        <a href="'.$app['basedir'].'/perfil'.'"><i class="fa fa-edit fa-fw"></i>Editar perfil</a>
+                    </li>
+                    <li>
+                        <a href="'.$app['basedir'].'/perfil/cambiar-clave'.'"><i class="fa fa-lock fa-fw"></i>Cambiar contraseña</a>
                     </li>
                     <li>
                         <a href="'.$app['basedir'].'/logout'.'"><i class="fa fa-sign-out fa-fw"></i>Cerrar sesión</a>

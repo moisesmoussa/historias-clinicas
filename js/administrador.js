@@ -8,7 +8,7 @@ function agregarUsuario() {
             $('#status').html('Guardando datos...').show();
         },
         error: function () {
-            $('#status').html('Disculpe se presentó un error guardando la información').show();
+            $('#status').html('Error guardando la información').show();
         },
         success: function (data) {
             var r = JSON.parse(data);
@@ -20,7 +20,7 @@ function agregarUsuario() {
             }
 
             if (r.codigo == 1) {
-                alert('Las contraseñas no coinciden.');
+                alert('Las contraseñas no coinciden');
             }
 
             if (r.codigo == 2) {
@@ -31,7 +31,7 @@ function agregarUsuario() {
             }
 
             if (r.codigo == 3) {
-                alert('No se pudo agregar el usuario, es posible que ya exista el usuario.');
+                alert('No se pudo agregar el usuario, es posible que ya exista');
             }
 
         }
@@ -43,7 +43,7 @@ function cargar_usuarios() {
         async: false,
         url: basedir + '/json/onload_usuario.php',
         error: function () {
-            alert('Disculpe se presentó un error cargando la información');
+            alert('Error cargando la información');
         },
         success: function (usuarios) {
             var datos = JSON.parse(usuarios);
@@ -56,7 +56,7 @@ function cargar_usuarios() {
 
                 $('#usuarios').html(html);
             } else
-                alert('Lo sentimos no se encontraron los datos del usuario');
+                alert('No se encontraron los datos del usuario');
         }
     });
 }
@@ -70,7 +70,7 @@ function eliminar_usuario(user) {
             usuario: user
         },
         error: function () {
-            alert('Disculpe no se puedo eliminar el usuario');
+            alert('Error enviando la información');
         },
         success: function (resultado) {
             var msg = JSON.parse(resultado);
@@ -79,7 +79,7 @@ function eliminar_usuario(user) {
                 alert('Usuario eliminado exitosamente');
                 cargar_usuarios();
             } else
-                alert('No se puedo eliminar el usuario por error en la base de datos');
+                alert('No se pudo eliminar el usuario');
         }
     });
 }
@@ -146,7 +146,7 @@ $(document).ready(function () {
     });
     
     $(document).on('click', '#usuarios tr .icono-tabla', function () {
-        var confirmacion = confirm("¿Desea eliminar este usuario?");
+        var confirmacion = confirm("¿Está seguro que desea eliminar este usuario?");
         if (confirmacion){
             eliminar_usuario($(this).attr('data-id'));
             cargar_usuarios();

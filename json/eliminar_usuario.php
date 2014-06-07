@@ -5,17 +5,20 @@
 */
 require_once('../config.php');
 session_start();
+$msg = NULL;
 
-$conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
+if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
 
-$query = pg_query("DELETE FROM usuario WHERE id = ".$_POST['usuario']);
+    $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
 
-if($query)
-    $msg = 1;
-else
-    $msg = 0;
+    $query = pg_query("DELETE FROM usuario WHERE id = ".$_POST['usuario']);
 
-pg_close($conexion);
+    if($query)
+        $msg = 1;
+    else
+        $msg = 0;
 
+    pg_close($conexion);
+}
 echo json_encode($msg);
 ?>

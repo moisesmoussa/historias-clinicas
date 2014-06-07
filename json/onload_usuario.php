@@ -5,29 +5,32 @@
 */
 require_once('../config.php');
 session_start();
+$msg = NULL;
 
-$conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Lo sentimos, no se pudo realizar la conexión");
+if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
 
-$msg = array();
+    $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
 
-$query = pg_query("SELECT id, cedula, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, fecha_nacimiento, lugar_nacimiento, fecha_ingreso, especialidad, nombre_usuario, estado_residencia, ciudad_residencia, direccion, codigo_postal, lugar_trabajo, tlf_movil, tlf_casa, correo_electronico FROM usuario");
+    $msg = array();
 
-if($query){
-    $msg['flag'] = 1;
-    $msg['usuario'] = array();
-    $cont = 0;
+    $query = pg_query("SELECT id, cedula, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, fecha_nacimiento, lugar_nacimiento, fecha_ingreso, especialidad, nombre_usuario, estado_residencia, ciudad_residencia, direccion, codigo_postal, lugar_trabajo, tlf_movil, tlf_casa, correo_electronico FROM usuario");
 
-    while(($resultado = pg_fetch_array($query))){
-        $msg['usuario'][$cont] = $resultado;
-        foreach($msg['usuario'][$cont] as $clave => $valor)
-            if($clave == "fecha_nacimiento" or $clave == "fecha_ingreso")
-                $msg['usuario'][$cont][$clave] = date("d-m-Y", strtotime($valor));
-        $cont++;
-    }
-}else
-    $msg['flag'] = 0;
+    if($query){
+        $msg['flag'] = 1;
+        $msg['usuario'] = array();
+        $cont = 0;
 
-pg_close($conexion);
+        while(($resultado = pg_fetch_array($query))){
+            $msg['usuario'][$cont] = $resultado;
+            foreach($msg['usuario'][$cont] as $clave => $valor)
+                if($clave == "fecha_nacimiento" or $clave == "fecha_ingreso")
+                    $msg['usuario'][$cont][$clave] = date("d-m-Y", strtotime($valor));
+            $cont++;
+        }
+    }else
+        $msg['flag'] = 0;
 
+    pg_close($conexion);
+}
 echo json_encode($msg);
 ?>

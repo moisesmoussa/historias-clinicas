@@ -14,7 +14,7 @@ function login() {
             $('#status').html('Verificando información').show();
         },
         error: function () {
-            alert('Se produjo un error iniciando sesión.');
+            alert('Error iniciando sesión.');
         },
         success: function (data) {
             $('#status').hide();
