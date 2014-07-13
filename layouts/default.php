@@ -54,7 +54,7 @@
                         </nav>';
                 ?>
             </div>
-            <?php echo '<a id="perfil" href="javascript:void(0);"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre'].'
+            <?php echo '<nav class="areaperfil"><a id="perfil" href="javascript:void(0);"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre'].'
             </a>
             <nav id="modperfil">
                 <ul>
@@ -68,7 +68,7 @@
                         <a href="'.$app['basedir'].'/logout'.'"><i class="fa fa-sign-out fa-fw"></i>Cerrar sesión</a>
                     </li>
                 </ul>
-            </nav>';
+            </nav></nav>';
             ?>
         </div>
     </header>

@@ -49,7 +49,7 @@ $(document).ready(function () {
         claveModificada = true;
     });
 
-    $('#iniciar-sesion').click(function () {
+    $('.boton').click(function () {
         login();
     });
 

@@ -27,11 +27,18 @@ function agregarUsuario() {
                 $('#nuevo-usuario').each(function () {
                     this.reset();
                 });
-                alert('Usuario agregado exitosamente');
+                if(r.correo)
+                    alert('Usuario agregado exitosamente.\nCorreo con la clave enviado');
+                else
+                    alert('Usuario agregado exitosamente.\nNo se pudo enviar el correo con la clave');
             }
 
             if (r.codigo == 3) {
                 alert('No se pudo agregar el usuario, es posible que ya exista');
+            }
+            
+            if (r.codigo == 4) {
+                alert('El nombre de usuario indicado ya existe');
             }
 
         }
@@ -47,14 +54,14 @@ function cargar_usuarios() {
         },
         success: function (usuarios) {
             var datos = JSON.parse(usuarios);
-            var html = "<tr><th class='icono-tabla'></th><th>Nombre</th><th>Cédula</th><th>Fecha de Nacimiento</th><th>Lugar de Nacimiento</th><th>Fecha de Ingreso</th><th>Especialidad</th><th>Nombre de Usuario</th><th>Estado</th><th>Ciudad</th><th>Dirección</th><th>Código Postal</th><th>Lugar de Trabajo</th><th>Móvil</th><th>Tlf de Casa</th><th>Email</th></tr>";
+            var html = "<tr><th class='icono-tabla'></th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Nombre de Usuario</th><th>Móvil</th><th>Email</th></tr>";
 
             if (datos.flag) {
                 for (var i in datos.usuario) {
-                    html += "<tr><td class='icono-tabla' data-id='" + datos.usuario[i].id + "'><i class='fa fa-trash-o fa-2x icon'></i></td><td>" + datos.usuario[i].primer_nombre + " " + datos.usuario[i].segundo_nombre + " " + datos.usuario[i].primer_apellido + " " + datos.usuario[i].segundo_apellido + "</td><td>" + datos.usuario[i].cedula + "</td><td>" + datos.usuario[i].fecha_nacimiento + "</td><td>" + datos.usuario[i].lugar_nacimiento + "</td><td>" + datos.usuario[i].fecha_ingreso + "</td><td>" + datos.usuario[i].especialidad + "</td><td>" + datos.usuario[i].nombre_usuario + "</td><td>" + datos.usuario[i].estado_residencia + "</td><td>" + datos.usuario[i].ciudad_residencia + "</td><td>" + datos.usuario[i].direccion + "</td><td>" + datos.usuario[i].codigo_postal + "</td><td>" + datos.usuario[i].lugar_trabajo + "</td><td>" + datos.usuario[i].tlf_movil + "</td><td>" + datos.usuario[i].tlf_casa + "</td><td>" + datos.usuario[i].correo_electronico + "</td></tr>";
+                    html += "<tr><td class='icono-tabla' data-id='" + datos.usuario[i].id + "'><i class='fa fa-trash-o fa-2x icon borrar'></i><i class='fa fa-edit fa-2x icon editar'></i></td><td>" + datos.usuario[i].cedula + "</td><td>" + datos.usuario[i].primer_nombre + " " + datos.usuario[i].segundo_nombre + "</td><td>" + datos.usuario[i].primer_apellido + " " + datos.usuario[i].segundo_apellido + "</td><td>" + datos.usuario[i].nombre_usuario + "</td><td>" + datos.usuario[i].tlf_movil + "</td><td>" + datos.usuario[i].correo_electronico + "</td></tr>";
                 }
 
-                $('#usuarios').html(html);
+                $('.usuarios').html(html);
             } else
                 alert('No se encontraron los datos del usuario');
         }
@@ -145,11 +152,24 @@ $(document).ready(function () {
 
     });
     
-    $(document).on('click', '#usuarios tr .icono-tabla', function () {
+    //Verifica la eliminación de un usuario de la base de datos. Si es aceptada, se procede a eliminar el usuario indicado
+    $(document).on('click', '.usuarios tr .icono-tabla .borrar', function () {
         var confirmacion = confirm("¿Está seguro que desea eliminar este usuario?");
         if (confirmacion){
             eliminar_usuario($(this).attr('data-id'));
             cargar_usuarios();
         }
+    });
+    
+    $(document).on('click', '.usuarios tr .icono-tabla .editar', function () {
+        alert("Editar");
+    });
+    
+    //Marca o desmarcar filas de la tabla
+    $(document).on('click', '.usuarios td', function (e) {
+        if ($(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')
+            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(18, 182, 235, 0.2)');
+        else
+            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(0,0,0,0)');
     });
 });

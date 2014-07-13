@@ -22,7 +22,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $flag = 0;
             break;
         }
-    if(!flag)
+    if(!$flag)
         $msg['codigo'] = 0;
     else {
         

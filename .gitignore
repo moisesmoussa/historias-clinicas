@@ -13,5 +13,8 @@
 /js/jquery-2.0.0.min.js
 /js/jquery.datetimepicker.js
 
+# Librerias
+/PHPMailer/*
+
 # Extras
 Paleta.txt

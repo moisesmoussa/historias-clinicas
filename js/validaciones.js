@@ -21,8 +21,14 @@
 
 
 $(document).ready(function () {
-    $("#perfil").click(function () {
-        $("#modperfil").slideToggle();
+    $("#perfil").mouseenter(function () {
+        if ($("#modperfil").css("display") == "none")
+            $("#modperfil").slideToggle();
+    });
+
+    $(".areaperfil").mouseleave(function () {
+        if ($("#modperfil").css("display") != "none")
+            $("#modperfil").slideToggle();
     });
 
     $("#insertar").click(function () {

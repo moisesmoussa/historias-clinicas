@@ -12,8 +12,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
     $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
 
     $msg = array();
-
-    $query = pg_query("SELECT id, cedula, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, fecha_nacimiento, lugar_nacimiento, fecha_ingreso, especialidad, nombre_usuario, estado_residencia, ciudad_residencia, direccion, codigo_postal, lugar_trabajo, tlf_movil, tlf_casa, correo_electronico FROM usuario");
+    
+    $query = pg_query("SELECT id, cedula, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, nombre_usuario, tlf_movil, correo_electronico FROM usuario");
 
     if($query){
         $msg['flag'] = 1;
@@ -22,9 +22,6 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
 
         while(($resultado = pg_fetch_array($query))){
             $msg['usuario'][$cont] = $resultado;
-            foreach($msg['usuario'][$cont] as $clave => $valor)
-                if($clave == "fecha_nacimiento" or $clave == "fecha_ingreso")
-                    $msg['usuario'][$cont][$clave] = date("d-m-Y", strtotime($valor));
             $cont++;
         }
     }else
