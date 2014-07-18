@@ -6,10 +6,7 @@ function login() {
         async: false,
         url: basedir + '/json/login.php',
         type: 'POST',
-        data: {
-            usuario: $('#nombre').val(),
-            clave: $('#clave').val()
-        },
+        data: $('#login').serialize(),
         beforeSend: function () {
             $('#status').html('Verificando información').show();
         },

@@ -1,4 +1,4 @@
-<section id="cambiar-clave">
+<section class="contenedor-formulario">
     <h2 align="center">Cambiar Contraseña</h2>
     <form id="nueva-clave" action="">
         <table class="formulario">

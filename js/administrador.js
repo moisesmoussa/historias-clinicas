@@ -1,3 +1,4 @@
+//Se encarga de ingresar los datos de un nuevo usuario en la base de datos
 function agregarUsuario() {
     $.ajax({
         async: false,
@@ -12,9 +13,9 @@ function agregarUsuario() {
         },
         success: function (data) {
             var r = JSON.parse(data);
-            
+
             $('#status').hide();
-            
+
             if (r.codigo == 0) {
                 alert('Debe llenar todos los campos');
             }
@@ -27,7 +28,7 @@ function agregarUsuario() {
                 $('#nuevo-usuario').each(function () {
                     this.reset();
                 });
-                if(r.correo)
+                if (r.correo)
                     alert('Usuario agregado exitosamente.\nCorreo con la clave enviado');
                 else
                     alert('Usuario agregado exitosamente.\nNo se pudo enviar el correo con la clave');
@@ -36,7 +37,7 @@ function agregarUsuario() {
             if (r.codigo == 3) {
                 alert('No se pudo agregar el usuario, es posible que ya exista');
             }
-            
+
             if (r.codigo == 4) {
                 alert('El nombre de usuario indicado ya existe');
             }
@@ -45,6 +46,7 @@ function agregarUsuario() {
     });
 }
 
+//Trae algunos datos importantes de todos los usuarios de la base de datos
 function cargar_usuarios() {
     $.ajax({
         async: false,
@@ -68,13 +70,41 @@ function cargar_usuarios() {
     });
 }
 
-function eliminar_usuario(user) {
+function datos_usuario(user_id) {
+    $.ajax({
+        async: false,
+        url: basedir + '/json/onload_usuario.php',
+        type: 'GET',
+        data: {
+            usuario: user_id
+        },
+        error: function () {
+            alert('Error cargando la información');
+        },
+        success: function (usuarios) {
+            var datos = JSON.parse(usuarios);
+            var html = "<tr><th class='icono-tabla'></th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Nombre de Usuario</th><th>Móvil</th><th>Email</th></tr>";
+
+            if (datos.flag) {
+                for (var i in datos.usuario) {
+                    html += "<tr><td class='icono-tabla' data-id='" + datos.usuario[i].id + "'><i class='fa fa-trash-o fa-2x icon borrar'></i><i class='fa fa-edit fa-2x icon editar'></i></td><td>" + datos.usuario[i].cedula + "</td><td>" + datos.usuario[i].primer_nombre + " " + datos.usuario[i].segundo_nombre + "</td><td>" + datos.usuario[i].primer_apellido + " " + datos.usuario[i].segundo_apellido + "</td><td>" + datos.usuario[i].nombre_usuario + "</td><td>" + datos.usuario[i].tlf_movil + "</td><td>" + datos.usuario[i].correo_electronico + "</td></tr>";
+                }
+
+                $('.usuarios').html(html);
+            } else
+                alert('No se encontraron los datos del usuario');
+        }
+    });
+}
+
+//Se encarga de eliminar un usuario de la base de datos
+function eliminar_usuario(user_id) {
     $.ajax({
         async: false,
         url: basedir + '/json/eliminar_usuario.php',
         type: 'POST',
         data: {
-            usuario: user
+            usuario: user_id
         },
         error: function () {
             alert('Error enviando la información');
@@ -99,13 +129,14 @@ $(document).ready(function () {
 
     //Trae de la base de datos la información necesaria de todos los usuarios registrados
     cargar_usuarios();
-    
+
+    //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas
     $('.calendario').datetimepicker({
         lang: 'es',
         timepicker: false,
         scrollInput: false,
-        format:'d/m/Y',
-	    formatDate:'Y/m/d',
+        format: 'd/m/Y',
+        formatDate: 'Y/m/d',
         minDate: '1920/01/01',
         maxDate: fecha.getFullYear() + '/' + fecha.getMonth + '/' + fecha.getDate(),
         yearStart: 1920,
@@ -130,6 +161,7 @@ $(document).ready(function () {
         }
     });
 
+    //Carga las ciudades por estado
     $('#estado_residencia').change(function () {
         $("#ciudad_residencia").load(basedir + "/ciudades/" + $(this).val() + ".txt");
     });
@@ -137,7 +169,7 @@ $(document).ready(function () {
     $('.boton').click(function () {
         agregarUsuario();
     });
-    
+
     $('#enviar-paciente').click(function () {
         $.ajax({
             async: false,
@@ -149,22 +181,22 @@ $(document).ready(function () {
                 console.log(msg);
             }
         });
-
     });
-    
+
     //Verifica la eliminación de un usuario de la base de datos. Si es aceptada, se procede a eliminar el usuario indicado
     $(document).on('click', '.usuarios tr .icono-tabla .borrar', function () {
         var confirmacion = confirm("¿Está seguro que desea eliminar este usuario?");
-        if (confirmacion){
-            eliminar_usuario($(this).attr('data-id'));
+        if (confirmacion) {
+            eliminar_usuario($(this).parent().attr('data-id'));
             cargar_usuarios();
         }
     });
-    
+
+    //Redirige a la página que contiene todos los datos del usuario indicado para que se puedan ver y editar
     $(document).on('click', '.usuarios tr .icono-tabla .editar', function () {
-        alert("Editar");
+        window.location.replace(basedir + "/administrador/modificar-usuario/" + $(this).parent().attr('data-id'));
     });
-    
+
     //Marca o desmarcar filas de la tabla
     $(document).on('click', '.usuarios td', function (e) {
         if ($(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')

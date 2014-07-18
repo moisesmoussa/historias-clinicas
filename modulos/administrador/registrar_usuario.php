@@ -1,4 +1,4 @@
-<section id="registrar-usuario">
+<section class="contenedor-formulario">
     <h2 align="center">Registro de Usuario</h2>
     <form id="nuevo-usuario" action="">
         <table class="formulario">

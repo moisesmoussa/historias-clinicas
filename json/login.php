@@ -7,7 +7,7 @@ require_once('../config.php');
 $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
 
 $msg = array();
-$login_query = pg_query("SELECT id, nombre_usuario, tipo_usuario FROM usuario WHERE nombre_usuario = '".$_POST['usuario']."' AND clave = '".md5($_POST['clave'])."'");
+$login_query = pg_query("SELECT id, nombre_usuario, tipo_usuario FROM usuario WHERE nombre_usuario = '".$_POST['nombre']."' AND clave = '".md5($_POST['clave'])."'");
 
 if(($resultado = pg_fetch_array($login_query))){
     session_start();

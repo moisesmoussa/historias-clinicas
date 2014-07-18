@@ -11,7 +11,7 @@
     <link href='<?php echo $app['basedir'].'/css/default.css'; ?>' rel='stylesheet' type='text/css'>
     <link href='<?php echo $app['basedir'].'/css/font-awesome.min.css';?>' rel='stylesheet' type='text/css'>
     <?php
-        if($app['controller'] == 'perfil' || ($app['controller'] == 'administrador' && ($app['action'] == 'registrar-paciente' || $app['action'] == 'registrar-usuario')))
+        if($app['controller'] == 'perfil' || $app['controller'] == 'administrador')
             echo "<link href='$app[basedir]/css/jquery.datetimepicker.css' rel='stylesheet' type='text/css'>";
         if($app['controller'] == 'administrador')
             echo "<link href='$app[basedir]/css/administrador.css' rel='stylesheet' type='text/css'>";
@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <header id='menu'>
+    <header class='menu'>
         <div class="contenedor">
             <section class="contenido">
                 <img src="<?php echo $app['basedir'].'/img/logo.png'; ?>" width="247" height="83">
@@ -42,7 +42,7 @@
                         </a>';
                     else if (isset($_SESSION['general']) && $app['controller'] != 'perfil')
                         echo '<a id="insertar" href="javascript:void(0);">Paciente</a>
-                        <nav id="item-menu">
+                        <nav class="item-menu">
                             <ul>
                                 <li>
                                     <a href="javascript:void(0);">Buscar</a>
@@ -54,9 +54,9 @@
                         </nav>';
                 ?>
             </div>
-            <?php echo '<nav class="areaperfil"><a id="perfil" href="javascript:void(0);"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre'].'
+            <?php echo '<nav class="area-perfil"><a class="perfil" href="javascript:void(0);"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre'].'
             </a>
-            <nav id="modperfil">
+            <nav class="items-perfil">
                 <ul>
                     <li>
                         <a href="'.$app['basedir'].'/perfil'.'"><i class="fa fa-edit fa-fw"></i>Editar perfil</a>

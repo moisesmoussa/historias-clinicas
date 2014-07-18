@@ -1,4 +1,4 @@
-<section id="registrar-usuario">
+<section class="contenedor-formulario">
     <h2 align="center">Perfil de Usuario</h2>
     <form id="act-usuario" action="">
         <table class="formulario">
@@ -18,7 +18,7 @@
                 <td>
                     <label for="fecha_ingreso">Fecha de Ingreso:</label>
                     <br>
-                    <input id="fecha_ingreso" name="fecha_ingreso" type="text" readonly="readonly" required>
+                    <input class="calendario" id="fecha_ingreso" name="fecha_ingreso" type="text" readonly="readonly" required>
                 </td>
             </tr>
             <tr>

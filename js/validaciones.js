@@ -1,38 +1,16 @@
-/*function soloNumeros(evento) {
-    var key;
-    if (window.event) // IE
-    {
-        key = evento.keyCode;
-    } else if (evento.which) // Netscape/Firefox/Opera
-    {
-        key = evento.which;
-    }
-
-    if (key < 48 || key > 57) {
-        if (key == 46 || key == 8) // Detectar . (punto) y backspace (retroceso)
-        {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    return true;
-}*/
-
-
 $(document).ready(function () {
-    $("#perfil").mouseenter(function () {
-        if ($("#modperfil").css("display") == "none")
-            $("#modperfil").slideToggle();
+    $(".perfil").mouseenter(function () {
+        if ($(".items-perfil").css("display") == "none")
+            $(".items-perfil").slideToggle();
     });
 
-    $(".areaperfil").mouseleave(function () {
-        if ($("#modperfil").css("display") != "none")
-            $("#modperfil").slideToggle();
+    $(".area-perfil").mouseleave(function () {
+        if ($(".items-perfil").css("display") != "none")
+            $(".items-perfil").slideToggle();
     });
 
     $("#insertar").click(function () {
-        $("#item-menu").slideToggle();
+        $(".item-menu").slideToggle();
     });
 
     $('.tlf').keypress(function (evento) {

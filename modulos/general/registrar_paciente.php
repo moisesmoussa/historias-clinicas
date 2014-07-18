@@ -1,4 +1,4 @@
-<section id="registrar-paciente">
+<section class="contenedor-formulario">
     <div class="container">
         <h4>Registrar Paciente</h4>
         <br>

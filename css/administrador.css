@@ -1,18 +1,10 @@
-#buscar-usuarios {
+.busqueda {
     background-color: #FFF;
     border-radius: 10px;
     margin: 30px auto;
     padding: 15px 30px;
     text-align: left;
-    width: 92%;
-}
-#buscar-pacientes {
-    background-color: #FFF;
-    border-radius: 10px;
-    margin: 30px auto;
-    padding: 15px 30px;
-    text-align: left;
-    width: 92%;
+    width: 85%;
 }
 .descripcion {
     font-size: 12px;

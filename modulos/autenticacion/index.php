@@ -25,18 +25,18 @@
             </div>
         </div>
     </header>
-    <section id="inicio-sesion">
+    <section class="inicio-sesion">
         <h3 align="center">
             <b>Inicio de Sesión</b>
         </h3>
         <form id="login" action="">
             <label for="nombre">Nombre de usuario:</label>
             <br>
-            <input id="nombre" type="text" required>
+            <input id="nombre" name="nombre" type="text" required>
             <br>
             <label for="clave">Contraseña:</label>
             <br>
-            <input id="clave" type="password" required>
+            <input id="clave" name="clave" type="password" required>
             <br>
             <a class="boton" href="javascript:void(0);">Iniciar sesión</a>
             <br>

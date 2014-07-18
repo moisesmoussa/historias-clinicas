@@ -1,4 +1,4 @@
-<section id="registrar-paciente">
+<section class="contenedor-formulario">
     <h2 align="center">Registro de Paciente</h2>
     <form id="nuevo-paciente" action="">
         <table class="formulario">
