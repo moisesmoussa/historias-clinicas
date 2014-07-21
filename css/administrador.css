@@ -21,6 +21,9 @@
 .icono-tabla .borrar {
     padding-right: 15px;
 }
+.oculto {
+    display: none;
+}
 .usuarios {
     border-collapse: collapse;
     width: 100%;

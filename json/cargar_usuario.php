@@ -6,20 +6,13 @@
 session_start();
 $msg = NULL;
 
-if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
+if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
     require_once('../config.php');
     $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
 
     $msg = array();
-    $usuario = '';
-    if(isset($_SESSION['super_administrador']))
-        $usuario = $_SESSION['super_administrador'];
-    else if(isset($_SESSION['administrador']))
-        $usuario = $_SESSION['administrador'];
-    else if(isset($_SESSION['general']))
-        $usuario = $_SESSION['general'];
 
-    $query = pg_query("SELECT * FROM usuario WHERE id = ".$usuario);
+    $query = pg_query("SELECT * FROM usuario WHERE id = ".$_POST['usuario']);
 
     if(($resultado = pg_fetch_array($query))){
         $msg['flag'] = 1;

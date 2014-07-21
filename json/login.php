@@ -12,7 +12,7 @@ $login_query = pg_query("SELECT id, nombre_usuario, tipo_usuario FROM usuario WH
 if(($resultado = pg_fetch_array($login_query))){
     session_start();
     $_SESSION[strtolower(str_replace(' ', '_', $resultado['tipo_usuario']))] = $resultado['id'];
-    $_SESSION['nombre'] = $resultado['nombre_usuario'];
+    $_SESSION['nombre_usuario'] = $resultado['nombre_usuario'];
     $msg['flag'] = 1;
     if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         $modulo = '/administrador';

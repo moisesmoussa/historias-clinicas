@@ -29,9 +29,9 @@ function agregarUsuario() {
                     this.reset();
                 });
                 if (r.correo)
-                    alert('Usuario agregado exitosamente.\nCorreo con la clave enviado');
+                    alert('Usuario agregado exitosamente.\nCorreo con los datos de la cuenta enviado');
                 else
-                    alert('Usuario agregado exitosamente.\nNo se pudo enviar el correo con la clave');
+                    alert('Usuario agregado exitosamente.\nNo se pudo enviar el correo con los datos de la cuenta');
             }
 
             if (r.codigo == 3) {
@@ -73,26 +73,76 @@ function cargar_usuarios() {
 function datos_usuario(user_id) {
     $.ajax({
         async: false,
-        url: basedir + '/json/onload_usuario.php',
-        type: 'GET',
+        url: basedir + '/json/cargar_usuario.php',
+        type: 'POST',
         data: {
             usuario: user_id
         },
         error: function () {
             alert('Error cargando la información');
         },
-        success: function (usuarios) {
-            var datos = JSON.parse(usuarios);
-            var html = "<tr><th class='icono-tabla'></th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Nombre de Usuario</th><th>Móvil</th><th>Email</th></tr>";
+        success: function (usuario) {
+            var datos = JSON.parse(usuario);
 
-            if (datos.flag) {
-                for (var i in datos.usuario) {
-                    html += "<tr><td class='icono-tabla' data-id='" + datos.usuario[i].id + "'><i class='fa fa-trash-o fa-2x icon borrar'></i><i class='fa fa-edit fa-2x icon editar'></i></td><td>" + datos.usuario[i].cedula + "</td><td>" + datos.usuario[i].primer_nombre + " " + datos.usuario[i].segundo_nombre + "</td><td>" + datos.usuario[i].primer_apellido + " " + datos.usuario[i].segundo_apellido + "</td><td>" + datos.usuario[i].nombre_usuario + "</td><td>" + datos.usuario[i].tlf_movil + "</td><td>" + datos.usuario[i].correo_electronico + "</td></tr>";
-                }
+                if (datos.flag) {
+                    $('#nombre_usuario').val(datos.usuario.nombre_usuario);
+                    $('#tipo_usuario').val(datos.usuario.tipo_usuario);
+                    $('#primer_nombre').val(datos.usuario.primer_nombre);
+                    $('#segundo_nombre').val(datos.usuario.segundo_nombre);
+                    $('#primer_apellido').val(datos.usuario.primer_apellido);
+                    $('#segundo_apellido').val(datos.usuario.segundo_apellido);
+                    $('#fecha_nacimiento').val(datos.usuario.fecha_nacimiento.replace(/-/g, '/'));
+                    $('#lugar_nacimiento').val(datos.usuario.lugar_nacimiento);
+                    $('#cedula').val(datos.usuario.cedula);
+                    $('#estado_residencia').val(datos.usuario.estado_residencia);
+                    $('#ciudad_residencia').load(basedir + "/ciudades/" + datos.usuario.estado_residencia + ".txt", function () {
+                        $(this).val(datos.usuario.ciudad_residencia);
+                    });
+                    $('#direccion').val(datos.usuario.direccion);
+                    $('#codigo_postal').val(datos.usuario.codigo_postal);
+                    $('#lugar_trabajo').val(datos.usuario.lugar_trabajo);
+                    $('#tlf_movil').val(datos.usuario.tlf_movil);
+                    $('#tlf_casa').val(datos.usuario.tlf_casa);
+                    $('#correo_electronico').val(datos.usuario.correo_electronico);
+                    $('#correo_alternativo').val(datos.usuario.correo_alternativo);
+                    $('#especialidad').val(datos.usuario.especialidad);
+                    $('#fecha_ingreso').val(datos.usuario.fecha_ingreso.replace(/-/g, '/'));
+                } else
+                    alert('No se pudo encontrar los datos del usuario');
+        }
+    });
+}
 
-                $('.usuarios').html(html);
-            } else
-                alert('No se encontraron los datos del usuario');
+//Actualiza los datos del perfil del usuario
+function actualizar_usuario() {
+    $.ajax({
+        async: false,
+        url: basedir + '/json/actualizar_usuario.php',
+        type: 'POST',
+        data: $('#act-usuario').serialize(),
+        beforeSend: function () {
+            $('#status').html('Cargando...').show();
+        },
+        error: function () {
+            $('#status').html('Error cargando la información').show();
+        },
+        success: function (data) {
+            var r = JSON.parse(data);
+            
+            $('#status').hide();
+
+            if (r.codigo == 0) {
+                alert('Debe llenar todos los campos');
+            }
+
+            if (r.codigo == 1) {
+                alert('Actualización de usuario exitosa');
+            }
+
+            if (r.codigo == 2) {
+                alert('No se pudo actualizar el usuario');
+            }
+
         }
     });
 }
@@ -123,13 +173,18 @@ function eliminar_usuario(user_id) {
 
 $(document).ready(function () {
     var fecha = new Date();
+    var url;
     $('#status').hide();
     $('.DesarrolloPsicomotor').hide();
     $('.AntecedentesPerinatales').hide();
 
+    //Si esta en el perfil de un usuario para modificar sus datos, se cargan los datos del usuario seleccionado
+    if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/*'))
+        datos_usuario(url.substring(url.lastIndexOf('/') + 1));
+    
     //Trae de la base de datos la información necesaria de todos los usuarios registrados
     cargar_usuarios();
-
+    
     //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas
     $('.calendario').datetimepicker({
         lang: 'es',
@@ -167,7 +222,12 @@ $(document).ready(function () {
     });
 
     $('.boton').click(function () {
-        agregarUsuario();
+        if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/*')){
+            $('#id_usuario').val(url.substring(url.lastIndexOf('/') + 1));
+            actualizar_usuario();
+        } else{
+            agregarUsuario();
+        }
     });
 
     $('#enviar-paciente').click(function () {

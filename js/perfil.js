@@ -32,47 +32,51 @@ function actualizarUsuario() {
     });
 }
 
+function cargar_usuario(){
+    $.ajax({ //Trae de la base de datos todos los datos del usuario
+        async: false,
+        url: basedir + '/json/onload_perfil.php',
+        error: function () {
+            $('#status').html('Error cargando la información').show();
+        },
+        success: function (usuario) {
+            var datos = JSON.parse(usuario);
+
+            if (datos.flag) {
+                $('#nombre_usuario').val(datos.usuario.nombre_usuario);
+                $('#primer_nombre').val(datos.usuario.primer_nombre);
+                $('#segundo_nombre').val(datos.usuario.segundo_nombre);
+                $('#primer_apellido').val(datos.usuario.primer_apellido);
+                $('#segundo_apellido').val(datos.usuario.segundo_apellido);
+                $('#fecha_nacimiento').val(datos.usuario.fecha_nacimiento.replace(/-/g, '/'));
+                $('#lugar_nacimiento').val(datos.usuario.lugar_nacimiento);
+                $('#cedula').val(datos.usuario.cedula);
+                $('#estado_residencia').val(datos.usuario.estado_residencia);
+                $('#ciudad_residencia').load(basedir + "/ciudades/" + datos.usuario.estado_residencia + ".txt", function () {
+                    $(this).val(datos.usuario.ciudad_residencia);
+                });
+                $('#direccion').val(datos.usuario.direccion);
+                $('#codigo_postal').val(datos.usuario.codigo_postal);
+                $('#lugar_trabajo').val(datos.usuario.lugar_trabajo);
+                $('#tlf_movil').val(datos.usuario.tlf_movil);
+                $('#tlf_casa').val(datos.usuario.tlf_casa);
+                $('#correo_electronico').val(datos.usuario.correo_electronico);
+                $('#correo_alternativo').val(datos.usuario.correo_alternativo);
+                $('#especialidad').val(datos.usuario.especialidad);
+                $('#fecha_ingreso').val(datos.usuario.fecha_ingreso.replace(/-/g, '/'));
+            } else
+                alert('No se pudo encontrar los datos del usuario');
+        }
+    });
+}
+
 $(document).ready(function () {
     $('#status').hide();
 
     var fecha = new Date();
 
     if (window.location.pathname == (basedir + "/perfil"))
-        $.ajax({ //Trae de la base de datos todos los datos del usuario
-            async: false,
-            url: basedir + '/json/onload_perfil.php',
-            error: function () {
-                $('#status').html('Error cargando la información').show();
-            },
-            success: function (usuario) {
-                var datos = JSON.parse(usuario);
-
-                if (datos.flag) {
-                    $('#nombre_usuario').val(datos.usuario.nombre_usuario);
-                    $('#primer_nombre').val(datos.usuario.primer_nombre);
-                    $('#segundo_nombre').val(datos.usuario.segundo_nombre);
-                    $('#primer_apellido').val(datos.usuario.primer_apellido);
-                    $('#segundo_apellido').val(datos.usuario.segundo_apellido);
-                    $('#fecha_nacimiento').val(datos.usuario.fecha_nacimiento.replace(/-/g, '/'));
-                    $('#lugar_nacimiento').val(datos.usuario.lugar_nacimiento);
-                    $('#cedula').val(datos.usuario.cedula);
-                    $('#estado_residencia').val(datos.usuario.estado_residencia);
-                    $('#ciudad_residencia').load(basedir + "/ciudades/" + datos.usuario.estado_residencia + ".txt", function () {
-                        $(this).val(datos.usuario.ciudad_residencia);
-                    });
-                    $('#direccion').val(datos.usuario.direccion);
-                    $('#codigo_postal').val(datos.usuario.codigo_postal);
-                    $('#lugar_trabajo').val(datos.usuario.lugar_trabajo);
-                    $('#tlf_movil').val(datos.usuario.tlf_movil);
-                    $('#tlf_casa').val(datos.usuario.tlf_casa);
-                    $('#correo_electronico').val(datos.usuario.correo_electronico);
-                    $('#correo_alternativo').val(datos.usuario.correo_alternativo);
-                    $('#especialidad').val(datos.usuario.especialidad);
-                    $('#fecha_ingreso').val(datos.usuario.fecha_ingreso.replace(/-/g, '/'));
-                } else
-                    alert('No se pudo encontrar los datos del usuario');
-            }
-        });
+        cargar_usuario();
 
     $('.calendario').datetimepicker({
         lang: 'es',

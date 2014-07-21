@@ -3,12 +3,11 @@
     0 = No se pudo eliminar el usuario indicado en la BD
     1 = Usuario eliminado correctamente en la BD
 */
-require_once('../config.php');
 session_start();
 $msg = NULL;
 
-if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
-
+if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
+    require_once('../config.php');
     $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
 
     $query = pg_query("DELETE FROM usuario WHERE id = ".$_POST['usuario']);

@@ -41,20 +41,10 @@
                             <i class="fa fa-stethoscope fa-fw"></i>Pacientes
                         </a>';
                     else if (isset($_SESSION['general']) && $app['controller'] != 'perfil')
-                        echo '<a id="insertar" href="javascript:void(0);">Paciente</a>
-                        <nav class="item-menu">
-                            <ul>
-                                <li>
-                                    <a href="javascript:void(0);">Buscar</a>
-                                </li>
-                                <li>
-                                    <a href="'.$app['basedir'].'/general/registrar-paciente">Registrar</a>
-                                </li>
-                            </ul>
-                        </nav>';
+                        echo '<a id="insertar" href="'.$app['basedir'].'/general/registrar-paciente">Paciente</a>';
                 ?>
             </div>
-            <?php echo '<nav class="area-perfil"><a class="perfil" href="javascript:void(0);"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre'].'
+            <?php echo '<nav class="area-perfil"><a class="perfil" href="javascript:void(0);"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre_usuario'].'
             </a>
             <nav class="items-perfil">
                 <ul>

@@ -10,11 +10,11 @@
 session_start();
 
 $msg = NULL;
-$flag = 1;
-$_POST['fecha_nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
-$_POST['tipo_usuario'] = ucfirst($_POST['tipo_usuario']);
 
-if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
+if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
+    $flag = 1;
+    $_POST['fecha_nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
+    
     foreach ($_POST as $valor)
         if(!isset($valor) || empty($valor)){
             $flag = 0;
@@ -32,17 +32,21 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         $query = pg_query("SELECT nombre_usuario FROM usuario WHERE nombre_usuario = '".$_POST['nombre_usuario']."'");
         $respuesta = pg_fetch_array($query);
         if(empty($respuesta['nombre_usuario'])){
-        
-            if(isset($_SESSION['super_administrador']))
+            $insert_usuario_g = '';
+            $values_usuario_g = '';
+            
+            if(isset($_SESSION['super_administrador'])){
                 $id_usuario = $_SESSION['super_administrador'];
-            else if(isset($_SESSION['administrador']))
+                $_POST['tipo_usuario'] = ucfirst($_POST['tipo_usuario']);
+            }else if(isset($_SESSION['administrador'])){
                 $id_usuario = $_SESSION['administrador'];
-            else if(isset($_SESSION['general']))
-                $id_usuario = $_SESSION['general'];
+                $insert_usuario_g = 'tipo_usuario, ';
+                $values_usuario_g = '\'General\', ';
+            }
 
             date_default_timezone_set('Etc/GMT+4');
-            $columnas = 'INSERT INTO usuario (fecha_ingreso, fecha_ua, usuario_ua, creador, estado_actual, ';
-            $valores = 'VALUES (\''.date("Y-m-d").'\', \''.date("Y-m-d").'\', '.$id_usuario.', '.$id_usuario.', \'Activo\', ';
+            $columnas = 'INSERT INTO usuario (fecha_ingreso, fecha_ua, usuario_ua, creador, estado_actual, '.$insert_usuario_g;
+            $valores = 'VALUES (\''.date("Y-m-d").'\', \''.date("Y-m-d").'\', '.$id_usuario.', '.$id_usuario.', \'Activo\', '.$values_usuario_g;
             $len = count($_POST);
             $cont = 1;
 
