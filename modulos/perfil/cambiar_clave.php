@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td>
-                    <div id="status"></div>
+                    <div class="status"></div>
                 </td>
             </tr>
         </table>

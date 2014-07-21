@@ -40,7 +40,7 @@
             <br>
             <a class="boton" href="javascript:void(0);">Iniciar sesión</a>
             <br>
-            <div id="status"></div>
+            <div class="status"></div>
         </form>
     </section>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>

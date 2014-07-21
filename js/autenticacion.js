@@ -8,13 +8,13 @@ function login() {
         type: 'POST',
         data: $('#login').serialize(),
         beforeSend: function () {
-            $('#status').html('Verificando información').show();
+            $('.status').html('Verificando información').show();
         },
         error: function () {
             alert('Error iniciando sesión.');
         },
         success: function (data) {
-            $('#status').hide();
+            $('.status').hide();
             var resultado = JSON.parse(data);
             
             if (resultado.flag == 0)
@@ -26,7 +26,7 @@ function login() {
 }
 
 $(document).ready(function () {
-    $('#status').hide();
+    $('.status').hide();
     
     $('input[type=text]').focusin(function () {
         if (!usuarioModificado) {

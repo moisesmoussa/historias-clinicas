@@ -191,7 +191,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <div id="status"></div>
+                    <div class="status"></div>
                 </td>
             </tr>
         </table>

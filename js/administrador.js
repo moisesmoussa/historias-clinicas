@@ -6,15 +6,15 @@ function agregarUsuario() {
         type: 'POST',
         data: $('#nuevo-usuario').serialize(),
         beforeSend: function () {
-            $('#status').html('Guardando datos...').show();
+            $('.status').html('Guardando datos...').show();
         },
         error: function () {
-            $('#status').html('Error guardando la información').show();
+            $('.status').html('Error guardando la información').show();
         },
         success: function (data) {
             var r = JSON.parse(data);
 
-            $('#status').hide();
+            $('.status').hide();
 
             if (r.codigo == 0) {
                 alert('Debe llenar todos los campos');
@@ -84,31 +84,31 @@ function datos_usuario(user_id) {
         success: function (usuario) {
             var datos = JSON.parse(usuario);
 
-                if (datos.flag) {
-                    $('#nombre_usuario').val(datos.usuario.nombre_usuario);
-                    $('#tipo_usuario').val(datos.usuario.tipo_usuario);
-                    $('#primer_nombre').val(datos.usuario.primer_nombre);
-                    $('#segundo_nombre').val(datos.usuario.segundo_nombre);
-                    $('#primer_apellido').val(datos.usuario.primer_apellido);
-                    $('#segundo_apellido').val(datos.usuario.segundo_apellido);
-                    $('#fecha_nacimiento').val(datos.usuario.fecha_nacimiento.replace(/-/g, '/'));
-                    $('#lugar_nacimiento').val(datos.usuario.lugar_nacimiento);
-                    $('#cedula').val(datos.usuario.cedula);
-                    $('#estado_residencia').val(datos.usuario.estado_residencia);
-                    $('#ciudad_residencia').load(basedir + "/ciudades/" + datos.usuario.estado_residencia + ".txt", function () {
-                        $(this).val(datos.usuario.ciudad_residencia);
-                    });
-                    $('#direccion').val(datos.usuario.direccion);
-                    $('#codigo_postal').val(datos.usuario.codigo_postal);
-                    $('#lugar_trabajo').val(datos.usuario.lugar_trabajo);
-                    $('#tlf_movil').val(datos.usuario.tlf_movil);
-                    $('#tlf_casa').val(datos.usuario.tlf_casa);
-                    $('#correo_electronico').val(datos.usuario.correo_electronico);
-                    $('#correo_alternativo').val(datos.usuario.correo_alternativo);
-                    $('#especialidad').val(datos.usuario.especialidad);
-                    $('#fecha_ingreso').val(datos.usuario.fecha_ingreso.replace(/-/g, '/'));
-                } else
-                    alert('No se pudo encontrar los datos del usuario');
+            if (datos.flag) {
+                $('#nombre_usuario').val(datos.usuario.nombre_usuario);
+                $('#tipo_usuario').val(datos.usuario.tipo_usuario);
+                $('#primer_nombre').val(datos.usuario.primer_nombre);
+                $('#segundo_nombre').val(datos.usuario.segundo_nombre);
+                $('#primer_apellido').val(datos.usuario.primer_apellido);
+                $('#segundo_apellido').val(datos.usuario.segundo_apellido);
+                $('#fecha_nacimiento').val(datos.usuario.fecha_nacimiento.replace(/-/g, '/'));
+                $('#lugar_nacimiento').val(datos.usuario.lugar_nacimiento);
+                $('#cedula').val(datos.usuario.cedula);
+                $('#estado_residencia').val(datos.usuario.estado_residencia);
+                $('#ciudad_residencia').load(basedir + "/ciudades/" + datos.usuario.estado_residencia + ".txt", function () {
+                    $(this).val(datos.usuario.ciudad_residencia);
+                });
+                $('#direccion').val(datos.usuario.direccion);
+                $('#codigo_postal').val(datos.usuario.codigo_postal);
+                $('#lugar_trabajo').val(datos.usuario.lugar_trabajo);
+                $('#tlf_movil').val(datos.usuario.tlf_movil);
+                $('#tlf_casa').val(datos.usuario.tlf_casa);
+                $('#correo_electronico').val(datos.usuario.correo_electronico);
+                $('#correo_alternativo').val(datos.usuario.correo_alternativo);
+                $('#especialidad').val(datos.usuario.especialidad);
+                $('#fecha_ingreso').val(datos.usuario.fecha_ingreso.replace(/-/g, '/'));
+            } else
+                alert('No se pudo encontrar los datos del usuario');
         }
     });
 }
@@ -121,15 +121,15 @@ function actualizar_usuario() {
         type: 'POST',
         data: $('#act-usuario').serialize(),
         beforeSend: function () {
-            $('#status').html('Cargando...').show();
+            $('.status').html('Cargando...').show();
         },
         error: function () {
-            $('#status').html('Error cargando la información').show();
+            $('.status').html('Error cargando la información').show();
         },
         success: function (data) {
             var r = JSON.parse(data);
-            
-            $('#status').hide();
+
+            $('.status').hide();
 
             if (r.codigo == 0) {
                 alert('Debe llenar todos los campos');
@@ -171,20 +171,53 @@ function eliminar_usuario(user_id) {
     });
 }
 
+function registrar_paciente(elemento) {
+    switch (elemento) {
+    case "datos-paciente":
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: basedir + '/json/insertar_datos_paciente.php',
+            data: $("#datos-paciente").serialize(), // Adjuntar los campos del formulario a enviar.
+            success: function (data) {
+                var msg = JSON.parse(data);
+                console.log(msg);
+            }
+        });
+        break;
+    case "form-antecedentes-perinatales":
+
+        break;
+    case "form-antecedentes-sexuales":
+
+        break;
+    case "antecedentes-modo-vida":
+
+        break;
+    case "antecedentes-patologicos":
+
+        break;
+    case "form-desarrollo-psicomotor":
+
+        break;
+    }
+}
+
 $(document).ready(function () {
     var fecha = new Date();
     var url;
-    $('#status').hide();
-    $('.DesarrolloPsicomotor').hide();
-    $('.AntecedentesPerinatales').hide();
+    $('.status').hide();
+    $('.desarrollo-psicomotor').hide();
+    $('.antecedentes-perinatales').hide();
+    $('.antecedentes-sexuales').hide();
 
     //Si esta en el perfil de un usuario para modificar sus datos, se cargan los datos del usuario seleccionado
     if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/*'))
         datos_usuario(url.substring(url.lastIndexOf('/') + 1));
-    
+
     //Trae de la base de datos la información necesaria de todos los usuarios registrados
     cargar_usuarios();
-    
+
     //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas
     $('.calendario').datetimepicker({
         lang: 'es',
@@ -198,49 +231,51 @@ $(document).ready(function () {
         yearEnd: fecha.getFullYear()
     });
 
-    $('#nuevo-paciente .calendario').datetimepicker({
+    $('#datos-paciente .calendario').datetimepicker({
         onSelectDate: function (date) {
             var edad = fecha.getFullYear() - parseInt($('#fecha_nacimiento').val().substr(06));
             if (date.getMonth() < fecha.getMonth() || (date.getMonth() == fecha.getMonth() && date.getDate() > fecha.getDate()))
                 edad--;
 
             if (edad < 10)
-                $('.DesarrolloPsicomotor').show();
+                $('.desarrollo-psicomotor').show();
             else
-                $('.DesarrolloPsicomotor').hide();
+                $('.desarrollo-psicomotor').hide();
 
             if (edad < 19)
-                $('.AntecedentesPerinatales').show();
+                $('.antecedentes-perinatales').show();
             else
-                $('.AntecedentesPerinatales').hide();
+                $('.antecedentes-perinatales').hide();
         }
     });
 
+    $('input:radio[name=sexo]').click(function (){
+            if($('.antecedentes-sexuales').css('display') == 'none')
+                $('.antecedentes-sexuales').show();
+        
+            if($(this).val() == "Masculino"){
+                $('.masculino').show()
+                $('.femenino').hide();
+            } else{
+                $('.femenino').show()
+                $('.masculino').hide();
+            }
+    })
+    
     //Carga las ciudades por estado
     $('#estado_residencia').change(function () {
         $("#ciudad_residencia").load(basedir + "/ciudades/" + $(this).val() + ".txt");
     });
 
     $('.boton').click(function () {
-        if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/*')){
+        if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/*')) {
             $('#id_usuario').val(url.substring(url.lastIndexOf('/') + 1));
             actualizar_usuario();
-        } else{
+        } else if (url == basedir + '/administrador/registrar-paciente') {
+            registrar_paciente($(this).parents('form').attr('id'));
+        } else {
             agregarUsuario();
         }
-    });
-
-    $('#enviar-paciente').click(function () {
-        $.ajax({
-            async: false,
-            type: "POST",
-            url: basedir + '/json/insertar_paciente.php',
-            data: $("#nuevo-paciente").serialize(), // Adjuntar los campos del formulario a enviar.
-            success: function (data) {
-                var msg = JSON.parse(data);
-                console.log(msg);
-            }
-        });
     });
 
     //Verifica la eliminación de un usuario de la base de datos. Si es aceptada, se procede a eliminar el usuario indicado

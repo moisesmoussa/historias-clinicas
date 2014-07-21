@@ -1,6 +1,6 @@
+<h2 align="center">Registro de Paciente</h2>
 <section class="contenedor-formulario">
-    <h2 align="center">Registro de Paciente</h2>
-    <form id="nuevo-paciente" action="">
+    <form id="datos-paciente" action="">
         <table class="formulario">
             <tr>
                 <td colspan="2">
@@ -64,7 +64,7 @@
             </tr>
             <tr>
                 <td>
-                    <label>Sexo:</label>
+                    <label for="sexo">Sexo:</label>
                     <br>
                     <input type="radio" name="sexo" value="Masculino">Masculino
                     <input type="radio" name="sexo" value="Femenino">Femenino
@@ -73,7 +73,7 @@
                     <label for="pais_nacimiento">País de Nacimiento:</label>
                     <br>
                     <select id="pais_nacimiento" name="pais_nacimiento">
-                        <?php @include_once('formulario-pacientes/paises.html')?>
+                        <?php @include_once( 'formulario-pacientes/paises.html')?>
                     </select>
                 </td>
             </tr>
@@ -90,7 +90,7 @@
                     </select>
                 </td>
                 <td>
-                    <label>¿Es analfabeta?</label>
+                    <label for="analfabeta">¿Es analfabeta?</label>
                     <br>
                     <input type="radio" name="analfabeta" value="TRUE">
                     <label>Sí</label>
@@ -125,19 +125,12 @@
                     <input type="text" id="ocupacion" name="ocupacion">
                 </td>
                 <td>
-                    <label>¿Es cotizante del Seguro Social?</label>
+                    <label for="seguridad_social">¿Es cotizante del Seguro Social?</label>
                     <br>
                     <input type="radio" name="seguridad_social" value="TRUE">
                     <label>Sí</label>
                     <input type="radio" name="seguridad_social" value="FALSE">
                     <label>No</label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <label for="correo_electronico">Dirección de Correo Electrónico:</label>
-                    <br>
-                    <input type="text" id="correo_electronico" name="correo_electronico">
                 </td>
             </tr>
             <tr>
@@ -209,74 +202,31 @@
                     <input type="text" class="numeros" id="tlf_domicilio" name="tlf_domicilio">
                 </td>
             </tr>
-            <?php @include_once('formulario-pacientes/antecedentes-perinatales.html')?>
             <tr>
                 <td colspan="2">
-                    <h3>
-                        <b>Antecedentes Personales Sexuales y Reproductivos</b>
-                    </h3>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <h3>
-                        <b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Mujer</b>
-                    </h3>
-                </td>
-            </tr>
-            <?php @include_once('formulario-pacientes/lista2.html')?>
-            <tr>
-                <td>
-                    <label for="aco_oral">¿Ha utilizado métodos anticonceptivos orales (ACO)?</label>
+                    <label for="correo_electronico">Dirección de Correo Electrónico:</label>
                     <br>
-                    <input type="radio" name="aco_oral" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="aco_oral" value="FALSE">
-                    <label>No</label>
-                </td>
-                <td>
-                    <label for="diu">¿Ha utilizado métodos anticonceptivos intrauterinos (DIU)?</label>
-                    <br>
-                    <input type="radio" name="diu" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="diu" value="FALSE">
-                    <label>No</label>
-                </td>
-            </tr>
-            <?php @include_once('formulario-pacientes/lista3.html')?>
-            <tr>
-                <td colspan="2">
-                    <label for="menopausia">¿Presentó o presenta menopausia?</label>
-                    <br>
-                    <input type="radio" name="menopausia" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="menopausia" value="FALSE">
-                    <label>No</label>
+                    <input type="text" id="correo_electronico" name="correo_electronico">
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <h3>
-                        <b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Hombre</b>
-                    </h3>
+                    <a class="boton" href="javascript:void(0);">Enviar</a>
                 </td>
             </tr>
-            <?php @include_once('formulario-pacientes/lista4.html')?>
             <tr>
-                <td>
-                    <label for="andropausia">¿Presentó o presenta andropausia?</label>
-                    <br>
-                    <input type="radio" name="andropausia" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="andropausia" value="FALSE">
-                    <label>No</label>
-                </td>
-                <td>
-                    <label for="otros_antecedentes_sexuales">Indique, si existen, otros antecedentes sexuales:</label>
-                    <br>
-                    <textarea id="otros_antecedentes_sexuales" name="otros_antecedentes_sexuales"></textarea>
+                <td colspan="2">
+                    <div class="status"></div>
                 </td>
             </tr>
+        </table>
+    </form>
+</section>
+<?php @include_once( 'formulario-pacientes/antecedentes-perinatales.html')?>
+<?php @include_once( 'formulario-pacientes/antecedentes-sexuales.html')?>
+<section class="contenedor-formulario">
+    <form id="antecedentes-modo-vida" action="">
+        <table class="formulario">
             <tr>
                 <td colspan="2">
                     <h3>
@@ -284,7 +234,101 @@
                     </h3>
                 </td>
             </tr>
-            <?php @include_once('formulario-pacientes/lista5.html')?>
+            <tr>
+                <td>
+                    <label for="fuma">¿Es fumador?</label>
+                    <br>
+                    <input type="radio" name="fuma" value="TRUE">
+                    <label>Si</label>
+                    <input type="radio" name="fuma" value="FALSE">
+                    <label>No</label>
+                </td>
+                <td>
+                    <label for="fuma_desde">¿Desde qué edad comenzó a fumar?</label>
+                    <br>
+                    <select id="fuma_desde" name="fuma_desde">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="cigarrillos_diarios">Cantidad promedio de cigarrillos que fuma al día:</label>
+                    <br>
+                    <select id="cigarrillos_diarios" name="cigarrillos_diarios">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                    </select>
+                </td>
+                <td>
+                    <label for="alcohol">¿Consume alcohol?</label>
+                    <br>
+                    <input type="radio" name="alcohol" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="alcohol" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="alcohol_semanal">Cantidad promedio de veces que consume alcohol a la semana:</label>
+                    <br>
+                    <select id="alcohol_semanal" name="alcohol_semanal">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+                </td>
+                <td>
+                    <label for="drogas_ilicitas">¿Consume drogas ilícitas?</label>
+                    <br>
+                    <input type="radio" name="drogas_ilicitas" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="drogas_ilicitas" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
             <tr>
                 <td>
                     <label for="actividad_fisica">¿Realiza actividad física?</label>
@@ -318,6 +362,22 @@
                     <textarea id="otros_estilos_vida" name="otros_estilos_vida"></textarea>
                 </td>
             </tr>
+            <tr>
+                <td colspan="2">
+                    <a class="boton" href="javascript:void(0);">Enviar</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="status"></div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</section>
+<section class="contenedor-formulario">
+    <form id="antecendentes-patologicos" action="">
+        <table class="formulario">
             <tr>
                 <td colspan="2">
                     <h3>
@@ -732,17 +792,19 @@
                     <textarea id="observaciones" name="observaciones"></textarea>
                 </td>
             </tr>
-            <?php @include_once('formulario-pacientes/desarrollo-psicomotor.html')?>
             <tr>
                 <td colspan="2">
-                    <a class="boton" id="enviar-paciente" href="javascript:void(0);">Enviar</a>
+                    <a class="boton" href="javascript:void(0);">Enviar</a>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <div id="status"></div>
+                    <div class="status"></div>
                 </td>
             </tr>
         </table>
     </form>
+</section>
+<?php @include_once( 'formulario-pacientes/desarrollo-psicomotor.html')?>
+</form>
 </section>

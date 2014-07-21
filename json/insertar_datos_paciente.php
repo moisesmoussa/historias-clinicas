@@ -8,7 +8,6 @@
 session_start();
 
 $_POST['Educacion'] = ucfirst($_POST['Educacion']);
-$_POST['GrupoSanguineo'] = ucfirst($_POST['GrupoSanguineo']);
 $_POST['Nacionalidad'] = ucfirst($_POST['Nacionalidad']);
 $_POST['Sexo'] = ucfirst($_POST['Sexo']);
 $_POST['SituacionConyugal'] = ucfirst($_POST['SituacionConyugal']);

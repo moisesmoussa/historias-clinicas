@@ -6,15 +6,15 @@ function actualizarUsuario() {
         type: 'POST',
         data: $('#act-usuario').serialize(),
         beforeSend: function () {
-            $('#status').html('Cargando...').show();
+            $('.status').html('Cargando...').show();
         },
         error: function () {
-            $('#status').html('Error cargando la información').show();
+            $('.status').html('Error cargando la información').show();
         },
         success: function (data) {
             var r = JSON.parse(data);
 
-            $('#status').hide();
+            $('.status').hide();
 
             if (r.codigo == 0) {
                 alert('Debe llenar todos los campos');
@@ -37,7 +37,7 @@ function cargar_usuario(){
         async: false,
         url: basedir + '/json/onload_perfil.php',
         error: function () {
-            $('#status').html('Error cargando la información').show();
+            $('.status').html('Error cargando la información').show();
         },
         success: function (usuario) {
             var datos = JSON.parse(usuario);
@@ -71,7 +71,7 @@ function cargar_usuario(){
 }
 
 $(document).ready(function () {
-    $('#status').hide();
+    $('.status').hide();
 
     var fecha = new Date();
 
@@ -104,7 +104,7 @@ $(document).ready(function () {
                 type: 'POST',
                 data: $('#nueva-clave').serialize(),
                 error: function () {
-                    $('#status').html('Error cargando la información').show();
+                    $('.status').html('Error cargando la información').show();
                 },
                 success: function (flag) {
                     var datos = JSON.parse(flag);
