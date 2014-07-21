@@ -8,9 +8,9 @@
 <tr class="AntecedentesPerinatales">
     <td>
         <input type="text" id="Pe_flag" value="0" hidden>
-        <label for="NroConsultasPrenatal">Número de Consultas Prenatales:</label>
+        <label for="nro_consultas_prenatales">Número de Consultas Prenatales:</label>
         <br>
-        <select id="NroConsultasPrenatal" name="NroConsultasPrenatal">
+        <select id="nro_consultas_prenatales" name="nro_consultas_prenatales">
             <option value=""></option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -45,115 +45,115 @@
         </select>
     </td>
     <td>
-        <label for="NombreMadre">Nombre de la Madre del Paciente:</label>
+        <label for="nombre_madre">Nombre de la Madre del Paciente:</label>
         <br>
-        <input type="text" id="NombreMadre" name="NombreMadre">
+        <input type="text" id="nombre_madre" name="nombre_madre">
     </td>
 </tr>
 <tr class="AntecedentesPerinatales">
     <td>
-        <label for="NombrePadre">Nombre del Padre del Paciente:</label>
+        <label for="nombre_padre">Nombre del Padre del Paciente:</label>
         <br>
-        <input type="text" id="NombrePadre" name="NombrePadre">
+        <input type="text" id="nombre_padre" name="nombre_padre">
     </td>
     <td>
-        <label>¿Se presentaron trastornos en el embarazo?</label>
+        <label for="trastornos_embarazo">¿Se presentaron trastornos en el embarazo?</label>
         <br>
-        <input type="radio" name="TrastornosEmbarazo" value="TRUE">
+        <input type="radio" name="trastornos_embarazo" value="TRUE">
         <label>Sí</label>
-        <input type="radio" name="TrastornosEmbarazo" value="FALSE">
-        <label>No</label>
-    </td>
-</tr>
-<tr class="AntecedentesPerinatales">
-    <td>
-        <label>¿Fue un embarazo a término?</label>
-        <br>
-        <input type="radio" name="EmbarazoATermino" value="TRUE">
-        <label>Sí</label>
-        <input type="radio" name="EmbarazoATermino" value="FALSE">
-        <label>No</label>
-    </td>
-    <td>
-        <label>¿Fue un parto único espontáneo?</label>
-        <br>
-        <input type="radio" name="PartoUnicoEspontaneo" value="TRUE">
-        <label>Sí</label>
-        <input type="radio" name="PartoUnicoEspontaneo" value="FALSE">
+        <input type="radio" name="trastornos_embarazo" value="FALSE">
         <label>No</label>
     </td>
 </tr>
 <tr class="AntecedentesPerinatales">
     <td>
-        <label>¿Fue un parto con fórceps?</label>
+        <label for="embarazo_a_termino">¿Fue un embarazo a término?</label>
         <br>
-        <input type="radio" name="PartoForceps" value="TRUE">
+        <input type="radio" name="embarazo_a_termino" value="TRUE">
         <label>Sí</label>
-        <input type="radio" name="PartoForceps" value="FALSE">
+        <input type="radio" name="embarazo_a_termino" value="FALSE">
         <label>No</label>
     </td>
     <td>
-        <label>¿Se presentaron complicaciones en el parto?</label>
+        <label for="parto_unico_espontaneo">¿Fue un parto único espontáneo?</label>
         <br>
-        <input type="radio" name="ComplicacionesParto" value="TRUE">
+        <input type="radio" name="parto_unico_espontaneo" value="TRUE">
         <label>Sí</label>
-        <input type="radio" name="ComplicacionesParto" value="FALSE">
-        <label>No</label>
-    </td>
-</tr>
-<tr class="AntecedentesPerinatales">
-    <td>
-        <label>¿Se presentaron complicaciones en el puerperio?</label>
-        <br>
-        <input type="radio" name="ComplicacionesPuerperio" value="TRUE">
-        <label>Sí</label>
-        <input type="radio" name="ComplicacionesPuerperio" value="FALSE">
-        <label>No</label>
-    </td>
-    <td>
-        <label>¿Presentó trastornos el recién nacido?</label>
-        <br>
-        <input type="radio" name="TrastornosRecienNacido" value="TRUE">
-        <label>Sí</label>
-        <input type="radio" name="TrastornosRecienNacido" value="FALSE">
+        <input type="radio" name="parto_unico_espontaneo" value="FALSE">
         <label>No</label>
     </td>
 </tr>
 <tr class="AntecedentesPerinatales">
     <td>
-        <label>¿Se tuvo que aplicar reanimación al recien nacido?</label>
+        <label for="parto_forceps">¿Fue un parto con fórceps?</label>
         <br>
-        <input type="radio" name="Reanimacion" value="TRUE">
+        <input type="radio" name="parto_forceps" value="TRUE">
         <label>Sí</label>
-        <input type="radio" name="Reanimacion" value="FALSE">
+        <input type="radio" name="parto_forceps" value="FALSE">
         <label>No</label>
     </td>
     <td>
-        <label for="PesoAlNacer">Peso del recién nacido:</label>
+        <label for="complicaciones_parto">¿Se presentaron complicaciones en el parto?</label>
         <br>
-        <input type="text" id="PesoAlNacer" name="PesoAlNacer">
+        <input type="radio" name="complicaciones_parto" value="TRUE">
+        <label>Sí</label>
+        <input type="radio" name="complicaciones_parto" value="FALSE">
+        <label>No</label>
+    </td>
+</tr>
+<tr class="AntecedentesPerinatales">
+    <td>
+        <label for="complicaciones_puerperio">¿Se presentaron complicaciones en el puerperio?</label>
+        <br>
+        <input type="radio" name="complicaciones_puerperio" value="TRUE">
+        <label>Sí</label>
+        <input type="radio" name="complicaciones_puerperio" value="FALSE">
+        <label>No</label>
+    </td>
+    <td>
+        <label for="trastornos_recien_nacido">¿Presentó trastornos el recién nacido?</label>
+        <br>
+        <input type="radio" name="trastornos_recien_nacido" value="TRUE">
+        <label>Sí</label>
+        <input type="radio" name="trastornos_recien_nacido" value="FALSE">
+        <label>No</label>
+    </td>
+</tr>
+<tr class="AntecedentesPerinatales">
+    <td>
+        <label for="reanimacion">¿Se tuvo que aplicar reanimación al recien nacido?</label>
+        <br>
+        <input type="radio" name="reanimacion" value="TRUE">
+        <label>Sí</label>
+        <input type="radio" name="reanimacion" value="FALSE">
+        <label>No</label>
+    </td>
+    <td>
+        <label for="peso_al_nacer">Peso del recién nacido:</label>
+        <br>
+        <input type="text" id="peso_al_nacer" name="peso_al_nacer">
         <span>gr</span>
     </td>
 </tr>
 <tr class="AntecedentesPerinatales">
     <td>
-        <label for="TallaAlNacer">Talla del recién nacido:</label>
+        <label for="talla_al_nacer">Talla del recién nacido:</label>
         <br>
-        <input type="text" id="TallaAlNacer" name="TallaAlNacer">
+        <input type="text" id="talla_al_nacer" name="talla_al_nacer">
         <span>cm</span>
     </td>
     <td>
-        <label for="PerimetroCefalico">Perímetro Cefálico del recién nacido:</label>
+        <label for="perimetro_cefalico">Perímetro Cefálico del recién nacido:</label>
         <br>
-        <input type="text" id="PerimetroCefalico" name="PerimetroCefalico">
+        <input type="text" id="perimetro_cefalico" name="perimetro_cefalico">
         <span>cm</span>
     </td>
 </tr>
 <tr class="AntecedentesPerinatales">
     <td>
-        <label for="LactanciaExclusiva">Edad en la que dejó de recibir lactancia exclusiva:</label>
+        <label for="lactancia_exclusiva">Edad en la que dejó de recibir lactancia exclusiva:</label>
         <br>
-        <select id="LactanciaExclusiva" name="LactanciaExclusiva">
+        <select id="lactancia_exclusiva" name="lactancia_exclusiva">
             <option value=""></option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -195,9 +195,9 @@
         <span>Meses</span>
     </td>
     <td>
-        <label for="LactanciaMixta">Edad en la que empezó a recibir lactancia mixta:</label>
+        <label for="lactancia_mixta">Edad en la que empezó a recibir lactancia mixta:</label>
         <br>
-        <select id="LactanciaMixta" name="LactanciaMixta">
+        <select id="lactancia_mixta" name="lactancia_mixta">
             <option value=""></option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -241,9 +241,9 @@
 </tr>
 <tr class="AntecedentesPerinatales">
     <td>
-        <label for="Ablactacion">Edad en la que se produjo la ablactación:</label>
+        <label for="ablactacion">Edad en la que se produjo la ablactación:</label>
         <br>
-        <select id="Ablactacion" name="Ablactacion">
+        <select id="ablactacion" name="ablactacion">
             <option value=""></option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -285,29 +285,29 @@
         <span>Meses</span>
     </td>
     <td>
-        <label>¿Presentó patologías el recién nacido?</label>
+        <label for="patologias_al_nacer">¿Presentó patologías el recién nacido?</label>
         <br>
-        <input type="radio" name="EgresoRecienNacidoPatologico" value="TRUE">
+        <input type="radio" name="patologias_al_nacer" value="TRUE">
         <label>Sí</label>
-        <input type="radio" name="EgresoRecienNacidoPatologico" value="FALSE">
+        <input type="radio" name="patologias_al_nacer" value="FALSE">
         <label>No</label>
     </td>
 </tr>
 <tr class="AntecedentesPerinatales">
     <td>
-        <label>¿Presentó asfixia el recién nacido?</label>
+        <label for="asfixia">¿Presentó asfixia el recién nacido?</label>
         <br>
-        <input type="radio" name="Asfixia" value="TRUE">
+        <input type="radio" name="asfixia" value="TRUE">
         <label>Sí</label>
-        <input type="radio" name="Asfixia" value="FALSE">
+        <input type="radio" name="asfixia" value="FALSE">
         <label>No</label>
     </td>
     <td>
-        <label>¿Fue un recien nacido sano?</label>
+        <label for="recien_nacido_sano">¿Fue un recien nacido sano?</label>
         <br>
-        <input type="radio" name="EgresoRecienNacidoSano" value="TRUE">
+        <input type="radio" name="recien_nacido_sano" value="TRUE">
         <label>Sí</label>
-        <input type="radio" name="EgresoRecienNacidoSano" value="FALSE">
+        <input type="radio" name="recien_nacido_sano" value="FALSE">
         <label>No</label>
     </td>
 </tr>

@@ -11,77 +11,77 @@
             </tr>
             <tr>
                 <td>
-                    <label for="Nacionalidad">Nacionalidad:</label>
+                    <label for="nacionalidad">Nacionalidad:</label>
                     <br>
-                    <select id="Nacionalidad" name="Nacionalidad">
+                    <select id="nacionalidad" name="nacionalidad">
                         <option value="V" selected>Venezolana</option>
                         <option value="E">Extranjera</option>
                     </select>
                 </td>
                 <td>
-                    <label for="DocumentoIdentidad">Documento de Identidad:</label>
+                    <label for="documento_identidad">Documento de Identidad:</label>
                     <br>
-                    <input type="text" id="DocumentoIdentidad" name="DocumentoIdentidad">
+                    <input type="text" id="documento_identidad" name="documento_identidad">
                     <br>
                     <span class="descripcion">Cédula o pasaporte</span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="PrimerApellido">Primer Apellido:</label>
+                    <label for="primer_apellido">Primer Apellido:</label>
                     <br>
-                    <input type="text" id="PrimerApellido" name="PrimerApellido">
+                    <input type="text" id="primer_apellido" name="primer_apellido">
                 </td>
                 <td>
-                    <label for="SegundoApellido">Segundo Apellido:</label>
+                    <label for="segundo_apellido">Segundo Apellido:</label>
                     <br>
-                    <input type="text" id="SegundoApellido" name="SegundoApellido">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="PrimerNombre">Primer Nombre:</label>
-                    <br>
-                    <input type="text" id="PrimerNombre" name="PrimerNombre">
-                </td>
-                <td>
-                    <label for="SegundoNombre">Segundo Nombre:</label>
-                    <br>
-                    <input type="text" id="SegundoNombre" name="SegundoNombre">
+                    <input type="text" id="segundo_apellido" name="segundo_apellido">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="Etnia">Etnia:</label>
+                    <label for="primer_nombre">Primer Nombre:</label>
                     <br>
-                    <input type="text" id="Etnia" name="Etnia">
+                    <input type="text" id="primer_nombre" name="primer_nombre">
                 </td>
                 <td>
-                    <label for="Fecha_Nacimiento">Fecha Nacimiento:</label>
+                    <label for="segundo_nombre">Segundo Nombre:</label>
                     <br>
-                    <input class="calendario" id="Fecha_Nacimiento" name="Fecha_Nacimiento" type="text" readonly="readonly" required>
+                    <input type="text" id="segundo_nombre" name="segundo_nombre">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="etnia">Etnia:</label>
+                    <br>
+                    <input type="text" id="etnia" name="etnia">
+                </td>
+                <td>
+                    <label for="fecha_nacimiento">Fecha Nacimiento:</label>
+                    <br>
+                    <input class="calendario" id="fecha_nacimiento" name="fecha_nacimiento" type="text" readonly="readonly" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label>Sexo:</label>
                     <br>
-                    <input type="radio" name="Sexo" value="Masculino">Masculino
-                    <input type="radio" name="Sexo" value="Femenino">Femenino
+                    <input type="radio" name="sexo" value="Masculino">Masculino
+                    <input type="radio" name="sexo" value="Femenino">Femenino
                 </td>
                 <td>
-                    <label for="PaisNacimiento">País de Nacimiento:</label>
+                    <label for="pais_nacimiento">País de Nacimiento:</label>
                     <br>
-                    <select id="PaisNacimiento" name="PaisNacimiento">
+                    <select id="pais_nacimiento" name="pais_nacimiento">
                         <?php @include_once('formulario-pacientes/paises.html')?>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="SituacionConyugal">Situación Conyugal:</label>
+                    <label for="situacion_conyugal">Situación Conyugal:</label>
                     <br>
-                    <select id="SituacionConyugal" name="SituacionConyugal">
+                    <select id="situacion_conyugal" name="situacion_conyugal">
                         <option value=""></option>
                         <option value="Soltero">Soltero/a</option>
                         <option value="Casado">Casado/a</option>
@@ -92,17 +92,17 @@
                 <td>
                     <label>¿Es analfabeta?</label>
                     <br>
-                    <input type="radio" name="Analfabeta" value="TRUE">
+                    <input type="radio" name="analfabeta" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Analfabeta" value="FALSE">
+                    <input type="radio" name="analfabeta" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="Educacion">Educación:</label>
+                    <label for="educacion">Educación:</label>
                     <br>
-                    <select id="Educacion" name="Educacion">
+                    <select id="educacion" name="educacion">
                         <option value=""></option>
                         <option value="Primaria">Primaria</option>
                         <option value="Secundaria">Secundaria</option>
@@ -113,31 +113,31 @@
                     </select>
                 </td>
                 <td>
-                    <label for="Profesion">Profesión:</label>
+                    <label for="profesion">Profesión:</label>
                     <br>
-                    <input type="text" id="Profesion" name="Profesion">
+                    <input type="text" id="profesion" name="profesion">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="Ocupacion">Ocupación:</label>
+                    <label for="ocupacion">Ocupación:</label>
                     <br>
-                    <input type="text" id="Ocupacion" name="Ocupacion">
+                    <input type="text" id="ocupacion" name="ocupacion">
                 </td>
                 <td>
                     <label>¿Es cotizante del Seguro Social?</label>
                     <br>
-                    <input type="radio" name="SeguridadSocial" value="TRUE">
+                    <input type="radio" name="seguridad_social" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="SeguridadSocial" value="FALSE">
+                    <input type="radio" name="seguridad_social" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="CorreoElectronico">Dirección de Correo Electrónico:</label>
+                    <label for="correo_electronico">Dirección de Correo Electrónico:</label>
                     <br>
-                    <input type="text" id="CorreoElectronico" name="CorreoElectronico">
+                    <input type="text" id="correo_electronico" name="correo_electronico">
                 </td>
             </tr>
             <tr>
@@ -149,9 +149,9 @@
             </tr>
             <tr>
                 <td>
-                    <label for="EstadoResidencia">Estado de Residencia:</label>
+                    <label for="estado_residencia">Estado de Residencia:</label>
                     <br>
-                    <select id="EstadoResidencia" name="EstadoResidencia">
+                    <select id="estado_residencia" name="estado_residencia">
                         <option value="vacio"></option>
                         <option value="Amazonas">Amazonas</option>
                         <option value="Anzoátegui">Anzoátegui</option>
@@ -180,40 +180,33 @@
                     </select>
                 </td>
                 <td>
-                    <label for="CiudadResidencia">Ciudad de Residencia:</label>
+                    <label for="ciudad_residencia">Ciudad de Residencia:</label>
                     <br>
-                    <select id="CiudadResidencia" name="CiudadResidencia"></select>
+                    <select id="ciudad_residencia" name="ciudad_residencia"></select>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="Direccion">Dirección:</label>
+                    <label for="direccion">Dirección:</label>
                     <br>
-                    <input type="text" id="Direccion" name="Direccion">
+                    <input type="text" id="direccion" name="direccion">
                 </td>
                 <td>
-                    <label for="CodigoPostal">Código Postal:</label>
+                    <label for="codigo_postal">Código Postal:</label>
                     <br>
-                    <input type="text" class="numeros" id="CodigoPostal" name="CodigoPostal">
+                    <input type="text" class="numeros" id="codigo_postal" name="codigo_postal">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="PuntoReferencia">Punto de Referencia:</label>
+                    <label for="tlf_movil">Teléfono Móvil:</label>
                     <br>
-                    <input type="text" id="PuntoReferencia" name="PuntoReferencia">
+                    <input type="text" class="numeros" id="tlf_movil" name="tlf_movil">
                 </td>
                 <td>
-                    <label for="TlfDomicilio">Número Telefónico de Domicilio:</label>
+                    <label for="tlf_domicilio">Teléfono de Domicilio:</label>
                     <br>
-                    <input type="text" class="numeros" id="TlfDomicilio" name="TlfDomicilio">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <label for="TlfMovil">Número de Teléfono Celular:</label>
-                    <br>
-                    <input type="text" class="numeros" id="TlfMovil" name="TlfMovil">
+                    <input type="text" class="numeros" id="tlf_domicilio" name="tlf_domicilio">
                 </td>
             </tr>
             <?php @include_once('formulario-pacientes/antecedentes-perinatales.html')?>
@@ -234,23 +227,33 @@
             <?php @include_once('formulario-pacientes/lista2.html')?>
             <tr>
                 <td>
-                    <label>¿Ha utilizado métodos anticonceptivos orales (ACO)?</label>
+                    <label for="aco_oral">¿Ha utilizado métodos anticonceptivos orales (ACO)?</label>
                     <br>
-                    <input type="radio" name="ACO" value="TRUE">
+                    <input type="radio" name="aco_oral" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="ACO" value="FALSE">
+                    <input type="radio" name="aco_oral" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Ha utilizado métodos anticonceptivos intrauterinos (DIU)?</label>
+                    <label for="diu">¿Ha utilizado métodos anticonceptivos intrauterinos (DIU)?</label>
                     <br>
-                    <input type="radio" name="DIU" value="TRUE">
+                    <input type="radio" name="diu" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="DIU" value="FALSE">
+                    <input type="radio" name="diu" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <?php @include_once('formulario-pacientes/lista3.html')?>
+            <tr>
+                <td colspan="2">
+                    <label for="menopausia">¿Presentó o presenta menopausia?</label>
+                    <br>
+                    <input type="radio" name="menopausia" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="menopausia" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
             <tr>
                 <td colspan="2">
                     <h3>
@@ -261,17 +264,17 @@
             <?php @include_once('formulario-pacientes/lista4.html')?>
             <tr>
                 <td>
-                    <label>¿Presentó o presenta Menopausia/Andropausia?</label>
+                    <label for="andropausia">¿Presentó o presenta andropausia?</label>
                     <br>
-                    <input type="radio" name="MenopausiaAndropausia" value="TRUE">
+                    <input type="radio" name="andropausia" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="MenopausiaAndropausia" value="FALSE">
+                    <input type="radio" name="andropausia" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label for="OtrosAntecedentesSexuales">Indique, si existen, otros antecedentes sexuales:</label>
+                    <label for="otros_antecedentes_sexuales">Indique, si existen, otros antecedentes sexuales:</label>
                     <br>
-                    <textarea id="OtrosAntecedentesSexuales" name="OtrosAntecedentesSexuales"></textarea>
+                    <textarea id="otros_antecedentes_sexuales" name="otros_antecedentes_sexuales"></textarea>
                 </td>
             </tr>
             <tr>
@@ -284,35 +287,35 @@
             <?php @include_once('formulario-pacientes/lista5.html')?>
             <tr>
                 <td>
-                    <label>¿Realiza actividad física?</label>
+                    <label for="actividad_fisica">¿Realiza actividad física?</label>
                     <br>
-                    <input type="radio" name="ActividadFisica" value="TRUE">
+                    <input type="radio" name="actividad_fisica" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="ActividadFisica" value="FALSE">
+                    <input type="radio" name="actividad_fisica" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Lleva una vida sedentaria?</label>
+                    <label for="sedentarismo">¿Lleva una vida sedentaria?</label>
                     <br>
-                    <input type="radio" name="Sedentarismo" value="TRUE">
+                    <input type="radio" name="sedentarismo" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Sedentarismo" value="FALSE">
+                    <input type="radio" name="sedentarismo" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>¿Presenta problemas para manejar el estrés?</label>
+                    <label for="manejo_estres">¿Presenta problemas para manejar el estrés?</label>
                     <br>
-                    <input type="radio" name="ManejoEstres" value="TRUE">
+                    <input type="radio" name="manejo_estres" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="ManejoEstres" value="FALSE">
+                    <input type="radio" name="manejo_estres" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label for="OtrosEstiloVida">Indique, si los hay, otros antecedentes de estilo y modo de vida:</label>
+                    <label for="otros_estilos_vida">Indique, si los hay, otros antecedentes de estilo y modo de vida:</label>
                     <br>
-                    <textarea id="OtrosEstiloVida" name="OtrosEstiloVida"></textarea>
+                    <textarea id="otros_estilos_vida" name="otros_estilos_vida"></textarea>
                 </td>
             </tr>
             <tr>
@@ -324,374 +327,374 @@
             </tr>
             <tr>
                 <td>
-                    <label>¿Padeció o padece de alǵun tumor benigno?</label>
+                    <label for="tumor_benigno">¿Padeció o padece de alǵun tumor benigno?</label>
                     <br>
-                    <input type="radio" name="TumorBenigno" value="TRUE">
+                    <input type="radio" name="tumor_benigno" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="TumorBenigno" value="FALSE">
+                    <input type="radio" name="tumor_benigno" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Padeció o padece de algún tumor maligno?</label>
+                    <label for="tumor_maligno">¿Padeció o padece de algún tumor maligno?</label>
                     <br>
-                    <input type="radio" name="TumorMaligno" value="TRUE">
+                    <input type="radio" name="tumor_maligno" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="TumorMaligno" value="FALSE">
-                    <label>No</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>¿Padeció o padece de alguna enfermedad eruptiva?</label>
-                    <br>
-                    <input type="radio" name="EnfEruptivas" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="EnfEruptivas" value="FALSE">
-                    <label>No</label>
-                </td>
-                <td>
-                    <label>¿Padeció o padece de alguna enfermedad de transmisión sexual?</label>
-                    <br>
-                    <input type="radio" name="ITS" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="ITS" value="FALSE">
+                    <input type="radio" name="tumor_maligno" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>¿Padeció o padece de meningitis?</label>
+                    <label for="erupcion">¿Padeció o padece de alguna enfermedad eruptiva?</label>
                     <br>
-                    <input type="radio" name="Meningitis" value="TRUE">
+                    <input type="radio" name="erupcion" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Meningitis" value="FALSE">
+                    <input type="radio" name="erupcion" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Padeció o padece de chagas?</label>
+                    <label for="ets">¿Padeció o padece de alguna enfermedad de transmisión sexual?</label>
                     <br>
-                    <input type="radio" name="Chagas" value="TRUE">
+                    <input type="radio" name="ets" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="ets" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="meningitis">¿Padeció o padece de meningitis?</label>
+                    <br>
+                    <input type="radio" name="meningitis" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="meningitis" value="FALSE">
+                    <label>No</label>
+                </td>
+                <td>
+                    <label for="chagas">¿Padeció o padece de chagas?</label>
+                    <br>
+                    <input type="radio" name="chagas" value="TRUE">
                     <label>Si</label>
-                    <input type="radio" name="Chagas" value="FALSE">
+                    <input type="radio" name="chagas" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>¿Padeció o padece de tuberculosis?</label>
+                    <label for="tuberculosis">¿Padeció o padece de tuberculosis?</label>
                     <br>
-                    <input type="radio" name="Tuberculosis" value="TRUE">
+                    <input type="radio" name="tuberculosis" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Tuberculosis" value="FALSE">
+                    <input type="radio" name="tuberculosis" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Padeció o padece de dengue?</label>
+                    <label for="dengue">¿Padeció o padece de dengue?</label>
                     <br>
-                    <input type="radio" name="Dengue" value="TRUE">
+                    <input type="radio" name="dengue" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Dengue" value="FALSE">
-                    <label>No</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>¿Padeció o padece de la enfermedad de Hansen (Lepra)?</label>
-                    <br>
-                    <input type="radio" name="Hansen" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Hansen" value="FALSE">
-                    <label>No</label>
-                </td>
-                <td>
-                    <label>¿Padeció o padece de leishmaniasis?</label>
-                    <br>
-                    <input type="radio" name="Leishmaniasis" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Leishmaniasis" value="FALSE">
+                    <input type="radio" name="dengue" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>¿Padeció o padece de leptospirosis?</label>
+                    <label for="hansen">¿Padeció o padece de la enfermedad de Hansen (Lepra)?</label>
                     <br>
-                    <input type="radio" name="Leptospirosis" value="TRUE">
+                    <input type="radio" name="hansen" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Leptospirosis" value="FALSE">
+                    <input type="radio" name="hansen" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Padeció o padece de malaria?</label>
+                    <label for="leishmaniasis">¿Padeció o padece de leishmaniasis?</label>
                     <br>
-                    <input type="radio" name="Malaria" value="TRUE">
+                    <input type="radio" name="leishmaniasis" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Malaria" value="FALSE">
-                    <label>No</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>¿Padeció o padece de desnutrición?</label>
-                    <br>
-                    <input type="radio" name="Desnutricion" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Desnutricion" value="FALSE">
-                    <label>No</label>
-                </td>
-                <td>
-                    <label>¿Padece de diabetes?</label>
-                    <br>
-                    <input type="radio" name="Diabetes" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Diabetes" value="FALSE">
+                    <input type="radio" name="leishmaniasis" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>¿Padeció o padece de dislipidemias?</label>
+                    <label for="leptospirosis">¿Padeció o padece de leptospirosis?</label>
                     <br>
-                    <input type="radio" name="Dislipidemias" value="TRUE">
+                    <input type="radio" name="leptospirosis" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Dislipidemias" value="FALSE">
+                    <input type="radio" name="leptospirosis" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Padeció o padece de obesidad?</label>
+                    <label for="malaria">¿Padeció o padece de malaria?</label>
                     <br>
-                    <input type="radio" name="Obesidad" value="TRUE">
+                    <input type="radio" name="malaria" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Obesidad" value="FALSE">
-                    <label>No</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>¿Padeció o padece de trastornos de apetito?</label>
-                    <br>
-                    <input type="radio" name="TrastornoApetito" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="TrastornoApetito" value="FALSE">
-                    <label>No</label>
-                </td>
-                <td>
-                    <label>¿Padeció o padece de enuresis?</label>
-                    <br>
-                    <input type="radio" name="Enuresis" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Enuresis" value="FALSE">
+                    <input type="radio" name="malaria" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>¿Se chupa el dedo?</label>
+                    <label for="desnutricion">¿Padeció o padece de desnutrición?</label>
                     <br>
-                    <input type="radio" name="ChupaDedo" value="TRUE">
+                    <input type="radio" name="desnutricion" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="ChupaDedo" value="FALSE">
+                    <input type="radio" name="desnutricion" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Padeció o padece de onicofagia (se come las uñas)?</label>
+                    <label for="diabetes">¿Padece de diabetes?</label>
                     <br>
-                    <input type="radio" name="Onicofagia" value="TRUE">
+                    <input type="radio" name="diabetes" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="diabetes" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="dislipidemias">¿Padeció o padece de dislipidemias?</label>
+                    <br>
+                    <input type="radio" name="dislipidemias" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="dislipidemias" value="FALSE">
+                    <label>No</label>
+                </td>
+                <td>
+                    <label for="obesidad">¿Padeció o padece de obesidad?</label>
+                    <br>
+                    <input type="radio" name="obesidad" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="obesidad" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="trastorno_apetito">¿Padeció o padece de trastornos de apetito?</label>
+                    <br>
+                    <input type="radio" name="trastorno_apetito" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="trastorno_apetito" value="FALSE">
+                    <label>No</label>
+                </td>
+                <td>
+                    <label for="enuresis">¿Padeció o padece de enuresis?</label>
+                    <br>
+                    <input type="radio" name="enuresis" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="enuresis" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="chupa_dedo">¿Se chupa el dedo?</label>
+                    <br>
+                    <input type="radio" name="chupa_dedo" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="chupa_dedo" value="FALSE">
+                    <label>No</label>
+                </td>
+                <td>
+                    <label for="onicofagia">¿Padeció o padece de onicofagia (se come las uñas)?</label>
+                    <br>
+                    <input type="radio" name="onicofagia" value="TRUE">
                     <label>Si</label>
-                    <input type="radio" name="Onicofagia" value="FALSE">
+                    <input type="radio" name="onicofagia" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>¿Padeció o padece de trastornos de llanto?</label>
+                    <label for="trastorno_llanto">¿Padeció o padece de trastornos de llanto?</label>
                     <br>
-                    <input type="radio" name="TrastornoLlanto" value="TRUE">
+                    <input type="radio" name="trastorno_llanto" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="TrastornoLlanto" value="FALSE">
+                    <input type="radio" name="trastorno_llanto" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Padece de hipertensión arterial sistémica?</label>
+                    <label for="hipertension_arterial">¿Padece de hipertensión arterial sistémica?</label>
                     <br>
-                    <input type="radio" name="HTASistemica" value="TRUE">
+                    <input type="radio" name="hipertension_arterial" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="HTASistemica" value="FALSE">
-                    <label>No</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>¿Padece de tromboembolismo?</label>
-                    <br>
-                    <input type="radio" name="Tromboembolismo" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Tromboembolismo" value="FALSE">
-                    <label>No</label>
-                </td>
-                <td>
-                    <label>¿Padece de varices?</label>
-                    <br>
-                    <input type="radio" name="Varices" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Varices" value="FALSE">
+                    <input type="radio" name="hipertension_arterial" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>¿Padece de cardiopatia?</label>
+                    <label for="tromboembolismo">¿Padece de tromboembolismo?</label>
                     <br>
-                    <input type="radio" name="Cardiopatia" value="TRUE">
+                    <input type="radio" name="tromboembolismo" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Cardiopatia" value="FALSE">
+                    <input type="radio" name="tromboembolismo" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Padece de asma?</label>
+                    <label for="varices">¿Padece de varices?</label>
                     <br>
-                    <input type="radio" name="Asma" value="TRUE">
+                    <input type="radio" name="varices" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Asma" value="FALSE">
-                    <label>No</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>¿Padece de neumonía?</label>
-                    <br>
-                    <input type="radio" name="Neumonia" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Neumonia" value="FALSE">
-                    <label>No</label>
-                </td>
-                <td>
-                    <label>¿Padeció o padece de gastroenteropatias?</label>
-                    <br>
-                    <input type="radio" name="Gastroenteropatias" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Gastroenteropatias" value="FALSE">
+                    <input type="radio" name="varices" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>¿Padeció o padece de hepatopatias?</label>
+                    <label for="cardiopatia">¿Padece de cardiopatia?</label>
                     <br>
-                    <input type="radio" name="Hepatopatias" value="TRUE">
+                    <input type="radio" name="cardiopatia" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Hepatopatias" value="FALSE">
+                    <input type="radio" name="cardiopatia" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Padeció o padece de trastornos de evacuación?</label>
+                    <label for="asma">¿Padece de asma?</label>
                     <br>
-                    <input type="radio" name="TrastornosEvacuacion" value="TRUE">
+                    <input type="radio" name="asma" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="TrastornosEvacuacion" value="FALSE">
-                    <label>No</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>¿Padeció o padece de colagenopatías?</label>
-                    <br>
-                    <input type="radio" name="Colagenopatias" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Colagenopatias" value="FALSE">
-                    <label>No</label>
-                </td>
-                <td>
-                    <label>¿Padeció o padece de artritis?</label>
-                    <br>
-                    <input type="radio" name="Artritis" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Artritis" value="FALSE">
+                    <input type="radio" name="asma" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>¿Padeció o padece de trastornos miccionales?</label>
+                    <label for="neumonia">¿Padece de neumonía?</label>
                     <br>
-                    <input type="radio" name="TrastornosMiccionales" value="TRUE">
+                    <input type="radio" name="neumonia" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="TrastornosMiccionales" value="FALSE">
+                    <input type="radio" name="neumonia" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Padeció o padece de enfermedad renal?</label>
+                    <label for="gastroenteropatias">¿Padeció o padece de gastroenteropatias?</label>
                     <br>
-                    <input type="radio" name="EnfermedadRenal" value="TRUE">
+                    <input type="radio" name="gastroenteropatias" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="EnfermedadRenal" value="FALSE">
-                    <label>No</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>¿Padece de alergias?</label>
-                    <br>
-                    <input type="radio" name="Alergias" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Alergias" value="FALSE">
-                    <label>No</label>
-                </td>
-                <td>
-                    <label>¿Padeció o padece de trastornos del sueño?</label>
-                    <br>
-                    <input type="radio" name="TrastornosSuenio" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="TrastornosSuenio" value="FALSE">
+                    <input type="radio" name="gastroenteropatias" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>¿Padeció o padece de violencia psicológica?</label>
+                    <label for="hepatopatias">¿Padeció o padece de hepatopatias?</label>
                     <br>
-                    <input type="radio" name="ViolenciaPsicologica" value="TRUE">
+                    <input type="radio" name="hepatopatias" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="ViolenciaPsicologica" value="FALSE">
+                    <input type="radio" name="hepatopatias" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Padeció o padece de violencia física?</label>
+                    <label for="trastornos_evacuacion">¿Padeció o padece de trastornos de evacuación?</label>
                     <br>
-                    <input type="radio" name="ViolenciaFisica" value="TRUE">
+                    <input type="radio" name="trastornos_evacuacion" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="ViolenciaFisica" value="FALSE">
-                    <label>No</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>¿Padeció o padece de violencia sexual?</label>
-                    <br>
-                    <input type="radio" name="ViolenciaSexual" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="ViolenciaSexual" value="FALSE">
-                    <label>No</label>
-                </td>
-                <td>
-                    <label>¿Ha sufrido accidentes?</label>
-                    <br>
-                    <input type="radio" name="Accidentes" value="TRUE">
-                    <label>Sí</label>
-                    <input type="radio" name="Accidentes" value="FALSE">
+                    <input type="radio" name="trastornos_evacuacion" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="OtrasPatologias">Indique, si las hay, otras patologías que padezca o haya padecido:</label>
+                    <label for="colagenopatias">¿Padeció o padece de colagenopatías?</label>
                     <br>
-                    <textarea id="OtrasPatologias" name="OtrasPatologias"></textarea>
+                    <input type="radio" name="colagenopatias" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="colagenopatias" value="FALSE">
+                    <label>No</label>
                 </td>
                 <td>
-                    <label for="GrupoSanguineo">Indique el grupo sanguíneo:</label>
+                    <label for="artritis">¿Padeció o padece de artritis?</label>
                     <br>
-                    <select id="GrupoSanguineo" name="GrupoSanguineo">
+                    <input type="radio" name="artritis" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="artritis" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="trastornos_miccionales">¿Padeció o padece de trastornos miccionales?</label>
+                    <br>
+                    <input type="radio" name="trastornos_miccionales" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="trastornos_miccionales" value="FALSE">
+                    <label>No</label>
+                </td>
+                <td>
+                    <label for="enfermedad_renal">¿Padeció o padece de enfermedad renal?</label>
+                    <br>
+                    <input type="radio" name="enfermedad_renal" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="enfermedad_renal" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="alergias">¿Padece de alergias?</label>
+                    <br>
+                    <input type="radio" name="alergias" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="alergias" value="FALSE">
+                    <label>No</label>
+                </td>
+                <td>
+                    <label for="trastornos_suenio">¿Padeció o padece de trastornos del sueño?</label>
+                    <br>
+                    <input type="radio" name="trastornos_suenio" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="trastornos_suenio" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="violencia_psicologica">¿Padeció o padece de violencia psicológica?</label>
+                    <br>
+                    <input type="radio" name="violencia_psicologica" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="violencia_psicologica" value="FALSE">
+                    <label>No</label>
+                </td>
+                <td>
+                    <label for="violencia_fisica">¿Padeció o padece de violencia física?</label>
+                    <br>
+                    <input type="radio" name="violencia_fisica" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="violencia_fisica" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="violencia_sexual">¿Padeció o padece de violencia sexual?</label>
+                    <br>
+                    <input type="radio" name="violencia_sexual" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="violencia_sexual" value="FALSE">
+                    <label>No</label>
+                </td>
+                <td>
+                    <label for="accidentes">¿Ha sufrido accidentes?</label>
+                    <br>
+                    <input type="radio" name="accidentes" value="TRUE">
+                    <label>Sí</label>
+                    <input type="radio" name="accidentes" value="FALSE">
+                    <label>No</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="otras_patologias">Indique, si las hay, otras patologías que padezca o haya padecido:</label>
+                    <br>
+                    <textarea id="otras_patologias" name="otras_patologias"></textarea>
+                </td>
+                <td>
+                    <label for="grupo_sanguineo">Indique el grupo sanguíneo:</label>
+                    <br>
+                    <select id="grupo_sanguineo" name="grupo_sanguineo">
                         <option value=""></option>
                         <option value="O-">O-</option>
                         <option value="O+">O+</option>
@@ -706,27 +709,27 @@
             </tr>
             <tr>
                 <td>
-                    <label>¿Ha sido hospitalizado?</label>
+                    <label for="hospitalizacion">¿Ha sido hospitalizado?</label>
                     <br>
-                    <input type="radio" name="Hospitalizacion" value="TRUE">
+                    <input type="radio" name="hospitalizacion" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="Hospitalizacion" value="FALSE">
+                    <input type="radio" name="hospitalizacion" value="FALSE">
                     <label>No</label>
                 </td>
                 <td>
-                    <label>¿Ha sido intervenido quirúrjicamente?</label>
+                    <label for="intervencion_quirurgica">¿Ha sido intervenido quirúrjicamente?</label>
                     <br>
-                    <input type="radio" name="IntervencionQuirurgica" value="TRUE">
+                    <input type="radio" name="intervencion_quirurgica" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="IntervencionQuirurgica" value="FALSE">
+                    <input type="radio" name="intervencion_quirurgica" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="Observaciones">Indique, si es necesario, detalles sobre las patologías que padece o ha padecido el paciente</label>
+                    <label for="observaciones">Indique, si es necesario, detalles sobre las patologías que padece o ha padecido el paciente</label>
                     <br>
-                    <textarea id="Observaciones" name="Observaciones"></textarea>
+                    <textarea id="observaciones" name="observaciones"></textarea>
                 </td>
             </tr>
             <?php @include_once('formulario-pacientes/desarrollo-psicomotor.html')?>
