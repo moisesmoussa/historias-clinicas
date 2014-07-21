@@ -1,6 +1,6 @@
 <h2 align="center">Registro de Paciente</h2>
 <section class="contenedor-formulario">
-    <form id="nuevo-paciente" action="">
+    <form id="datos-paciente" action="">
         <table class="formulario">
             <tr>
                 <td colspan="2">
@@ -64,7 +64,7 @@
             </tr>
             <tr>
                 <td>
-                    <label>Sexo:</label>
+                    <label for="sexo">Sexo:</label>
                     <br>
                     <input type="radio" name="sexo" value="Masculino">Masculino
                     <input type="radio" name="sexo" value="Femenino">Femenino
@@ -90,7 +90,7 @@
                     </select>
                 </td>
                 <td>
-                    <label>¿Es analfabeta?</label>
+                    <label for="analfabeta">¿Es analfabeta?</label>
                     <br>
                     <input type="radio" name="analfabeta" value="TRUE">
                     <label>Sí</label>
@@ -125,7 +125,7 @@
                     <input type="text" id="ocupacion" name="ocupacion">
                 </td>
                 <td>
-                    <label>¿Es cotizante del Seguro Social?</label>
+                    <label for="seguridad_social">¿Es cotizante del Seguro Social?</label>
                     <br>
                     <input type="radio" name="seguridad_social" value="TRUE">
                     <label>Sí</label>
@@ -211,7 +211,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <a class="boton" id="enviar-paciente" href="javascript:void(0);">Enviar</a>
+                    <a class="boton" href="javascript:void(0);">Enviar</a>
                 </td>
             </tr>
             <tr>
@@ -225,7 +225,7 @@
 <?php @include_once( 'formulario-pacientes/antecedentes-perinatales.html')?>
 <?php @include_once( 'formulario-pacientes/antecedentes-sexuales.html')?>
 <section class="contenedor-formulario">
-    <form id="nuevo-paciente" action="">
+    <form id="antecedentes-modo-vida" action="">
         <table class="formulario">
             <tr>
                 <td colspan="2">
@@ -364,7 +364,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <a class="boton" id="enviar-paciente" href="javascript:void(0);">Enviar</a>
+                    <a class="boton" href="javascript:void(0);">Enviar</a>
                 </td>
             </tr>
             <tr>
@@ -376,7 +376,7 @@
     </form>
 </section>
 <section class="contenedor-formulario">
-    <form id="nuevo-paciente" action="">
+    <form id="antecendentes-patologicos" action="">
         <table class="formulario">
             <tr>
                 <td colspan="2">
@@ -794,7 +794,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <a class="boton" id="enviar-paciente" href="javascript:void(0);">Enviar</a>
+                    <a class="boton" href="javascript:void(0);">Enviar</a>
                 </td>
             </tr>
             <tr>

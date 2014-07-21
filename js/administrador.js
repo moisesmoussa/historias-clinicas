@@ -179,9 +179,28 @@ function registrar_paciente(elemento) {
             type: "POST",
             url: basedir + '/json/insertar_datos_paciente.php',
             data: $("#datos-paciente").serialize(), // Adjuntar los campos del formulario a enviar.
+            beforeSend: function () {
+                $('.status').html('Guardando datos...').show();
+            },
+            error: function () {
+                $('.status').html('Error guardando la información').show();
+            },
             success: function (data) {
-                var msg = JSON.parse(data);
-                console.log(msg);
+                var r = JSON.parse(data);
+
+                $('.status').hide();
+
+                if (r.codigo == 0) {
+                    alert('Debe llenar todos los campos');
+                }
+
+                if (r.codigo == 1) {
+                    alert('Paciente agregado exitosamente.');
+                }
+
+                if (r.codigo == 2) {
+                    alert('No se pudo agregar el paciente, es posible que ya exista');
+                }
             }
         });
         break;
@@ -231,6 +250,7 @@ $(document).ready(function () {
         yearEnd: fecha.getFullYear()
     });
 
+    //Verifica la edad del paciente a registrar para activar los formularios "desarrollo psicomotor" y "antecedentes perinatales"
     $('#datos-paciente .calendario').datetimepicker({
         onSelectDate: function (date) {
             var edad = fecha.getFullYear() - parseInt($('#fecha_nacimiento').val().substr(06));
@@ -249,6 +269,7 @@ $(document).ready(function () {
         }
     });
 
+    //Verifica si se ha marcado el sexo de un paciente a registrar para activar el formulario de antecedentes sexuales de acuerdo a la opción marcada
     $('input:radio[name=sexo]').click(function (){
             if($('.antecedentes-sexuales').css('display') == 'none')
                 $('.antecedentes-sexuales').show();
@@ -267,6 +288,7 @@ $(document).ready(function () {
         $("#ciudad_residencia").load(basedir + "/ciudades/" + $(this).val() + ".txt");
     });
 
+    //Valida cuando se hace click en el botón de algún formulario y realiza la acción correspondiente al formulario 
     $('.boton').click(function () {
         if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/*')) {
             $('#id_usuario').val(url.substring(url.lastIndexOf('/') + 1));
