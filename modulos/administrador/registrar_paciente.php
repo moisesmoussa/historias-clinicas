@@ -72,9 +72,7 @@
                 <td>
                     <label for="pais_nacimiento">País de Nacimiento:</label>
                     <br>
-                    <select id="pais_nacimiento" name="pais_nacimiento">
-                        <?php @include_once( 'formulario-pacientes/paises.html')?>
-                    </select>
+                    <?php @include_once( 'formulario-pacientes/paises.html')?>
                 </td>
             </tr>
             <tr>
@@ -224,8 +222,8 @@
 </section>
 <?php @include_once( 'formulario-pacientes/antecedentes-perinatales.html')?>
 <?php @include_once( 'formulario-pacientes/antecedentes-sexuales.html')?>
-<section class="contenedor-formulario">
-    <form id="antecedentes-modo-vida" action="">
+<section class="contenedor-formulario antecedentes-modo-vida">
+    <form id="form-antecedentes-modo-vida" action="">
         <table class="formulario">
             <tr>
                 <td colspan="2">
@@ -279,6 +277,9 @@
                         <option value="29">29</option>
                         <option value="30">30</option>
                     </select>
+                </td>
+                <td class="oculto">
+                    <input class="id_paciente" name="id_paciente" type="text">
                 </td>
             </tr>
             <tr>
@@ -375,8 +376,8 @@
         </table>
     </form>
 </section>
-<section class="contenedor-formulario">
-    <form id="antecendentes-patologicos" action="">
+<section class="contenedor-formulario antecedentes-patologicos">
+    <form id="form-antecedentes-patologicos" action="">
         <table class="formulario">
             <tr>
                 <td colspan="2">
@@ -401,6 +402,9 @@
                     <label>Sí</label>
                     <input type="radio" name="tumor_maligno" value="FALSE">
                     <label>No</label>
+                </td>
+                <td class="oculto">
+                    <input class="id_paciente" name="id_paciente" type="text">
                 </td>
             </tr>
             <tr>

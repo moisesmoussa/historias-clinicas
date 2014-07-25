@@ -1,5 +1,5 @@
 <section class="contenedor-formulario antecedentes-sexuales">
-    <form id="form-antecedentes-sexuales" action="">
+    <form id="form-antecedentes-sexuales-f" action="">
         <table class="formulario">
             <tr>
                 <td colspan="2">
@@ -8,8 +8,6 @@
                     </h3>
                 </td>
             </tr>
-        </table>
-        <table class="formulario femenino">
             <tr>
                 <td>
                     <label for="pubarquia">Edad en la que se presentó la Pubarquia:</label>
@@ -60,6 +58,9 @@
                         <option value="17">17</option>
                         <option value="18">18</option>
                     </select>
+                </td>
+                <td class="oculto">
+                    <input class="id_paciente" name="id_paciente" type="text">
                 </td>
             </tr>
             <tr>
@@ -413,8 +414,27 @@
                     <textarea id="otros_antecedentes_sexuales" name="otros_antecedentes_sexuales"></textarea>
                 </td>
             </tr>
+            <tr>
+                <td colspan="2">
+                    <a class="boton" href="javascript:void(0);">Enviar</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="status"></div>
+                </td>
+            </tr>
         </table>
-        <table class="formulario masculino">
+    </form>
+    <form id="form-antecedentes-sexuales-m" action="">
+        <table class="formulario">
+            <tr>
+                <td colspan="2">
+                    <h3>
+                        <b>Antecedentes Personales Sexuales y Reproductivos</b>
+                    </h3>
+                </td>
+            </tr>
             <tr>
                 <td>
                     <label for="pubarquia">Edad en la que se presentó la Pubarquia:</label>
@@ -463,6 +483,9 @@
                         <option value="15">15</option>
                         <option value="16">16</option>
                     </select>
+                </td>
+                <td class="oculto">
+                    <input class="id_paciente" name="id_paciente" type="text">
                 </td>
             </tr>
             <tr>
@@ -612,8 +635,6 @@
                     <textarea id="otros_antecedentes_sexuales" name="otros_antecedentes_sexuales"></textarea>
                 </td>
             </tr>
-        </table>
-        <table class="formulario">
             <tr>
                 <td colspan="2">
                     <a class="boton" href="javascript:void(0);">Enviar</a>

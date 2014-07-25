@@ -179,3 +179,8 @@ select {
 select:focus {
     border: 4px solid #4799B4;
 }
+.status {
+    font-size: 22px;
+    text-align: center;
+    text-decoration-style: solid;
+}
