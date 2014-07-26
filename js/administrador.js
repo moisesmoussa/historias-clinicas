@@ -322,6 +322,34 @@ function registrar_paciente(elemento) {
     }
 }
 
+//Trae algunos datos importantes de todos los pacientes de la base de datos
+function cargar_pacientes() {
+    $.ajax({
+        async: false,
+        url: basedir + '/json/onload_paciente.php',
+        error: function () {
+            alert('Error cargando la información');
+        },
+        success: function (pacientes) {
+            try {
+                var datos = JSON.parse(pacientes);
+                var html = "<tr><th class='icono-tabla'></th><th>Documento de Identidad</th><th>Nombres</th><th>Apellidos</th><th>Móvil</th><th>Email</th></tr>";
+
+                if (datos.flag) {
+                    for (var i in datos.paciente) {
+                        html += "<tr><td class='icono-tabla' data-id='" + datos.paciente[i].id + "'><i class='fa fa-trash-o fa-2x icon borrar'></i><i class='fa fa-edit fa-2x icon editar'></i></td><td>" + datos.paciente[i].documento_identidad + "</td><td>" + datos.paciente[i].primer_nombre + " " + datos.paciente[i].segundo_nombre + "</td><td>" + datos.paciente[i].primer_apellido + " " + datos.paciente[i].segundo_apellido + "</td><td>" + datos.paciente[i].tlf_movil + "</td><td>" + datos.paciente[i].correo_electronico + "</td></tr>";
+                    }
+
+                    $('.pacientes').html(html);
+                } else
+                    alert('No se encontraron los datos del paciente');
+            } catch (e) {
+                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos");
+            }
+        }
+    });
+}
+
 $(document).ready(function () {
     var fecha = new Date();
     var url;
@@ -336,9 +364,12 @@ $(document).ready(function () {
     if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/*'))
         datos_usuario(url.substring(url.lastIndexOf('/') + 1));
 
-    //Trae de la base de datos la información necesaria de todos los usuarios registrados
-    cargar_usuarios();
+    if (window.location.pathname == basedir + '/administrador/usuario')
+        cargar_usuarios(); //Trae de la base de datos la información necesaria de todos los usuarios registrados
 
+    if (window.location.pathname == basedir + '/administrador/pacientes')
+        cargar_pacientes(); //Trae de la base de datos la información necesaria de todos los pacientes registrados
+    
     //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas
     $('.calendario').datetimepicker({
         lang: 'es',

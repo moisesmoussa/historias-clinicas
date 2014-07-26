@@ -6,6 +6,35 @@
     text-align: left;
     width: 85%;
 }
+.busqueda table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.busqueda table tr {
+    -webkit-transition: background 0.3s, box-shadow 0.3s;
+    -moz-transition: background 0.3s, box-shadow 0.3s;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+.busqueda table tr:hover {
+    background: rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+.busqueda table th {
+    -webkit-font-smoothing: antialiased;
+    background-color: #67B9D4;
+    border: 1px solid #FFF;
+    color: #FFF;
+    cursor: default;
+    font-size: 22px;
+    font-weight: normal;
+    text-align: center;
+}
+.busqueda table td {
+    border-bottom: 1px solid #67B9D4;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 18px;
+    padding: auto 2px;
+}
 .descripcion {
     font-size: 12px;
     padding-left: 5px;
@@ -23,33 +52,4 @@
 }
 .oculto {
     display: none;
-}
-.usuarios {
-    border-collapse: collapse;
-    width: 100%;
-}
-.usuarios tr {
-    -webkit-transition: background 0.3s, box-shadow 0.3s;
-    -moz-transition: background 0.3s, box-shadow 0.3s;
-    transition: background 0.3s, box-shadow 0.3s;
-}
-.usuarios tr:hover {
-    background: rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-}
-.usuarios th {
-    -webkit-font-smoothing: antialiased;
-    background-color: #67B9D4;
-    border: 1px solid #FFF;
-    color: #FFF;
-    cursor: default;
-    font-size: 22px;
-    font-weight: normal;
-    text-align: center;
-}
-.usuarios td {
-    border-bottom: 1px solid #67B9D4;
-    color: rgba(0, 0, 0, 0.85);
-    font-size: 18px;
-    padding: auto 2px;
 }
