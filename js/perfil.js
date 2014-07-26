@@ -13,8 +13,8 @@ function actualizarUsuario() {
         },
         success: function (data) {
             try {
-                var r = JSON.parse(data);
                 $('.status').hide();
+                var r = JSON.parse(data);
 
                 if (r.codigo == 0) {
                     alert('Debe llenar todos los campos');
@@ -44,7 +44,8 @@ function cargar_usuario() {
             $('.status').html('Error cargando la información').show();
         },
         success: function (usuario) {
-            try{
+            try {
+                $('.status').hide();
                 var datos = JSON.parse(usuario);
 
                 if (datos.flag) {
@@ -119,27 +120,32 @@ $(document).ready(function () {
                     $('.status').html('Error cargando la información').show();
                 },
                 success: function (flag) {
-                    var datos = JSON.parse(flag);
+                    try {
+                        $('.status').hide();
+                        var datos = JSON.parse(flag);
 
-                    switch (datos.flag) {
-                    case 0:
-                        alert('La contraseña nueva no coincide');
-                        break;
-                    case 1:
-                        alert('Error en la base de datos');
-                        break;
-                    case 2:
-                        alert('Error con la contraseña actual');
-                        break;
-                    case 3:
-                        alert('No se pudo cambiar la contraseña');
-                        break;
-                    case 4:
-                        alert('Cambio de contraseña exitoso');
-                        $('#nueva-clave').each(function () {
-                            this.reset();
-                        });
-                        break;
+                        switch (datos.flag) {
+                        case 0:
+                            alert('La contraseña nueva no coincide');
+                            break;
+                        case 1:
+                            alert('Error en la base de datos');
+                            break;
+                        case 2:
+                            alert('Error con la contraseña actual');
+                            break;
+                        case 3:
+                            alert('No se pudo cambiar la contraseña');
+                            break;
+                        case 4:
+                            alert('Cambio de contraseña exitoso');
+                            $('#nueva-clave').each(function () {
+                                this.reset();
+                            });
+                            break;
+                        }
+                    } catch (e) {
+                        alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos");
                     }
                 }
             });

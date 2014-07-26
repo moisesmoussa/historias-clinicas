@@ -8,27 +8,18 @@ session_start();
 $msg = NULL;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
-    $administrador = "";
-    
-    if(isset($_SESSION['super_administrador'])){
-        $id_usuario = $_SESSION['super_administrador'];
-    } else if(isset($_SESSION['administrador'])){
-        $id_usuario = $_SESSION['administrador'];
-        $administrador = " AND tipo_usuario != 'Administrador'";
-    }
-
     require_once('../config.php');
     $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
 
     $msg = array();
-    $select = "SELECT id, cedula, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, nombre_usuario, tlf_movil, correo_electronico FROM usuario WHERE tipo_usuario != 'Super Administrador' AND id != ".$id_usuario.$administrador;
+    $select = "SELECT id, documento_identidad, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, tlf_movil, correo_electronico FROM paciente";
     
     if($query = pg_query($select)){
         $msg['flag'] = 1;
         $cont = 0;
         
         while($resultado = pg_fetch_array($query))
-            $msg['usuario'][$cont++] = $resultado;
+            $msg['paciente'][$cont++] = $resultado;
     } else{
         $msg['flag'] = 0;
     }

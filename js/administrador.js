@@ -213,7 +213,6 @@ function insertar_ajax(archivo_php, modulo) {
         success: function (data) {
             try {
                 $('.status').hide();
-                alert(data);
                 var r = JSON.parse(data);
 
                 if (r.codigo == 0) {

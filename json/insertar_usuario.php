@@ -8,10 +8,11 @@
     4 = No se puede insertar en la BD porque el nombre de usuario indicado ya existe y debe ser único
 */
 session_start();
-
 $msg = NULL;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
+    $flag = 1;
+    
     foreach ($_POST as $valor)
         if(!isset($valor) || empty($valor)){
             $flag = 0;
@@ -22,13 +23,12 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
     elseif($_POST['clave'] != $_POST['clave2'])
         $msg['codigo'] = 1;
     else {
+        $_POST['fecha_nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
         require_once('../config.php');
         $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
         
-        $flag = 1;
-        $_POST['fecha_nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
-        
-        if($query = pg_query("SELECT nombre_usuario FROM usuario WHERE nombre_usuario = '".$_POST['nombre_usuario'])){
+        $select = "SELECT nombre_usuario FROM usuario WHERE nombre_usuario = '".$_POST['nombre_usuario']."'";
+        if($query = pg_query($select)){
             $respuesta = pg_fetch_array($query);
             if(empty($respuesta['nombre_usuario'])){
                 $insert_usuario_g = '';

@@ -8,10 +8,8 @@
 session_start();
 $msg = NULL;
 
-if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
+if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {    
     $flag = 1;
-    $_POST['fecha_nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
-    $_POST['fecha_ingreso'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_ingreso'])));
     
     foreach ($_POST as $valor)
         if(!isset($valor) || empty($valor)){
@@ -20,9 +18,12 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         }
 
     if($flag){
+        $_POST['fecha_nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
+        $_POST['fecha_ingreso'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_ingreso'])));
+        
         require_once('../config.php');
         $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
-
+        
         if(isset($_SESSION['super_administrador']))
             $id_usuario = $_SESSION['super_administrador'];
         else if(isset($_SESSION['administrador']))

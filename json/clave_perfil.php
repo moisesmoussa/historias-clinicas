@@ -23,9 +23,9 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         $usuario = $_SESSION['general'];
 
     if($_POST['clave_nueva'] == $_POST['clave_nueva2']){
-        $query = pg_query("SELECT clave FROM usuario WHERE id = ".$usuario);
-
-        if(($resultado = pg_fetch_array($query)))
+        $select = "SELECT clave FROM usuario WHERE id = ".$usuario;
+        if($query = pg_query($select)){
+            $resultado = pg_fetch_array($query);
             if($resultado['clave'] == md5($_POST['clave_actual']))
                 if(pg_query("UPDATE usuario SET clave = '".md5($_POST['clave_nueva'])."' WHERE id = ".$usuario))
                     $msg['flag'] = 4;
@@ -33,12 +33,13 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     $msg['flag'] = 3;
             else
                 $msg['flag'] = 2;
-        else
+        } else{
             $msg['flag'] = 1;
-
+        }
         pg_close($conexion);
-    }else
+    } else{
         $msg['flag'] = 0;
+    }
 }
 echo json_encode($msg);
 ?>

@@ -11,17 +11,17 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
     $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
 
     $msg = array();
-
-    $query = pg_query("SELECT * FROM usuario WHERE id = ".$_POST['usuario']);
-
-    if(($resultado = pg_fetch_array($query))){
-        $msg['flag'] = 1;
+    $select = "SELECT * FROM usuario WHERE id = ".$_POST['usuario'];
+    
+    if($query = pg_query($select)){
+        $resultado = pg_fetch_array($query);
         $msg['usuario'] = $resultado;
         $msg['usuario']['fecha_nacimiento'] = date("d-m-Y", strtotime($msg['usuario']['fecha_nacimiento']));
         $msg['usuario']['fecha_ingreso'] = date("d-m-Y", strtotime($msg['usuario']['fecha_ingreso']));
-    }else
+        $msg['flag'] = 1;
+    } else{
         $msg['flag'] = 0;
-
+    }
     pg_close($conexion);
 }
 echo json_encode($msg);

@@ -11,13 +11,17 @@ function login() {
             alert('Error iniciando sesión.');
         },
         success: function (data) {
-            $('.status').hide();
-            var resultado = JSON.parse(data);
+            try {
+                $('.status').hide();
+                var resultado = JSON.parse(data);
 
-            if (resultado.flag == 0)
-                alert(resultado.msg);
-            else
-                window.location = basedir + resultado.msg;
+                if (resultado.flag == 0)
+                    alert(resultado.msg);
+                else
+                    window.location = basedir + resultado.msg;
+            } catch (e) {
+                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos");
+            }
         }
     });
 }
