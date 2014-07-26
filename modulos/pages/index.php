@@ -1,3 +1,1 @@
-<?php
-print_r($app);
-?>
+<?php print_r($app); ?>

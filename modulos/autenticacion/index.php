@@ -45,7 +45,8 @@
     </section>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
     <?php echo '<script src="'.$app['basedir'].'/js/jquery-2.0.0.min.js"></script>'; 
-          echo '<script async defer src="'.$app['basedir'].'/js/autenticacion.js"></script>'; ?>
+          echo '<script async defer src="'.$app['basedir'].'/js/autenticacion.js"></script>';
+    ?>
 </body>
 
 </html>

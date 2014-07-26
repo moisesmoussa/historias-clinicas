@@ -15,16 +15,14 @@
                     <br>
                     <input id="nombre_usuario" name="nombre_usuario" type="text" required>
                 </td>
-                <?php if(isset($_SESSION['super_administrador']))
-                        echo '<td>
+                <?php if(isset($_SESSION[ 'super_administrador'])) echo '<td>
                                 <label for="tipo_usuario">Tipo de Usuario:</label>
                                 <br>
                                 <select id="tipo_usuario" name="tipo_usuario" required>
                                     <option value="Administrador">Administrador</option>
                                     <option value="General">General</option>
                                 </select>
-                            </td>';
-                ?>
+                            </td>'; ?>
             </tr>
             <tr>
                 <td>

@@ -64,8 +64,8 @@
     </header>
 		<?php
 			/*
-				Aquí se renderizan las vistas o un error 404.
-			*/
+             * Aquí se renderizan las vistas o un error 404.
+			 */
 			if(!@include_once('modulos/'.str_replace('-', '_', $app['controller'].'/'.$app['action'].'.php')))
 				require_once('modulos/errores/404.php');
 		?>

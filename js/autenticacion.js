@@ -1,6 +1,3 @@
-var usuarioModificado = false;
-var claveModificada = false;
-
 function login() {
     $.ajax({
         async: false,
@@ -16,7 +13,7 @@ function login() {
         success: function (data) {
             $('.status').hide();
             var resultado = JSON.parse(data);
-            
+
             if (resultado.flag == 0)
                 alert(resultado.msg);
             else
@@ -26,8 +23,10 @@ function login() {
 }
 
 $(document).ready(function () {
+    var usuarioModificado = false;
+    var claveModificada = false;
     $('.status').hide();
-    
+
     $('input[type=text]').focusin(function () {
         if (!usuarioModificado) {
             $(this).val('');

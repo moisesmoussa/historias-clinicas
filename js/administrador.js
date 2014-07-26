@@ -76,6 +76,10 @@ function cargar_usuarios() {
     });
 }
 
+/* Carga la información de un usuario y la muestra en un formulario para que se puedan modificar
+ * Parámetros:
+ * - "user_id" indica el id del usuario
+ */
 function datos_usuario(user_id) {
     $.ajax({
         async: false,
@@ -189,6 +193,11 @@ function eliminar_usuario(user_id) {
     });
 }
 
+/* Se encarga de insertar en la base de datos los datos del paciente provenientes del formulario que se ha indicado
+ * Parámetros:
+ * - "archivo_php" indica el archivo .php en la carpeta "json" al cual se le envían los datos del formulario para ser insertados en la base de datos
+ * - "modulo" es el nombre del formulario cuyos datos se quieren guardar en la base de datos
+ */
 function insertar_ajax(archivo_php, modulo) {
     $.ajax({
         async: false,
@@ -229,6 +238,10 @@ function insertar_ajax(archivo_php, modulo) {
     });
 }
 
+/* Aplica la acción correspondiente de acuerdo al formulario de datos del paciente que se ha indicado
+ * Parámetros:
+ * - "elemento" indica el nombre del formulario cuyos datos se quiere almacenar en la base de datos
+ */
 function registrar_paciente(elemento) {
     switch (elemento) {
     case "datos-paciente":
@@ -349,7 +362,7 @@ $(document).ready(function () {
         }
     });
 
-    //Carga las ciudades por estado
+    //Carga las ciudades por estado desde un archivo .txt con el nombre del estado indicado en la carpeta "ciudades"
     $('#estado_residencia').change(function () {
         $("#ciudad_residencia").load(basedir + "/ciudades/" + $(this).val() + ".txt");
     });
