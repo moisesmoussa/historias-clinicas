@@ -36,7 +36,7 @@ function actualizarUsuario() {
 }
 
 //Carga la información de un usuario y la muestra en un formulario para que se puedan modificar
-function cargar_usuario() {
+function cargarUsuario() {
     $.ajax({ //Trae de la base de datos todos los datos del usuario
         async: false,
         url: basedir + '/json/onload_perfil.php',
@@ -79,12 +79,54 @@ function cargar_usuario() {
     });
 }
 
+//Actualiza la clave de un usuario en la base de datos
+function actualizarClave(){
+    $.ajax({
+        async: false,
+        url: basedir + '/json/clave_perfil.php',
+        type: 'POST',
+        data: $('#nueva-clave').serialize(),
+        error: function () {
+            $('.status').html('Error cargando la información').show();
+        },
+        success: function (flag) {
+            try {
+                $('.status').hide();
+                var datos = JSON.parse(flag);
+
+                switch (datos.flag) {
+                case 0:
+                    alert('La contraseña nueva no coincide');
+                    break;
+                case 1:
+                    alert('Error en la base de datos');
+                    break;
+                case 2:
+                    alert('Error con la contraseña actual');
+                    break;
+                case 3:
+                    alert('No se pudo cambiar la contraseña');
+                    break;
+                case 4:
+                    alert('Cambio de contraseña exitoso');
+                    $('#nueva-clave').each(function () {
+                        this.reset();
+                    });
+                    break;
+                }
+            } catch (e) {
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
+            }
+        }
+    });
+}
+
 $(document).ready(function () {
     var fecha = new Date();
     $('.status').hide();
 
     if (window.location.pathname == (basedir + '/perfil'))
-        cargar_usuario();
+        cargarUsuario();
 
     //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas
     $('.calendario').datetimepicker({
@@ -111,43 +153,6 @@ $(document).ready(function () {
         if (window.location.pathname == (basedir + '/perfil'))
             actualizarUsuario();
         else
-            $.ajax({
-                async: false,
-                url: basedir + '/json/clave_perfil.php',
-                type: 'POST',
-                data: $('#nueva-clave').serialize(),
-                error: function () {
-                    $('.status').html('Error cargando la información').show();
-                },
-                success: function (flag) {
-                    try {
-                        $('.status').hide();
-                        var datos = JSON.parse(flag);
-
-                        switch (datos.flag) {
-                        case 0:
-                            alert('La contraseña nueva no coincide');
-                            break;
-                        case 1:
-                            alert('Error en la base de datos');
-                            break;
-                        case 2:
-                            alert('Error con la contraseña actual');
-                            break;
-                        case 3:
-                            alert('No se pudo cambiar la contraseña');
-                            break;
-                        case 4:
-                            alert('Cambio de contraseña exitoso');
-                            $('#nueva-clave').each(function () {
-                                this.reset();
-                            });
-                            break;
-                        }
-                    } catch (e) {
-                        alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
-                    }
-                }
-            });
+            actualizarClave();
     });
 });

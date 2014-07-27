@@ -49,7 +49,7 @@ function agregarUsuario() {
 }
 
 //Trae algunos datos importantes de todos los usuarios de la base de datos
-function cargar_usuarios() {
+function cargarUsuarios() {
     $.ajax({
         async: false,
         url: basedir + '/json/onload_usuario.php',
@@ -78,15 +78,15 @@ function cargar_usuarios() {
 
 /* Carga la información de un usuario y la muestra en un formulario para que se puedan modificar
  * Parámetros:
- * - "user_id" indica el id del usuario
+ * - "userId" indica el id del usuario
  */
-function datos_usuario(user_id) {
+function mostrarUsuario(userId) {
     $.ajax({
         async: false,
         url: basedir + '/json/cargar_usuario.php',
         type: 'POST',
         data: {
-            usuario: user_id
+            usuario: userId
         },
         error: function () {
             alert('Error cargando la información');
@@ -129,7 +129,7 @@ function datos_usuario(user_id) {
 }
 
 //Actualiza los datos del perfil del usuario
-function actualizar_usuario() {
+function actualizarUsuario() {
     $.ajax({
         async: false,
         url: basedir + '/json/actualizar_usuario.php',
@@ -165,13 +165,13 @@ function actualizar_usuario() {
 }
 
 //Se encarga de eliminar un usuario de la base de datos
-function eliminar_usuario(user_id) {
+function eliminarUsuario(userId) {
     $.ajax({
         async: false,
         url: basedir + '/json/eliminar_usuario.php',
         type: 'POST',
         data: {
-            usuario: user_id
+            usuario: userId
         },
         error: function () {
             alert('Error enviando la información');
@@ -182,7 +182,7 @@ function eliminar_usuario(user_id) {
 
                 if (msg) {
                     alert('Usuario eliminado exitosamente');
-                    cargar_usuarios();
+                    cargarUsuarios();
                 } else {
                     alert('No se pudo eliminar el usuario');
                 }
@@ -195,15 +195,15 @@ function eliminar_usuario(user_id) {
 
 /* Se encarga de insertar en la base de datos los datos del paciente provenientes del formulario que se ha indicado
  * Parámetros:
- * - "archivo_php" indica el archivo .php en la carpeta "json" al cual se le envían los datos del formulario para ser insertados en la base de datos
- * - "modulo" es el nombre del formulario cuyos datos se quieren guardar en la base de datos
+ * - "archivoPhp" indica el archivo .php en la carpeta "json" al cual se le envían los datos del formulario para ser insertados en la base de datos
+ * - "formulario" es el nombre del formulario cuyos datos se quieren guardar en la base de datos
  */
-function insertar_ajax(archivo_php, modulo) {
+function ajaxInsertarPaciente(archivoPhp, formulario) {
     $.ajax({
         async: false,
         type: 'POST',
-        url: basedir + '/json/' + archivo_php,
-        data: $('#' + modulo).serialize(), // Adjuntar los campos del formulario a enviar.
+        url: basedir + '/json/' + archivoPhp,
+        data: $('#' + formulario).serialize(), // Adjuntar los campos del formulario a enviar.
         beforeSend: function () {
             $('.status').html('Guardando datos...').show();
         },
@@ -220,9 +220,9 @@ function insertar_ajax(archivo_php, modulo) {
                 }
 
                 if (r.codigo == 1) {
-                    $('#' + modulo + ' .boton').prop('data-enable', 'false');
-                    $('#' + modulo + ' .boton').css('background-color', '#ECECEC');
-                    $('#' + modulo + ' .boton').css('cursor', 'default');
+                    $('#' + formulario + ' .boton').prop('data-enable', 'false');
+                    $('#' + formulario + ' .boton').css('background-color', '#ECECEC');
+                    $('#' + formulario + ' .boton').css('cursor', 'default');
 
                     alert('Datos del paciente agregados exitosamente.');
                 }
@@ -237,93 +237,101 @@ function insertar_ajax(archivo_php, modulo) {
     });
 }
 
+/* Inserta en la base de datos los datos personales, de contacto y dirección del paciente y posteriormente habilita los formularios restantes para un paciente de acuerdo
+ * al cumplimiento o no de ciertas condiciones según la información brindada por este formulario
+ * Parámetros:
+ * - "formulario" indica el nombre del formulario cuyos datos se quiere almacenar en la base de datos
+ */
+function ajaxInsertarDatosPaciente(formulario){
+    $.ajax({
+        async: false,
+        type: 'POST',
+        url: basedir + '/json/insertar_datos_paciente.php',
+        data: $('#datos-paciente').serialize(), // Adjuntar los campos del formulario a enviar.
+        beforeSend: function () {
+            $('.status').html('Guardando datos...').show();
+        },
+        error: function () {
+            $('.status').html('Error guardando la información').show();
+        },
+        success: function (data) {
+            try {
+                $('.status').hide();
+                var r = JSON.parse(data);
+
+                if (r.codigo == 0) {
+                    alert('Debe llenar todos los campos');
+                }
+
+                if (r.codigo == 1) {
+                    var fecha = new Date();
+                    $('.id_paciente').each(function () {
+                        $(this).val(r.id);
+                    });
+                    $('#' + formulario + ' .boton').prop('data-enable', 'false');
+                    $('#' + formulario + ' .boton').css('background-color', '#ECECEC');
+                    $('#' + formulario + ' .boton').css('cursor', 'default');
+                    $('.antecedentes-modo-vida').show();
+                    $('.antecedentes-patologicos').show();
+                    $('.antecedentes-sexuales').show();
+
+                    //Verifica el sexo indicado de un paciente para activar el formulario de antecedentes sexuales de acuerdo a la opción seleccionada
+                    if ($('input:radio[name=sexo]').val() == 'Masculino')
+                        $('#form-antecedentes-sexuales-f').hide();
+                    else
+                        $('#form-antecedentes-sexuales-m').hide();
+
+                    //Verifica la edad del paciente a registrar para activar los formularios "desarrollo psicomotor" y "antecedentes perinatales"
+                    if (edad < 10)
+                        $('.desarrollo-psicomotor').show();
+
+                    if (edad < 19)
+                        $('.antecedentes-perinatales').show();
+
+                    alert('Paciente agregado exitosamente.');
+                }
+
+                if (r.codigo == 2) {
+                    alert('No se pudo agregar el paciente, es posible que ya exista');
+                }
+            } catch (e) {
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
+            }
+        }
+    });
+}
+
 /* Aplica la acción correspondiente de acuerdo al formulario de datos del paciente que se ha indicado
  * Parámetros:
- * - "elemento" indica el nombre del formulario cuyos datos se quiere almacenar en la base de datos
+ * - "formulario" indica el nombre del formulario cuyos datos se quiere almacenar en la base de datos
  */
-function registrar_paciente(elemento) {
-    switch (elemento) {
+function agregarPaciente(formulario) {
+    switch (formulario) {
     case 'datos-paciente':
-        $.ajax({
-            async: false,
-            type: 'POST',
-            url: basedir + '/json/insertar_datos_paciente.php',
-            data: $('#datos-paciente').serialize(), // Adjuntar los campos del formulario a enviar.
-            beforeSend: function () {
-                $('.status').html('Guardando datos...').show();
-            },
-            error: function () {
-                $('.status').html('Error guardando la información').show();
-            },
-            success: function (data) {
-                try {
-                    $('.status').hide();
-                    var r = JSON.parse(data);
-
-                    if (r.codigo == 0) {
-                        alert('Debe llenar todos los campos');
-                    }
-
-                    if (r.codigo == 1) {
-                        var fecha = new Date();
-                        $('.id_paciente').each(function () {
-                            $(this).val(r.id);
-                        });
-                        $('#' + elemento + ' .boton').prop('data-enable', 'false');
-                        $('#' + elemento + ' .boton').css('background-color', '#ECECEC');
-                        $('#' + elemento + ' .boton').css('cursor', 'default');
-                        $('.antecedentes-modo-vida').show();
-                        $('.antecedentes-patologicos').show();
-                        $('.antecedentes-sexuales').show();
-
-                        //Verifica el sexo indicado de un paciente para activar el formulario de antecedentes sexuales de acuerdo a la opción seleccionada
-                        if ($('input:radio[name=sexo]').val() == 'Masculino')
-                            $('#form-antecedentes-sexuales-f').hide();
-                        else
-                            $('#form-antecedentes-sexuales-m').hide();
-
-                        //Verifica la edad del paciente a registrar para activar los formularios "desarrollo psicomotor" y "antecedentes perinatales"
-                        if (edad < 10)
-                            $('.desarrollo-psicomotor').show();
-
-                        if (edad < 19)
-                            $('.antecedentes-perinatales').show();
-
-                        alert('Paciente agregado exitosamente.');
-                    }
-
-                    if (r.codigo == 2) {
-                        alert('No se pudo agregar el paciente, es posible que ya exista');
-                    }
-                } catch (e) {
-                    alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
-                }
-            }
-        });
         break;
     case 'form-antecedentes-perinatales':
-        insertar_ajax('insertar_antecedentes_perinatales.php', elemento);
+        ajaxInsertarPaciente('insertar_antecedentes_perinatales.php', formulario);
         break;
     case 'form-antecedentes-sexuales-f':
-        insertar_ajax('insertar_antecedentes_sexuales.php', elemento);
+        ajaxInsertarPaciente('insertar_antecedentes_sexuales.php', formulario);
         break;
     case 'form-antecedentes-sexuales-m':
-        insertar_ajax('insertar_antecedentes_sexuales.php', elemento);
+        ajaxInsertarPaciente('insertar_antecedentes_sexuales.php', formulario);
         break;
     case 'form-antecedentes-modo-vida':
-        insertar_ajax('insertar_antecedentes_modo_vida.php', elemento);
+        ajaxInsertarPaciente('insertar_antecedentes_modo_vida.php', formulario);
         break;
     case 'form-antecedentes-patologicos':
-        insertar_ajax('insertar_antecedentes_patologicos.php', elemento);
+        ajaxInsertarPaciente('insertar_antecedentes_patologicos.php', formulario);
         break;
     case 'form-desarrollo-psicomotor':
-        insertar_ajax('insertar_desarrollo_psicomotor.php', elemento);
+        ajaxInsertarPaciente('insertar_desarrollo_psicomotor.php', formulario);
         break;
     }
 }
 
 //Trae algunos datos importantes de todos los pacientes de la base de datos
-function cargar_pacientes() {
+function cargarPacientes() {
     $.ajax({
         async: false,
         url: basedir + '/json/onload_paciente.php',
@@ -350,6 +358,35 @@ function cargar_pacientes() {
     });
 }
 
+//Se encarga de eliminar un usuario de la base de datos
+function eliminarPaciente(patientId) {
+    $.ajax({
+        async: false,
+        url: basedir + '/json/eliminar_paciente.php',
+        type: 'POST',
+        data: {
+            paciente: patientId
+        },
+        error: function () {
+            alert('Error enviando la información');
+        },
+        success: function (resultado) {
+            try {
+                var msg = JSON.parse(resultado);
+
+                if (msg) {
+                    alert('Paciente eliminado exitosamente');
+                    cargarUsuarios();
+                } else {
+                    alert('No se pudo eliminar el paciente');
+                }
+            } catch (e) {
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
+            }
+        }
+    });
+}
+
 $(document).ready(function () {
     var fecha = new Date();
     var url;
@@ -362,13 +399,13 @@ $(document).ready(function () {
 
     //Si esta en el perfil de un usuario para modificar sus datos, se cargan los datos del usuario seleccionado
     if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/*'))
-        datos_usuario(url.substring(url.lastIndexOf('/') + 1));
+        mostrarUsuario(url.substring(url.lastIndexOf('/') + 1));
 
     if (window.location.pathname == basedir + '/administrador/usuario')
-        cargar_usuarios(); //Trae de la base de datos la información necesaria de todos los usuarios registrados
+        cargarUsuarios(); //Trae de la base de datos la información necesaria de todos los usuarios registrados
 
     if (window.location.pathname == basedir + '/administrador/pacientes')
-        cargar_pacientes(); //Trae de la base de datos la información necesaria de todos los pacientes registrados
+        cargarPacientes(); //Trae de la base de datos la información necesaria de todos los pacientes registrados
     
     //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas
     $('.calendario').datetimepicker({
@@ -401,10 +438,10 @@ $(document).ready(function () {
     $('.boton').click(function () {
         if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/*')) {
             $('#id_usuario').val(url.substring(url.lastIndexOf('/') + 1));
-            actualizar_usuario();
+            actualizarUsuario();
         } else if (url == basedir + '/administrador/registrar-paciente') {
             if ($(this).prop('data-enable') != 'false')
-                registrar_paciente($(this).parents('form').attr('id'));
+                agregarPaciente($(this).parents('form').attr('id'));
         } else {
             agregarUsuario();
         }
@@ -414,8 +451,8 @@ $(document).ready(function () {
     $(document).on('click', '.usuarios tr .icono-tabla .borrar', function () {
         var confirmacion = confirm('¿Está seguro que desea eliminar este usuario?');
         if (confirmacion) {
-            eliminar_usuario($(this).parent().attr('data-id'));
-            cargar_usuarios();
+            eliminarUsuario($(this).parent().attr('data-id'));
+            cargarUsuarios(); //Refresca la lista de usuarios
         }
     });
 
