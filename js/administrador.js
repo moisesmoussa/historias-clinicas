@@ -455,14 +455,28 @@ $(document).ready(function () {
             cargarUsuarios(); //Refresca la lista de usuarios
         }
     });
+    
+    //Verifica la eliminación de un paciente de la base de datos. Si es aceptada, se procede a eliminar el paciente indicado
+    $(document).on('click', '.pacientes tr .icono-tabla .borrar', function () {
+        var confirmacion = confirm('¿Está seguro que desea eliminar este paciente?');
+        if (confirmacion) {
+            eliminarPaciente($(this).parent().attr('data-id'));
+            cargarPacientes(); //Refresca la lista de pacientes
+        }
+    });
 
     //Redirige a la página que contiene todos los datos del usuario indicado para que se puedan ver y editar
     $(document).on('click', '.usuarios tr .icono-tabla .editar', function () {
         window.location.replace(basedir + '/administrador/modificar-usuario/' + $(this).parent().attr('data-id'));
     });
 
+    //Redirige a la página que contiene todos los datos del paciente indicado para que se puedan ver y editar
+    $(document).on('click', '.pacientes tr .icono-tabla .editar', function () {
+        window.location.replace(basedir + '/administrador/modificar-paciente/' + $(this).parent().attr('data-id'));
+    });
+    
     //Marca o desmarcar filas de la tabla
-    $(document).on('click', '.usuarios td', function (e) {
+    $(document).on('click', '.busqueda table td', function (e) {
         if ($(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')
             $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(18, 182, 235, 0.2)');
         else
