@@ -134,7 +134,7 @@ function actualizarUsuario() {
         async: false,
         url: basedir + '/json/actualizar_usuario.php',
         type: 'POST',
-        data: $('#act-usuario').serialize(),
+        data: $('#actualizar-usuario').serialize(),
         beforeSend: function () {
             $('.status').html('Cargando...').show();
         },

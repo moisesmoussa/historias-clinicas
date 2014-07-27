@@ -1,6 +1,6 @@
 <section class="contenedor-formulario">
     <h2 align="center">Perfil de Usuario</h2>
-    <form id="act-usuario" action="">
+    <form id="actualizar-usuario" action="">
         <table class="formulario">
             <tr>
                 <td>
