@@ -21,7 +21,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
 
     $select = 'SELECT * FROM usuario WHERE id = '.$usuario;
     if($query = pg_query($select)){
-        $msg['usuario'] = pg_fetch_array($query);
+        $msg['usuario'] = pg_fetch_assoc($query);
         $msg['usuario']['fecha_nacimiento'] = date('d-m-Y', strtotime($msg['usuario']['fecha_nacimiento']));
         $msg['usuario']['fecha_ingreso'] = date('d-m-Y', strtotime($msg['usuario']['fecha_ingreso']));
         $msg['flag'] = 1;

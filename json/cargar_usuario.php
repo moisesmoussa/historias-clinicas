@@ -13,7 +13,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
     $select = 'SELECT * FROM usuario WHERE id = '.$_POST['usuario'];
     
     if($query = pg_query($select)){
-        $resultado = pg_fetch_array($query);
+        $resultado = pg_fetch_assoc($query);
         $msg['usuario'] = $resultado;
         $msg['usuario']['fecha_nacimiento'] = date('d-m-Y', strtotime($msg['usuario']['fecha_nacimiento']));
         $msg['usuario']['fecha_ingreso'] = date('d-m-Y', strtotime($msg['usuario']['fecha_ingreso']));

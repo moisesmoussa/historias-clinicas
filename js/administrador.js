@@ -96,28 +96,16 @@ function mostrarUsuario(userId) {
                 var datos = JSON.parse(usuario);
 
                 if (datos.flag) {
-                    $('#nombre_usuario').val(datos.usuario.nombre_usuario);
-                    $('#tipo_usuario').val(datos.usuario.tipo_usuario);
-                    $('#primer_nombre').val(datos.usuario.primer_nombre);
-                    $('#segundo_nombre').val(datos.usuario.segundo_nombre);
-                    $('#primer_apellido').val(datos.usuario.primer_apellido);
-                    $('#segundo_apellido').val(datos.usuario.segundo_apellido);
-                    $('#fecha_nacimiento').val(datos.usuario.fecha_nacimiento.replace(/-/g, '/'));
-                    $('#lugar_nacimiento').val(datos.usuario.lugar_nacimiento);
-                    $('#cedula').val(datos.usuario.cedula);
-                    $('#estado_residencia').val(datos.usuario.estado_residencia);
-                    $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.usuario.estado_residencia + '.txt', function () {
-                        $(this).val(datos.usuario.ciudad_residencia);
-                    });
-                    $('#direccion').val(datos.usuario.direccion);
-                    $('#codigo_postal').val(datos.usuario.codigo_postal);
-                    $('#lugar_trabajo').val(datos.usuario.lugar_trabajo);
-                    $('#tlf_movil').val(datos.usuario.tlf_movil);
-                    $('#tlf_casa').val(datos.usuario.tlf_casa);
-                    $('#correo_electronico').val(datos.usuario.correo_electronico);
-                    $('#correo_alternativo').val(datos.usuario.correo_alternativo);
-                    $('#especialidad').val(datos.usuario.especialidad);
-                    $('#fecha_ingreso').val(datos.usuario.fecha_ingreso.replace(/-/g, '/'));
+                    for(var i in datos.usuario){
+                        if(i == 'ciudad_residencia')
+                            $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.usuario.estado_residencia + '.txt', function () {
+                                $(this).val(datos.usuario.ciudad_residencia);
+                            });
+                        else if(i.match('[fecha]*'))
+                            $('#' + i).val(datos.usuario[i].replace(/-/g, '/'));
+                        else
+                            $('#' + i).val(datos.usuario[i]);
+                    }
                 } else {
                     alert('No se pudo encontrar los datos del usuario');
                 }
