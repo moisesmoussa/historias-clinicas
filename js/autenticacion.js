@@ -20,7 +20,7 @@ function login() {
                 else
                     window.location = basedir + resultado.msg;
             } catch (e) {
-                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos");
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
         }
     });

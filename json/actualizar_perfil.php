@@ -18,11 +18,11 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         }
 
     if($flag){
-        $_POST['fecha_nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
-        $_POST['fecha_ingreso'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_ingreso'])));
+        $_POST['fecha_nacimiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
+        $_POST['fecha_ingreso'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_ingreso'])));
         
         require_once('../config.php');
-        $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
+        $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
         
         if(isset($_SESSION['super_administrador']))
             $id_usuario = $_SESSION['super_administrador'];
@@ -32,7 +32,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $id_usuario = $_SESSION['general'];
 
         $columnas = 'UPDATE usuario SET (fecha_ua, usuario_ua, ';
-        $valores = '= (\''.date("Y-m-d").'\', '.$id_usuario.', ';
+        $valores = '= (\''.date('Y-m-d').'\', '.$id_usuario.', ';
         $len = count($_POST);
         $cont = 0;
 

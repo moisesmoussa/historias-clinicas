@@ -6,11 +6,11 @@
 $msg = NULL;
 
 require_once('../config.php');
-$conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
+$conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
-$query = "SELECT id, nombre_usuario, tipo_usuario FROM usuario WHERE nombre_usuario = '".$_POST['nombre']."' AND clave = '".md5($_POST['clave'])."'";
+$query = 'SELECT id, nombre_usuario, tipo_usuario FROM usuario WHERE nombre_usuario = \''.$_POST['nombre'].'\' AND clave = \''.md5($_POST['clave']).'\'';
+
 if($login_query = pg_query($query)){
-    $msg = array();
     $resultado = pg_fetch_array($login_query);
     session_start();
     $_SESSION[strtolower(str_replace(' ', '_', $resultado['tipo_usuario']))] = $resultado['id'];
@@ -24,7 +24,7 @@ if($login_query = pg_query($query)){
     $msg['msg'] = $modulo;
     $msg['flag'] = 1;
 } else{
-    $msg['msg'] = "Usuario o clave inválida";
+    $msg['msg'] = 'Usuario o clave inválida';
     $msg['flag'] = 0;
 }
 pg_close($conexion);

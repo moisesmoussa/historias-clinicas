@@ -1,16 +1,16 @@
 $(document).ready(function () {
-    $(".perfil").mouseenter(function () {
-        if ($(".items-perfil").css("display") == "none")
-            $(".items-perfil").slideToggle();
+    $('.perfil').mouseenter(function () {
+        if ($('.items-perfil').css('display') == 'none')
+            $('.items-perfil').slideToggle();
     });
 
-    $(".area-perfil").mouseleave(function () {
-        if ($(".items-perfil").css("display") != "none")
-            $(".items-perfil").slideToggle();
+    $('.area-perfil').mouseleave(function () {
+        if ($('.items-perfil').css('display') != 'none')
+            $('.items-perfil').slideToggle();
     });
 
-    $("#insertar").click(function () {
-        $(".item-menu").slideToggle();
+    $('#insertar').click(function () {
+        $('.item-menu').slideToggle();
     });
 
     $('.tlf').keypress(function (evento) {

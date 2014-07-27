@@ -28,7 +28,7 @@ function actualizarUsuario() {
                     alert('No se pudo actualizar el usuario');
                 }
             } catch (e) {
-                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos");
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
             }
 
         }
@@ -58,7 +58,7 @@ function cargar_usuario() {
                     $('#lugar_nacimiento').val(datos.usuario.lugar_nacimiento);
                     $('#cedula').val(datos.usuario.cedula);
                     $('#estado_residencia').val(datos.usuario.estado_residencia);
-                    $('#ciudad_residencia').load(basedir + "/ciudades/" + datos.usuario.estado_residencia + ".txt", function () {
+                    $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.usuario.estado_residencia + '.txt', function () {
                         $(this).val(datos.usuario.ciudad_residencia);
                     });
                     $('#direccion').val(datos.usuario.direccion);
@@ -73,7 +73,7 @@ function cargar_usuario() {
                 } else
                     alert('No se pudo encontrar los datos del usuario');
             } catch (e) {
-                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos");
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
         }
     });
@@ -83,7 +83,7 @@ $(document).ready(function () {
     var fecha = new Date();
     $('.status').hide();
 
-    if (window.location.pathname == (basedir + "/perfil"))
+    if (window.location.pathname == (basedir + '/perfil'))
         cargar_usuario();
 
     //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas
@@ -101,14 +101,14 @@ $(document).ready(function () {
 
     //Carga las ciudades por estado desde un archivo .txt con el nombre del estado indicado en la carpeta "ciudades"
     $('#estado_residencia').change(function () {
-        $("#ciudad_residencia").load(basedir + "/ciudades/" + $(this).val() + ".txt")
+        $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.txt')
     });
 
     /* Si se hace click en el botón del formulario de modificación de datos del usuario se envían los datos al servidor para actualizarlos en la base de datos
      * de lo contrario, si se hace click en el botón del formulario para cambio de contraseña se envían los datos al servidor para actualizar la contraseña
      */
     $('.boton').click(function () {
-        if (window.location.pathname == (basedir + "/perfil"))
+        if (window.location.pathname == (basedir + '/perfil'))
             actualizarUsuario();
         else
             $.ajax({
@@ -145,7 +145,7 @@ $(document).ready(function () {
                             break;
                         }
                     } catch (e) {
-                        alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos");
+                        alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
                     }
                 }
             });

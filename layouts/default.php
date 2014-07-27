@@ -7,19 +7,19 @@
     <meta name="robots" content="noodp, noydir" />
     <meta name="description" content="Ingreso de pacientes y manejo de sus historias clinicas." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-    <link href='<?php echo $app['basedir'].'/css/default.css'; ?>' rel='stylesheet' type='text/css'>
-    <link href='<?php echo $app['basedir'].'/css/font-awesome.min.css';?>' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css">
+    <link href="<?php echo $app['basedir']."/css/default.css"; ?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $app['basedir']."/css/font-awesome.min.css";?>" rel="stylesheet" type="text/css">
     <?php
         if($app['controller'] == 'perfil' || $app['controller'] == 'administrador')
-            echo "<link href='$app[basedir]/css/jquery.datetimepicker.css' rel='stylesheet' type='text/css'>";
+            echo '<link href="'.$app['basedir'].'/css/jquery.datetimepicker.css" rel="stylesheet" type="text/css">';
         if($app['controller'] == 'administrador')
-            echo "<link href='$app[basedir]/css/administrador.css' rel='stylesheet' type='text/css'>";
+            echo '<link href="'.$app['basedir'].'/css/administrador.css" rel="stylesheet" type="text/css">';
     ?>
 </head>
 
 <body>
-    <header class='menu'>
+    <header class="menu">
         <div class="contenedor">
             <section class="contenido">
                 <img src="<?php echo $app['basedir'].'/img/logo.png'; ?>" width="247" height="83">

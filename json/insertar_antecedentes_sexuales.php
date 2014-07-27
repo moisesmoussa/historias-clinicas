@@ -19,9 +19,9 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
     
     if($flag){     
         require_once('../config.php');
-        $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
+        $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
-        if($query = pg_query("SELECT sexo FROM paciente WHERE id = ".$_POST['id_paciente'])){
+        if($query = pg_query('SELECT sexo FROM paciente WHERE id = '.$_POST['id_paciente'])){
             $respuesta = pg_fetch_array($query);
             if($respuesta['sexo'] == 'Masculino'){
                 $columnas = 'INSERT INTO antecedentes_sexuales_hombre (id_paciente, ';
@@ -41,7 +41,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
 
             date_default_timezone_set('Etc/GMT+4');
             $columnas_general = 'INSERT INTO antecedentes_sexuales (fecha_ua, usuario_ua, creador, id_paciente, ';
-            $valores_general = 'VALUES (\''.date("Y-m-d").'\', '.$id_usuario.', '.$id_usuario.', '.$_POST['id_paciente'].', ';
+            $valores_general = 'VALUES (\''.date('Y-m-d').'\', '.$id_usuario.', '.$id_usuario.', '.$_POST['id_paciente'].', ';
             unset($_POST['id_paciente']);
 
             foreach ($_POST as $clave => $valor){

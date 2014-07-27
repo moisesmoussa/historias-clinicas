@@ -23,11 +23,11 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
     elseif($_POST['clave'] != $_POST['clave2'])
         $msg['codigo'] = 1;
     else {
-        $_POST['fecha_nacimiento'] = date("Y-m-d", strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
+        $_POST['fecha_nacimiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
         require_once('../config.php');
-        $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
+        $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
         
-        $select = "SELECT nombre_usuario FROM usuario WHERE nombre_usuario = '".$_POST['nombre_usuario']."'";
+        $select = 'SELECT nombre_usuario FROM usuario WHERE nombre_usuario = \''.$_POST['nombre_usuario'].'\'';
         if($query = pg_query($select)){
             $respuesta = pg_fetch_array($query);
             if(empty($respuesta['nombre_usuario'])){
@@ -45,14 +45,14 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
 
                 date_default_timezone_set('Etc/GMT+4');
                 $columnas = 'INSERT INTO usuario (fecha_ingreso, fecha_ua, usuario_ua, creador, estado_actual, '.$insert_usuario_g;
-                $valores = 'VALUES (\''.date("Y-m-d").'\', \''.date("Y-m-d").'\', '.$id_usuario.', '.$id_usuario.', \'Activo\', '.$values_usuario_g;
+                $valores = 'VALUES (\''.date('Y-m-d').'\', \''.date('Y-m-d').'\', '.$id_usuario.', '.$id_usuario.', \'Activo\', '.$values_usuario_g;
                 $len = count($_POST);
                 $cont = 1;
 
                 foreach ($_POST as $clave => $valor){
-                    if($clave == "clave2")
+                    if($clave == 'clave2')
                         continue;
-                    if($clave != "clave")
+                    if($clave != 'clave')
                         $dato = $valor;
                     else
                         $dato = md5($valor);
@@ -73,7 +73,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                     require '../PHPMailer/PHPMailerAutoload.php';
 
                     $mail = new PHPMailer;
-                    $mail->CharSet = "UTF-8";                             // Configura la codificación de caracteres en UTF-8
+                    $mail->CharSet = 'UTF-8';                             // Configura la codificación de caracteres en UTF-8
                     $mail->isSMTP();                                      // Configura Mailer para que utilice SMTP
                     $mail->Host = 'smtp.gmail.com';                       // Especifica los servidores SMTP principal y el de respaldo es opcional
                     $mail->Port = 465;                                    // 465: SSL - 587: TLS
@@ -83,8 +83,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                     $mail->SMTPSecure = 'ssl';                            // Habilita la encriptación, también se puede colocar 'tls'
                     $mail->addAddress($_POST['correo_electronico']);      // Agrega dirección de correo del receptor
                     $mail->isHTML(true);                                  // Configura el formato del email a HTML
-                    $mail->Subject = utf8_encode("=?UTF-8?B?" . base64_encode("FUNDAHOG - Datos de la cuenta suministrada para el sistema de Historias Clínicas") .  "?=");
-                    $mail->Body    = "<p>Bienvenido ".$_POST['primer_nombre']." ".$_POST['primer_apellido'].", le hemos asignado un nombre de usuario y una clave para que pueda iniciar sesión en el sistema de Historias Clínicas<br><br><b>Nombre de usuario:</b> ".$_POST['nombre_usuario']."<br><b>Contraseña:</b> ".$_POST['clave']."<br>Saludos de parte de FUNDAHOG</p>";
+                    $mail->Subject = utf8_encode('=?UTF-8?B?' . base64_encode('FUNDAHOG - Datos de la cuenta suministrada para el sistema de Historias Clínicas') .  '?=');
+                    $mail->Body    = '<p>Bienvenido '.$_POST['primer_nombre'].' '.$_POST['primer_apellido'].', le hemos asignado un nombre de usuario y una clave para que pueda iniciar sesión en el sistema de Historias Clínicas<br><br><b>Nombre de usuario:</b> '.$_POST['nombre_usuario'].'<br><b>Contraseña:</b> '.$_POST['clave'].'<br>Saludos de parte de FUNDAHOG</p>';
 
                     $msg['codigo'] = 2;
 

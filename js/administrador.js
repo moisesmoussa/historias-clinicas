@@ -42,7 +42,7 @@ function agregarUsuario() {
                     alert('El nombre de usuario indicado ya existe');
                 }
             } catch (e) {
-                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos");
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
             }
         }
     });
@@ -59,18 +59,18 @@ function cargar_usuarios() {
         success: function (usuarios) {
             try {
                 var datos = JSON.parse(usuarios);
-                var html = "<tr><th class='icono-tabla'></th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Nombre de Usuario</th><th>Móvil</th><th>Email</th></tr>";
+                var html = '<tr><th class="icono-tabla"></th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Nombre de Usuario</th><th>Móvil</th><th>Email</th></tr>';
 
                 if (datos.flag) {
                     for (var i in datos.usuario) {
-                        html += "<tr><td class='icono-tabla' data-id='" + datos.usuario[i].id + "'><i class='fa fa-trash-o fa-2x icon borrar'></i><i class='fa fa-edit fa-2x icon editar'></i></td><td>" + datos.usuario[i].cedula + "</td><td>" + datos.usuario[i].primer_nombre + " " + datos.usuario[i].segundo_nombre + "</td><td>" + datos.usuario[i].primer_apellido + " " + datos.usuario[i].segundo_apellido + "</td><td>" + datos.usuario[i].nombre_usuario + "</td><td>" + datos.usuario[i].tlf_movil + "</td><td>" + datos.usuario[i].correo_electronico + "</td></tr>";
+                        html += '<tr><td class="icono-tabla" data-id="' + datos.usuario[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar"></i><i class="fa fa-edit fa-2x icon editar"></i></td><td>' + datos.usuario[i].cedula + '</td><td>' + datos.usuario[i].primer_nombre + ' ' + datos.usuario[i].segundo_nombre + '</td><td>' + datos.usuario[i].primer_apellido + ' ' + datos.usuario[i].segundo_apellido + '</td><td>' + datos.usuario[i].nombre_usuario + '</td><td>' + datos.usuario[i].tlf_movil + '</td><td>' + datos.usuario[i].correo_electronico + '</td></tr>';
                     }
 
                     $('.usuarios').html(html);
                 } else
                     alert('No se encontraron los datos del usuario');
             } catch (e) {
-                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos");
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
         }
     });
@@ -106,7 +106,7 @@ function datos_usuario(user_id) {
                     $('#lugar_nacimiento').val(datos.usuario.lugar_nacimiento);
                     $('#cedula').val(datos.usuario.cedula);
                     $('#estado_residencia').val(datos.usuario.estado_residencia);
-                    $('#ciudad_residencia').load(basedir + "/ciudades/" + datos.usuario.estado_residencia + ".txt", function () {
+                    $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.usuario.estado_residencia + '.txt', function () {
                         $(this).val(datos.usuario.ciudad_residencia);
                     });
                     $('#direccion').val(datos.usuario.direccion);
@@ -122,7 +122,7 @@ function datos_usuario(user_id) {
                     alert('No se pudo encontrar los datos del usuario');
                 }
             } catch (e) {
-                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos");
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
         }
     });
@@ -158,7 +158,7 @@ function actualizar_usuario() {
                     alert('No se pudo actualizar el usuario');
                 }
             } catch (e) {
-                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos");
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
             }
         }
     });
@@ -187,7 +187,7 @@ function eliminar_usuario(user_id) {
                     alert('No se pudo eliminar el usuario');
                 }
             } catch (e) {
-                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos");
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
         }
     });
@@ -201,9 +201,9 @@ function eliminar_usuario(user_id) {
 function insertar_ajax(archivo_php, modulo) {
     $.ajax({
         async: false,
-        type: "POST",
+        type: 'POST',
         url: basedir + '/json/' + archivo_php,
-        data: $("#" + modulo).serialize(), // Adjuntar los campos del formulario a enviar.
+        data: $('#' + modulo).serialize(), // Adjuntar los campos del formulario a enviar.
         beforeSend: function () {
             $('.status').html('Guardando datos...').show();
         },
@@ -221,8 +221,8 @@ function insertar_ajax(archivo_php, modulo) {
 
                 if (r.codigo == 1) {
                     $('#' + modulo + ' .boton').prop('data-enable', 'false');
-                    $('#' + modulo + ' .boton').css("background-color", "#ECECEC");
-                    $('#' + modulo + ' .boton').css("cursor", "default");
+                    $('#' + modulo + ' .boton').css('background-color', '#ECECEC');
+                    $('#' + modulo + ' .boton').css('cursor', 'default');
 
                     alert('Datos del paciente agregados exitosamente.');
                 }
@@ -231,7 +231,7 @@ function insertar_ajax(archivo_php, modulo) {
                     alert('No se pudieron agregar los datos del paciente, es posible que ya existan');
                 }
             } catch (e) {
-                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos");
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
             }
         }
     });
@@ -243,12 +243,12 @@ function insertar_ajax(archivo_php, modulo) {
  */
 function registrar_paciente(elemento) {
     switch (elemento) {
-    case "datos-paciente":
+    case 'datos-paciente':
         $.ajax({
             async: false,
-            type: "POST",
+            type: 'POST',
             url: basedir + '/json/insertar_datos_paciente.php',
-            data: $("#datos-paciente").serialize(), // Adjuntar los campos del formulario a enviar.
+            data: $('#datos-paciente').serialize(), // Adjuntar los campos del formulario a enviar.
             beforeSend: function () {
                 $('.status').html('Guardando datos...').show();
             },
@@ -266,18 +266,18 @@ function registrar_paciente(elemento) {
 
                     if (r.codigo == 1) {
                         var fecha = new Date();
-                        $(".id_paciente").each(function () {
+                        $('.id_paciente').each(function () {
                             $(this).val(r.id);
                         });
                         $('#' + elemento + ' .boton').prop('data-enable', 'false');
-                        $('#' + elemento + ' .boton').css("background-color", "#ECECEC");
-                        $('#' + elemento + ' .boton').css("cursor", "default");
+                        $('#' + elemento + ' .boton').css('background-color', '#ECECEC');
+                        $('#' + elemento + ' .boton').css('cursor', 'default');
                         $('.antecedentes-modo-vida').show();
                         $('.antecedentes-patologicos').show();
                         $('.antecedentes-sexuales').show();
 
                         //Verifica el sexo indicado de un paciente para activar el formulario de antecedentes sexuales de acuerdo a la opción seleccionada
-                        if ($('input:radio[name=sexo]').val() == "Masculino")
+                        if ($('input:radio[name=sexo]').val() == 'Masculino')
                             $('#form-antecedentes-sexuales-f').hide();
                         else
                             $('#form-antecedentes-sexuales-m').hide();
@@ -296,27 +296,27 @@ function registrar_paciente(elemento) {
                         alert('No se pudo agregar el paciente, es posible que ya exista');
                     }
                 } catch (e) {
-                    alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos");
+                    alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
                 }
             }
         });
         break;
-    case "form-antecedentes-perinatales":
+    case 'form-antecedentes-perinatales':
         insertar_ajax('insertar_antecedentes_perinatales.php', elemento);
         break;
-    case "form-antecedentes-sexuales-f":
+    case 'form-antecedentes-sexuales-f':
         insertar_ajax('insertar_antecedentes_sexuales.php', elemento);
         break;
-    case "form-antecedentes-sexuales-m":
+    case 'form-antecedentes-sexuales-m':
         insertar_ajax('insertar_antecedentes_sexuales.php', elemento);
         break;
-    case "form-antecedentes-modo-vida":
+    case 'form-antecedentes-modo-vida':
         insertar_ajax('insertar_antecedentes_modo_vida.php', elemento);
         break;
-    case "form-antecedentes-patologicos":
+    case 'form-antecedentes-patologicos':
         insertar_ajax('insertar_antecedentes_patologicos.php', elemento);
         break;
-    case "form-desarrollo-psicomotor":
+    case 'form-desarrollo-psicomotor':
         insertar_ajax('insertar_desarrollo_psicomotor.php', elemento);
         break;
     }
@@ -333,18 +333,18 @@ function cargar_pacientes() {
         success: function (pacientes) {
             try {
                 var datos = JSON.parse(pacientes);
-                var html = "<tr><th class='icono-tabla'></th><th>Documento de Identidad</th><th>Nombres</th><th>Apellidos</th><th>Móvil</th><th>Email</th></tr>";
+                var html = '<tr><th class="icono-tabla"></th><th>Documento de Identidad</th><th>Nombres</th><th>Apellidos</th><th>Móvil</th><th>Email</th></tr>';
 
                 if (datos.flag) {
                     for (var i in datos.paciente) {
-                        html += "<tr><td class='icono-tabla' data-id='" + datos.paciente[i].id + "'><i class='fa fa-trash-o fa-2x icon borrar'></i><i class='fa fa-edit fa-2x icon editar'></i></td><td>" + datos.paciente[i].documento_identidad + "</td><td>" + datos.paciente[i].primer_nombre + " " + datos.paciente[i].segundo_nombre + "</td><td>" + datos.paciente[i].primer_apellido + " " + datos.paciente[i].segundo_apellido + "</td><td>" + datos.paciente[i].tlf_movil + "</td><td>" + datos.paciente[i].correo_electronico + "</td></tr>";
+                        html += '<tr><td class="icono-tabla" data-id="' + datos.paciente[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar"></i><i class="fa fa-edit fa-2x icon editar"></i></td><td>' + datos.paciente[i].documento_identidad + '</td><td>' + datos.paciente[i].primer_nombre + ' ' + datos.paciente[i].segundo_nombre + '</td><td>' + datos.paciente[i].primer_apellido + ' ' + datos.paciente[i].segundo_apellido + '</td><td>' + datos.paciente[i].tlf_movil + '</td><td>' + datos.paciente[i].correo_electronico + '</td></tr>';
                     }
 
                     $('.pacientes').html(html);
                 } else
                     alert('No se encontraron los datos del paciente');
             } catch (e) {
-                alert("Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos");
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
         }
     });
@@ -394,7 +394,7 @@ $(document).ready(function () {
 
     //Carga las ciudades por estado desde un archivo .txt con el nombre del estado indicado en la carpeta "ciudades"
     $('#estado_residencia').change(function () {
-        $("#ciudad_residencia").load(basedir + "/ciudades/" + $(this).val() + ".txt");
+        $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.txt');
     });
 
     //Valida cuando se hace click en el botón de algún formulario y realiza la acción correspondiente al formulario 
@@ -412,7 +412,7 @@ $(document).ready(function () {
 
     //Verifica la eliminación de un usuario de la base de datos. Si es aceptada, se procede a eliminar el usuario indicado
     $(document).on('click', '.usuarios tr .icono-tabla .borrar', function () {
-        var confirmacion = confirm("¿Está seguro que desea eliminar este usuario?");
+        var confirmacion = confirm('¿Está seguro que desea eliminar este usuario?');
         if (confirmacion) {
             eliminar_usuario($(this).parent().attr('data-id'));
             cargar_usuarios();
@@ -421,7 +421,7 @@ $(document).ready(function () {
 
     //Redirige a la página que contiene todos los datos del usuario indicado para que se puedan ver y editar
     $(document).on('click', '.usuarios tr .icono-tabla .editar', function () {
-        window.location.replace(basedir + "/administrador/modificar-usuario/" + $(this).parent().attr('data-id'));
+        window.location.replace(basedir + '/administrador/modificar-usuario/' + $(this).parent().attr('data-id'));
     });
 
     //Marca o desmarcar filas de la tabla

@@ -11,10 +11,10 @@ $msg = NULL;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     require_once('../config.php');
-    $conexion = pg_connect("host=".$app["db"]["host"]." port=".$app["db"]["port"]." dbname=".$app["db"]["name"]." user=".$app["db"]["user"]." password=".$app["db"]["pass"]) OR die("Error de conexión con la base de datos");
+    $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
-    $msg = array();
     $usuario = '';
+    
     if(isset($_SESSION['super_administrador']))
         $usuario = $_SESSION['super_administrador'];
     else if(isset($_SESSION['administrador']))
@@ -23,11 +23,11 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         $usuario = $_SESSION['general'];
 
     if($_POST['clave_nueva'] == $_POST['clave_nueva2']){
-        $select = "SELECT clave FROM usuario WHERE id = ".$usuario;
+        $select = 'SELECT clave FROM usuario WHERE id = '.$usuario;
         if($query = pg_query($select)){
             $resultado = pg_fetch_array($query);
             if($resultado['clave'] == md5($_POST['clave_actual']))
-                if(pg_query("UPDATE usuario SET clave = '".md5($_POST['clave_nueva'])."' WHERE id = ".$usuario))
+                if(pg_query('UPDATE usuario SET clave = \''.md5($_POST['clave_nueva']).'\' WHERE id = '.$usuario))
                     $msg['flag'] = 4;
                 else
                     $msg['flag'] = 3;
