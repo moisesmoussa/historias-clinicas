@@ -393,10 +393,10 @@ function mostrarPaciente(patientId) {
                     });
 
                     //Verifica el sexo indicado de un paciente para activar el formulario de antecedentes sexuales de acuerdo a la opción seleccionada
-                    if (datos.paciente.sexo == 'Masculino'){
+                    if (datos.paciente.sexo == 'Masculino') {
                         form = '#form-antecedentes-sexuales-m ';
                         $('#form-antecedentes-sexuales-f').hide();
-                    }else{
+                    } else {
                         form = '#form-antecedentes-sexuales-f ';
                         $('#form-antecedentes-sexuales-m').hide();
                     }
@@ -426,6 +426,76 @@ function mostrarPaciente(patientId) {
             }
         }
     });
+}
+
+/* Actualiza en la base de datos los datos del paciente provenientes del formulario que se ha indicado
+ * Parámetros:
+ * - "archivoPhp" indica el archivo .php en la carpeta "json" al cual se le envían los datos del formulario para ser actualizados en la base de datos
+ * - "formulario" es el nombre del formulario cuyos datos se quieren actualizar en la base de datos
+ */
+function ajaxActualizarPaciente(archivoPhp, formulario) {
+    $.ajax({
+        async: false,
+        type: 'POST',
+        url: basedir + '/json/' + archivoPhp,
+        data: $('#' + formulario).serialize(),
+        beforeSend: function () {
+            $('.status').html('Cargando...').show();
+        },
+        error: function () {
+            $('.status').html('Error cargando la información').show();
+        },
+        success: function (data) {
+            try {
+                $('.status').hide();
+                var r = JSON.parse(data);
+
+                if (r.codigo == 0) {
+                    alert('Debe llenar todos los campos');
+                }
+
+                if (r.codigo == 1) {
+                    alert('Actualización de datos exitosa');
+                }
+
+                if (r.codigo == 2) {
+                    alert('No se pudieron actualizar los datos del paciente');
+                }
+            } catch (e) {
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
+            }
+        }
+    });
+}
+
+/* Aplica la acción correspondiente de acuerdo al formulario de datos del paciente que se ha indicado para actualizar
+ * Parámetros:
+ * - "formulario" indica el nombre del formulario cuyos datos se quieren actualizar en la base de datos
+ */
+function actualizarPaciente(formulario) {
+    switch (formulario) {
+    case 'datos-paciente':
+        ajaxActualizarPaciente('actualizar_datos_paciente.php', formulario);
+        break;
+    case 'form-antecedentes-perinatales':
+        ajaxActualizarPaciente('actualizar_antecedentes_perinatales.php', formulario);
+        break;
+    case 'form-antecedentes-sexuales-f':
+        ajaxActualizarPaciente('actualizar_antecedentes_sexuales.php', formulario);
+        break;
+    case 'form-antecedentes-sexuales-m':
+        ajaxActualizarPaciente('actualizar_antecedentes_sexuales.php', formulario);
+        break;
+    case 'form-antecedentes-modo-vida':
+        ajaxActualizarPaciente('actualizar_antecedentes_modo_vida.php', formulario);
+        break;
+    case 'form-antecedentes-patologicos':
+        ajaxActualizarPaciente('actualizar_antecedentes_patologicos.php', formulario);
+        break;
+    case 'form-desarrollo-psicomotor':
+        ajaxActualizarPaciente('actualizar_desarrollo_psicomotor.php', formulario);
+        break;
+    }
 }
 
 //Se encarga de eliminar un usuario de la base de datos
@@ -517,6 +587,12 @@ $(document).ready(function () {
         if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/[0-9]+')) {
             $('#id_usuario').val(url.substring(url.lastIndexOf('/') + 1));
             actualizarUsuario();
+        } else if (url.match(basedir + '/administrador/modificar-paciente/[0-9]+')) {
+            var id_paciente = url.substring(url.lastIndexOf('/') + 1);
+            $('.id_paciente').each(function () {
+                $(this).val(id_paciente);
+            });
+            actualizarPaciente($(this).parents('form').attr('id'));
         } else if (url == basedir + '/administrador/registrar-paciente') {
             if ($(this).prop('data-enable') != 'false')
                 agregarPaciente($(this).parents('form').attr('id'));

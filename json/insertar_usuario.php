@@ -18,6 +18,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
             $flag = 0;
             break;
         }
+    
     if(!$flag)
         $msg['codigo'] = 0;
     elseif($_POST['clave'] != $_POST['clave2'])
