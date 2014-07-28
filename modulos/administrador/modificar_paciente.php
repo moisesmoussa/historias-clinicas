@@ -25,6 +25,9 @@
                     <br>
                     <span class="descripcion">Cédula o pasaporte</span>
                 </td>
+                <td class="oculto">
+                    <input class="id_paciente" name="id_paciente" type="text">
+                </td>
             </tr>
             <tr>
                 <td>
