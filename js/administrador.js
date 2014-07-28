@@ -96,18 +96,17 @@ function mostrarUsuario(userId) {
                 var datos = JSON.parse(usuario);
 
                 if (datos.flag) {
-                    for(var i in datos.usuario){
-                        if(i == 'ciudad_residencia')
-                            $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.usuario.estado_residencia + '.txt', function () {
-                                $(this).val(datos.usuario.ciudad_residencia);
-                            });
-                        else if(i.match('[fecha]*'))
-                            $('#' + i).val(datos.usuario[i].replace(/-/g, '/'));
-                        else
-                            $('#' + i).val(datos.usuario[i]);
-                    }
+                    datos.usuario.fecha_nacimiento = datos.usuario.fecha_nacimiento.replace(/-/g, '/');
+                    datos.usuario.fecha_ingreso = datos.usuario.fecha_ingreso.replace(/-/g, '/');
+                    $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.usuario.estado_residencia + '.txt', function () {
+                        $(this).val(datos.usuario.ciudad_residencia);
+                    });
+
+                    for (var i in datos.usuario)
+                        $('#' + i).val(datos.usuario[i]);
+
                 } else {
-                    alert('No se pudo encontrar los datos del usuario');
+                    alert('No se pudieron encontrar los datos del usuario');
                 }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
@@ -230,7 +229,7 @@ function ajaxInsertarPaciente(archivoPhp, formulario) {
  * Parámetros:
  * - "formulario" indica el nombre del formulario cuyos datos se quiere almacenar en la base de datos
  */
-function ajaxInsertarDatosPaciente(formulario){
+function ajaxInsertarDatosPaciente(formulario) {
     $.ajax({
         async: false,
         type: 'POST',
@@ -296,6 +295,7 @@ function ajaxInsertarDatosPaciente(formulario){
 function agregarPaciente(formulario) {
     switch (formulario) {
     case 'datos-paciente':
+        ajaxInsertarDatosPaciente(formulario);
         break;
     case 'form-antecedentes-perinatales':
         ajaxInsertarPaciente('insertar_antecedentes_perinatales.php', formulario);
@@ -346,6 +346,88 @@ function cargarPacientes() {
     });
 }
 
+/* Verifica la edad del paciente a modificar para activar los formularios "desarrollo psicomotor" y "antecedentes perinatales"
+ * Parámetros:
+ * - "fechaNacimiento" es la fecha de nacimiento del paciente
+ */
+function verificarEdad(fechaNacimiento) {
+    var fechaActual = new Date();
+    var edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+
+    if (fechaNacimiento.getMonth() > fechaActual.getMonth() || (fechaNacimiento.getMonth() == fechaActual.getMonth() && (fechaNacimiento.getDate() + 1) > fechaActual.getDate()))
+        edad--;
+
+    if (edad > 9)
+        $('.desarrollo-psicomotor').hide();
+
+    if (edad > 18)
+        $('.antecedentes-perinatales').hide();
+}
+
+/* Carga la información de un paciente y la muestra en un formulario para que se puedan modificar
+ * Parámetros:
+ * - "patientId" indica el id del paciente
+ */
+function mostrarPaciente(patientId) {
+    $.ajax({
+        async: false,
+        url: basedir + '/json/cargar_paciente.php',
+        type: 'POST',
+        data: {
+            paciente: patientId
+        },
+        error: function () {
+            alert('Error cargando la información');
+        },
+        success: function (paciente) {
+            try {
+                var datos = JSON.parse(paciente);
+
+                if (datos.flag) {
+                    var form;
+                    verificarEdad(new Date(datos.paciente.fecha_nacimiento_original));
+                    datos.paciente.fecha_nacimiento = datos.paciente.fecha_nacimiento.replace(/-/g, '/');
+                    $('input:radio[name=sexo][value=' + datos.paciente.sexo + ']').prop('checked', true);
+                    $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.paciente.estado_residencia + '.txt', function () {
+                        $(this).val(datos.paciente.ciudad_residencia);
+                    });
+
+                    //Verifica el sexo indicado de un paciente para activar el formulario de antecedentes sexuales de acuerdo a la opción seleccionada
+                    if (datos.paciente.sexo == 'Masculino'){
+                        form = '#form-antecedentes-sexuales-m ';
+                        $('#form-antecedentes-sexuales-f').hide();
+                    }else{
+                        form = '#form-antecedentes-sexuales-f ';
+                        $('#form-antecedentes-sexuales-m').hide();
+                    }
+
+                    for (var i in datos.paciente) {
+                        if (datos.paciente[i] == 'f' && $('input:radio[name=' + i + ']').is('input:radio'))
+                            $('input:radio[name=' + i + '][value=FALSE]').prop('checked', true);
+                        else if (datos.paciente[i] == 't' && $('input:radio[name=' + i + ']').is('input:radio'))
+                            $('input:radio[name=' + i + '][value=TRUE]').prop('checked', true);
+                        else
+                            $('#' + i).val(datos.paciente[i]);
+                    }
+
+                    for (var i in datos.antecedentes_sexuales) {
+                        if (datos.antecedentes_sexuales[i] == 'f' && $(form + 'input:radio[name=' + i + ']').is('input:radio'))
+                            $(form + 'input:radio[name=' + i + '][value=FALSE]').prop('checked', true);
+                        else if (datos.antecedentes_sexuales[i] == 't' && $(form + 'input:radio[name=' + i + ']').is('input:radio'))
+                            $(form + 'input:radio[name=' + i + '][value=TRUE]').prop('checked', true);
+                        else
+                            $(form + '#' + i).val(datos.antecedentes_sexuales[i]);
+                    }
+                } else {
+                    alert('No se pudieron encontrar los datos del paciente');
+                }
+            } catch (e) {
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
+            }
+        }
+    });
+}
+
 //Se encarga de eliminar un usuario de la base de datos
 function eliminarPaciente(patientId) {
     $.ajax({
@@ -376,17 +458,25 @@ function eliminarPaciente(patientId) {
 }
 
 $(document).ready(function () {
-    var fecha = new Date();
+    var fechaActual = new Date();
     var url;
     $('.status').hide();
-    $('.antecedentes-perinatales').hide();
-    $('.antecedentes-sexuales').hide();
-    $('.antecedentes-modo-vida').hide();
-    $('.antecedentes-patologicos').hide();
-    $('.desarrollo-psicomotor').hide();
+
+    //Si esta en el perfil de un paciente para modificar sus datos, se cargan los datos del paciente seleccionado
+    if (window.location.pathname == basedir + '/administrador/registrar-paciente') {
+        $('.antecedentes-perinatales').hide();
+        $('.antecedentes-sexuales').hide();
+        $('.antecedentes-modo-vida').hide();
+        $('.antecedentes-patologicos').hide();
+        $('.desarrollo-psicomotor').hide();
+    }
+
+    //Si esta en el perfil de un paciente para modificar sus datos, se cargan los datos del paciente seleccionado
+    if ((url = window.location.pathname).match(basedir + '/administrador/modificar-paciente/[0-9]+'))
+        mostrarPaciente(url.substring(url.lastIndexOf('/') + 1));
 
     //Si esta en el perfil de un usuario para modificar sus datos, se cargan los datos del usuario seleccionado
-    if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/*'))
+    if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/[0-9]+'))
         mostrarUsuario(url.substring(url.lastIndexOf('/') + 1));
 
     if (window.location.pathname == basedir + '/administrador/usuario')
@@ -394,7 +484,7 @@ $(document).ready(function () {
 
     if (window.location.pathname == basedir + '/administrador/pacientes')
         cargarPacientes(); //Trae de la base de datos la información necesaria de todos los pacientes registrados
-    
+
     //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas
     $('.calendario').datetimepicker({
         lang: 'es',
@@ -403,16 +493,16 @@ $(document).ready(function () {
         format: 'd/m/Y',
         formatDate: 'Y/m/d',
         minDate: '1920/01/01',
-        maxDate: fecha.getFullYear() + '/' + fecha.getMonth + '/' + fecha.getDate(),
+        maxDate: fechaActual.getFullYear() + '/' + fechaActual.getMonth + '/' + fechaActual.getDate(),
         yearStart: 1920,
-        yearEnd: fecha.getFullYear()
+        yearEnd: fechaActual.getFullYear()
     });
 
     //Calcula la edad del paciente de acuerdo a la fecha de nacimiento ingresada
     $('#datos-paciente .calendario').datetimepicker({
-        onSelectDate: function (date) {
-            edad = fecha.getFullYear() - parseInt($('#fecha_nacimiento').val().substr(06));
-            if (date.getMonth() < fecha.getMonth() || (date.getMonth() == fecha.getMonth() && date.getDate() > fecha.getDate()))
+        onSelectDate: function (fechaNacimiento) {
+            edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+            if (fechaNacimiento.getMonth() > fechaActual.getMonth() || (fechaNacimiento.getMonth() == fechaActual.getMonth() && fechaNacimiento.getDate() > fechaActual.getDate()))
                 edad--;
         }
     });
@@ -424,7 +514,7 @@ $(document).ready(function () {
 
     //Valida cuando se hace click en el botón de algún formulario y realiza la acción correspondiente al formulario 
     $('.boton').click(function () {
-        if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/*')) {
+        if ((url = window.location.pathname).match(basedir + '/administrador/modificar-usuario/[0-9]+')) {
             $('#id_usuario').val(url.substring(url.lastIndexOf('/') + 1));
             actualizarUsuario();
         } else if (url == basedir + '/administrador/registrar-paciente') {
@@ -443,7 +533,7 @@ $(document).ready(function () {
             cargarUsuarios(); //Refresca la lista de usuarios
         }
     });
-    
+
     //Verifica la eliminación de un paciente de la base de datos. Si es aceptada, se procede a eliminar el paciente indicado
     $(document).on('click', '.pacientes tr .icono-tabla .borrar', function () {
         var confirmacion = confirm('¿Está seguro que desea eliminar este paciente?');
@@ -462,7 +552,7 @@ $(document).ready(function () {
     $(document).on('click', '.pacientes tr .icono-tabla .editar', function () {
         window.location.replace(basedir + '/administrador/modificar-paciente/' + $(this).parent().attr('data-id'));
     });
-    
+
     //Marca o desmarcar filas de la tabla
     $(document).on('click', '.busqueda table td', function (e) {
         if ($(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')
