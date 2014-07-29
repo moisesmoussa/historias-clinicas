@@ -36,12 +36,12 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             if(empty($respuesta['id_paciente'])){
                 $columnas = 'INSERT INTO antecedentes_modo_vida (fecha_ua, usuario_ua, creador, ';
                 $valores = 'VALUES (\''.date('Y-m-d').'\', '.$id_usuario.', '.$id_usuario.', ';
-                $last_value = '\'%s\');';
+                $last_value = ');';
                 
             } else{
                 $columnas = 'UPDATE antecedentes_modo_vida SET (fecha_ua, usuario_ua, ';
                 $valores = '= (\''.date('Y-m-d').'\', '.$id_usuario.', ';
-                $last_value = '\'%s\') WHERE id_paciente = '.$_POST['id_paciente'].';';
+                $last_value = ') WHERE id_paciente = '.$_POST['id_paciente'].';';
                 unset($_POST['id_paciente']);
             }
             $cont = 0;
@@ -49,12 +49,12 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             
             foreach ($_POST as $clave => $valor){
                 if($cont == $len - 1) {
-                    $columnas .= sprintf('%s) ', $clave);
-                    $valores .= sprintf($last_value, $valor);
+                    $columnas .= $clave.') ';
+                    $valores .= '\''.$valor.'\''.$last_value;
                 }
                 else {
-                    $columnas .= sprintf('%s,', $clave); 
-                    $valores .= sprintf('\'%s\',', $valor);
+                    $columnas .= $clave.',';
+                    $valores .= '\''.$valor.'\',';
                 }
                 $cont++;
             }

@@ -43,12 +43,12 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
 
         foreach ($_POST as $clave => $valor){
             if($cont == $len - 1){
-                $columnas .= sprintf('%s) ', $clave);
-                $valores .= sprintf('\'%s\') RETURNING id;', $valor);
+                $columnas .= $clave.') ';
+                $valores .= '\''.$valor.'\') RETURNING id;';
             }
             else {
-                $columnas .= sprintf('%s,', $clave);
-                $valores .= sprintf('\'%s\',', $valor);
+                $columnas .= $clave.',';
+                $valores .= '\''.$valor.'\',';
             }
             $cont++;
         }

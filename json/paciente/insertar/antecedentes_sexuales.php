@@ -55,12 +55,12 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $cont = 0;
             foreach ($antecedentes_sexuales_g as $clave => $valor){
                 if($cont == $len - 1){
-                    $columnas_general .= sprintf('%s) ', $clave);
-                    $valores_general .= sprintf('\'%s\');', $valor);
+                    $columnas_general .= $clave.') ';
+                    $valores_general .= '\''.$valor.'\');';
                 }
                 else {
-                    $columnas_general .= sprintf('%s,', $clave);
-                    $valores_general .= sprintf('\'%s\',', $valor);
+                    $columnas_general .= $clave.',';
+                    $valores_general .= '\''.$valor.'\',';
                 }
                 $cont++;
             }
@@ -69,12 +69,12 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $cont = 0;
             foreach ($_POST as $clave => $valor){
                 if($cont == $len - 1){
-                    $columnas .= sprintf('%s) ', $clave);
-                    $valores .= sprintf('\'%s\');', $valor);
+                    $columnas .= $clave.') ';
+                    $valores .= '\''.$valor.'\');';
                 }
                 else {
-                    $columnas .= sprintf('%s,', $clave);
-                    $valores .= sprintf('\'%s\',', $valor);
+                    $columnas .= $clave.',';
+                    $valores .= '\''.$valor.'\',';
                 }
                 $cont++;
             }

@@ -59,12 +59,12 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                     else
                         $dato = md5($valor);
                     if($cont == $len - 1){
-                        $columnas .= sprintf('%s) ', $clave);
-                        $valores .= sprintf('\'%s\');', $dato);
+                        $columnas .= $clave.') ';
+                        $valores .= '\''.$valor.'\');';
                     }
                     else {
-                        $columnas .= sprintf('%s,', $clave);
-                        $valores .= sprintf('\'%s\',', $dato);
+                        $columnas .= $clave.',';
+                        $valores .= '\''.$valor.'\',';
                     }
                     $cont++;
                 }
