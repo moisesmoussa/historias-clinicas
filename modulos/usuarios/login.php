@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
     <link href='<?php echo $app['basedir'].'/css/default.css'; ?>' rel='stylesheet' type='text/css'>
+    <link href='<?php echo $app['basedir'].'/css/usuarios.css'; ?>' rel='stylesheet' type='text/css'>
     <link href='<?php echo $app['basedir'].'/css/font-awesome.min.css'?>' rel='stylesheet' type='text/css'>
 </head>
 
@@ -45,7 +46,7 @@
     </section>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
     <?php echo '<script src="'.$app['basedir'].'/js/jquery-2.0.0.min.js"></script>'; 
-          echo '<script async defer src="'.$app['basedir'].'/js/autenticacion.js"></script>';
+          echo '<script async defer src="'.$app['basedir'].'/js/login.js"></script>';
     ?>
 </body>
 

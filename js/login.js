@@ -1,3 +1,4 @@
+//Envía la información suministrada por el usuario y valida que los datos estén almacenados y sean correctos para validar la cuenta e iniciar la sesión del usuario en el sistema
 function login() {
     $.ajax({
         async: false,
@@ -49,12 +50,13 @@ $(document).ready(function () {
         claveModificada = true;
     });
 
-    $('.boton').click(function () {
-        login();
-    });
-
     $(document).keypress(function (e) {
         if (e.which == 13)
             login();
+    });
+
+    //Valida cuando se hace click en el botón de algún formulario y realiza la acción correspondiente al formulario 
+    $('.boton').click(function () {
+        login();
     });
 });

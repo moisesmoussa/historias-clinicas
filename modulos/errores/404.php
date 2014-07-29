@@ -1,1 +1,1 @@
-<h2>Error 404</h2>
+<h2>Error 404. No se puede conseguir la páguina indicada</h2>

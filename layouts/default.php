@@ -11,10 +11,10 @@
     <link href="<?php echo $app['basedir']."/css/default.css"; ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo $app['basedir']."/css/font-awesome.min.css";?>" rel="stylesheet" type="text/css">
     <?php
-        if($app['controller'] == 'perfil' || $app['controller'] == 'administrador')
+        if($app['controller'] == 'usuarios' || $app['controller'] == 'pacientes')
             echo '<link href="'.$app['basedir'].'/css/jquery.datetimepicker.css" rel="stylesheet" type="text/css">';
-        if($app['controller'] == 'administrador')
-            echo '<link href="'.$app['basedir'].'/css/administrador.css" rel="stylesheet" type="text/css">';
+        if($app['controller'] == 'usuarios')
+            echo '<link href="'.$app['basedir'].'/css/usuarios.css" rel="stylesheet" type="text/css">';
     ?>
 </head>
 
@@ -25,40 +25,29 @@
                 <img src="<?php echo $app['basedir'].'/img/logo.png'; ?>" width="247" height="83">
             </section>
             <div class="navcontainer">
-                <a href="<?php if(isset($_SESSION['administrador']) || isset($_SESSION['super_administrador']))
-                                    echo $app['basedir'].'/administrador';
-                               else if(isset($_SESSION['general']))
-                                    echo $app['basedir'].'/general';
-                               else
-                                   echo $app['basedir'].'/autenticacion';
-                         ?>"><i class="fa fa-home fa-fw"></i>Inicio</a>
+                <a href="<?php echo $app['basedir'].'/pages"';?>"><i class="fa fa-home fa-fw"></i>Inicio</a>
                 <?php 
-                    if ((isset($_SESSION['administrador']) || isset($_SESSION['super_administrador'])) && $app['controller'] != 'perfil') 
-                        echo '<a href="'.$app['basedir'].'/administrador/usuario">
-                            <i class="fa fa-users fa-fw"></i>Usuarios
-                        </a>
-                        <a href="'.$app['basedir'].'/administrador/pacientes">
-                            <i class="fa fa-stethoscope fa-fw"></i>Pacientes
-                        </a>';
-                    else if (isset($_SESSION['general']) && $app['controller'] != 'perfil')
-                        echo '<a id="insertar" href="'.$app['basedir'].'/general/registrar-paciente">Paciente</a>';
+                    if ((isset($_SESSION['administrador']) || isset($_SESSION['super_administrador']))) 
+                        echo '<a href="'.$app['basedir'].'/usuarios">
+                            <i class="fa fa-users fa-fw"></i>Usuarios</a>';
+                    echo '<a href="'.$app['basedir'].'/pacientes">
+                        <i class="fa fa-stethoscope fa-fw"></i>Pacientes</a>';
                 ?>
             </div>
-            <?php echo '<nav class="area-perfil"><a class="perfil" href="javascript:void(0);"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre_usuario'].'
-            </a>
-            <nav class="items-perfil">
-                <ul>
-                    <li>
-                        <a href="'.$app['basedir'].'/perfil'.'"><i class="fa fa-edit fa-fw"></i>Editar perfil</a>
-                    </li>
-                    <li>
-                        <a href="'.$app['basedir'].'/perfil/cambiar-clave'.'"><i class="fa fa-lock fa-fw"></i>Cambiar contraseña</a>
-                    </li>
-                    <li>
-                        <a href="'.$app['basedir'].'/logout'.'"><i class="fa fa-sign-out fa-fw"></i>Cerrar sesión</a>
-                    </li>
-                </ul>
-            </nav></nav>';
+            <?php echo '<nav class="area-perfil"><a class="perfil" href="javascript:void(0);"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre_usuario'].'</a>
+                        <nav class="items-perfil">
+                            <ul>
+                                <li>
+                                    <a href="'.$app['basedir'].'/usuarios/perfil'.'"><i class="fa fa-edit fa-fw"></i>Editar perfil</a>
+                                </li>
+                                <li>
+                                    <a href="'.$app['basedir'].'/usuarios/cambiar-clave'.'"><i class="fa fa-lock fa-fw"></i>Cambiar contraseña</a>
+                                </li>
+                                <li>
+                                    <a href="'.$app['basedir'].'/usuarios/logout'.'"><i class="fa fa-sign-out fa-fw"></i>Cerrar sesión</a>
+                                </li>
+                            </ul>
+                        </nav></nav>';
             ?>
         </div>
     </header>
@@ -73,14 +62,12 @@
     <?php echo '<script src="'.$app['basedir'].'/js/validaciones.js"></script>'; ?>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
 	<?php
-        if($app['controller'] == 'perfil' || $app['controller'] == 'administrador')
+        if($app['controller'] == 'usuarios' || $app['controller'] == 'pacientes')
 			echo '<script defer src="'.$app['basedir'].'/js/jquery.datetimepicker.js"></script>';
-		if($app['controller'] == 'perfil')
-			echo '<script async defer src="'.$app['basedir'].'/js/perfil.js"></script>';
-        if($app['controller'] == 'administrador')
-			echo '<script async defer src="'.$app['basedir'].'/js/administrador.js"></script>';
-        if($app['controller'] == 'general')
-			echo '<script async defer src="'.$app['basedir'].'/js/general.js"></script>';
+        if($app['controller'] == 'usuarios')
+			echo '<script async defer src="'.$app['basedir'].'/js/usuarios.js"></script>';
+        if($app['controller'] == 'pacientes')
+			echo '<script async defer src="'.$app['basedir'].'/js/pacientes.js"></script>';
 	?>
 </body>
 

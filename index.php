@@ -14,23 +14,19 @@ if(isset($_GET['params'])) {
 			unset($app['params'][$k]);
 }
 
-if($app['controller'] == 'logout') {
+if($app['controller'] == 'usuarios' && $app['action'] == 'logout') {
 	foreach($_SESSION as $k => $v)
 		unset($_SESSION[$k]);
 
 	header('Location: '.$app['basedir'].'/');
 }
 
-if((isset($_SESSION['administrador']) || isset($_SESSION['super_administrador'])) && $app['controller'] != 'administrador' && $app['controller'] != 'perfil') {
-	header('Location: '.$app['basedir'].'/administrador');
-}
+if(isset($_SESSION['general']) && $app['controller'] == 'usuarios' && $app['action'] != 'perfil' && $app['action'] != 'cambiar-clave')
+    header('Location: '.$app['basedir'].'/pages');
 
-if(isset($_SESSION['general']) && $app['controller'] != 'general' && $app['controller'] != 'perfil') {
-	header('Location: '.$app['basedir'].'/general');
-}
-
-if(!isset($_SESSION['super_administrador']) && !isset($_SESSION['administrador']) && !isset($_SESSION['general']))
-	require_once('modulos/autenticacion/index.php');
-else
+if(!isset($_SESSION['super_administrador']) && !isset($_SESSION['administrador']) && !isset($_SESSION['general'])){
+    require_once('modulos/usuarios/login.php');
+} else{
 	require_once('layouts/default.php');
+}
 ?>

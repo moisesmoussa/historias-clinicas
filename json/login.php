@@ -12,20 +12,16 @@ $query = 'SELECT id, nombre_usuario, tipo_usuario FROM usuario WHERE nombre_usua
 
 if($login_query = pg_query($query)){
     $resultado = pg_fetch_assoc($login_query);
-    session_start();
-    $_SESSION[strtolower(str_replace(' ', '_', $resultado['tipo_usuario']))] = $resultado['id'];
-    $_SESSION['nombre_usuario'] = $resultado['nombre_usuario'];
-    
-    if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
-        $modulo = '/administrador';
-    else
-        $modulo = '/general';
-    
-    $msg['msg'] = $modulo;
-    $msg['flag'] = 1;
-} else{
-    $msg['msg'] = 'Usuario o clave inválida';
-    $msg['flag'] = 0;
+    if(!empty($resultado['id'])){
+        session_start();
+        $_SESSION[strtolower(str_replace(' ', '_', $resultado['tipo_usuario']))] = $resultado['id'];
+        $_SESSION['nombre_usuario'] = $resultado['nombre_usuario'];
+        $msg['msg'] = '/pages';
+        $msg['flag'] = 1;
+    } else{
+        $msg['msg'] = 'Usuario o clave inválida';
+        $msg['flag'] = 0;
+    }
 }
 pg_close($conexion);
 
