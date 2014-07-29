@@ -28,31 +28,29 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         else if(isset($_SESSION['general']))
             $id_usuario = $_SESSION['general'];
         
-        $cont = 0;    
         $select = 'SELECT id_paciente FROM antecedentes_patologicos WHERE id_paciente = '.$_POST['id_paciente'];
         
         if($query = pg_query($select)){
+            date_default_timezone_set('Etc/GMT+4'); 
             $respuesta = pg_fetch_array($query);
             if(empty($respuesta['id_paciente'])){
-                date_default_timezone_set('Etc/GMT+4');                
-                $len = count($_POST);
                 $columnas = 'INSERT INTO antecedentes_patologicos (fecha_ua, usuario_ua, creador, ';
                 $valores = 'VALUES (\''.date('Y-m-d').'\', '.$id_usuario.', '.$id_usuario.', ';
-                $lastValue = '\'%s\');';
+                $last_value = '\'%s\');';
                 
             } else{
-                $id_paciente = $_POST['id_paciente'];
-                unset($_POST['id_paciente']);
-                $len = count($_POST);
                 $columnas = 'UPDATE antecedentes_patologicos SET (fecha_ua, usuario_ua, ';
                 $valores = '= (\''.date('Y-m-d').'\', '.$id_usuario.', ';
-                $lastValue = '\'%s\') WHERE id_paciente = '.$id_paciente.';';
+                $last_value = '\'%s\') WHERE id_paciente = '.$_POST['id_paciente'].';';
+                unset($_POST['id_paciente']);
             }
+            $cont = 0;
+            $len = count($_POST);
             
             foreach ($_POST as $clave => $valor){
                 if($cont == $len - 1) {
                     $columnas .= sprintf('%s) ', $clave);
-                    $valores .= sprintf($lastValue, $valor);
+                    $valores .= sprintf($last_value, $valor);
                 }
                 else {
                     $columnas .= sprintf('%s,', $clave); 

@@ -30,12 +30,13 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         else if(isset($_SESSION['general']))
             $id_usuario = $_SESSION['general'];
                 
+        date_default_timezone_set('Etc/GMT+4');
+        $columnas = 'UPDATE paciente SET (fecha_ua, usuario_ua, ';
+        $valores = '= (\''.date('Y-m-d').'\', '.$id_usuario.', ';
         $id_paciente = $_POST['id_paciente'];
         unset($_POST['id_paciente']);                
         $len = count($_POST);
         $cont = 0;
-        $columnas = 'UPDATE paciente SET (fecha_ua, usuario_ua, ';
-        $valores = '= (\''.date('Y-m-d').'\', '.$id_usuario.', ';
             
         foreach ($_POST as $clave => $valor){
             if($cont == $len - 1) {

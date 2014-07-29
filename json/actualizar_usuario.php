@@ -29,10 +29,10 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         else if(isset($_SESSION['administrador']))
             $usuario_ua = $_SESSION['administrador'];
 
-        $id_usuario = $_POST['id_usuario'];
-        unset($_POST['id_usuario']);
         $columnas = 'UPDATE usuario SET (fecha_ua, usuario_ua, ';
         $valores = '= (\''.date('Y-m-d').'\', '.$usuario_ua.', ';
+        $id_usuario = $_POST['id_usuario'];
+        unset($_POST['id_usuario']);
         $len = count($_POST);
         $cont = 0;
 

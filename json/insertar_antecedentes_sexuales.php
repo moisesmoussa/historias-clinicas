@@ -24,11 +24,11 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         if($query = pg_query('SELECT sexo FROM paciente WHERE id = '.$_POST['id_paciente'])){
             $respuesta = pg_fetch_array($query);
             if($respuesta['sexo'] == 'Masculino'){
-                $columnas = 'INSERT INTO antecedentes_sexuales_hombre (id_paciente, ';
-                $valores = 'VALUES ('.$_POST['id_paciente'].', ';
+                $columnas = 'INSERT INTO antecedentes_sexuales_hombre (';
+                $valores = 'VALUES (';
             }else{
-                $columnas = 'INSERT INTO antecedentes_sexuales_mujer (id_paciente, ';
-                $valores = 'VALUES ('.$_POST['id_paciente'].', ';
+                $columnas = 'INSERT INTO antecedentes_sexuales_mujer (';
+                $valores = 'VALUES (';
             }
             
             if(isset($_SESSION['super_administrador'])){
@@ -40,9 +40,9 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             }
 
             date_default_timezone_set('Etc/GMT+4');
-            $columnas_general = 'INSERT INTO antecedentes_sexuales (fecha_ua, usuario_ua, creador, id_paciente, ';
-            $valores_general = 'VALUES (\''.date('Y-m-d').'\', '.$id_usuario.', '.$id_usuario.', '.$_POST['id_paciente'].', ';
-            unset($_POST['id_paciente']);
+            $columnas_general = 'INSERT INTO antecedentes_sexuales (fecha_ua, usuario_ua, creador, ';
+            $valores_general = 'VALUES (\''.date('Y-m-d').'\', '.$id_usuario.', '.$id_usuario.', ';
+            $antecedentes_sexuales_g['id_paciente'] = $_POST['id_paciente'];
 
             foreach ($_POST as $clave => $valor){
                 if($clave == 'primera_relacion_sexual' || $clave == 'frecuencia_relaciones_sexuales_mes' || $clave == 'num_parejas_ultimo_anio' || $clave == 'relacion_sexual_satisfactoria' || $clave == 'anticonceptivo' || $clave == 'otros_antecedentes_sexuales' || $clave == 'pubarquia'){

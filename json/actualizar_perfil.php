@@ -31,6 +31,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         else if(isset($_SESSION['general']))
             $id_usuario = $_SESSION['general'];
 
+        date_default_timezone_set('Etc/GMT+4');
         $columnas = 'UPDATE usuario SET (fecha_ua, usuario_ua, ';
         $valores = '= (\''.date('Y-m-d').'\', '.$id_usuario.', ';
         $len = count($_POST);
