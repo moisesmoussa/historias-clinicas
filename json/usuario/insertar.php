@@ -25,10 +25,11 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         $msg['codigo'] = 1;
     else {
         $_POST['fecha_nacimiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
-        require_once('../config.php');
+        require_once('../../config.php');
         $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
         
         $select = 'SELECT nombre_usuario FROM usuario WHERE nombre_usuario = \''.$_POST['nombre_usuario'].'\'';
+        
         if($query = pg_query($select)){
             $respuesta = pg_fetch_array($query);
             if(empty($respuesta['nombre_usuario'])){
@@ -71,7 +72,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                 $query = $columnas . $valores;
 
                 if(pg_query($query)) {
-                    require '../PHPMailer/PHPMailerAutoload.php';
+                    require '../../PHPMailer/PHPMailerAutoload.php';
 
                     $mail = new PHPMailer;
                     $mail->CharSet = 'UTF-8';                             // Configura la codificación de caracteres en UTF-8

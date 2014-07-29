@@ -2,7 +2,7 @@
 function agregarUsuario() {
     $.ajax({
         async: false,
-        url: basedir + '/json/insertar_usuario.php',
+        url: basedir + '/json/usuario/insertar.php',
         type: 'POST',
         data: $('#nuevo-usuario').serialize(),
         beforeSend: function () {
@@ -52,7 +52,7 @@ function agregarUsuario() {
 function cargarUsuarios() {
     $.ajax({
         async: false,
-        url: basedir + '/json/onload_usuario.php',
+        url: basedir + '/json/usuario/cargar_todos.php',
         error: function () {
             alert('Error cargando la información');
         },
@@ -83,7 +83,7 @@ function cargarUsuarios() {
 function mostrarUsuario(userId) {
     $.ajax({
         async: false,
-        url: basedir + '/json/cargar_usuario.php',
+        url: basedir + '/json/usuario/cargar.php',
         type: 'POST',
         data: {
             usuario: userId
@@ -119,7 +119,7 @@ function mostrarUsuario(userId) {
 function actualizarUsuario() {
     $.ajax({
         async: false,
-        url: basedir + '/json/actualizar_usuario.php',
+        url: basedir + '/json/usuario/actualizar.php',
         type: 'POST',
         data: $('#actualizar-usuario').serialize(),
         beforeSend: function () {
@@ -155,7 +155,7 @@ function actualizarUsuario() {
 function eliminarUsuario(userId) {
     $.ajax({
         async: false,
-        url: basedir + '/json/eliminar_usuario.php',
+        url: basedir + '/json/usuario/eliminar.php',
         type: 'POST',
         data: {
             usuario: userId
@@ -185,11 +185,11 @@ function eliminarUsuario(userId) {
  * - "archivoPhp" indica el archivo .php en la carpeta "json" al cual se le envían los datos del formulario para ser insertados en la base de datos
  * - "formulario" es el nombre del formulario cuyos datos se quieren guardar en la base de datos
  */
-function ajaxInsertarPaciente(archivoPhp, formulario) {
+function ajaxAgregarPaciente(archivoPhp, formulario) {
     $.ajax({
         async: false,
         type: 'POST',
-        url: basedir + '/json/' + archivoPhp,
+        url: basedir + '/json/paciente/insertar/' + archivoPhp,
         data: $('#' + formulario).serialize(), // Adjuntar los campos del formulario a enviar.
         beforeSend: function () {
             $('.status').html('Guardando datos...').show();
@@ -229,11 +229,11 @@ function ajaxInsertarPaciente(archivoPhp, formulario) {
  * Parámetros:
  * - "formulario" indica el nombre del formulario cuyos datos se quiere almacenar en la base de datos
  */
-function ajaxInsertarDatosPaciente(formulario) {
+function ajaxAgregarDatosPaciente(formulario) {
     $.ajax({
         async: false,
         type: 'POST',
-        url: basedir + '/json/insertar_datos_paciente.php',
+        url: basedir + '/json/paciente/insertar/datos_paciente.php',
         data: $('#datos-paciente').serialize(), // Adjuntar los campos del formulario a enviar.
         beforeSend: function () {
             $('.status').html('Guardando datos...').show();
@@ -263,7 +263,7 @@ function ajaxInsertarDatosPaciente(formulario) {
                     $('.antecedentes-sexuales').show();
 
                     //Verifica el sexo indicado de un paciente para activar el formulario de antecedentes sexuales de acuerdo a la opción seleccionada
-                    if ($('input:radio[name=sexo]').val() == 'Masculino')
+                    if ($('input:radio[name=sexo]:checked').val() == 'Masculino')
                         $('#form-antecedentes-sexuales-f').hide();
                     else
                         $('#form-antecedentes-sexuales-m').hide();
@@ -295,25 +295,25 @@ function ajaxInsertarDatosPaciente(formulario) {
 function agregarPaciente(formulario) {
     switch (formulario) {
     case 'datos-paciente':
-        ajaxInsertarDatosPaciente(formulario);
+        ajaxAgregarDatosPaciente(formulario);
         break;
     case 'form-antecedentes-perinatales':
-        ajaxInsertarPaciente('insertar_antecedentes_perinatales.php', formulario);
+        ajaxAgregarPaciente('antecedentes_perinatales.php', formulario);
         break;
     case 'form-antecedentes-sexuales-f':
-        ajaxInsertarPaciente('insertar_antecedentes_sexuales.php', formulario);
+        ajaxAgregarPaciente('antecedentes_sexuales.php', formulario);
         break;
     case 'form-antecedentes-sexuales-m':
-        ajaxInsertarPaciente('insertar_antecedentes_sexuales.php', formulario);
+        ajaxAgregarPaciente('antecedentes_sexuales.php', formulario);
         break;
     case 'form-antecedentes-modo-vida':
-        ajaxInsertarPaciente('insertar_antecedentes_modo_vida.php', formulario);
+        ajaxAgregarPaciente('antecedentes_modo_vida.php', formulario);
         break;
     case 'form-antecedentes-patologicos':
-        ajaxInsertarPaciente('insertar_antecedentes_patologicos.php', formulario);
+        ajaxAgregarPaciente('antecedentes_patologicos.php', formulario);
         break;
     case 'form-desarrollo-psicomotor':
-        ajaxInsertarPaciente('insertar_desarrollo_psicomotor.php', formulario);
+        ajaxAgregarPaciente('desarrollo_psicomotor.php', formulario);
         break;
     }
 }
@@ -322,7 +322,7 @@ function agregarPaciente(formulario) {
 function cargarPacientes() {
     $.ajax({
         async: false,
-        url: basedir + '/json/onload_paciente.php',
+        url: basedir + '/json/paciente/cargar_todos.php',
         error: function () {
             alert('Error cargando la información');
         },
@@ -371,7 +371,7 @@ function verificarEdad(fechaNacimiento) {
 function mostrarPaciente(patientId) {
     $.ajax({
         async: false,
-        url: basedir + '/json/cargar_paciente.php',
+        url: basedir + '/json/paciente/cargar.php',
         type: 'POST',
         data: {
             paciente: patientId
@@ -437,7 +437,7 @@ function ajaxActualizarPaciente(archivoPhp, formulario) {
     $.ajax({
         async: false,
         type: 'POST',
-        url: basedir + '/json/' + archivoPhp,
+        url: basedir + '/json/paciente/actualizar/' + archivoPhp,
         data: $('#' + formulario).serialize(),
         beforeSend: function () {
             $('.status').html('Cargando...').show();
@@ -475,25 +475,25 @@ function ajaxActualizarPaciente(archivoPhp, formulario) {
 function actualizarPaciente(formulario) {
     switch (formulario) {
     case 'datos-paciente':
-        ajaxActualizarPaciente('actualizar_datos_paciente.php', formulario);
+        ajaxActualizarPaciente('datos_paciente.php', formulario);
         break;
     case 'form-antecedentes-perinatales':
-        ajaxActualizarPaciente('actualizar_antecedentes_perinatales.php', formulario);
+        ajaxActualizarPaciente('antecedentes_perinatales.php', formulario);
         break;
     case 'form-antecedentes-sexuales-f':
-        ajaxActualizarPaciente('actualizar_antecedentes_sexuales.php', formulario);
+        ajaxActualizarPaciente('antecedentes_sexuales.php', formulario);
         break;
     case 'form-antecedentes-sexuales-m':
-        ajaxActualizarPaciente('actualizar_antecedentes_sexuales.php', formulario);
+        ajaxActualizarPaciente('antecedentes_sexuales.php', formulario);
         break;
     case 'form-antecedentes-modo-vida':
-        ajaxActualizarPaciente('actualizar_antecedentes_modo_vida.php', formulario);
+        ajaxActualizarPaciente('antecedentes_modo_vida.php', formulario);
         break;
     case 'form-antecedentes-patologicos':
-        ajaxActualizarPaciente('actualizar_antecedentes_patologicos.php', formulario);
+        ajaxActualizarPaciente('antecedentes_patologicos.php', formulario);
         break;
     case 'form-desarrollo-psicomotor':
-        ajaxActualizarPaciente('actualizar_desarrollo_psicomotor.php', formulario);
+        ajaxActualizarPaciente('desarrollo_psicomotor.php', formulario);
         break;
     }
 }
@@ -502,7 +502,7 @@ function actualizarPaciente(formulario) {
 function eliminarPaciente(patientId) {
     $.ajax({
         async: false,
-        url: basedir + '/json/eliminar_paciente.php',
+        url: basedir + '/json/paciente/eliminar.php',
         type: 'POST',
         data: {
             paciente: patientId

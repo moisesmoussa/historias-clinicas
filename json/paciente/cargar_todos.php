@@ -3,21 +3,22 @@
     0 = No se pudo encontrar el usuario indicado en la BD
     1 = Usuario encontrado en la BD
 */
+
 session_start();
 $msg = NULL;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
-    require_once('../config.php');
+    require_once('../../config.php');
     $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
-    $select = 'SELECT * FROM usuario WHERE id = '.$_POST['usuario'];
+    $select = 'SELECT id, documento_identidad, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, tlf_movil, correo_electronico FROM paciente';
     
     if($query = pg_query($select)){
-        $resultado = pg_fetch_assoc($query);
-        $msg['usuario'] = $resultado;
-        $msg['usuario']['fecha_nacimiento'] = date('d-m-Y', strtotime($msg['usuario']['fecha_nacimiento']));
-        $msg['usuario']['fecha_ingreso'] = date('d-m-Y', strtotime($msg['usuario']['fecha_ingreso']));
         $msg['flag'] = 1;
+        $cont = 0;
+        
+        while($resultado = pg_fetch_array($query))
+            $msg['paciente'][$cont++] = $resultado;
     } else{
         $msg['flag'] = 0;
     }

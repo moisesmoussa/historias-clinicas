@@ -12,13 +12,13 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
     $flag = 1;
     
     foreach ($_POST as $valor)
-        if(!isset($valor) || empty($valor)){
+        if(!isset($valor) || (empty($valor) && $valor != '0')){
             $flag = 0;
             break;
         }
     
     if($flag){     
-        require_once('../config.php');
+        require_once('../../../config.php');
         $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
         if($query = pg_query('SELECT sexo FROM paciente WHERE id = '.$_POST['id_paciente'])){

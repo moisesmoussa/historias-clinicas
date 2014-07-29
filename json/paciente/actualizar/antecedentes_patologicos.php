@@ -2,8 +2,8 @@
 /*
     Codigos:
     0 = Algún campo está vacío
-    1 = Antecedentes de modo de vida del paciente actualizados correctamente en la BD
-    2 = Los antecedentes de modo de vida del paciente no se pudieron actualizar en la BD
+    1 = Antecedentes patologicos del paciente actualizados correctamente en la BD
+    2 = Los antecedentes patologicos del paciente no se pudieron actualizar en la BD
 */
 session_start();
 $msg = NULL;
@@ -18,7 +18,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         }
 
     if($flag){
-        require_once('../config.php');
+        require_once('../../../config.php');
         $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
         if(isset($_SESSION['super_administrador']))
@@ -28,18 +28,18 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         else if(isset($_SESSION['general']))
             $id_usuario = $_SESSION['general'];
         
-        $select = 'SELECT id_paciente FROM antecedentes_modo_vida WHERE id_paciente = '.$_POST['id_paciente'];
+        $select = 'SELECT id_paciente FROM antecedentes_patologicos WHERE id_paciente = '.$_POST['id_paciente'];
         
         if($query = pg_query($select)){
-            date_default_timezone_set('Etc/GMT+4');
+            date_default_timezone_set('Etc/GMT+4'); 
             $respuesta = pg_fetch_array($query);
             if(empty($respuesta['id_paciente'])){
-                $columnas = 'INSERT INTO antecedentes_modo_vida (fecha_ua, usuario_ua, creador, ';
+                $columnas = 'INSERT INTO antecedentes_patologicos (fecha_ua, usuario_ua, creador, ';
                 $valores = 'VALUES (\''.date('Y-m-d').'\', '.$id_usuario.', '.$id_usuario.', ';
                 $last_value = '\'%s\');';
                 
             } else{
-                $columnas = 'UPDATE antecedentes_modo_vida SET (fecha_ua, usuario_ua, ';
+                $columnas = 'UPDATE antecedentes_patologicos SET (fecha_ua, usuario_ua, ';
                 $valores = '= (\''.date('Y-m-d').'\', '.$id_usuario.', ';
                 $last_value = '\'%s\') WHERE id_paciente = '.$_POST['id_paciente'].';';
                 unset($_POST['id_paciente']);

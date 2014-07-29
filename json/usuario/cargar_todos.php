@@ -17,7 +17,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         $administrador = ' AND tipo_usuario != \'Administrador\'';
     }
 
-    require_once('../config.php');
+    require_once('../../config.php');
     $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
     $select = 'SELECT id, cedula, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, nombre_usuario, tlf_movil, correo_electronico FROM usuario WHERE id != '.$id_usuario.' AND tipo_usuario != \'Super Administrador\''.$administrador;
