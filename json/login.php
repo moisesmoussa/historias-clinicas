@@ -11,7 +11,7 @@ $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' 
 $query = 'SELECT id, nombre_usuario, tipo_usuario FROM usuario WHERE nombre_usuario = \''.$_POST['nombre'].'\' AND clave = \''.md5($_POST['clave']).'\'';
 
 if($login_query = pg_query($query)){
-    $resultado = pg_fetch_array($login_query);
+    $resultado = pg_fetch_assoc($login_query);
     session_start();
     $_SESSION[strtolower(str_replace(' ', '_', $resultado['tipo_usuario']))] = $resultado['id'];
     $_SESSION['nombre_usuario'] = $resultado['nombre_usuario'];

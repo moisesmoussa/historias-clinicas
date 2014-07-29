@@ -31,7 +31,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         $select = 'SELECT nombre_usuario FROM usuario WHERE nombre_usuario = \''.$_POST['nombre_usuario'].'\'';
         
         if($query = pg_query($select)){
-            $respuesta = pg_fetch_array($query);
+            $respuesta = pg_fetch_assoc($query);
             if(empty($respuesta['nombre_usuario'])){
                 $insert_usuario_g = '';
                 $values_usuario_g = '';

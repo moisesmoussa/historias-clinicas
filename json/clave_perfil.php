@@ -25,7 +25,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
     if($_POST['clave_nueva'] == $_POST['clave_nueva2']){
         $select = 'SELECT clave FROM usuario WHERE id = '.$usuario;
         if($query = pg_query($select)){
-            $resultado = pg_fetch_array($query);
+            $resultado = pg_fetch_assoc($query);
             if($resultado['clave'] == md5($_POST['clave_actual']))
                 if(pg_query('UPDATE usuario SET clave = \''.md5($_POST['clave_nueva']).'\' WHERE id = '.$usuario))
                     $msg['flag'] = 4;

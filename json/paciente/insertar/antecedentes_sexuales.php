@@ -22,7 +22,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
         if($query = pg_query('SELECT sexo FROM paciente WHERE id = '.$_POST['id_paciente'])){
-            $respuesta = pg_fetch_array($query);
+            $respuesta = pg_fetch_assoc($query);
             if($respuesta['sexo'] == 'Masculino'){
                 $columnas = 'INSERT INTO antecedentes_sexuales_hombre (';
                 $valores = 'VALUES (';

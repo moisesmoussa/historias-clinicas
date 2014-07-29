@@ -26,7 +26,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         $msg['flag'] = 1;
         $cont = 0;
         
-        while($resultado = pg_fetch_array($query))
+        while($resultado = pg_fetch_assoc($query))
             $msg['usuario'][$cont++] = $resultado;
     } else{
         $msg['flag'] = 0;
