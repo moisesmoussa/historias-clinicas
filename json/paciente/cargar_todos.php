@@ -1,11 +1,12 @@
 <?php
 /* Códigos:
-    0 = No se pudo encontrar el usuario indicado en la BD
-    1 = Usuario encontrado en la BD
+    0 = No se pudo encontrar el paciente indicado en la BD
+    1 = paciente encontrado en la BD
+    2 = No posee permisos para realizar la operación
 */
 
 session_start();
-$msg = NULL;
+$msg['codigo'] = 2;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     require_once('../../config.php');
@@ -19,7 +20,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         
         while($resultado = pg_fetch_assoc($query))
             $msg['paciente'][$cont++] = $resultado;
-    } else{
+        
+    } else {
         $msg['flag'] = 0;
     }
     pg_close($conexion);
