@@ -35,6 +35,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         if($query = pg_query($select)){
             date_default_timezone_set('Etc/GMT+4');
             $respuesta = pg_fetch_assoc($query);
+            
             if(empty($respuesta['id_paciente'])){             
                 $columnas = 'INSERT INTO antecedentes_perinatales (fecha_ua, usuario_ua, creador, ';
                 $valores = 'VALUES (\''.date('Y-m-d').'\', '.$id_usuario.', '.$id_usuario.', ';
