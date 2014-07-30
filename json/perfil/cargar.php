@@ -31,7 +31,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $msg['flag'] = 1;
             
         } else {
-            $msg['flag'] = 3;
+            $msg['flag'] = 2;
         }
     } else{
         $msg['flag'] = 0;
