@@ -1,7 +1,7 @@
 <?php
 /* Códigos:
-    0 = No se pudo encontrar el paciente indicado en la BD
-    1 = paciente encontrado en la BD
+    0 = No se pudieron encontrar los pacientes en la BD
+    1 = Pacientes encontrados en la BD
     2 = No posee permisos para realizar la operación
 */
 
