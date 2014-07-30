@@ -206,7 +206,7 @@ function mostrarPaciente(patientId) {
                     verificarEdad(new Date(datos.paciente.fecha_nacimiento_original));
                     datos.paciente.fecha_nacimiento = datos.paciente.fecha_nacimiento.replace(/-/g, '/');
                     $('input:radio[name=sexo][value=' + datos.paciente.sexo + ']').prop('checked', true);
-                    $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.paciente.estado_residencia + '.txt', function () {
+                    $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.paciente.estado_residencia + '.html', function () {
                         $(this).val(datos.paciente.ciudad_residencia);
                     });
 
@@ -390,7 +390,7 @@ $(document).ready(function () {
 
     //Carga las ciudades por estado desde un archivo .txt con el nombre del estado indicado en la carpeta "ciudades"
     $('#estado_residencia').change(function () {
-        $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.txt');
+        $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.html');
     });
 
     //Valida cuando se hace click en el botón de algún formulario y realiza la acción correspondiente al formulario 

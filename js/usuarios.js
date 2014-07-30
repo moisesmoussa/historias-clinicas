@@ -5,7 +5,7 @@ function cargarPerfil(usuario) {
         if (datos.flag) {
             datos.usuario.fecha_nacimiento = datos.usuario.fecha_nacimiento.replace(/-/g, '/');
             datos.usuario.fecha_ingreso = datos.usuario.fecha_ingreso.replace(/-/g, '/');
-            $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.usuario.estado_residencia + '.txt', function () {
+            $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.usuario.estado_residencia + '.html', function () {
                 $(this).val(datos.usuario.ciudad_residencia);
             });
 
@@ -270,7 +270,7 @@ $(document).ready(function () {
 
     //Carga las ciudades por estado desde un archivo .txt con el nombre del estado indicado en la carpeta "ciudades"
     $('#estado_residencia').change(function () {
-        $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.txt');
+        $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.html');
     });
 
     //Valida cuando se hace click en el botón de algún formulario y realiza la acción correspondiente al formulario 
