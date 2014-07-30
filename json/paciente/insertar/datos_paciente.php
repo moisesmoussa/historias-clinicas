@@ -2,11 +2,12 @@
 /*
     Codigos:
     0 = Algún campo está vacío
-    1 = Paciente insertado correctamente en la BD
-    2 = El paciente no se pudo insertar en la BD
+    1 = Datos personales del paciente insertados correctamente en la BD
+    2 = Los datos personales del paciente no se pudieron insertar en la BD
+    3 = No posee permisos para realizar la operación
 */
 session_start();
-$msg = NULL;
+$msg['codigo'] = 3;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     $flag = 1;
@@ -27,13 +28,12 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         require_once('../../../config.php');
         $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
-        if(isset($_SESSION['super_administrador'])){
+        if(isset($_SESSION['super_administrador']))
             $id_usuario = $_SESSION['super_administrador'];
-        }else if(isset($_SESSION['administrador'])){
+        else if(isset($_SESSION['administrador']))
             $id_usuario = $_SESSION['administrador'];
-        }else if(isset($_SESSION['general'])){
+        else if(isset($_SESSION['general']))
             $id_usuario = $_SESSION['general'];
-        }
 
         date_default_timezone_set('Etc/GMT+4');
         $columnas = 'INSERT INTO paciente (fecha_ua, usuario_ua, creador, ';
@@ -45,14 +45,13 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             if($cont == $len - 1){
                 $columnas .= $clave.') ';
                 $valores .= '\''.$valor.'\') RETURNING id;';
-            }
-            else {
+                
+            } else {
                 $columnas .= $clave.',';
                 $valores .= '\''.$valor.'\',';
             }
             $cont++;
         }
-
         $query = $columnas . $valores;
         
         if($resultado = pg_query($query)) {
@@ -62,7 +61,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $msg['codigo'] = 2;
         }
         pg_close($conexion);
-    } else{
+        
+    } else {
         $msg['codigo'] = 0;
     }
 }
