@@ -6,7 +6,7 @@
     3 = No posee permisos para realizar la operación
 */
 session_start();
-$msg['codigo'] = 3;
+$msg['flag'] = 3;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     require_once('../../config.php');
@@ -68,7 +68,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     $msg['paciente'] = array_merge($msg['paciente'], $resultado);
                 
         } else {
-            $msg['codigo'] = 2;
+            $msg['flag'] = 2;
         }
     } else {
         $msg['flag'] = 0;

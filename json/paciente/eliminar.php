@@ -5,7 +5,7 @@
     2 = No posee permisos para realizar la operación
 */
 session_start();
-$msg['codigo'] = 2;
+$msg = 2;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
     require_once('../../config.php');

@@ -6,7 +6,7 @@
 */
 
 session_start();
-$msg['codigo'] = 2;
+$msg['flag'] = 2;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     require_once('../../config.php');
