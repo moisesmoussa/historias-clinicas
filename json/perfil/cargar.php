@@ -9,7 +9,7 @@ $msg = NULL;
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     $usuario = '';
     
-    require_once('../config.php');
+    require_once('../../config.php');
     $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
     if(isset($_SESSION['super_administrador']))

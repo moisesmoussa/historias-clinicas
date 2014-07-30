@@ -24,7 +24,7 @@ function cargarPerfil(usuario) {
 function mostrarPerfil() {
     $.ajax({ //Trae de la base de datos todos los datos del usuario
         async: false,
-        url: basedir + '/json/onload_perfil.php',
+        url: basedir + '/json/perfil/cargar.php',
         error: function () {
             $('.status').html('Error cargando la información').show();
         },
@@ -38,7 +38,7 @@ function mostrarPerfil() {
 function actualizarClave() {
     $.ajax({
         async: false,
-        url: basedir + '/json/clave_perfil.php',
+        url: basedir + '/json/perfil/actualizar_clave.php',
         type: 'POST',
         data: $('#nueva-clave').serialize(),
         error: function () {
@@ -276,7 +276,7 @@ $(document).ready(function () {
     //Valida cuando se hace click en el botón de algún formulario y realiza la acción correspondiente al formulario 
     $('.boton').click(function () {
         if ((url = window.location.pathname) == basedir + '/usuarios/perfil') {
-            actualizarUsuario('actualizar_perfil.php');
+            actualizarUsuario('perfil/actualizar.php');
         } else if (url == basedir + '/usuarios/cambiar-clave') {
             actualizarClave();
         } else if (url.match(basedir + '/usuarios/modificar/[0-9]+')) {
