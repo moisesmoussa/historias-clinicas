@@ -6,9 +6,10 @@
     2 = Usuario insertado correctamente en la BD
     3 = El usuario no se pudo insertar en la BD
     4 = No se puede insertar en la BD porque el nombre de usuario indicado ya existe y debe ser único
+    5 = No posee permisos para realizar la operación
 */
 session_start();
-$msg = NULL;
+$msg['codigo'] = 5;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
     $flag = 1;
@@ -19,12 +20,13 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
             break;
         }
     
-    if(!$flag)
-        $msg['codigo'] = 0;
-    elseif($_POST['clave'] != $_POST['clave2'])
+    if($_POST['clave'] != $_POST['clave2'])
         $msg['codigo'] = 1;
-    else {
+    else if($flag){
         $_POST['fecha_nacimiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
+        $_POST['clave'] = md5($_POST['clave']);
+        unset($_POST['clave2']);
+        
         require_once('../../config.php');
         $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
         
@@ -32,6 +34,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         
         if($query = pg_query($select)){
             $respuesta = pg_fetch_assoc($query);
+            
             if(empty($respuesta['nombre_usuario'])){
                 $insert_usuario_g = '';
                 $values_usuario_g = '';
@@ -52,27 +55,20 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                 $cont = 1;
 
                 foreach ($_POST as $clave => $valor){
-                    if($clave == 'clave2')
-                        continue;
-                    if($clave != 'clave')
-                        $dato = $valor;
-                    else
-                        $dato = md5($valor);
                     if($cont == $len - 1){
                         $columnas .= $clave.') ';
                         $valores .= '\''.$valor.'\');';
-                    }
-                    else {
+                        
+                    } else {
                         $columnas .= $clave.',';
                         $valores .= '\''.$valor.'\',';
                     }
                     $cont++;
                 }
-
                 $query = $columnas . $valores;
 
                 if(pg_query($query)) {
-                    require '../../PHPMailer/PHPMailerAutoload.php';
+                    require('../../PHPMailer/PHPMailerAutoload.php');
 
                     $mail = new PHPMailer;
                     $mail->CharSet = 'UTF-8';                             // Configura la codificación de caracteres en UTF-8
@@ -94,14 +90,18 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                         $msg['correo'] = FALSE;
                     else 
                         $msg['correo'] = TRUE;
+                    
                 } else {
                     $msg['codigo'] = 3;
                 }
-            }else{
+            } else {
                 $msg['codigo'] = 4;
             }
         }
         pg_close($conexion);
+        
+    } else {
+        $msg['codigo'] = 0;
     }
 }
 echo json_encode($msg);

@@ -1,13 +1,17 @@
 <?php
 /* Códigos:
-    0 = No se pudo encontrar el usuario indicado en la BD
-    1 = Usuario encontrado en la BD
+    0 = No se pudieron encontrar los usuarios en la BD
+    1 = Usuarios encontrados en la BD
+    2 = No posee permisos para realizar la operación
 */
 
 session_start();
-$msg = NULL;
+$msg['flag'] = 2;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
+    require_once('../../config.php');
+    $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
+    
     $administrador = '';
     
     if(isset($_SESSION['super_administrador'])){
@@ -17,9 +21,6 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         $administrador = ' AND tipo_usuario != \'Administrador\'';
     }
 
-    require_once('../../config.php');
-    $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
-
     $select = 'SELECT id, cedula, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, nombre_usuario, tlf_movil, correo_electronico FROM usuario WHERE id != '.$id_usuario.' AND tipo_usuario != \'Super Administrador\''.$administrador;
     
     if($query = pg_query($select)){
@@ -28,7 +29,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         
         while($resultado = pg_fetch_assoc($query))
             $msg['usuario'][$cont++] = $resultado;
-    } else{
+        
+    } else {
         $msg['flag'] = 0;
     }
     pg_close($conexion);

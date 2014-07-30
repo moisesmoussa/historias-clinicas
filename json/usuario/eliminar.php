@@ -2,9 +2,10 @@
 /* Códigos:
     0 = No se pudo eliminar el usuario indicado en la BD
     1 = Usuario eliminado correctamente en la BD
+    2 = No posee permisos para realizar la operación
 */
 session_start();
-$msg = NULL;
+$msg = 2;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
     require_once('../../config.php');

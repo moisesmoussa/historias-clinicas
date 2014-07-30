@@ -2,9 +2,11 @@
 /* Códigos:
     0 = No se pudo encontrar el usuario indicado en la BD
     1 = Usuario encontrado en la BD
+    2 = Error consultando en la base de datos
+    3 = No posee permisos para realizar la operación
 */
 session_start();
-$msg = NULL;
+$msg['flag'] = 3;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
     require_once('../../config.php');
@@ -13,12 +15,18 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
     $select = 'SELECT * FROM usuario WHERE id = '.$_POST['usuario'];
     
     if($query = pg_query($select)){
-        $resultado = pg_fetch_assoc($query);
-        $msg['usuario'] = $resultado;
-        $msg['usuario']['fecha_nacimiento'] = date('d-m-Y', strtotime($msg['usuario']['fecha_nacimiento']));
-        $msg['usuario']['fecha_ingreso'] = date('d-m-Y', strtotime($msg['usuario']['fecha_ingreso']));
-        $msg['flag'] = 1;
-    } else{
+        $respuesta = pg_fetch_assoc($query);
+        
+        if(!empty($respuesta['id'])){
+            $msg['usuario'] = $respuesta;
+            $msg['usuario']['fecha_nacimiento'] = date('d-m-Y', strtotime($msg['usuario']['fecha_nacimiento']));
+            $msg['usuario']['fecha_ingreso'] = date('d-m-Y', strtotime($msg['usuario']['fecha_ingreso']));
+            $msg['flag'] = 1;
+            
+        } else {
+            $msg['flag'] = 2;
+        }
+    } else {
         $msg['flag'] = 0;
     }
     pg_close($conexion);
