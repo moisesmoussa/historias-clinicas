@@ -2,13 +2,13 @@
 /* Códigos:
     0 = No se pudo encontrar el usuario indicado en la BD
     1 = Usuario encontrado en la BD
+    2 = Error consultando en la base de datos
+    3 = No posee permisos para realizar la operación
 */
 session_start();
-$msg = NULL;
+$msg['flag'] = 3;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
-    $usuario = '';
-    
     require_once('../../config.php');
     $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
@@ -20,11 +20,19 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         $usuario = $_SESSION['general'];
 
     $select = 'SELECT * FROM usuario WHERE id = '.$usuario;
+        
     if($query = pg_query($select)){
-        $msg['usuario'] = pg_fetch_assoc($query);
-        $msg['usuario']['fecha_nacimiento'] = date('d-m-Y', strtotime($msg['usuario']['fecha_nacimiento']));
-        $msg['usuario']['fecha_ingreso'] = date('d-m-Y', strtotime($msg['usuario']['fecha_ingreso']));
-        $msg['flag'] = 1;
+        $respuesta = pg_fetch_assoc($query);
+        
+        if(!empty($respuesta['id'])){
+            $msg['usuario'] = $respuesta;
+            $msg['usuario']['fecha_nacimiento'] = date('d-m-Y', strtotime($msg['usuario']['fecha_nacimiento']));
+            $msg['usuario']['fecha_ingreso'] = date('d-m-Y', strtotime($msg['usuario']['fecha_ingreso']));
+            $msg['flag'] = 1;
+            
+        } else {
+            $msg['flag'] = 3;
+        }
     } else{
         $msg['flag'] = 0;
     }
