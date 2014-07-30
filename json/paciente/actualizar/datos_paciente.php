@@ -4,9 +4,10 @@
     0 = Algún campo está vacío
     1 = Datos personales del paciente actualizados correctamente en la BD
     2 = Los datos personales del paciente no se pudieron actualizar en la BD
+    3 = No posee permisos para realizar la operación
 */
 session_start();
-$msg = NULL;
+$msg['codigo'] = 3;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     $flag = 1;
@@ -42,8 +43,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             if($cont == $len - 1) {
                 $columnas .= $clave.') ';
                 $valores .= '\''.$valor.'\') WHERE id = '.$id_paciente.';';
-            }
-            else {
+                
+            } else {
                 $columnas .= $clave.',';
                 $valores .= '\''.$valor.'\',';
             }
@@ -57,6 +58,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $msg['codigo'] = 2;
         }
         pg_close($conexion);
+        
     } else{
         $msg['codigo'] = 0;
     }

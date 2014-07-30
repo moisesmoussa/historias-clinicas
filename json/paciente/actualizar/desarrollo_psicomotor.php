@@ -4,9 +4,11 @@
     0 = Algún campo está vacío
     1 = Desarrollo psicomotor del paciente actualizado correctamente en la BD
     2 = El desarrollo psicomotor del paciente no se pudo actualizar en la BD
+    3 = Error consultando en la base de datos
+    4 = No posee permisos para realizar la operación
 */
 session_start();
-$msg = NULL;
+$msg['codigo'] = 4;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     $flag = 1;
@@ -51,8 +53,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                 if($cont == $len - 1) {
                     $columnas .= $clave.') ';
                     $valores .= '\''.$valor.'\''.$last_value;
-                }
-                else {
+                    
+                } else {
                     $columnas .= $clave.',';
                     $valores .= '\''.$valor.'\',';
                 }
@@ -65,9 +67,11 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             } else {
                 $msg['codigo'] = 2;
             }
+        } else{
+            $msg['codigo'] = 3;
         }
         pg_close($conexion);
-    }else{
+    } else{
         $msg['codigo'] = 0;
     }
 }

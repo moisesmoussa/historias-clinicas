@@ -4,9 +4,11 @@
     0 = Algún campo está vacío
     1 = Antecedentes sexuales del paciente actualizados correctamente en la BD
     2 = Los antecedentes sexuales del paciente no se pudieron actualizar en la BD
+    3 = Error consultando en la base de datos
+    4 = No posee permisos para realizar la operación
 */
 session_start();
-$msg = NULL;
+$msg['codigo'] = 4;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     $flag = 1;
@@ -45,11 +47,13 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             }
             
             $respuesta = pg_fetch_assoc($query);
+            
             if(empty($respuesta['id_paciente'])){
                 if($genero['sexo'] == 'Masculino'){
                     $columnas = 'INSERT INTO antecedentes_sexuales_hombre (';
                     $valores = 'VALUES (';
-                }else{
+                    
+                } else{
                     $columnas = 'INSERT INTO antecedentes_sexuales_mujer (';
                     $valores = 'VALUES (';
                 }
@@ -61,7 +65,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                 if($genero['sexo'] == 'Masculino'){
                     $columnas = 'UPDATE antecedentes_sexuales_hombre SET (';
                     $valores = '= (';
-                }else{
+                    
+                } else{
                     $columnas = 'UPDATE antecedentes_sexuales_mujer SET (';
                     $valores = '= (';
                 }
@@ -77,8 +82,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                 if($cont == $len - 1){
                     $columnas_general .= $clave.') ';
                     $valores_general .= '\''.$valor.'\''.$last_value_general;
-                }
-                else {
+                    
+                } else {
                     $columnas_general .= $clave.',';
                     $valores_general .= '\''.$valor.'\',';
                 }
@@ -91,14 +96,13 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                 if($cont == $len - 1){
                     $columnas .= $clave.') ';
                     $valores .= '\''.$valor.'\''.$last_value;
-                }
-                else {
+                    
+                } else {
                     $columnas .= $clave.',';
                     $valores .= '\''.$valor.'\',';
                 }
                 $cont++;
             }
-
             $query_general = $columnas_general . $valores_general;
             $query = $columnas . $valores;
 
@@ -107,9 +111,12 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             } else {
                 $msg['codigo'] = 2;
             }
+        } else{
+            $msg['codigo'] = 3;
         }
         pg_close($conexion);
-    }else{
+        
+    } else{
         $msg['codigo'] = 0;
     }
 }
