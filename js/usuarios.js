@@ -41,6 +41,9 @@ function actualizarClave() {
         url: basedir + '/json/perfil/actualizar_clave.php',
         type: 'POST',
         data: $('#nueva-clave').serialize(),
+        beforeSend: function () {
+            $('.status').html('<i class="fa fa-spinner fa-spin fa-fw"></i>   Guardando datos').show();
+        },
         error: function () {
             $('.status').html('Error cargando la información').show();
         },
@@ -84,7 +87,7 @@ function agregarUsuario() {
         type: 'POST',
         data: $('#nuevo-usuario').serialize(),
         beforeSend: function () {
-            $('.status').html('Guardando datos...').show();
+            $('.status').html('<i class="fa fa-spinner fa-spin fa-fw"></i>   Guardando datos').show();
         },
         error: function () {
             $('.status').html('Error guardando la información').show();
@@ -183,7 +186,7 @@ function actualizarUsuario(archivoPhp) {
         type: 'POST',
         data: $('#actualizar-usuario').serialize(),
         beforeSend: function () {
-            $('.status').html('Cargando...').show();
+            $('.status').html('<i class="fa fa-spinner fa-spin fa-fw"></i>   Guardando datos').show();
         },
         error: function () {
             $('.status').html('Error cargando la información').show();
@@ -248,6 +251,10 @@ $(document).ready(function () {
     if (window.location.pathname == (basedir + '/usuarios/perfil'))
         mostrarPerfil();
 
+    $('.enlace-registrar').click(function(){
+        window.location.replace(basedir + '/usuarios/registrar');
+    });
+    
     //Si esta en el perfil de un usuario para modificar sus datos, se cargan los datos del usuario seleccionado
     if ((url = window.location.pathname).match(basedir + '/usuarios/modificar/[0-9]+'))
         mostrarUsuario(url.substring(url.lastIndexOf('/') + 1));

@@ -6,7 +6,7 @@ function login() {
         type: 'POST',
         data: $('#login').serialize(),
         beforeSend: function () {
-            $('.status').html('Verificando información').show();
+            $('.status').html('<i class="fa fa-spinner fa-spin fa-fw"></i>   Verificando información').show();
         },
         error: function () {
             alert('Error iniciando sesión.');

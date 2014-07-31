@@ -10,7 +10,7 @@ function ajaxAgregarPaciente(archivoPhp, formulario) {
         url: basedir + '/json/paciente/insertar/' + archivoPhp,
         data: $('#' + formulario).serialize(), // Adjuntar los campos del formulario a enviar.
         beforeSend: function () {
-            $('.status').html('Guardando datos...').show();
+            $('.status').html('<i class="fa fa-spinner fa-spin fa-fw"></i>   Guardando datos').show();
         },
         error: function () {
             $('.status').html('Error guardando la información').show();
@@ -54,7 +54,7 @@ function ajaxAgregarDatosPaciente(formulario) {
         url: basedir + '/json/paciente/insertar/datos_paciente.php',
         data: $('#datos-paciente').serialize(), // Adjuntar los campos del formulario a enviar.
         beforeSend: function () {
-            $('.status').html('Guardando datos...').show();
+            $('.status').html('<i class="fa fa-spinner fa-spin fa-fw"></i>   Guardando datos').show();
         },
         error: function () {
             $('.status').html('Error guardando la información').show();
@@ -258,7 +258,7 @@ function ajaxActualizarPaciente(archivoPhp, formulario) {
         url: basedir + '/json/paciente/actualizar/' + archivoPhp,
         data: $('#' + formulario).serialize(),
         beforeSend: function () {
-            $('.status').html('Cargando...').show();
+            $('.status').html('<i class="fa fa-spinner fa-spin fa-fw"></i>   Guardando datos').show();
         },
         error: function () {
             $('.status').html('Error cargando la información').show();
