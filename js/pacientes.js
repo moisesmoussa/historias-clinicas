@@ -1,3 +1,32 @@
+/* Habilita los formularios restantes para un paciente de acuerdo al cumplimiento o no de ciertas condiciones según la información brindada por este formulario
+ * Parámetros:
+ * - "id_paciente" es el id del paciente y se utiliza para cargarlo en inputs ocultos de los demas formularios del paciente
+ *   para que se pueda acceder al id posteriormente
+ */
+function successAgregarDatosPaciente(id_paciente) {
+    var fecha = new Date();
+    $('.id_paciente').each(function () {
+        $(this).val(id_paciente);
+    });
+    
+    $('.antecedentes-modo-vida').show();
+    $('.antecedentes-patologicos').show();
+    $('.antecedentes-sexuales').show();
+
+    //Verifica el sexo indicado de un paciente para activar el formulario de antecedentes sexuales de acuerdo a la opción seleccionada
+    if ($('input:radio[name=sexo]:checked').val() == 'Masculino')
+        $('#form-antecedentes-sexuales-f').hide();
+    else
+        $('#form-antecedentes-sexuales-m').hide();
+
+    //Verifica la edad del paciente a registrar para activar los formularios "desarrollo psicomotor" y "antecedentes perinatales"
+    if (edad < 10)
+        $('.desarrollo-psicomotor').show();
+
+    if (edad < 19)
+        $('.antecedentes-perinatales').show();
+}
+
 /* Se encarga de insertar en la base de datos los datos del paciente provenientes del formulario que se ha indicado
  * Parámetros:
  * - "archivoPhp" indica el archivo .php en la carpeta "json" al cual se le envían los datos del formulario para ser insertados en la base de datos
@@ -28,76 +57,15 @@ function ajaxAgregarPaciente(archivoPhp, formulario) {
                     $('#' + formulario + ' .boton').prop('data-enable', 'false');
                     $('#' + formulario + ' .boton').css('background-color', '#ECECEC');
                     $('#' + formulario + ' .boton').css('cursor', 'default');
+                    
+                    if(formulario === 'datos-paciente')
+                        successAgregarDatosPaciente(r.id);
 
                     alert('Datos del paciente agregados exitosamente.');
                 }
 
                 if (r.codigo == 2) {
                     alert('No se pudieron agregar los datos del paciente, es posible que ya existan');
-                }
-            } catch (e) {
-                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
-            }
-        }
-    });
-}
-
-/* Inserta en la base de datos los datos personales, de contacto y dirección del paciente y posteriormente habilita los formularios restantes para un paciente de acuerdo
- * al cumplimiento o no de ciertas condiciones según la información brindada por este formulario
- * Parámetros:
- * - "formulario" indica el nombre del formulario cuyos datos se quiere almacenar en la base de datos
- */
-function ajaxAgregarDatosPaciente(formulario) {
-    $.ajax({
-        async: false,
-        type: 'POST',
-        url: basedir + '/json/paciente/insertar/datos_paciente.php',
-        data: $('#datos-paciente').serialize(), // Adjuntar los campos del formulario a enviar.
-        beforeSend: function () {
-            $('.status').html('<i class="fa fa-spinner fa-spin fa-fw"></i>   Guardando datos').show();
-        },
-        error: function () {
-            $('.status').html('Error guardando la información').show();
-        },
-        success: function (data) {
-            try {
-                $('.status').hide();
-                var r = JSON.parse(data);
-
-                if (r.codigo == 0) {
-                    alert('Debe llenar todos los campos');
-                }
-
-                if (r.codigo == 1) {
-                    var fecha = new Date();
-                    $('.id_paciente').each(function () {
-                        $(this).val(r.id);
-                    });
-                    $('#' + formulario + ' .boton').prop('data-enable', 'false');
-                    $('#' + formulario + ' .boton').css('background-color', '#ECECEC');
-                    $('#' + formulario + ' .boton').css('cursor', 'default');
-                    $('.antecedentes-modo-vida').show();
-                    $('.antecedentes-patologicos').show();
-                    $('.antecedentes-sexuales').show();
-
-                    //Verifica el sexo indicado de un paciente para activar el formulario de antecedentes sexuales de acuerdo a la opción seleccionada
-                    if ($('input:radio[name=sexo]:checked').val() == 'Masculino')
-                        $('#form-antecedentes-sexuales-f').hide();
-                    else
-                        $('#form-antecedentes-sexuales-m').hide();
-
-                    //Verifica la edad del paciente a registrar para activar los formularios "desarrollo psicomotor" y "antecedentes perinatales"
-                    if (edad < 10)
-                        $('.desarrollo-psicomotor').show();
-
-                    if (edad < 19)
-                        $('.antecedentes-perinatales').show();
-
-                    alert('Paciente agregado exitosamente.');
-                }
-
-                if (r.codigo == 2) {
-                    alert('No se pudo agregar el paciente, es posible que ya exista');
                 }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
@@ -113,7 +81,7 @@ function ajaxAgregarDatosPaciente(formulario) {
 function agregarPaciente(formulario) {
     switch (formulario) {
     case 'datos-paciente':
-        ajaxAgregarDatosPaciente(formulario);
+        ajaxAgregarPaciente('datos_paciente.php', formulario);
         break;
     case 'form-antecedentes-perinatales':
         ajaxAgregarPaciente('antecedentes_perinatales.php', formulario);
