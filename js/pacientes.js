@@ -318,6 +318,10 @@ $(document).ready(function () {
     var url;
     $('.status').hide();
 
+    $('.enlace-registrar').click(function(){
+        window.location.replace(basedir + '/pacientes/registrar');
+    });
+    
     //Si esta en el perfil de un paciente para modificar sus datos, se cargan los datos del paciente seleccionado
     if (window.location.pathname == basedir + '/pacientes/registrar') {
         $('.antecedentes-perinatales').hide();
