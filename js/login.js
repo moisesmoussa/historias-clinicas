@@ -1,4 +1,6 @@
-//Envía la información suministrada por el usuario y valida que los datos estén almacenados y sean correctos para validar la cuenta e iniciar la sesión del usuario en el sistema
+/* Envía la información suministrada por el usuario al servidor y valida que los datos estén almacenados y sean correctos para
+ * iniciar la sesión del usuario en el sistema
+ */
 function login() {
     $.ajax({
         async: false,
@@ -16,15 +18,17 @@ function login() {
                 $('.status').hide();
                 var resultado = JSON.parse(data);
 
-                if (resultado.flag == 0)
+                if (resultado.flag === 0 || resultado.flag === 2 || resultado.flag == 3)
                     alert(resultado.msg);
                 else
                     window.location = basedir + resultado.msg;
+
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
         }
     });
+    return false;
 }
 
 $(document).ready(function () {
@@ -50,13 +54,14 @@ $(document).ready(function () {
         claveModificada = true;
     });
 
+    //Activa el evento "onSubmit" del formulario "form-login" cuando se presiona la tecla "enter"
     $(document).keypress(function (e) {
         if (e.which == 13)
-            login();
+            $('#form-login').trigger('onSubmit');
     });
 
-    //Valida cuando se hace click en el botón de algún formulario y realiza la acción correspondiente al formulario 
-    $('.boton').click(function () {
-        login();
+    //Verifica cuando se envían los datos del formulario "form-login" por medio del evento "Submit" y procede a llamar a la función de iniciar sesión
+    $('#form-login').submit(function () {
+        return login();
     });
 });
