@@ -11,9 +11,9 @@
     <link href="<?php echo $app['basedir']."/css/default.css"; ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo $app['basedir']."/css/font-awesome.min.css";?>" rel="stylesheet" type="text/css">
     <?php
-        if($app['controller'] == 'usuarios' || $app['controller'] == 'pacientes')
+        if($app['controller'] === 'usuarios' || $app['controller'] === 'pacientes')
             echo '<link href="'.$app['basedir'].'/css/jquery.datetimepicker.css" rel="stylesheet" type="text/css">';
-        if($app['controller'] == 'usuarios')
+        if($app['controller'] === 'usuarios')
             echo '<link href="'.$app['basedir'].'/css/usuarios.css" rel="stylesheet" type="text/css">';
     ?>
 </head>
@@ -62,11 +62,11 @@
     <?php echo '<script src="'.$app['basedir'].'/js/validaciones.js"></script>'; ?>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
 	<?php
-        if($app['controller'] == 'usuarios' || $app['controller'] == 'pacientes')
+        if($app['controller'] === 'usuarios' || $app['controller'] === 'pacientes')
 			echo '<script defer src="'.$app['basedir'].'/js/jquery.datetimepicker.js"></script>';
-        if($app['controller'] == 'usuarios')
+        if($app['controller'] === 'usuarios')
 			echo '<script async defer src="'.$app['basedir'].'/js/usuarios.js"></script>';
-        if($app['controller'] == 'pacientes')
+        if($app['controller'] === 'pacientes')
 			echo '<script async defer src="'.$app['basedir'].'/js/pacientes.js"></script>';
 	?>
 </body>

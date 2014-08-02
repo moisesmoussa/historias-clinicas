@@ -41,7 +41,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     $antecedentes_sexuales_g['id_paciente'] = $_POST['id_paciente'];
 
                     foreach ($_POST as $clave => $valor){
-                            if($clave == 'primera_relacion_sexual' || $clave == 'frecuencia_relaciones_sexuales_mes' || $clave == 'num_parejas_ultimo_anio' || $clave == 'relacion_sexual_satisfactoria' || $clave == 'anticonceptivo' || $clave == 'otros_antecedentes_sexuales' || $clave == 'pubarquia'){
+                            if($clave === 'primera_relacion_sexual' || $clave === 'frecuencia_relaciones_sexuales_mes' || $clave === 'num_parejas_ultimo_anio' || $clave === 'relacion_sexual_satisfactoria' || $clave === 'anticonceptivo' || $clave === 'otros_antecedentes_sexuales' || $clave === 'pubarquia'){
                                 $antecedentes_sexuales_g[$clave] = $valor;
                                 unset($_POST[$clave]);
                             }
@@ -50,7 +50,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     $respuesta = pg_fetch_assoc($query);
 
                     if(empty($respuesta['id_paciente'])){
-                        if($genero['sexo'] == 'Masculino'){
+                        if($genero['sexo'] === 'Masculino'){
                             $columnas = 'INSERT INTO antecedentes_sexuales_hombre (';
                             $valores = 'VALUES (';
 
@@ -63,7 +63,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                         $last_value_general = $last_value = ');';
 
                     } else{
-                        if($genero['sexo'] == 'Masculino'){
+                        if($genero['sexo'] === 'Masculino'){
                             $columnas = 'UPDATE antecedentes_sexuales_hombre SET (';
                             $valores = '= (';
 
@@ -80,7 +80,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     $len = count($antecedentes_sexuales_g);
 
                     foreach ($antecedentes_sexuales_g as $clave => $valor){
-                        if($cont == $len - 1){
+                        if($cont === $len - 1){
                             $columnas_general .= $clave.') ';
                             $valores_general .= '\''.$valor.'\''.$last_value_general;
 
@@ -94,7 +94,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     $len = count($_POST);
 
                     foreach ($_POST as $clave => $valor){
-                        if($cont == $len - 1){
+                        if($cont === $len - 1){
                             $columnas .= $clave.') ';
                             $valores .= '\''.$valor.'\''.$last_value;
 

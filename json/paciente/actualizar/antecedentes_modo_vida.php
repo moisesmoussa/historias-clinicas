@@ -51,7 +51,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $len = count($_POST);
             
             foreach ($_POST as $clave => $valor){
-                if($cont == $len - 1) {
+                if($cont === $len - 1) {
                     $columnas .= $clave.') ';
                     $valores .= '\''.$valor.'\''.$last_value;
                     

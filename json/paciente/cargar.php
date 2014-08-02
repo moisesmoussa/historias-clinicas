@@ -47,7 +47,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     if($resultado = pg_fetch_assoc($query))
                         $msg['antecedentes_sexuales'] = $resultado;
 
-            if($msg['paciente']['sexo'] == 'Masculino'){
+            if($msg['paciente']['sexo'] === 'Masculino'){
                 $select = 'SELECT * FROM antecedentes_sexuales_hombre WHERE id_paciente = '.$_POST['paciente'];
 
                 if($query = pg_query($select))

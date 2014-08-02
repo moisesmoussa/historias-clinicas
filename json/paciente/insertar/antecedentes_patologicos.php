@@ -38,7 +38,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         $cont = 0;
 
         foreach ($_POST as $clave => $valor){
-            if($cont == $len - 1){
+            if($cont === $len - 1){
                 $columnas .= $clave.') ';
                 $valores .= '\''.$valor.'\');';
                 
