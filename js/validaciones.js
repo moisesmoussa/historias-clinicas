@@ -24,7 +24,7 @@ $(document).ready(function () {
         }
 
         if (key < 48 || key > 57) {
-            if (key == 45) // Detectar - (guión)
+            if (key === 45) // Detectar - (guión)
                 return true;
             else
                 return false;
