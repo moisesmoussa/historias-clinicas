@@ -28,7 +28,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         if($query = pg_query($select)){
             $respuesta = pg_fetch_assoc($query);
             
-            if(!empty($respuesta['sexo']){
+            if(!empty($respuesta['sexo'])){
                 if($respuesta['sexo'] == 'Masculino'){
                     $columnas = 'INSERT INTO antecedentes_sexuales_hombre (';
                     $valores = 'VALUES (';
@@ -93,10 +93,10 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     $msg['codigo'] = 2;
                 }
             } else{
-                $msg['codigo'] = 3
+                $msg['codigo'] = 3;
             }
         } else{
-            $msg['codigo'] = 3
+            $msg['codigo'] = 3;
         }
         pg_close($conexion);
         
