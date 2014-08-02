@@ -1,5 +1,5 @@
 <section class="contenedor-formulario antecedentes-sexuales">
-    <form id="form-antecedentes-sexuales-f" action="">
+    <form id="form-antecedentes-sexuales-f" action="" autocomplete="on">
         <table class="formulario">
             <tr>
                 <td colspan="2">
@@ -12,7 +12,7 @@
                 <td>
                     <label for="pubarquia">Edad en la que se presentó la Pubarquia:</label>
                     <br>
-                    <select id="pubarquia" name="pubarquia">
+                    <select id="pubarquia" name="pubarquia" required>
                         <option value=""></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -37,7 +37,7 @@
                 <td>
                     <label for="telarquia">Edad en la que se presentó la Telarquia</label>
                     <br>
-                    <select id="telarquia" name="telarquia">
+                    <select id="telarquia" name="telarquia" required>
                         <option value=""></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -67,7 +67,7 @@
                 <td>
                     <label for="menarquia">Edad en la que se presentó la Menarquia</label>
                     <br>
-                    <select id="menarquia" name="menarquia">
+                    <select id="menarquia" name="menarquia" required>
                         <option value=""></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -92,7 +92,7 @@
                 <td>
                     <label for="ciclo_menstrual">Edad en la que se estableció un ciclo menstrual</label>
                     <br>
-                    <select id="ciclo_menstrual" name="ciclo_menstrual">
+                    <select id="ciclo_menstrual" name="ciclo_menstrual" required>
                         <option value=""></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -119,7 +119,7 @@
                 <td>
                     <label for="numero_gestas">Cantidad de gestas que ha tenido:</label>
                     <br>
-                    <select id="numero_gestas" name="numero_gestas">
+                    <select id="numero_gestas" name="numero_gestas" required>
                         <option value=""></option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -147,7 +147,7 @@
                 <td>
                     <label for="numero_partos">Cantidad de partos que ha tenido:</label>
                     <br>
-                    <select id="numero_partos" name="numero_partos">
+                    <select id="numero_partos" name="numero_partos" required>
                         <option value=""></option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -177,7 +177,7 @@
                 <td>
                     <label for="numero_cesareas">Cantidad de cesáreas que ha tenido:</label>
                     <br>
-                    <select id="numero_cesareas" name="numero_cesareas">
+                    <select id="numero_cesareas" name="numero_cesareas" required>
                         <option value=""></option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -205,7 +205,7 @@
                 <td>
                     <label for="numero_abortos">Cantidad de abortos que ha tenido:</label>
                     <br>
-                    <select id="numero_abortos" name="numero_abortos">
+                    <select id="numero_abortos" name="numero_abortos" required>
                         <option value=""></option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -235,17 +235,17 @@
                 <td>
                     <label for="legrado_uterino">¿Se ha realizado un legrado uterino?</label>
                     <br>
-                    <input type="radio" name="legrado_uterino" value="TRUE">
+                    <input type="radio" name="legrado_uterino" value="TRUE" required>
                     <label>Sí</label>
-                    <input type="radio" name="legrado_uterino" value="FALSE">
+                    <input type="radio" name="legrado_uterino" value="FALSE" required>
                     <label>No</label>
                 </td>
                 <td>
                     <label for="menopausia">¿Presentó o presenta menopausia?</label>
                     <br>
-                    <input type="radio" name="menopausia" value="TRUE">
+                    <input type="radio" name="menopausia" value="TRUE" required>
                     <label>Sí</label>
-                    <input type="radio" name="menopausia" value="FALSE">
+                    <input type="radio" name="menopausia" value="FALSE" required>
                     <label>No</label>
                 </td>
             </tr>
@@ -253,7 +253,7 @@
                 <td>
                     <label for="primera_relacion_sexual">Edad en la que se tuvo la primera relación sexual:</label>
                     <br>
-                    <select id="primera_relacion_sexual" name="primera_relacion_sexual">
+                    <select id="primera_relacion_sexual" name="primera_relacion_sexual" required>
                         <option value=""></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -296,7 +296,7 @@
                 <td>
                     <label for="frecuencia_relaciones_sexuales_mes">Cantidad promedio de relaciones sexuales al mes:</label>
                     <br>
-                    <select id="frecuencia_relaciones_sexuales_mes" name="frecuencia_relaciones_sexuales_mes">
+                    <select id="frecuencia_relaciones_sexuales_mes" name="frecuencia_relaciones_sexuales_mes" required>
                         <option value=""></option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -337,7 +337,7 @@
                 <td>
                     <label for="num_parejas_ultimo_anio">Cantidad de parejas sexuales en el último año:</label>
                     <br>
-                    <select id="num_parejas_ultimo_anio" name="num_parejas_ultimo_anio">
+                    <select id="num_parejas_ultimo_anio" name="num_parejas_ultimo_anio" required>
                         <option value=""></option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -365,9 +365,9 @@
                 <td>
                     <label for="relacion_sexual_satisfactoria">¿Relaciones sexuales satisfactorias?</label>
                     <br>
-                    <input type="radio" name="relacion_sexual_satisfactoria" value="TRUE">
+                    <input type="radio" name="relacion_sexual_satisfactoria" value="TRUE" required>
                     <label>Sí</label>
-                    <input type="radio" name="relacion_sexual_satisfactoria" value="FALSE">
+                    <input type="radio" name="relacion_sexual_satisfactoria" value="FALSE" required>
                     <label>No</label>
                 </td>
             </tr>
@@ -375,17 +375,17 @@
                 <td>
                     <label for="anticonceptivo">¿Ha utilizado algún método anticonceptivo?</label>
                     <br>
-                    <input type="radio" name="anticonceptivo" value="TRUE">
+                    <input type="radio" name="anticonceptivo" value="TRUE" required>
                     <label>Sí</label>
-                    <input type="radio" name="anticonceptivo" value="FALSE">
+                    <input type="radio" name="anticonceptivo" value="FALSE" required>
                     <label>No</label>
                 </td>
                 <td>
                     <label for="aco_oral">¿Ha utilizado métodos anticonceptivos orales (ACO)?</label>
                     <br>
-                    <input type="radio" name="aco_oral" value="TRUE">
+                    <input type="radio" name="aco_oral" value="TRUE" required>
                     <label>Sí</label>
-                    <input type="radio" name="aco_oral" value="FALSE">
+                    <input type="radio" name="aco_oral" value="FALSE" required>
                     <label>No</label>
                 </td>
             </tr>
@@ -393,17 +393,17 @@
                 <td>
                     <label for="diu">¿Ha utilizado métodos anticonceptivos intrauterinos (DIU)?</label>
                     <br>
-                    <input type="radio" name="diu" value="TRUE">
+                    <input type="radio" name="diu" value="TRUE" required>
                     <label>Sí</label>
-                    <input type="radio" name="diu" value="FALSE">
+                    <input type="radio" name="diu" value="FALSE" required>
                     <label>No</label>
                 </td>
                 <td>
                     <label for="otro_anticonceptivo">¿Ha utilizado algún otro método anticonceptivo?</label>
                     <br>
-                    <input type="radio" name="otro_anticonceptivo" value="TRUE">
+                    <input type="radio" name="otro_anticonceptivo" value="TRUE" required>
                     <label>Sí</label>
-                    <input type="radio" name="otro_anticonceptivo" value="FALSE">
+                    <input type="radio" name="otro_anticonceptivo" value="FALSE" required>
                     <label>No</label>
                 </td>
             </tr>
@@ -411,12 +411,12 @@
                 <td colspan="2">
                     <label for="otros_antecedentes_sexuales">Indique, si existen, otros antecedentes sexuales:</label>
                     <br>
-                    <textarea id="otros_antecedentes_sexuales" name="otros_antecedentes_sexuales"></textarea>
+                    <textarea id="otros_antecedentes_sexuales" name="otros_antecedentes_sexuales" required></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <a class="boton" href="javascript:void(0);">Enviar</a>
+                    <input type="submit" class="boton"/>
                 </td>
             </tr>
             <tr>
@@ -426,7 +426,7 @@
             </tr>
         </table>
     </form>
-    <form id="form-antecedentes-sexuales-m" action="">
+    <form id="form-antecedentes-sexuales-m" action="" autocomplete="on">
         <table class="formulario">
             <tr>
                 <td colspan="2">
@@ -439,7 +439,7 @@
                 <td>
                     <label for="pubarquia">Edad en la que se presentó la Pubarquia:</label>
                     <br>
-                    <select id="pubarquia" name="pubarquia">
+                    <select id="pubarquia" name="pubarquia" required>
                         <option value=""></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -464,7 +464,7 @@
                 <td>
                     <label for="inicio_crecimiento_testicular">Edad en la que se inició el crecimiento testicular:</label>
                     <br>
-                    <select id="inicio_crecimiento_testicular" name="inicio_crecimiento_testicular">
+                    <select id="inicio_crecimiento_testicular" name="inicio_crecimiento_testicular" required>
                         <option value=""></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -492,15 +492,15 @@
                 <td>
                     <label for="andropausia">¿Presentó o presenta andropausia?</label>
                     <br>
-                    <input type="radio" name="andropausia" value="TRUE">
+                    <input type="radio" name="andropausia" value="TRUE" required>
                     <label>Sí</label>
-                    <input type="radio" name="andropausia" value="FALSE">
+                    <input type="radio" name="andropausia" value="FALSE" required>
                     <label>No</label>
                 </td>
                 <td>
                     <label for="primera_relacion_sexual">Edad en la que se tuvo la primera relación sexual:</label>
                     <br>
-                    <select id="primera_relacion_sexual" name="primera_relacion_sexual">
+                    <select id="primera_relacion_sexual" name="primera_relacion_sexual" required>
                         <option value=""></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -545,7 +545,7 @@
                 <td>
                     <label for="frecuencia_relaciones_sexuales_mes">Cantidad promedio de relaciones sexuales al mes:</label>
                     <br>
-                    <select id="frecuencia_relaciones_sexuales_mes" name="frecuencia_relaciones_sexuales_mes">
+                    <select id="frecuencia_relaciones_sexuales_mes" name="frecuencia_relaciones_sexuales_mes" required>
                         <option value=""></option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -584,7 +584,7 @@
                 <td>
                     <label for="num_parejas_ultimo_anio">Cantidad de parejas sexuales en el último año:</label>
                     <br>
-                    <select id="num_parejas_ultimo_anio" name="num_parejas_ultimo_anio">
+                    <select id="num_parejas_ultimo_anio" name="num_parejas_ultimo_anio" required>
                         <option value=""></option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -614,17 +614,17 @@
                 <td>
                     <label for="relacion_sexual_satisfactoria">¿Relaciones sexuales satisfactorias?</label>
                     <br>
-                    <input type="radio" name="relacion_sexual_satisfactoria" value="TRUE">
+                    <input type="radio" name="relacion_sexual_satisfactoria" value="TRUE" required>
                     <label>Sí</label>
-                    <input type="radio" name="relacion_sexual_satisfactoria" value="FALSE">
+                    <input type="radio" name="relacion_sexual_satisfactoria" value="FALSE" required>
                     <label>No</label>
                 </td>
                 <td>
                     <label for="anticonceptivo">¿Ha utilizado algún método anticonceptivo?</label>
                     <br>
-                    <input type="radio" name="anticonceptivo" value="TRUE">
+                    <input type="radio" name="anticonceptivo" value="TRUE" required>
                     <label>Sí</label>
-                    <input type="radio" name="anticonceptivo" value="FALSE">
+                    <input type="radio" name="anticonceptivo" value="FALSE" required>
                     <label>No</label>
                 </td>
             </tr>
@@ -632,12 +632,12 @@
                 <td colspan="2">
                     <label for="otros_antecedentes_sexuales">Indique, si existen, otros antecedentes sexuales:</label>
                     <br>
-                    <textarea id="otros_antecedentes_sexuales" name="otros_antecedentes_sexuales"></textarea>
+                    <textarea id="otros_antecedentes_sexuales" name="otros_antecedentes_sexuales" required></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <a class="boton" href="javascript:void(0);">Enviar</a>
+                    <input type="submit" class="boton"/>
                 </td>
             </tr>
             <tr>
