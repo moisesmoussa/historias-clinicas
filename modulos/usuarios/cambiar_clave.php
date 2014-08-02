@@ -1,12 +1,12 @@
 <section class="contenedor-formulario">
     <h2 align="center">Cambiar Contraseña</h2>
-    <form id="nueva-clave" action="">
+    <form id="nueva-clave" action="" autocomplete="off">
         <table class="formulario">
             <tr>
                 <td>
                     <label for="clave_actual">Contraseña Actual:</label>
                     <br>
-                    <input id="clave_actual" name="clave_actual" type="password" required>
+                    <input id="clave_actual" name="clave_actual" type="password" autofocus required>
                 </td>
             </tr>
             <tr>
@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <td>
-                    <a class="boton" id="clave" href="javascript:void(0);">Guardar Cambios</a>
+                    <input type="submit" class="boton" value="Guardar Cambios"/>
                 </td>
             </tr>
             <tr>
