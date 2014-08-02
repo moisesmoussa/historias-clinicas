@@ -26,22 +26,37 @@
             </div>
         </div>
     </header>
-    <section class="inicio-sesion">
+    <section class="contenedor-form-login">
         <h3 align="center">
             <b>Inicio de Sesión</b>
         </h3>
-        <form id="login" action="">
-            <label for="nombre">Nombre de usuario:</label>
-            <br>
-            <input id="nombre" name="nombre" type="text" required>
-            <br>
-            <label for="clave">Contraseña:</label>
-            <br>
-            <input id="clave" name="clave" type="password" required>
-            <br>
-            <a class="boton" href="javascript:void(0);">Iniciar sesión</a>
-            <br>
-            <div class="status"></div>
+        <form id="form-login" action="" autocomplete="on">
+            <table class="formulario">
+                <tr>
+                    <td>
+                        <label for="nombre">Nombre de usuario:</label>
+                        <br>
+                        <input id="nombre" name="nombre" type="text" autofocus required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="clave">Contraseña:</label>
+                        <br>
+                        <input id="clave" name="clave" type="password" autocomplete="off" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" class="boton" value="Iniciar Sesión"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="status"></div>
+                    </td>
+                </tr>
+            </table>
         </form>
     </section>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
