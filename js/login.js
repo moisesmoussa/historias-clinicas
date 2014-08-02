@@ -16,10 +16,9 @@ function login() {
         success: function (data) {
             try {
                 $('.status').hide();
-                alert(data);
                 var resultado = JSON.parse(data);
 
-                if (resultado.flag === 0 || resultado.flag === 2 || resultado.flag == 3)
+                if (resultado.flag === 0 || resultado.flag === 2 || resultado.flag === 3)
                     alert(resultado.msg);
                 else
                     window.location = basedir + resultado.msg;
@@ -53,12 +52,6 @@ $(document).ready(function () {
     });
     $('input[type=password]').change(function () {
         claveModificada = true;
-    });
-
-    //Activa el evento "onSubmit" del formulario "form-login" cuando se presiona la tecla "enter"
-    $(document).keypress(function (e) {
-        if (e.which == 13)
-            $('#form-login').trigger('onSubmit');
     });
 
     //Verifica cuando se envían los datos del formulario "form-login" por medio del evento "Submit" y procede a llamar a la función de iniciar sesión
