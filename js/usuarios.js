@@ -97,15 +97,15 @@ function agregarUsuario() {
                 $('.status').hide();
                 var r = JSON.parse(data);
 
-                if (r.codigo == 0) {
+                if (r.codigo === 0) {
                     alert('Debe llenar todos los campos');
                 }
 
-                if (r.codigo == 1) {
+                if (r.codigo === 1) {
                     alert('Las contraseñas no coinciden');
                 }
 
-                if (r.codigo == 2) {
+                if (r.codigo === 2) {
                     $('#nuevo-usuario').each(function () {
                         this.reset();
                     });
@@ -115,11 +115,11 @@ function agregarUsuario() {
                         alert('Usuario agregado exitosamente.\nNo se pudo enviar el correo con los datos de la cuenta');
                 }
 
-                if (r.codigo == 3) {
+                if (r.codigo === 3) {
                     alert('No se pudo agregar el usuario, es posible que ya exista');
                 }
 
-                if (r.codigo == 4) {
+                if (r.codigo === 4) {
                     alert('El nombre de usuario indicado ya existe');
                 }
             } catch (e) {
@@ -196,15 +196,15 @@ function actualizarUsuario(archivoPhp) {
                 $('.status').hide();
                 var r = JSON.parse(data);
 
-                if (r.codigo == 0) {
+                if (r.codigo === 0) {
                     alert('Debe llenar todos los campos');
                 }
 
-                if (r.codigo == 1) {
+                if (r.codigo === 1) {
                     alert('Actualización de usuario exitosa');
                 }
 
-                if (r.codigo == 2) {
+                if (r.codigo === 2) {
                     alert('No se pudo actualizar el usuario');
                 }
             } catch (e) {
@@ -248,18 +248,33 @@ $(document).ready(function () {
     var url;
     $('.status').hide();
 
-    if (window.location.pathname == (basedir + '/usuarios/perfil'))
+    //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
+    $('form').submit(function () {
+        if ((url = window.location.pathname) == basedir + '/usuarios/perfil') {
+            actualizarUsuario('perfil/actualizar.php');
+        } else if (url == basedir + '/usuarios/cambiar-clave') {
+            actualizarClave();
+        } else if (url.match(basedir + '/usuarios/modificar/[0-9]+')) {
+            $('#id_usuario').val(url.substring(url.lastIndexOf('/') + 1));
+            actualizarUsuario('usuario/actualizar.php');
+        } else if (url == basedir + '/usuarios/registrar') {
+            agregarUsuario();
+        }
+        return false;
+    });
+
+    if (window.location.pathname === (basedir + '/usuarios/perfil'))
         mostrarPerfil();
 
-    $('.enlace-registrar').click(function(){
+    $('.enlace-registrar').click(function () {
         window.location.replace(basedir + '/usuarios/registrar');
     });
-    
+
     //Si esta en el perfil de un usuario para modificar sus datos, se cargan los datos del usuario seleccionado
     if ((url = window.location.pathname).match(basedir + '/usuarios/modificar/[0-9]+'))
         mostrarUsuario(url.substring(url.lastIndexOf('/') + 1));
 
-    if (window.location.pathname == basedir + '/usuarios')
+    if (window.location.pathname === basedir + '/usuarios')
         cargarUsuarios(); //Trae de la base de datos la información necesaria de todos los usuarios registrados
 
     //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas
@@ -278,20 +293,6 @@ $(document).ready(function () {
     //Carga las ciudades por estado desde un archivo .txt con el nombre del estado indicado en la carpeta "ciudades"
     $('#estado_residencia').change(function () {
         $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.html');
-    });
-
-    //Valida cuando se hace click en el botón de algún formulario y realiza la acción correspondiente al formulario 
-    $('.boton').click(function () {
-        if ((url = window.location.pathname) == basedir + '/usuarios/perfil') {
-            actualizarUsuario('perfil/actualizar.php');
-        } else if (url == basedir + '/usuarios/cambiar-clave') {
-            actualizarClave();
-        } else if (url.match(basedir + '/usuarios/modificar/[0-9]+')) {
-            $('#id_usuario').val(url.substring(url.lastIndexOf('/') + 1));
-            actualizarUsuario('usuario/actualizar.php');
-        } else if (url == basedir + '/usuarios/registrar') {
-            agregarUsuario();
-        }
     });
 
     //Verifica la eliminación de un usuario de la base de datos. Si es aceptada, se procede a eliminar el usuario indicado
