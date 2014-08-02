@@ -6,7 +6,7 @@ function login() {
         async: false,
         url: basedir + '/json/login.php',
         type: 'POST',
-        data: $('#login').serialize(),
+        data: $('#form-login').serialize(),
         beforeSend: function () {
             $('.status').html('<i class="fa fa-spinner fa-spin fa-fw"></i>   Verificando información').show();
         },
@@ -16,6 +16,7 @@ function login() {
         success: function (data) {
             try {
                 $('.status').hide();
+                alert(data);
                 var resultado = JSON.parse(data);
 
                 if (resultado.flag === 0 || resultado.flag === 2 || resultado.flag == 3)
