@@ -13,7 +13,7 @@
                 <td>
                     <label for="nombre_usuario">Nombre de Usuario:</label>
                     <br>
-                    <input id="nombre_usuario" name="nombre_usuario" type="text" required>
+                    <input id="nombre_usuario" name="nombre_usuario" type="text" autofocus required>
                 </td>
                 <?php if(isset($_SESSION[ 'super_administrador'])) echo '<td>
                                 <label for="tipo_usuario">Tipo de Usuario:</label>
@@ -28,12 +28,12 @@
                 <td>
                     <label for="clave">Contraseña:</label>
                     <br>
-                    <input id="clave" name="clave" type="password" required>
+                    <input id="clave" name="clave" type="password" autocomplete="off" required>
                 </td>
                 <td>
                     <label for="clave2">Repetir Contraseña:</label>
                     <br>
-                    <input id="clave2" name="clave2" type="password" required>
+                    <input id="clave2" name="clave2" type="password" autocomplete="off" required>
                 </td>
             </tr>
             <tr>
@@ -100,7 +100,7 @@
                 <td>
                     <label for="estado_residencia">Estado:</label>
                     <br>
-                    <select id="estado_residencia" name="estado_residencia">
+                    <select id="estado_residencia" name="estado_residencia" required>
                         <option value="vacio"></option>
                         <option value="Amazonas">Amazonas</option>
                         <option value="Anzoátegui">Anzoátegui</option>
@@ -131,7 +131,7 @@
                 <td>
                     <label for="ciudad_residencia">Ciudad:</label>
                     <br>
-                    <select id="ciudad_residencia" name="ciudad_residencia"></select>
+                    <select id="ciudad_residencia" name="ciudad_residencia" required></select>
                 </td>
             </tr>
             <tr>
@@ -164,29 +164,29 @@
                 <td>
                     <label for="tlf_movil">Teléfono Móvil:</label>
                     <br>
-                    <input id="tlf_movil" name="tlf_movil" class="tlf" type="text" required>
+                    <input id="tlf_movil" name="tlf_movil" class="tlf" type="text" placeholder="04XX-XXX-XXXX" required>
                 </td>
                 <td>
                     <label for="tlf_casa">Teléfono de Casa:</label>
                     <br>
-                    <input id="tlf_casa" name="tlf_casa" class="tlf" type="text" required>
+                    <input id="tlf_casa" name="tlf_casa" class="tlf" type="text" placeholder="XXXX-XXXXXXX" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="correo_electronico">Correo Electrónico:</label>
                     <br>
-                    <input id="correo_electronico" name="correo_electronico" type="text" required>
+                    <input id="correo_electronico" name="correo_electronico" type="text" placeholder="nombrecorreo@correo.com" required>
                 </td>
                 <td>
                     <label for="correo_alternativo">Correo Electrónico Alternativo:</label>
                     <br>
-                    <input id="correo_alternativo" name="correo_alternativo" type="text" required>
+                    <input id="correo_alternativo" name="correo_alternativo" type="text" placeholder="nombrecorreo@correo.com" required>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <a class="boton" href="javascript:void(0);">Registrar</a>
+                    <input type="submit" class="boton" value="Registrar"/>
                 </td>
             </tr>
             <tr>
