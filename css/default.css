@@ -40,19 +40,16 @@ body {
 }
 .boton {
     background-color: #6FC8E5;
-    border-style: none;
+    border: none;
     border-radius: 5px;
     color: #FFF;
-    cursor: pointer;
     display: block;
     font-size: 20px;
-    height: 45px;
-    margin: 45px auto;
-    padding-top: 18px;
+    height: 60px;
+    margin: 35px auto;
     outline: none;
     text-align: center;
-    text-decoration: none;
-    width: 195px;
+    width: 200px;
 }
 .boton:focus {
     background-color: #4799B4;
@@ -179,6 +176,10 @@ input {
     margin-left: 2px;
     outline: none;
     width: 240px;
+}
+input:-webkit-autofill {
+    /*Evita el color de fondo amarillo en google Chrome para los campos autocompletados*/
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 input:focus {
     border: 4px solid #4799B4;
