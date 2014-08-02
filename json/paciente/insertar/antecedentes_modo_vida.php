@@ -24,7 +24,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
 
         if(isset($_SESSION['super_administrador']))
             $id_usuario = $_SESSION['super_administrador'];
-        else if(isset($_SESSION['administrador'])){
+        else if(isset($_SESSION['administrador']))
             $id_usuario = $_SESSION['administrador'];
         else if(isset($_SESSION['general']))
             $id_usuario = $_SESSION['general'];
