@@ -43,6 +43,7 @@ body {
     border: none;
     border-radius: 5px;
     color: #FFF;
+    cursor: pointer;
     display: block;
     font-size: 20px;
     height: 60px;
@@ -53,6 +54,7 @@ body {
 }
 .boton:focus {
     background-color: #4799B4;
+    border: none;
 }
 .boton:hover {
     background-color: #4799B4;
@@ -101,10 +103,6 @@ body {
     margin: 30px auto;
     padding: 15px 150px;
     text-align: left;
-}
-.descripcion {
-    font-size: 12px;
-    padding-left: 5px;
 }
 .enlace-registrar {
     color: #000;
