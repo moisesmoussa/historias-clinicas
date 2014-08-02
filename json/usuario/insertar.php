@@ -52,7 +52,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                 $columnas = 'INSERT INTO usuario (fecha_ingreso, fecha_ua, usuario_ua, creador, estado_actual, '.$insert_usuario_g;
                 $valores = 'VALUES (\''.date('Y-m-d').'\', \''.date('Y-m-d').'\', '.$id_usuario.', '.$id_usuario.', \'Activo\', '.$values_usuario_g;
                 $len = count($_POST);
-                $cont = 1;
+                $cont = 0;
 
                 foreach ($_POST as $clave => $valor){
                     if($cont == $len - 1){
