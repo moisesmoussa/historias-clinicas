@@ -1,1 +1,1 @@
-<?php @include_once( 'formulario-pacientes/principal.php')?>
+<?php @include_once('formularios/paciente/index.php')?>

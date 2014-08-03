@@ -72,7 +72,7 @@
                 <td>
                     <label for="pais_nacimiento">País de Nacimiento:</label>
                     <br>
-                    <?php @include_once( 'paises.html')?>
+                    <?php @include_once('paises.html')?>
                 </td>
             </tr>
             <tr>
@@ -220,8 +220,8 @@
         </table>
     </form>
 </section>
-<?php @include_once( 'antecedentes-perinatales.html')?>
-<?php @include_once( 'antecedentes-sexuales.html')?>
+<?php @include_once('antecedentes-perinatales.html')?>
+<?php @include_once('antecedentes-sexuales.html')?>
 <section class="contenedor-formulario antecedentes-modo-vida">
     <form id="form-antecedentes-modo-vida" action="" autocomplete="on">
         <table class="formulario">
@@ -809,6 +809,6 @@
         </table>
     </form>
 </section>
-<?php @include_once( 'desarrollo-psicomotor.html')?>
+<?php @include_once('desarrollo-psicomotor.html')?>
 </form>
 </section>
