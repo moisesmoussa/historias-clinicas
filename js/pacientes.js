@@ -321,10 +321,23 @@ $(document).ready(function () {
     var url;
     $('.status').hide();
 
-    $('.enlace-registrar').click(function () {
-        window.location.replace(basedir + '/pacientes/registrar');
-    });
-
+    //Si el programa está posicionado en la búsqueda de pacientes, se carga de la base de datos la información necesaria de todos los pacientes registrados
+    if (window.location.pathname === basedir + '/pacientes')
+        cargarPacientes(); //Trae de la base de datos la información necesaria de todos los pacientes registrados
+    
+    //Si el programa está posicionado en el perfil de un paciente para modificar o ver sus datos, se cargan los datos de dicho paciente seleccionado
+    if ((url = window.location.pathname).match(basedir + '/pacientes/modificar/[0-9]+'))
+        mostrarPaciente(url.substring(url.lastIndexOf('/') + 1));
+    
+    //Si esta en el perfil de un paciente para modificar sus datos, se cargan los datos del paciente seleccionado
+    if (window.location.pathname === basedir + '/pacientes/registrar') {
+        $('.antecedentes-perinatales').hide();
+        $('.antecedentes-sexuales').hide();
+        $('.antecedentes-modo-vida').hide();
+        $('.antecedentes-patologicos').hide();
+        $('.desarrollo-psicomotor').hide();
+    }
+    
     //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
     $('form').submit(function () {
         if ((url = window.location.pathname).match(basedir + '/pacientes/modificar/[0-9]+')) {
@@ -342,42 +355,12 @@ $(document).ready(function () {
         return false;
     });
 
-    //Si esta en el perfil de un paciente para modificar sus datos, se cargan los datos del paciente seleccionado
-    if (window.location.pathname === basedir + '/pacientes/registrar') {
-        $('.antecedentes-perinatales').hide();
-        $('.antecedentes-sexuales').hide();
-        $('.antecedentes-modo-vida').hide();
-        $('.antecedentes-patologicos').hide();
-        $('.desarrollo-psicomotor').hide();
-    }
-
-    //Si esta en el perfil de un paciente para modificar sus datos, se cargan los datos del paciente seleccionado
-    if ((url = window.location.pathname).match(basedir + '/pacientes/modificar/[0-9]+')) {
-        var html = '<input class="id_paciente" name="id_paciente" type="text">';
-        mostrarPaciente(url.substring(url.lastIndexOf('/') + 1));
-
-        $('.titulo').html('Perfil de Paciente');
-        $('#datos-paciente .oculto').html(html);
-
-        $('.boton').each(function () {
-            $(this).val('Guardar Cambios');
-        });
-    } else if (url === basedir + '/pacientes/registrar') {
-        $('.titulo').html('Registro de Paciente');
-
-        $('.boton').each(function () {
-            $(this).val('Registrar');
-        });
-    }
-
-    if (window.location.pathname === basedir + '/pacientes')
-        cargarPacientes(); //Trae de la base de datos la información necesaria de todos los pacientes registrados
-
-    //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas
+    //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas en los formularios de registrar y modificar un paciente
     $('.calendario').datetimepicker({
         lang: 'es',
         timepicker: false,
         scrollInput: false,
+        closeOnDateSelect: true,
         format: 'd/m/Y',
         formatDate: 'Y/m/d',
         minDate: '1920/01/01',
@@ -385,9 +368,9 @@ $(document).ready(function () {
         yearStart: 1920,
         yearEnd: fechaActual.getFullYear()
     });
-
+    
     //Calcula la edad del paciente de acuerdo a la fecha de nacimiento ingresada
-    $('#datos-paciente .calendario').datetimepicker({
+    $('#datos-paciente #fecha_nacimiento').datetimepicker({
         onSelectDate: function (fechaNacimiento) {
             edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
 
@@ -396,11 +379,19 @@ $(document).ready(function () {
         }
     });
 
-    //Carga las ciudades por estado desde un archivo .txt con el nombre del estado indicado en la carpeta "ciudades"
+    //Carga las ciudades por estado en los formularios de registro y modificación de un paciente desde un archivo .html con el nombre del estado indicado en la carpeta "ciudades"
     $('#estado_residencia').change(function () {
         $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.html');
     });
 
+    //Marca o desmarcar filas de la tabla de pacientes
+    $(document).on('click', '.busqueda table td', function (e) {
+        if ($(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')
+            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(18, 182, 235, 0.2)');
+        else
+            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(0,0,0,0)');
+    });
+    
     //Verifica la eliminación de un paciente de la base de datos. Si es aceptada, se procede a eliminar el paciente indicado
     $(document).on('click', '.pacientes tr .icono-tabla .borrar', function () {
         var confirmacion = confirm('¿Está seguro que desea eliminar este paciente?');
@@ -414,13 +405,5 @@ $(document).ready(function () {
     //Redirige a la página que contiene todos los datos del paciente indicado para que se puedan ver y editar
     $(document).on('click', '.pacientes tr .icono-tabla .editar', function () {
         window.location.replace(basedir + '/pacientes/modificar/' + $(this).parent().attr('data-id'));
-    });
-
-    //Marca o desmarcar filas de la tabla
-    $(document).on('click', '.busqueda table td', function (e) {
-        if ($(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')
-            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(18, 182, 235, 0.2)');
-        else
-            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(0,0,0,0)');
     });
 });

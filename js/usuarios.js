@@ -280,6 +280,7 @@ $(document).ready(function () {
         lang: 'es',
         timepicker: false,
         scrollInput: false,
+        closeOnDateSelect: true,
         format: 'd/m/Y',
         formatDate: 'Y/m/d',
         minDate: '1920/01/01',
@@ -288,7 +289,7 @@ $(document).ready(function () {
         yearEnd: fechaActual.getFullYear()
     });
 
-    //Carga las ciudades por estado en los formularios de registro y modificación de un usuario desde un archivo .txt con el nombre del estado indicado en la carpeta "ciudades"
+    //Carga las ciudades por estado en los formularios de registro y modificación de un usuario desde un archivo .html con el nombre del estado indicado en la carpeta "ciudades"
     $('#estado_residencia').change(function () {
         $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.html');
     });
