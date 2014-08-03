@@ -22,9 +22,10 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
             break;
         }
     
-    if($_POST['clave'] != $_POST['clave2'])
+    if($_POST['clave'] != $_POST['clave2']){
         $msg['codigo'] = 1;
-    else if($flag){
+        
+    } else if($flag){
         $_POST['fecha_nacimiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
         $_POST['clave'] = md5($_POST['clave']);
         unset($_POST['clave2']);
