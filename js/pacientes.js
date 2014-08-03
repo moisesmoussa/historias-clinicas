@@ -329,12 +329,12 @@ $(document).ready(function () {
     $('form').submit(function () {
         if ((url = window.location.pathname).match(basedir + '/pacientes/modificar/[0-9]+')) {
             var id_paciente = url.substring(url.lastIndexOf('/') + 1);
-            
+
             $('.id_paciente').each(function () {
                 $(this).val(id_paciente);
             });
             actualizarPaciente($(this).attr('id'));
-            
+
         } else if (url === basedir + '/pacientes/registrar') {
             if ($(this).prop('data-enable') != 'false')
                 agregarPaciente($(this).attr('id'));
@@ -355,7 +355,7 @@ $(document).ready(function () {
     if ((url = window.location.pathname).match(basedir + '/pacientes/modificar/[0-9]+')) {
         var html = '<input class="id_paciente" name="id_paciente" type="text">';
         mostrarPaciente(url.substring(url.lastIndexOf('/') + 1));
-        
+
         $('.titulo').html('Perfil de Paciente');
         $('#datos-paciente .oculto').html(html);
 
@@ -364,7 +364,7 @@ $(document).ready(function () {
         });
     } else if (url === basedir + '/pacientes/registrar') {
         $('.titulo').html('Registro de Paciente');
-        
+
         $('.boton').each(function () {
             $(this).val('Registrar');
         });

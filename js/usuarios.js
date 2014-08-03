@@ -140,7 +140,7 @@ function cargarUsuarios() {
         success: function (usuarios) {
             try {
                 var datos = JSON.parse(usuarios);
-                var html = '<tr><th class="icono-tabla"></th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Nombre de Usuario</th><th>Móvil</th><th>Email</th></tr>';
+                var html = '<tr><th class="icono-tabla"></th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Usuario</th><th>Móvil</th><th>Email</th></tr>';
 
                 if (datos.flag) {
                     for (var i in datos.usuario) {
@@ -248,6 +248,18 @@ $(document).ready(function () {
     var url;
     $('.status').hide();
 
+    //Si el programa está posicionado en la búsqueda de usuarios, se carga de la base de datos la información necesaria de todos los usuarios registrados
+    if (window.location.pathname === basedir + '/usuarios')
+        cargarUsuarios();
+
+    //Si el programa está posicionado en el perfil de un usuario para modificar o ver sus datos, se cargan los datos de dicho usuario seleccionado
+    if ((url = window.location.pathname).match(basedir + '/usuarios/modificar/[0-9]+'))
+        mostrarUsuario(url.substring(url.lastIndexOf('/') + 1));
+    
+    //Se cargan los datos del usuario si está en su perfil para modificar o ver dichos datos
+    if (window.location.pathname === (basedir + '/usuarios/perfil'))
+        mostrarPerfil();
+    
     //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
     $('form').submit(function () {
         if ((url = window.location.pathname) == basedir + '/usuarios/perfil') {
@@ -263,21 +275,7 @@ $(document).ready(function () {
         return false;
     });
 
-    if (window.location.pathname === (basedir + '/usuarios/perfil'))
-        mostrarPerfil();
-
-    $('.enlace-registrar').click(function () {
-        window.location.replace(basedir + '/usuarios/registrar');
-    });
-
-    //Si esta en el perfil de un usuario para modificar sus datos, se cargan los datos del usuario seleccionado
-    if ((url = window.location.pathname).match(basedir + '/usuarios/modificar/[0-9]+'))
-        mostrarUsuario(url.substring(url.lastIndexOf('/') + 1));
-
-    if (window.location.pathname === basedir + '/usuarios')
-        cargarUsuarios(); //Trae de la base de datos la información necesaria de todos los usuarios registrados
-
-    //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas
+    //Maneja el plugin para mostrar un formato tipo calendario al momento de ingresar fechas en los formularios de registrar y modificar un usuario
     $('.calendario').datetimepicker({
         lang: 'es',
         timepicker: false,
@@ -290,11 +288,19 @@ $(document).ready(function () {
         yearEnd: fechaActual.getFullYear()
     });
 
-    //Carga las ciudades por estado desde un archivo .txt con el nombre del estado indicado en la carpeta "ciudades"
+    //Carga las ciudades por estado en los formularios de registro y modificación de un usuario desde un archivo .txt con el nombre del estado indicado en la carpeta "ciudades"
     $('#estado_residencia').change(function () {
         $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.html');
     });
 
+    //Marca o desmarcar filas de la tabla de usuarios
+    $(document).on('click', '.busqueda table td', function (e) {
+        if ($(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')
+            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(18, 182, 235, 0.2)');
+        else
+            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(0,0,0,0)');
+    });
+    
     //Verifica la eliminación de un usuario de la base de datos. Si es aceptada, se procede a eliminar el usuario indicado
     $(document).on('click', '.usuarios tr .icono-tabla .borrar', function () {
         var confirmacion = confirm('¿Está seguro que desea eliminar este usuario?');
@@ -304,16 +310,8 @@ $(document).ready(function () {
         }
     });
 
-    //Redirige a la página que contiene todos los datos del usuario indicado para que se puedan ver y editar
+    //Redirige a la página que contiene todos los datos del usuario indicado para que se puedan visualizar y editar
     $(document).on('click', '.usuarios tr .icono-tabla .editar', function () {
         window.location.replace(basedir + '/usuarios/modificar/' + $(this).parent().attr('data-id'));
-    });
-
-    //Marca o desmarcar filas de la tabla
-    $(document).on('click', '.busqueda table td', function (e) {
-        if ($(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')
-            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(18, 182, 235, 0.2)');
-        else
-            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(0,0,0,0)');
     });
 });
