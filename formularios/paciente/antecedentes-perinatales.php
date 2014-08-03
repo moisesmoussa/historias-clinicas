@@ -4,8 +4,8 @@
             <tr>
                 <td colspan="2">
                     <h3>
-                <b>Antecedentes Perinatales</b>
-            </h3>
+                        <b>Antecedentes Perinatales</b>
+                    </h3>
                 </td>
             </tr>
             <tr>
@@ -318,7 +318,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" class="boton"/>
+                    <input type="submit" class="boton" value="<?php echo ($app['action'] === 'registrar')? 'Registrar': 'Guardar Cambios'; ?>"/>
                 </td>
             </tr>
             <tr>
