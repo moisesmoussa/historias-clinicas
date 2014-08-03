@@ -1,5 +1,5 @@
 <section class="contenedor-formulario">
-    <h2 class="titulo" align="center"></h2>
+    <h2 align="center"><?php echo ($app['action'] === 'registrar')? 'Registro de Paciente': 'Perfil de Paciente'; ?></h2>
     <form id="datos-paciente" action="" autocomplete="on">
         <table class="formulario">
             <tr>
@@ -23,8 +23,13 @@
                     <br>
                     <input type="text" id="documento_identidad" name="documento_identidad" placeholder="Cédula o pasaporte" autofocus required>
                 </td>
-                <td class="oculto">
-                </td>
+                <?php if($app['action'] === 'modificar')
+                          echo
+                '<td class="oculto">
+                    <input class="id_paciente" name="id_paciente" type="text">
+                </td>';
+                ?>
+                
             </tr>
             <tr>
                 <td>
@@ -209,7 +214,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" class="boton"/>
+                    <input type="submit" class="boton" value="<?php echo ($app['action'] === 'registrar')? 'Registrar': 'Guardar Cambios'; ?>"/>
                 </td>
             </tr>
             <tr>
@@ -220,8 +225,8 @@
         </table>
     </form>
 </section>
-<?php @include_once('antecedentes-perinatales.html')?>
-<?php @include_once('antecedentes-sexuales.html')?>
+<?php @include_once('antecedentes-perinatales.php')?>
+<?php @include_once('antecedentes-sexuales.php')?>
 <section class="contenedor-formulario antecedentes-modo-vida">
     <form id="form-antecedentes-modo-vida" action="" autocomplete="on">
         <table class="formulario">
@@ -365,7 +370,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" class="boton"/>
+                    <input type="submit" class="boton" value="<?php echo ($app['action'] === 'registrar')? 'Registrar': 'Guardar Cambios'; ?>"/>
                 </td>
             </tr>
             <tr>
@@ -798,7 +803,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" class="boton"/>
+                    <input type="submit" class="boton" value="<?php echo ($app['action'] === 'registrar')? 'Registrar': 'Guardar Cambios'; ?>"/>
                 </td>
             </tr>
             <tr>
@@ -809,6 +814,4 @@
         </table>
     </form>
 </section>
-<?php @include_once('desarrollo-psicomotor.html')?>
-</form>
-</section>
+<?php @include_once('desarrollo-psicomotor.php')?>
