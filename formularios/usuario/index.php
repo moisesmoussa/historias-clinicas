@@ -1,6 +1,6 @@
 <section class="contenedor-formulario">
-    <h2 align="center"></h2>
-    <form action="" autocomplete="on">
+    <h2 class="titulo" align="center"><?php echo ($app['action'] === 'registrar')? 'Registro de Usuario': 'Perfil de Usuario'; ?></h2>
+    <form id="<?php echo ($app['action'] === 'registrar')? 'nuevo-usuario': 'actualizar-usuario'; ?>" action="" autocomplete="on">
         <table class="formulario">
             <tr>
                 <td>
@@ -15,27 +15,36 @@
                     <br>
                     <input id="nombre_usuario" name="nombre_usuario" type="text" autofocus required>
                 </td>
-                <td>
+                <?php if(isset($_SESSION['super_administrador']) && $app['action'] != 'perfil')
+                          echo
+                '<td>
+                    <label for="tipo_usuario">Tipo de Usuario:</label>
+                    <br>
+                    <select id="tipo_usuario" name="tipo_usuario" required>
+                        <option value=""></option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="General">General</option>
+                    </select>
+                </td>';
+                      else if($app['action'] != 'registrar')
+                          echo
+                '<td>
                     <label for="fecha_ingreso">Fecha de Ingreso:</label>
                     <br>
                     <input class="calendario" id="fecha_ingreso" name="fecha_ingreso" type="text" readonly="readonly" required>
-                </td>
+                </td>';
+                      if($app['action'] === 'modificar')
+                          echo
+                '
                 <td class="oculto">
                     <input id="id_usuario" name="id_usuario" type="text">
-                </td>
+                </td>';
+                ?>
+                
             </tr>
-            <tr>
-                <?php if(isset($_SESSION[ 'super_administrador']))
-                        echo '<td>
-                                <label for="tipo_usuario">Tipo de Usuario:</label>
-                                <br>
-                                <select id="tipo_usuario" name="tipo_usuario" required>
-                                    <option value="Administrador">Administrador</option>
-                                    <option value="General">General</option>
-                                </select>
-                            </td>'; ?>
-            </tr>
-            <tr>
+            <?php if($app['action'] === 'registrar')
+                    echo
+            '<tr>
                 <td>
                     <label for="clave">Contraseña:</label>
                     <br>
@@ -46,7 +55,18 @@
                     <br>
                     <input id="clave2" name="clave2" type="password" autocomplete="off" required>
                 </td>
-            </tr>
+            </tr>';
+            else if(isset($_SESSION['super_administrador']) && $app['action'] === 'modificar')
+                    echo
+            '<tr>
+                <td colspan="2">
+                    <label for="fecha_ingreso">Fecha de Ingreso:</label>
+                    <br>
+                    <input class="calendario" id="fecha_ingreso" name="fecha_ingreso" type="text" readonly="readonly" required>
+                </td>
+            </tr>';
+            ?>
+            
             <tr>
                 <td>
                     <h3>Datos Personales</h3>
@@ -197,7 +217,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" class="boton"/>
+                    <input type="submit" class="boton" value="<?php echo ($app['action'] === 'registrar')? 'Registrar': 'Guardar Cambios'; ?>"/>
                 </td>
             </tr>
             <tr>
