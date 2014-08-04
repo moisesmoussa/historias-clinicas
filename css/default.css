@@ -107,6 +107,7 @@ body {
 .enlace-registrar {
     color: #000;
     cursor: pointer;
+    font-size: 22px;
     outline: none;
     text-align: left;
     text-decoration: none;
