@@ -6,6 +6,7 @@
     3 = No posee permisos para realizar la operación
 */
 session_start();
+$msg['msg'] = 'No posee permisos para cargar los datos del usuario';
 $msg['flag'] = 3;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
@@ -28,12 +29,15 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $msg['usuario'] = $respuesta;
             $msg['usuario']['fecha_nacimiento'] = date('d-m-Y', strtotime($msg['usuario']['fecha_nacimiento']));
             $msg['usuario']['fecha_ingreso'] = date('d-m-Y', strtotime($msg['usuario']['fecha_ingreso']));
+            unset($msg['msg']);
             $msg['flag'] = 1;
             
         } else {
+            $msg['msg'] = 'Error consultando la información del usuario en la base de datos';
             $msg['flag'] = 2;
         }
     } else{
+        $msg['msg'] = 'No se pudieron encontrar los datos del usuario';
         $msg['flag'] = 0;
     }
     pg_close($conexion);

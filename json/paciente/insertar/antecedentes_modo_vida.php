@@ -7,7 +7,7 @@
     3 = No posee permisos para realizar la operación
 */
 session_start();
-$msg['codigo'] = 3;
+$msg['flag'] = 3;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     $flag = 1;
@@ -49,14 +49,14 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         $query = $columnas . $valores;
         
         if(pg_query($query)) {
-            $msg['codigo'] = 1;
+            $msg['flag'] = 1;
         } else {
-            $msg['codigo'] = 2;
+            $msg['flag'] = 2;
         }
         pg_close($conexion);
             
     } else{
-        $msg['codigo'] = 0;
+        $msg['flag'] = 0;
     }
 }
 echo json_encode($msg);

@@ -1,8 +1,9 @@
+//Copia todos los datos traídos de la base de datos en los campos del formulario del usuario para modificar sus datos
 function cargarPerfil(usuario) {
     try {
         var datos = JSON.parse(usuario);
 
-        if (datos.flag) {
+        if (datos.flag === 1) {
             datos.usuario.fecha_nacimiento = datos.usuario.fecha_nacimiento.replace(/-/g, '/');
             datos.usuario.fecha_ingreso = datos.usuario.fecha_ingreso.replace(/-/g, '/');
             $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.usuario.estado_residencia + '.html', function () {
@@ -13,7 +14,7 @@ function cargarPerfil(usuario) {
                 $('#' + i).val(datos.usuario[i]);
 
         } else {
-            alert('No se pudieron encontrar los datos del usuario');
+            alert(datos.msg);
         }
     } catch (e) {
         alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
@@ -51,26 +52,12 @@ function actualizarClave() {
             try {
                 $('.status').hide();
                 var datos = JSON.parse(flag);
+                alert(datos.msg);
 
-                switch (datos.flag) {
-                case 0:
-                    alert('La contraseña nueva no coincide');
-                    break;
-                case 1:
-                    alert('Error en la base de datos');
-                    break;
-                case 2:
-                    alert('Error con la contraseña actual');
-                    break;
-                case 3:
-                    alert('No se pudo cambiar la contraseña');
-                    break;
-                case 4:
-                    alert('Cambio de contraseña exitoso');
+                if (datos.flag === 4) {
                     $('#nueva-clave').each(function () {
                         this.reset();
                     });
-                    break;
                 }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
@@ -96,31 +83,12 @@ function agregarUsuario() {
             try {
                 $('.status').hide();
                 var r = JSON.parse(data);
+                alert(r.msg);
 
-                if (r.codigo === 0) {
-                    alert('Debe llenar todos los campos');
-                }
-
-                if (r.codigo === 1) {
-                    alert('Las contraseñas no coinciden');
-                }
-
-                if (r.codigo === 2) {
+                if (r.flag === 2) {
                     $('#nuevo-usuario').each(function () {
                         this.reset();
                     });
-                    if (r.correo)
-                        alert('Usuario agregado exitosamente.\nCorreo con los datos de la cuenta enviado');
-                    else
-                        alert('Usuario agregado exitosamente.\nNo se pudo enviar el correo con los datos de la cuenta');
-                }
-
-                if (r.codigo === 3) {
-                    alert('No se pudo agregar el usuario, es posible que ya exista');
-                }
-
-                if (r.codigo === 4) {
-                    alert('El nombre de usuario indicado ya existe');
                 }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
@@ -142,14 +110,15 @@ function cargarUsuarios() {
                 var datos = JSON.parse(usuarios);
                 var html = '<tr><th class="icono-tabla"></th><th>Cédula</th><th>Nombres</th><th>Apellidos</th><th>Usuario</th><th>Móvil</th><th>Email</th></tr>';
 
-                if (datos.flag) {
+                if (datos.flag === 1) {
                     for (var i in datos.usuario) {
                         html += '<tr><td class="icono-tabla" data-id="' + datos.usuario[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar"></i><i class="fa fa-edit fa-2x icon editar"></i></td><td>' + datos.usuario[i].cedula + '</td><td>' + datos.usuario[i].primer_nombre + ' ' + datos.usuario[i].segundo_nombre + '</td><td>' + datos.usuario[i].primer_apellido + ' ' + datos.usuario[i].segundo_apellido + '</td><td>' + datos.usuario[i].nombre_usuario + '</td><td>' + datos.usuario[i].tlf_movil + '</td><td>' + datos.usuario[i].correo_electronico + '</td></tr>';
                     }
-
                     $('.usuarios').html(html);
-                } else
-                    alert('No se encontraron los datos del usuario');
+
+                } else {
+                    alert(datos.msg);
+                }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
@@ -195,18 +164,8 @@ function actualizarUsuario(archivoPhp) {
             try {
                 $('.status').hide();
                 var r = JSON.parse(data);
+                alert(r.msg);
 
-                if (r.codigo === 0) {
-                    alert('Debe llenar todos los campos');
-                }
-
-                if (r.codigo === 1) {
-                    alert('Actualización de usuario exitosa');
-                }
-
-                if (r.codigo === 2) {
-                    alert('No se pudo actualizar el usuario');
-                }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
             }
@@ -228,14 +187,12 @@ function eliminarUsuario(userId) {
         },
         success: function (resultado) {
             try {
-                var msg = JSON.parse(resultado);
+                var r = JSON.parse(resultado);
+                alert(r.msg);
 
-                if (msg) {
-                    alert('Usuario eliminado exitosamente');
+                if (r.flag === 1)
                     cargarUsuarios();
-                } else {
-                    alert('No se pudo eliminar el usuario');
-                }
+
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
@@ -255,11 +212,11 @@ $(document).ready(function () {
     //Si el programa está posicionado en el perfil de un usuario para modificar o ver sus datos, se cargan los datos de dicho usuario seleccionado
     if ((url = window.location.pathname).match(basedir + '/usuarios/modificar/[0-9]+'))
         mostrarUsuario(url.substring(url.lastIndexOf('/') + 1));
-    
+
     //Se cargan los datos del usuario si está en su perfil para modificar o ver dichos datos
     if (window.location.pathname === (basedir + '/usuarios/perfil'))
         mostrarPerfil();
-    
+
     //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
     $('form').submit(function () {
         if ((url = window.location.pathname) == basedir + '/usuarios/perfil') {
@@ -301,7 +258,7 @@ $(document).ready(function () {
         else
             $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(0,0,0,0)');
     });
-    
+
     //Verifica la eliminación de un usuario de la base de datos. Si es aceptada, se procede a eliminar el usuario indicado
     $(document).on('click', '.usuarios tr .icono-tabla .borrar', function () {
         var confirmacion = confirm('¿Está seguro que desea eliminar este usuario?');

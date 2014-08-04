@@ -18,10 +18,10 @@ function login() {
                 $('.status').hide();
                 var resultado = JSON.parse(data);
 
-                if (resultado.flag === 0 || resultado.flag === 2 || resultado.flag === 3)
-                    alert(resultado.msg);
-                else
+                if (resultado.flag === 1)
                     window.location = basedir + resultado.msg;
+                else
+                    alert(resultado.msg);
 
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');

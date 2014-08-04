@@ -50,11 +50,11 @@ function ajaxAgregarPaciente(archivoPhp, formulario) {
                 $('#' + formulario + ' .status').hide();
                 var r = JSON.parse(data);
 
-                if (r.codigo === 0) {
+                switch (r.flag) {
+                case 0:
                     alert('Debe llenar todos los campos');
-                }
-
-                if (r.codigo === 1) {
+                    break;
+                case 1:
                     $('#' + formulario + ' .boton').prop('data-enable', 'false');
                     $('#' + formulario + ' .boton').css('background-color', '#ECECEC');
                     $('#' + formulario + ' .boton').css('cursor', 'default');
@@ -64,10 +64,27 @@ function ajaxAgregarPaciente(archivoPhp, formulario) {
                         successAgregarDatosPaciente(r.id);
 
                     alert('Datos del paciente agregados exitosamente.');
-                }
-
-                if (r.codigo === 2) {
-                    alert('No se pudieron agregar los datos del paciente, es posible que ya existan');
+                    break;
+                case 2:
+                    alert('Error con la base de datos, no se pudieron agregar los datos del paciente');
+                    break;
+                case 3:
+                    if (formulario === 'form-antecedentes-sexuales-m' || formulario === 'form-antecedentes-sexuales-f')
+                        alert('Error de consulta en la base de datos');
+                    else if (formulario === 'datos-paciente')
+                        alert('El documento de identidad indicado del paciente ya existe');
+                    else
+                        alert('No posee permisos para agregar datos de un paciente');
+                    break;
+                case 4:
+                    if (formulario === 'datos-paciente')
+                        alert('Error de consulta en la base de datos');
+                    else
+                        alert('No posee permisos para agregar datos de un paciente');
+                    break;
+                case 5:
+                    alert('No posee permisos para agregar datos de un paciente');
+                    break;
                 }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
@@ -119,14 +136,15 @@ function cargarPacientes() {
                 var datos = JSON.parse(pacientes);
                 var html = '<tr><th class="icono-tabla"></th><th>Documento de Identidad</th><th>Nombres</th><th>Apellidos</th><th>Móvil</th><th>Email</th></tr>';
 
-                if (datos.flag) {
+                if (datos.flag === 1) {
                     for (var i in datos.paciente) {
                         html += '<tr><td class="icono-tabla" data-id="' + datos.paciente[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar"></i><i class="fa fa-edit fa-2x icon editar"></i></td><td>' + datos.paciente[i].documento_identidad + '</td><td>' + datos.paciente[i].primer_nombre + ' ' + datos.paciente[i].segundo_nombre + '</td><td>' + datos.paciente[i].primer_apellido + ' ' + datos.paciente[i].segundo_apellido + '</td><td>' + datos.paciente[i].tlf_movil + '</td><td>' + datos.paciente[i].correo_electronico + '</td></tr>';
                     }
-
                     $('.pacientes').html(html);
-                } else
-                    alert('No se encontraron los datos del paciente');
+
+                } else {
+                    alert(datos.msg);
+                }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
@@ -171,7 +189,7 @@ function mostrarPaciente(patientId) {
             try {
                 var datos = JSON.parse(paciente);
 
-                if (datos.flag) {
+                if (datos.flag === 1) {
                     var form;
                     verificarEdad(new Date(datos.paciente.fecha_nacimiento_original));
                     datos.paciente.fecha_nacimiento = datos.paciente.fecha_nacimiento.replace(/-/g, '/');
@@ -208,7 +226,7 @@ function mostrarPaciente(patientId) {
                             $(form + '#' + i).val(datos.antecedentes_sexuales[i]);
                     }
                 } else {
-                    alert('No se pudieron encontrar los datos del paciente');
+                    alert(datos.msg);
                 }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
@@ -239,16 +257,31 @@ function ajaxActualizarPaciente(archivoPhp, formulario) {
                 $('#' + formulario + ' .status').hide();
                 var r = JSON.parse(data);
 
-                if (r.codigo === 0) {
+                switch (r.flag) {
+                case 0:
                     alert('Debe llenar todos los campos');
-                }
-
-                if (r.codigo === 1) {
+                    break;
+                case 1:
                     alert('Actualización de datos exitosa');
-                }
-
-                if (r.codigo === 2) {
+                    break;
+                case 2:
                     alert('No se pudieron actualizar los datos del paciente');
+                    break;
+                case 3:
+                    if (formulario === 'datos-paciente')
+                        alert('El documento de identidad indicado del paciente ya existe');
+                    else
+                        alert('Error de consulta en la base de datos');
+                    break;
+                case 4:
+                    if (formulario === 'datos-paciente')
+                        alert('Error de consulta en la base de datos');
+                    else
+                        alert('No posee permisos para actualizar los datos del paciente');
+                    break;
+                case 5:
+                    alert('No posee permisos para actualizar los datos del paciente');
+                    break;
                 }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
@@ -301,14 +334,12 @@ function eliminarPaciente(patientId) {
         },
         success: function (resultado) {
             try {
-                var msg = JSON.parse(resultado);
+                var r = JSON.parse(resultado);
+                alert(r.msg);
 
-                if (msg) {
-                    alert('Paciente eliminado exitosamente');
+                if (r.flag === 1)
                     cargarPacientes();
-                } else {
-                    alert('No se pudo eliminar el paciente');
-                }
+
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
@@ -324,11 +355,11 @@ $(document).ready(function () {
     //Si el programa está posicionado en la búsqueda de pacientes, se carga de la base de datos la información necesaria de todos los pacientes registrados
     if (window.location.pathname === basedir + '/pacientes')
         cargarPacientes(); //Trae de la base de datos la información necesaria de todos los pacientes registrados
-    
+
     //Si el programa está posicionado en el perfil de un paciente para modificar o ver sus datos, se cargan los datos de dicho paciente seleccionado
     if ((url = window.location.pathname).match(basedir + '/pacientes/modificar/[0-9]+'))
         mostrarPaciente(url.substring(url.lastIndexOf('/') + 1));
-    
+
     //Si esta en el perfil de un paciente para modificar sus datos, se cargan los datos del paciente seleccionado
     if (window.location.pathname === basedir + '/pacientes/registrar') {
         $('.antecedentes-perinatales').hide();
@@ -337,7 +368,7 @@ $(document).ready(function () {
         $('.antecedentes-patologicos').hide();
         $('.desarrollo-psicomotor').hide();
     }
-    
+
     //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
     $('form').submit(function () {
         if ((url = window.location.pathname).match(basedir + '/pacientes/modificar/[0-9]+')) {
@@ -368,7 +399,7 @@ $(document).ready(function () {
         yearStart: 1920,
         yearEnd: fechaActual.getFullYear()
     });
-    
+
     //Calcula la edad del paciente de acuerdo a la fecha de nacimiento ingresada
     $('#datos-paciente #fecha_nacimiento').datetimepicker({
         onSelectDate: function (fechaNacimiento) {
@@ -391,7 +422,7 @@ $(document).ready(function () {
         else
             $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(0,0,0,0)');
     });
-    
+
     //Verifica la eliminación de un paciente de la base de datos. Si es aceptada, se procede a eliminar el paciente indicado
     $(document).on('click', '.pacientes tr .icono-tabla .borrar', function () {
         var confirmacion = confirm('¿Está seguro que desea eliminar este paciente?');

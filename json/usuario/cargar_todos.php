@@ -6,6 +6,7 @@
 */
 
 session_start();
+$msg['msg'] = 'No posee permisos para cargar los datos de los usuarios';
 $msg['flag'] = 2;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
@@ -24,6 +25,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
     $select = 'SELECT id, cedula, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, nombre_usuario, tlf_movil, correo_electronico FROM usuario WHERE id != '.$id_usuario.' AND tipo_usuario != \'Super Administrador\''.$administrador;
     
     if($query = pg_query($select)){
+        unset($msg['msg']);
         $msg['flag'] = 1;
         $cont = 0;
         
@@ -31,6 +33,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
             $msg['usuario'][$cont++] = $resultado;
         
     } else {
+        $msg['msg'] = 'No se pudieron encontrar los datos de los usuarios';
         $msg['flag'] = 0;
     }
     pg_close($conexion);

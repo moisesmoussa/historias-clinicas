@@ -8,6 +8,7 @@
     5 = No posee permisos para realizar la operación
 */
 session_start();
+$msg['msg'] = 'No posee permisos para actualizar la clave';
 $msg['flag'] = 5;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
@@ -28,20 +29,28 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $resultado = pg_fetch_assoc($query);
             
             if(!empty($resultado['clave'])){
-                if($resultado['clave'] === md5($_POST['clave_actual']))
-                    if(pg_query('UPDATE usuario SET clave = \''.md5($_POST['clave_nueva']).'\' WHERE id = '.$usuario))
+                if($resultado['clave'] === md5($_POST['clave_actual'])){
+                    if(pg_query('UPDATE usuario SET clave = \''.md5($_POST['clave_nueva']).'\' WHERE id = '.$usuario)){
+                        $msg['msg'] = 'Cambio de contraseña exitoso';
                         $msg['flag'] = 4;
-                    else
+                        
+                    } else {
+                        $msg['msg'] = 'No se pudo cambiar la contraseña';
                         $msg['flag'] = 3;
-                else
+                    }
+                } else {
+                    $msg['msg'] = 'No coincide la contraseña actual';
                     $msg['flag'] = 2;
+                }
             } else {
+                $msg['msg'] = 'Error de consulta en la base de datos';
                 $msg['flag'] = 1;
             }
         }
         pg_close($conexion);
         
     } else {
+        $msg['msg'] = 'La contraseña nueva no coincide';
         $msg['flag'] = 0;
     }
 }

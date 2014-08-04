@@ -1,6 +1,6 @@
 <?php
 /*
-    Codigos:
+    Códigos:
     0 = Algún campo está vacío
     1 = Las contraseñas no coinciden
     2 = Usuario insertado correctamente en la BD
@@ -11,7 +11,8 @@
     7 = No posee permisos para realizar la operación
 */
 session_start();
-$msg['codigo'] = 7;
+$msg['msg'] = 'No posee permisos para agregar un usuario';
+$msg['flag'] = 7;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
     $flag = 1;
@@ -23,7 +24,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         }
     
     if($_POST['clave'] != $_POST['clave2']){
-        $msg['codigo'] = 1;
+        $msg['msg'] = 'Las contraseñas no coinciden';
+        $msg['flag'] = 1;
         
     } else if($flag){
         $_POST['fecha_nacimiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
@@ -94,32 +96,38 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                             $mail->Subject = utf8_encode('=?UTF-8?B?' . base64_encode('FUNDAHOG - Datos de la cuenta suministrada para el sistema de Historias Clínicas') .  '?=');
                             $mail->Body    = '<p>Bienvenido '.$_POST['primer_nombre'].' '.$_POST['primer_apellido'].', le hemos asignado un nombre de usuario y una clave para que pueda iniciar sesión en el sistema de Historias Clínicas<br><br><b>Nombre de usuario:</b> '.$_POST['nombre_usuario'].'<br><b>Contraseña:</b> '.$_POST['clave'].'<br>Saludos de parte de FUNDAHOG</p>';
 
-                            $msg['codigo'] = 2;
+                            $msg['flag'] = 2;
 
-                            if(!$mail->send())
-                                $msg['correo'] = FALSE;
+                            if($mail->send())
+                                $msg['msg'] = 'Usuario agregado exitosamente.\nCorreo con los datos de la cuenta enviado';
                             else 
-                                $msg['correo'] = TRUE;
+                                $msg['msg'] = 'Usuario agregado exitosamente.\nNo se pudo enviar el correo con los datos de la cuenta';
 
                         } else {
-                            $msg['codigo'] = 3;
+                            $msg['msg'] = 'Error con la base de datos, no se pudo agregar el usuario';
+                            $msg['flag'] = 3;
                         }
                     } else {
-                        $msg['codigo'] = 5;
+                        $msg['msg'] = 'La cédula indicada del usuario ya existe';
+                        $msg['flag'] = 5;
                     }
                 } else {
-                    $msg['codigo'] = 6;
+                    $msg['msg'] = 'Error de consulta en la base de datos';
+                    $msg['flag'] = 6;
                 }
             } else {
-                $msg['codigo'] = 4;
+                $msg['msg'] = 'El nombre de usuario indicado ya existe';
+                $msg['flag'] = 4;
             }
         } else {
-            $msg['codigo'] = 6;
+            $msg['msg'] = 'Error de consulta en la base de datos';
+            $msg['flag'] = 6;
         }
         pg_close($conexion);
         
     } else {
-        $msg['codigo'] = 0;
+        $msg['msg'] = 'Debe llenar todos los campos';
+        $msg['flag'] = 0;
     }
 }
 echo json_encode($msg);

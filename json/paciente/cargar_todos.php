@@ -6,6 +6,7 @@
 */
 
 session_start();
+$msg['msg'] = 'No posee permisos para cargar los datos de los pacientes';
 $msg['flag'] = 2;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
@@ -15,6 +16,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
     $select = 'SELECT id, documento_identidad, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, tlf_movil, correo_electronico FROM paciente';
     
     if($query = pg_query($select)){
+        unset($msg['msg']);
         $msg['flag'] = 1;
         $cont = 0;
         
@@ -22,6 +24,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $msg['paciente'][$cont++] = $resultado;
         
     } else {
+        $msg['msg'] = 'No se pudieron encontrar los datos de los pacientes';
         $msg['flag'] = 0;
     }
     pg_close($conexion);

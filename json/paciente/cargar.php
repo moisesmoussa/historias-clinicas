@@ -6,6 +6,7 @@
     3 = No posee permisos para realizar la operación
 */
 session_start();
+$msg['msg'] = 'No posee permisos para cargar los datos del paciente';
 $msg['flag'] = 3;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
@@ -21,6 +22,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $msg['paciente'] = $resultado;
             $msg['paciente']['fecha_nacimiento_original'] = $msg['paciente']['fecha_nacimiento'];
             $msg['paciente']['fecha_nacimiento'] = date('d-m-Y', strtotime($msg['paciente']['fecha_nacimiento']));
+            unset($msg['msg']);
             $msg['flag'] = 1;
 
             $select = 'SELECT * FROM antecedentes_modo_vida WHERE id_paciente = '.$_POST['paciente'];
@@ -68,9 +70,11 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     $msg['paciente'] = array_merge($msg['paciente'], $resultado);
                 
         } else {
+            $msg['msg'] = 'Error consultando la información del paciente en la base de datos';
             $msg['flag'] = 2;
         }
     } else {
+        $msg['msg'] = 'No se pudieron encontrar los datos del paciente';
         $msg['flag'] = 0;
     }        
     pg_close($conexion);
