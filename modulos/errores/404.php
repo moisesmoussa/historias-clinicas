@@ -1,1 +1,1 @@
-<h2>Error 404. No se puede conseguir la página indicada</h2>
+<h1 align="center">Error 404</h1><h2 align="center">La página solicitada no existe</h2>
