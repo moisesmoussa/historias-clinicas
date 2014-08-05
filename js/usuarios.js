@@ -10,6 +10,17 @@ function cargarPerfil(usuario) {
                 $(this).val(datos.usuario.ciudad_residencia);
             });
 
+            //Carga los números telefónicos del usuario indicado en sus correspondientes campos separados
+            $('input[name="tlf_movil[]"]').each(function(){
+                $(this).val(datos.usuario.tlf_movil[$(this).index()]);
+            });
+            $('input[name="tlf_casa[]"]').each(function(){
+                $(this).val(datos.usuario.tlf_casa[$(this).index()]);
+            });
+            datos.usuario.tlf_movil = null;
+            datos.usuario.tlf_casa = null;
+            
+            //Carga todos los datos del usuario indicado enviados por el servidor
             for (var i in datos.usuario)
                 $('#' + i).val(datos.usuario[i]);
 
@@ -83,7 +94,7 @@ function agregarUsuario() {
             try {
                 $('.status').hide();
                 var r = JSON.parse(data);
-                alert(r.msg);
+                alert(r.msg.replace('\\n', '\n'));
 
                 if (r.flag === 2) {
                     $('#nuevo-usuario').each(function () {
