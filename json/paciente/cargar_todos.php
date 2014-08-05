@@ -13,7 +13,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
     require_once('../../config.php');
     $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
-    $select = 'SELECT id, documento_identidad, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, tlf_movil, correo_electronico FROM paciente';
+    $select = 'SELECT id, nro_historia_clinica, documento_identidad, primer_apellido, segundo_apellido, primer_nombre, segundo_nombre, tlf_movil, correo_electronico FROM paciente';
     
     if($query = pg_query($select)){
         unset($msg['msg']);
