@@ -132,7 +132,7 @@
                     <label for="estado_residencia">Estado:</label>
                     <br>
                     <select id="estado_residencia" name="estado_residencia" required>
-                        <option value="vacio"></option>
+                        <option value=""></option>
                         <option value="Amazonas">Amazonas</option>
                         <option value="Anzoátegui">Anzoátegui</option>
                         <option value="Apure">Apure</option>
@@ -195,24 +195,24 @@
                 <td>
                     <label for="tlf_movil">Teléfono Móvil:</label>
                     <br>
-                    <input id="tlf_movil" name="tlf_movil" class="tlf" type="text" placeholder="04XX-XXX-XXXX" required>
+                    <b><input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{3}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required></b>
                 </td>
                 <td>
                     <label for="tlf_casa">Teléfono de Casa:</label>
                     <br>
-                    <input id="tlf_casa" name="tlf_casa" class="tlf" type="text" placeholder="XXXX-XXXXXXX" required>
+                    <b><input class="tlf" name="tlf_casa[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf tlf_casa" name="tlf_casa[]" type="text" pattern="^[0-9]{7}$" required></b>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="correo_electronico">Correo Electrónico:</label>
                     <br>
-                    <input id="correo_electronico" name="correo_electronico" type="text" placeholder="nombrecorreo@correo.com" required>
+                    <input id="correo_electronico" name="correo_electronico" type="text" placeholder="nombrecorreo@dominio" required>
                 </td>
                 <td>
                     <label for="correo_alternativo">Correo Electrónico Alternativo:</label>
                     <br>
-                    <input id="correo_alternativo" name="correo_alternativo" type="text" placeholder="nombrecorreo@correo.com" required>
+                    <input id="correo_alternativo" name="correo_alternativo" type="text" placeholder="nombrecorreo@dominio" required>
                 </td>
             </tr>
             <tr>
