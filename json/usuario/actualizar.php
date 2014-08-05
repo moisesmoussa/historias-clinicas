@@ -25,6 +25,20 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
     if($flag){
         $_POST['fecha_nacimiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
         $_POST['fecha_ingreso'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_ingreso'])));
+        $tlf_movil = '';
+        $tlf_casa = '';
+        
+        foreach ($_POST['tlf_movil'] as $clave => $valor){
+            $tlf_movil .= $valor.'-';
+            unset($_POST['tlf_movil'][$clave]);
+        }
+        $_POST['tlf_movil'] = substr_replace($tlf_movil, '', strlen($tlf_movil) - 1);
+        
+        foreach ($_POST['tlf_casa'] as $clave => $valor){
+            $tlf_casa .= $valor.'-';
+            unset($_POST['tlf_casa'][$clave]);
+        }
+        $_POST['tlf_casa'] = substr_replace($tlf_casa, '', strlen($tlf_casa) - 1);
         
         require_once('../../config.php');
         $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
