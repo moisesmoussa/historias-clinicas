@@ -10,10 +10,18 @@
                 </td>
             </tr>
             <tr>
+                <td colspan="2">
+                    <label for="nro_historia_clinica">Número Historia Clínica:</label>
+                    <br>
+                    <input type="text" id="nro_historia_clinica" name="nro_historia_clinica" autofocus required>
+                </td>
+            </tr>
+            <tr>
                 <td>
                     <label for="nacionalidad">Nacionalidad:</label>
                     <br>
                     <select id="nacionalidad" name="nacionalidad" required>
+                        <option value=""></option>
                         <option value="V" selected>Venezolana</option>
                         <option value="E">Extranjera</option>
                     </select>
@@ -21,7 +29,7 @@
                 <td>
                     <label for="documento_identidad">Documento de Identidad:</label>
                     <br>
-                    <input type="text" id="documento_identidad" name="documento_identidad" placeholder="Cédula o pasaporte" autofocus required>
+                    <input type="text" id="documento_identidad" name="documento_identidad" placeholder="Cédula o pasaporte" required>
                 </td>
                 <?php if($app['action'] === 'modificar')
                           echo
@@ -148,7 +156,7 @@
                     <label for="estado_residencia">Estado de Residencia:</label>
                     <br>
                     <select id="estado_residencia" name="estado_residencia" required>
-                        <option value="vacio"></option>
+                        <option value=""></option>
                         <option value="Amazonas">Amazonas</option>
                         <option value="Anzoátegui">Anzoátegui</option>
                         <option value="Apure">Apure</option>
@@ -197,19 +205,19 @@
                 <td>
                     <label for="tlf_movil">Teléfono Móvil:</label>
                     <br>
-                    <input type="text" class="numeros" id="tlf_movil" name="tlf_movil" placeholder="04XX-XXX-XXXX" required>
+                    <b><input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{3}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required></b>
                 </td>
                 <td>
-                    <label for="tlf_domicilio">Teléfono de Domicilio:</label>
+                    <label for="tlf_casa">Teléfono de Casa:</label>
                     <br>
-                    <input type="text" class="numeros" id="tlf_domicilio" name="tlf_domicilio" placeholder="XXXX-XXXXXXX" required>
+                    <b><input class="tlf" name="tlf_casa[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf tlf_casa" name="tlf_casa[]" type="text" pattern="^[0-9]{7}$" required></b>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                     <label for="correo_electronico">Dirección de Correo Electrónico:</label>
                     <br>
-                    <input type="text" id="correo_electronico" name="correo_electronico" placeholder="nombrecorreo@correo.com" required>
+                    <input type="text" id="correo_electronico" name="correo_electronico" placeholder="nombrecorreo@dominio" required>
                 </td>
             </tr>
             <tr>
