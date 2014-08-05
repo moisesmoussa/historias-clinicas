@@ -29,6 +29,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             $msg['usuario'] = $respuesta;
             $msg['usuario']['fecha_nacimiento'] = date('d-m-Y', strtotime($msg['usuario']['fecha_nacimiento']));
             $msg['usuario']['fecha_ingreso'] = date('d-m-Y', strtotime($msg['usuario']['fecha_ingreso']));
+            $msg['usuario']['tlf_movil'] = explode('-', $msg['usuario']['tlf_movil']);
+            $msg['usuario']['tlf_casa'] = explode('-', $msg['usuario']['tlf_casa']);
             unset($msg['msg']);
             $msg['flag'] = 1;
             
