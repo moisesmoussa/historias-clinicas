@@ -242,3 +242,9 @@ select:focus {
     text-align: center;
     text-decoration-style: solid;
 }
+.tlf {
+    width: 45px;
+}
+.tlf_casa {
+    width: 80px !important;
+}
