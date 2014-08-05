@@ -34,7 +34,7 @@
             <table class="formulario">
                 <tr>
                     <td>
-                        <label for="nombre">Nombre de usuario:</label>
+                        <label for="nombre">Usuario:</label>
                         <br>
                         <input id="nombre" name="nombre" type="text" autofocus required>
                     </td>

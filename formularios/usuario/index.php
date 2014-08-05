@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="nombre_usuario">Nombre de Usuario:</label>
+                    <label for="nombre_usuario">Usuario:</label>
                     <br>
                     <input id="nombre_usuario" name="nombre_usuario" type="text" autofocus required>
                 </td>
