@@ -29,7 +29,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         
     } else if($flag){
         $_POST['fecha_nacimiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
-        $_POST['clave'] = md5($_POST['clave']);
+        $password = $_POST['clave'];
+        $_POST['clave'] = md5($password);
         unset($_POST['clave2']);
         $tlf_movil = '';
         $tlf_casa = '';
@@ -108,7 +109,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                             $mail->addAddress($_POST['correo_electronico']);      // Agrega dirección de correo del receptor
                             $mail->isHTML(true);                                  // Configura el formato del email a HTML
                             $mail->Subject = utf8_encode('=?UTF-8?B?' . base64_encode('FUNDAHOG - Datos de la cuenta suministrada para el sistema de Historias Clínicas') .  '?=');
-                            $mail->Body    = '<p>Bienvenido '.$_POST['primer_nombre'].' '.$_POST['primer_apellido'].', le hemos asignado un nombre de usuario y una clave para que pueda iniciar sesión en el sistema de Historias Clínicas<br><br><b>Nombre de usuario:</b> '.$_POST['nombre_usuario'].'<br><b>Contraseña:</b> '.$_POST['clave'].'<br>Saludos de parte de FUNDAHOG</p>';
+                            $mail->Body    = '<p>Bienvenido '.$_POST['primer_nombre'].' '.$_POST['primer_apellido'].', le hemos asignado una identificación de usuario y una clave para que pueda iniciar sesión en el sistema de Historias Clínicas<br><br><b>Usuario:</b> '.$_POST['nombre_usuario'].'<br><b>Contraseña:</b> '.$password.'<br><br>A partir de este momento, haciendo uso de los datos personales suministrados se le recomienda proceder a actualizar su <b>Usuario</b> y <b>Contraseña</b>, atendiendo a las siguientes instrucciones:<br><br>&emsp;<b>Usuario:</b><br>&emsp;&emsp;- Puede contener las letras de la A a la Z en minúscula y/o mayúscula.<br>&emsp;&emsp;- Puede contener números.<br>&emsp;&emsp;- Puede contener cualquiera de los siguientes caracteres: _ -<br><br>&emsp;<b>Contraseña:</b><br>&emsp;&emsp;- Puede contener las letras de la A a la Z en minúscula y/o mayúscula.<br>&emsp;&emsp;- Puede contener números.<br>&emsp;&emsp;- Puede contener cualquiera de los siguientes caracteres: * + / : . , $ % & # _ -<br><br>Saludos de parte de FUNDAHOG</p>';
 
                             $msg['flag'] = 2;
 
