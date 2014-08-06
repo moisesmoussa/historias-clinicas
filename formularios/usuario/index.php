@@ -13,7 +13,7 @@
                 <td>
                     <label for="nombre_usuario">Usuario:</label>
                     <br>
-                    <input id="nombre_usuario" name="nombre_usuario" type="text" autofocus required>
+                    <input id="nombre_usuario" name="nombre_usuario" type="text" pattern="^[a-zA-Z0-9_-]{4,16}$" autofocus required>
                 </td>
                 <?php if(isset($_SESSION['super_administrador']) && $app['action'] != 'perfil')
                           echo
@@ -48,12 +48,12 @@
                 <td>
                     <label for="clave">Contraseña:</label>
                     <br>
-                    <input id="clave" name="clave" type="password" autocomplete="off" required>
+                    <input id="clave" name="clave" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" autocomplete="off" required>
                 </td>
                 <td>
                     <label for="clave2">Repetir Contraseña:</label>
                     <br>
-                    <input id="clave2" name="clave2" type="password" autocomplete="off" required>
+                    <input id="clave2" name="clave2" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" autocomplete="off" required>
                 </td>
             </tr>';
             else if(isset($_SESSION['super_administrador']) && $app['action'] === 'modificar')

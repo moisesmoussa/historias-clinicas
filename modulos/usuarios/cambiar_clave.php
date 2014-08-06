@@ -6,21 +6,21 @@
                 <td>
                     <label for="clave_actual">Contraseña Actual:</label>
                     <br>
-                    <input id="clave_actual" name="clave_actual" type="password" autofocus required>
+                    <input id="clave_actual" name="clave_actual" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" autofocus required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="clave_nueva">Contraseña Nueva:</label>
                     <br>
-                    <input id="clave_nueva" name="clave_nueva" type="password" required>
+                    <input id="clave_nueva" name="clave_nueva" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="clave_nueva2">Confirmar Contraseña:</label>
                     <br>
-                    <input id="clave_nueva2" name="clave_nueva2" type="password" required>
+                    <input id="clave_nueva2" name="clave_nueva2" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" required>
                 </td>
             </tr>
             <tr>

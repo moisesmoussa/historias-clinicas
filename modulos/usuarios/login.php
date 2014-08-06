@@ -36,14 +36,14 @@
                     <td>
                         <label for="nombre">Usuario:</label>
                         <br>
-                        <input id="nombre" name="nombre" type="text" autofocus required>
+                        <input id="nombre" name="nombre" type="text" pattern="^[a-zA-Z0-9_-]{4,16}$" autofocus required>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label for="clave">Contraseña:</label>
                         <br>
-                        <input id="clave" name="clave" type="password" autocomplete="off" required>
+                        <input id="clave" name="clave" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" autocomplete="off" required>
                     </td>
                 </tr>
                 <tr>
