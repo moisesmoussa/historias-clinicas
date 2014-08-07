@@ -10,8 +10,10 @@
 
 # Plugins
 /css/jquery.datetimepicker.css
+/css/tooltipster.css
 /js/jquery-2.0.0.min.js
 /js/jquery.datetimepicker.js
+/js/jquery.tooltipster.min.js
 
 # Librerias
 /PHPMailer/*
