@@ -18,6 +18,13 @@ section,
 form {
     display: block
 }
+.ayuda {
+    color: #6FC8E5;
+}
+.ayuda:hover {
+    color: #4799B4;
+    cursor: pointer;
+}
 body {
     /* Exploradores Antiguos */
     background-color: #F8F8F8;
@@ -247,4 +254,16 @@ select:focus {
 }
 .tlf_casa {
     width: 80px !important;
+}
+.tooltipster-theme {
+    background: #6FC8E5;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+    color: #FFF;
+}
+.tooltipster-theme .tooltipster-content {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 8px 10px;
 }
