@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="nombre_usuario">Usuario:</label>
+                    <label for="nombre_usuario">Usuario: <i class="fa fa-question-circle fa-fw ayuda" title="<b>Puede estar formado por:</b><br>Letras mayúsculas y minúsculas<br>Números<br>Caracteres: _ -"></i></label>
                     <br>
                     <input id="nombre_usuario" name="nombre_usuario" type="text" pattern="^[a-zA-Z0-9_-]{4,16}$" autofocus required>
                 </td>
@@ -40,13 +40,13 @@
                     <input id="id_usuario" name="id_usuario" type="text">
                 </td>';
                 ?>
-                
+
             </tr>
             <?php if($app['action'] === 'registrar')
                     echo
             '<tr>
                 <td>
-                    <label for="clave">Contraseña:</label>
+                    <label for="clave">Contraseña: <i class="fa fa-question-circle fa-fw ayuda" title="<b>Puede estar formado por:</b><br>Letras mayúsculas y minúsculas<br>Números<br>Caracteres: * + / : . , $ % & # _ -"></i></label>
                     <br>
                     <input id="clave" name="clave" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" autocomplete="off" required>
                 </td>
