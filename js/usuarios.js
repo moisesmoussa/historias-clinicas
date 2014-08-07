@@ -11,15 +11,15 @@ function cargarPerfil(usuario) {
             });
 
             //Carga los números telefónicos del usuario indicado en sus correspondientes campos separados
-            $('input[name="tlf_movil[]"]').each(function(){
+            $('input[name="tlf_movil[]"]').each(function () {
                 $(this).val(datos.usuario.tlf_movil[$(this).index()]);
             });
-            $('input[name="tlf_casa[]"]').each(function(){
+            $('input[name="tlf_casa[]"]').each(function () {
                 $(this).val(datos.usuario.tlf_casa[$(this).index()]);
             });
             datos.usuario.tlf_movil = null;
             datos.usuario.tlf_casa = null;
-            
+
             //Carga todos los datos del usuario indicado enviados por el servidor
             for (var i in datos.usuario)
                 $('#' + i).val(datos.usuario[i]);
@@ -215,6 +215,12 @@ $(document).ready(function () {
     var fechaActual = new Date();
     var url;
     $('.status').hide();
+
+    //Controla el plugin "tooltipster" para colocar tooltips personalizados sobre tags de HTML en el módulo de usuarios
+    $('.ayuda').tooltipster({
+        contentAsHTML: true,
+        theme: 'tooltipster-theme'
+    });
 
     //Si el programa está posicionado en la búsqueda de usuarios, se carga de la base de datos la información necesaria de todos los usuarios registrados
     if (window.location.pathname === basedir + '/usuarios')
