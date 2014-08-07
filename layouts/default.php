@@ -10,6 +10,7 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css">
     <link href="<?php echo $app['basedir'].'/css/default.css'; ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo $app['basedir'].'/css/font-awesome.min.css';?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo $app['basedir'].'/css/tooltipster.css';?>" rel="stylesheet" type="text/css">
     <?php
         if($app['controller'] === 'usuarios' || $app['controller'] === 'pacientes')
             echo '<link href="'.$app['basedir'].'/css/jquery.datetimepicker.css" rel="stylesheet" type="text/css">';
@@ -63,6 +64,7 @@
 		?>
     
     <script src="<?php echo $app['basedir'].'/js/jquery-2.0.0.min.js'; ?>"></script>
+    <script src="<?php echo $app['basedir'].'/js/jquery.tooltipster.min.js'; ?>"></script>
     <script src="<?php echo $app['basedir'].'/js/validaciones.js'; ?>"></script>
     <script>basedir = '<?php echo $app['basedir']; ?>';</script>
 	<?php
