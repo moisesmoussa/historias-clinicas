@@ -168,16 +168,20 @@ function verificarEdad(fechaNacimiento) {
 
     if (edad > 9)
         $('.desarrollo-psicomotor').hide();
+    else
+        $('.desarrollo-psicomotor').show();
 
     if (edad > 18)
         $('.antecedentes-perinatales').hide();
+    else
+        $('.antecedentes-perinatales').show();
 }
 
 /* Carga todos los datos del paciente indicado enviados por el servidor para que un usuario los pueda visualizar en la interfaz gráfica del sistema
  * Parámetros:
  * - "datos" es toda la información del paciente indicado enviada por el servidor
  */
-function successMostrarPaciente(datos){
+function successMostrarPaciente(datos) {
     if (datos.flag === 1) {
         var form;
         verificarEdad(new Date(datos.paciente.fecha_nacimiento_original));
@@ -185,10 +189,10 @@ function successMostrarPaciente(datos){
         $('input:radio[name=sexo][value=' + datos.paciente.sexo + ']').prop('checked', true);
 
         //Carga los números telefónicos del paciente en sus correspondientes campos separados
-        $('input[name="tlf_movil[]"]').each(function(){
+        $('input[name="tlf_movil[]"]').each(function () {
             $(this).val(datos.paciente.tlf_movil[$(this).index()]);
         });
-        $('input[name="tlf_casa[]"]').each(function(){
+        $('input[name="tlf_casa[]"]').each(function () {
             $(this).val(datos.paciente.tlf_casa[$(this).index()]);
         });
         datos.paciente.tlf_movil = null;
@@ -250,7 +254,7 @@ function mostrarPaciente(patientId) {
             try {
                 var datos = JSON.parse(paciente);
                 successMostrarPaciente(datos);
-                
+
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
@@ -264,6 +268,9 @@ function mostrarPaciente(patientId) {
  * - "formulario" es el nombre del formulario cuyos datos se quieren actualizar en la base de datos
  */
 function ajaxActualizarPaciente(archivoPhp, formulario) {
+    if (formulario === 'datos-paciente')
+        var fechaNacimiento = $('#' + formulario + ' #fecha_nacimiento').val().split('/');
+
     $.ajax({
         async: false,
         type: 'POST',
@@ -285,6 +292,8 @@ function ajaxActualizarPaciente(archivoPhp, formulario) {
                     alert('Debe llenar todos los campos');
                     break;
                 case 1:
+                    if (formulario === 'datos-paciente')
+                        verificarEdad(new Date(fechaNacimiento[2] + '-' + fechaNacimiento[1] + '-' + fechaNacimiento[0]));
                     alert('Actualización de datos exitosa');
                     break;
                 case 2:
