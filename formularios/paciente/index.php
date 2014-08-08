@@ -242,7 +242,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="correo_electronico">Dirección de Correo Electrónico: *</label>
+                    <label for="correo_electronico">Correo Electrónico: *</label>
                     <br>
                     <input type="text" id="correo_electronico" name="correo_electronico" placeholder="nombrecorreo@dominio" required>
                 </td>

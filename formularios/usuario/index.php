@@ -199,7 +199,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="correo_electronico">Correo Electrónico:</label>
+                    <label for="correo_electronico">Correo Electrónico: *</label>
                     <br>
                     <input id="correo_electronico" name="correo_electronico" type="text" placeholder="nombrecorreo@dominio" required>
                 </td>
