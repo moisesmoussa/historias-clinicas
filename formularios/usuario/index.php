@@ -7,18 +7,24 @@
                     <h3>
                         <b>Datos de la cuenta</b>
                     </h3>
+                    <span>* Datos Obligatorios</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="nombre_usuario">Usuario: <i class="fa fa-question-circle fa-fw ayuda" title="<b>Puede estar formado por:</b><br>Letras mayúsculas y minúsculas<br>Números<br>Caracteres: _ -"></i></label>
+                    <label for="nombre_usuario">Usuario: *<i class="fa fa-question-circle fa-fw ayuda" title="<b>Puede estar formado por:</b><br>Mínimo 4 caracteres<br>Máximo 16 caracteres<br>Letras mayúsculas y minúsculas<br>Números<br>Caracteres: _ -"></i></label>
                     <br>
                     <input id="nombre_usuario" name="nombre_usuario" type="text" pattern="^[a-zA-Z0-9_-]{4,16}$" autofocus required>
                 </td>
                 <?php if(isset($_SESSION['super_administrador']) && $app['action'] != 'perfil')
                           echo
                 '<td>
-                    <label for="tipo_usuario">Tipo de Usuario:</label>
+                    <label for="tipo_usuario">Tipo de Usuario: *</label>
                     <br>
                     <select id="tipo_usuario" name="tipo_usuario" required>
                         <option value=""></option>
@@ -46,12 +52,12 @@
                     echo
             '<tr>
                 <td>
-                    <label for="clave">Contraseña: <i class="fa fa-question-circle fa-fw ayuda" title="<b>Puede estar formado por:</b><br>Letras mayúsculas y minúsculas<br>Números<br>Caracteres: * + / : . , $ % & # _ -"></i></label>
+                    <label for="clave">Contraseña: *<i class="fa fa-question-circle fa-fw ayuda" title="<b>Puede estar formado por:</b><br>Mínimo 6 caracteres<br>Máximo 18 caracteres<br>Letras mayúsculas y minúsculas<br>Números<br>Caracteres: * + / : . , $ % & # _ -"></i></label>
                     <br>
                     <input id="clave" name="clave" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" autocomplete="off" required>
                 </td>
                 <td>
-                    <label for="clave2">Repetir Contraseña:</label>
+                    <label for="clave2">Repetir Contraseña: *</label>
                     <br>
                     <input id="clave2" name="clave2" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" autocomplete="off" required>
                 </td>
@@ -74,50 +80,38 @@
             </tr>
             <tr>
                 <td>
-                    <label for="primer_nombre">Primer Nombre:</label>
+                    <label for="nombres">Nombres: *</label>
                     <br>
-                    <input id="primer_nombre" name="primer_nombre" type="text" required>
+                    <input id="nombres" name="nombres" type="text" required>
                 </td>
                 <td>
-                    <label for="segundo_nombre">Segundo Nombre:</label>
+                    <label for="apellidos">Apellidos: *</label>
                     <br>
-                    <input id="segundo_nombre" name="segundo_nombre" type="text" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="primer_apellido">Primer Apellido:</label>
-                    <br>
-                    <input id="primer_apellido" name="primer_apellido" type="text" required>
-                </td>
-                <td>
-                    <label for="segundo_apellido">Segundo Apellido:</label>
-                    <br>
-                    <input id="segundo_apellido" name="segundo_apellido" type="text" required>
+                    <input id="apellidos" name="apellidos" type="text" required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="fecha_nacimiento">Fecha Nacimiento:</label>
+                    <label for="fecha_nacimiento">Fecha Nacimiento: *</label>
                     <br>
                     <input class="calendario" id="fecha_nacimiento" name="fecha_nacimiento" type="text" readonly="readonly" required>
                 </td>
                 <td>
-                    <label for="lugar_nacimiento">Lugar Nacimiento:</label>
+                    <label for="lugar_nacimiento">Lugar Nacimiento: *</label>
                     <br>
                     <input id="lugar_nacimiento" name="lugar_nacimiento" type="text" required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="cedula">Cédula:</label>
+                    <label for="cedula">Cédula: *</label>
                     <br>
                     <input id="cedula" name="cedula" class="numeros" type="text" required>
                 </td>
                 <td>
                     <label for="especialidad">Especialidad:</label>
                     <br>
-                    <input id="especialidad" name="especialidad" type="text" required>
+                    <input id="especialidad" name="especialidad" type="text">
                 </td>
             </tr>
             <tr>
@@ -129,7 +123,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="estado_residencia">Estado:</label>
+                    <label for="estado_residencia">Estado: *</label>
                     <br>
                     <select id="estado_residencia" name="estado_residencia" required>
                         <option value=""></option>
@@ -160,26 +154,26 @@
                     </select>
                 </td>
                 <td>
-                    <label for="ciudad_residencia">Ciudad:</label>
+                    <label for="ciudad_residencia">Ciudad: *</label>
                     <br>
                     <select id="ciudad_residencia" name="ciudad_residencia" required></select>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="direccion">Dirección:</label>
+                    <label for="direccion">Dirección: *</label>
                     <br>
                     <input id="direccion" name="direccion" type="text" required>
                 </td>
                 <td>
                     <label for="codigo_postal">Código Postal:</label>
                     <br>
-                    <input id="codigo_postal" name="codigo_postal" class="numeros" type="text" required>
+                    <input id="codigo_postal" name="codigo_postal" class="numeros" type="text">
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="lugar_trabajo">Lugar de Trabajo:</label>
+                    <label for="lugar_trabajo">Lugar de Trabajo: *</label>
                     <br>
                     <input id="lugar_trabajo" name="lugar_trabajo" type="text" required>
                 </td>
@@ -193,12 +187,12 @@
             </tr>
             <tr>
                 <td>
-                    <label for="tlf_movil">Teléfono Móvil:</label>
+                    <label for="tlf_movil">Teléfono Móvil: *</label>
                     <br>
                     <b><input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{3}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required></b>
                 </td>
                 <td>
-                    <label for="tlf_casa">Teléfono de Casa:</label>
+                    <label for="tlf_casa">Teléfono de Casa: *</label>
                     <br>
                     <b><input class="tlf" name="tlf_casa[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf tlf_casa" name="tlf_casa[]" type="text" pattern="^[0-9]{7}$" required></b>
                 </td>
@@ -212,7 +206,7 @@
                 <td>
                     <label for="correo_alternativo">Correo Electrónico Alternativo:</label>
                     <br>
-                    <input id="correo_alternativo" name="correo_alternativo" type="text" placeholder="nombrecorreo@dominio" required>
+                    <input id="correo_alternativo" name="correo_alternativo" type="text" placeholder="nombrecorreo@dominio">
                 </td>
             </tr>
             <tr>
