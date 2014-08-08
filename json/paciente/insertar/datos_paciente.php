@@ -15,11 +15,16 @@ $msg['flag'] = 6;
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     $flag = 1;
     
-    foreach ($_POST as $valor)
+    foreach ($_POST as $clave => $valor){
         if(!isset($valor) || empty($valor)){
-            $flag = 0;
-            break;
+            if($clave != 'etnia' && $clave != 'analfabeta' && $clave != 'codigo_postal' && $clave != 'peso' && $clave != 'estatura' && $clave != 'superficie_corporal' && $clave != 'empresa'){
+                $flag = 0;
+                break;
+            } else {
+                unset($_POST[$clave]);
+            }
         }
+    }
     
     if($flag){
         $_POST['educacion'] = ucfirst($_POST['educacion']);

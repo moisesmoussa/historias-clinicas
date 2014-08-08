@@ -16,11 +16,12 @@ $msg['flag'] = 6;
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) {
     $flag = 1;
     
-    foreach ($_POST as $valor)
-        if(!isset($valor) || empty($valor)){
-            $flag = 0;
-            break;
+    foreach ($_POST as $clave => $valor){
+        if( $clave != 'especialidad' && $clave != 'codigo_postal' && $clave != 'correo_alternativo' && (!isset($valor) || empty($valor)) ){
+                $flag = 0;
+                break;
         }
+    }
 
     if($flag){
         $_POST['fecha_nacimiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
