@@ -7,18 +7,24 @@
                     <h3>
                         <b>Datos Personales</b>
                     </h3>
+                    <span>* Datos Obligatorios</span>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="nro_historia_clinica">Número Historia Clínica:</label>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label for="nro_historia_clinica">Número Historia Clínica: *</label>
                     <br>
                     <input type="text" id="nro_historia_clinica" name="nro_historia_clinica" autofocus required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="nacionalidad">Nacionalidad:</label>
+                    <label for="nacionalidad">Nacionalidad: *</label>
                     <br>
                     <select id="nacionalidad" name="nacionalidad" required>
                         <option value=""></option>
@@ -27,7 +33,7 @@
                     </select>
                 </td>
                 <td>
-                    <label for="documento_identidad">Documento de Identidad:</label>
+                    <label for="documento_identidad">Documento de Identidad: *</label>
                     <br>
                     <input type="text" id="documento_identidad" name="documento_identidad" placeholder="Cédula o pasaporte" required>
                 </td>
@@ -41,56 +47,46 @@
             </tr>
             <tr>
                 <td>
-                    <label for="primer_apellido">Primer Apellido:</label>
+                    <label for="nombres">Nombres: *</label>
                     <br>
-                    <input type="text" id="primer_apellido" name="primer_apellido" required>
+                    <input type="text" id="nombres" name="nombres" required>
                 </td>
                 <td>
-                    <label for="segundo_apellido">Segundo Apellido:</label>
+                    <label for="apellidos">Apellidos: *</label>
                     <br>
-                    <input type="text" id="segundo_apellido" name="segundo_apellido" required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="primer_nombre">Primer Nombre:</label>
-                    <br>
-                    <input type="text" id="primer_nombre" name="primer_nombre" required>
-                </td>
-                <td>
-                    <label for="segundo_nombre">Segundo Nombre:</label>
-                    <br>
-                    <input type="text" id="segundo_nombre" name="segundo_nombre" required>
+                    <input type="text" id="apellidos" name="apellidos" required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="etnia">Etnia:</label>
-                    <br>
-                    <input type="text" id="etnia" name="etnia" required>
-                </td>
-                <td>
-                    <label for="fecha_nacimiento">Fecha Nacimiento:</label>
+                    <label for="fecha_nacimiento">Fecha Nacimiento: *</label>
                     <br>
                     <input class="calendario" id="fecha_nacimiento" name="fecha_nacimiento" type="text" readonly="readonly" required>
                 </td>
-            </tr>
-            <tr>
                 <td>
-                    <label for="sexo">Sexo:</label>
-                    <br>
-                    <input type="radio" name="sexo" value="Masculino" required>Masculino
-                    <input type="radio" name="sexo" value="Femenino" required>Femenino
-                </td>
-                <td>
-                    <label for="pais_nacimiento">País de Nacimiento:</label>
+                    <label for="pais_nacimiento">País de Nacimiento: *</label>
                     <br>
                     <?php @include_once('paises.html')?>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="situacion_conyugal">Situación Conyugal:</label>
+                    <label for="lugar_nacimiento">Lugar de Nacimiento: *</label>
+                    <br>
+                    <input type="text" id="lugar_nacimiento" name="lugar_nacimiento" required>
+                </td>
+                <td>
+                    <label for="sexo">Sexo: *</label>
+                    <br>
+                    <input type="radio" name="sexo" value="Masculino" required>
+                    <label>Masculino</label>
+                    <input type="radio" name="sexo" value="Femenino" required>
+                    <label>Femenino</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="situacion_conyugal">Situación Conyugal: *</label>
                     <br>
                     <select id="situacion_conyugal" name="situacion_conyugal" required>
                         <option value=""></option>
@@ -103,15 +99,20 @@
                 <td>
                     <label for="analfabeta">¿Es analfabeta?</label>
                     <br>
-                    <input type="radio" name="analfabeta" value="TRUE" required>
+                    <input type="radio" name="analfabeta" value="TRUE">
                     <label>Sí</label>
-                    <input type="radio" name="analfabeta" value="FALSE" required>
+                    <input type="radio" name="analfabeta" value="FALSE">
                     <label>No</label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="educacion">Educación:</label>
+                    <label for="etnia">Etnia:</label>
+                    <br>
+                    <input type="text" id="etnia" name="etnia">
+                </td>
+                <td>
+                    <label for="educacion">Educación: *</label>
                     <br>
                     <select id="educacion" name="educacion" required>
                         <option value=""></option>
@@ -123,25 +124,51 @@
                         <option value="Postgrado">Universitaria (Postgrado)</option>
                     </select>
                 </td>
+            </tr>
+            <tr>
                 <td>
-                    <label for="profesion">Profesión:</label>
+                    <label for="profesion">Profesión: *</label>
                     <br>
                     <input type="text" id="profesion" name="profesion" required>
+                </td>
+                <td>
+                    <label for="ocupacion">Ocupación: *</label>
+                    <br>
+                    <input type="text" id="ocupacion" name="ocupacion" required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="ocupacion">Ocupación:</label>
+                    <label for="empresa">Empresa:</label>
                     <br>
-                    <input type="text" id="ocupacion" name="ocupacion" required>
+                    <input type="text" id="empresa" name="empresa">
                 </td>
                 <td>
-                    <label for="seguridad_social">¿Es cotizante del Seguro Social?</label>
+                    <label for="seguridad_social">¿Es cotizante del Seguro Social? *</label>
                     <br>
                     <input type="radio" name="seguridad_social" value="TRUE" required>
                     <label>Sí</label>
                     <input type="radio" name="seguridad_social" value="FALSE" required>
                     <label>No</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="ocupacion">Peso:</label>
+                    <br>
+                    <input type="text" id="peso" name="peso">
+                </td>
+                <td>
+                    <label for="estatura">Estatura:</label>
+                    <br>
+                    <input type="text" id="estatura" name="estatura">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label for="superficie_corporal">Superficie Corporal:</label>
+                    <br>
+                    <input type="text" id="superficie_corporal" name="superficie_corporal">
                 </td>
             </tr>
             <tr>
@@ -153,7 +180,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="estado_residencia">Estado de Residencia:</label>
+                    <label for="estado_residencia">Estado de Residencia: *</label>
                     <br>
                     <select id="estado_residencia" name="estado_residencia" required>
                         <option value=""></option>
@@ -184,38 +211,38 @@
                     </select>
                 </td>
                 <td>
-                    <label for="ciudad_residencia">Ciudad de Residencia:</label>
+                    <label for="ciudad_residencia">Ciudad de Residencia: *</label>
                     <br>
                     <select id="ciudad_residencia" name="ciudad_residencia" required></select>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="direccion">Dirección:</label>
+                    <label for="direccion">Dirección: *</label>
                     <br>
                     <input type="text" id="direccion" name="direccion" required>
                 </td>
                 <td>
                     <label for="codigo_postal">Código Postal:</label>
                     <br>
-                    <input type="text" class="numeros" id="codigo_postal" name="codigo_postal" required>
+                    <input type="text" class="numeros" id="codigo_postal" name="codigo_postal">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="tlf_movil">Teléfono Móvil:</label>
+                    <label for="tlf_movil">Teléfono Móvil: *</label>
                     <br>
                     <b><input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{3}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required></b>
                 </td>
                 <td>
-                    <label for="tlf_casa">Teléfono de Casa:</label>
+                    <label for="tlf_casa">Teléfono de Casa: *</label>
                     <br>
                     <b><input class="tlf" name="tlf_casa[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf tlf_casa" name="tlf_casa[]" type="text" pattern="^[0-9]{7}$" required></b>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="correo_electronico">Dirección de Correo Electrónico:</label>
+                    <label for="correo_electronico">Dirección de Correo Electrónico: *</label>
                     <br>
                     <input type="text" id="correo_electronico" name="correo_electronico" placeholder="nombrecorreo@dominio" required>
                 </td>
