@@ -123,7 +123,7 @@ function cargarUsuarios() {
 
                 if (datos.flag === 1) {
                     for (var i in datos.usuario) {
-                        html += '<tr><td class="icono-tabla" data-id="' + datos.usuario[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar" title="Eliminar usuario"></i><i class="fa fa-edit fa-2x icon editar" title="Modificar usuario"></i></td><td>' + datos.usuario[i].cedula + '</td><td>' + datos.usuario[i].primer_nombre + ' ' + datos.usuario[i].segundo_nombre + '</td><td>' + datos.usuario[i].primer_apellido + ' ' + datos.usuario[i].segundo_apellido + '</td><td>' + datos.usuario[i].nombre_usuario + '</td><td>' + datos.usuario[i].tlf_movil + '</td><td>' + datos.usuario[i].correo_electronico + '</td></tr>';
+                        html += '<tr><td class="icono-tabla" data-id="' + datos.usuario[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar" title="Eliminar usuario"></i><i class="fa fa-edit fa-2x icon editar" title="Modificar usuario"></i></td><td>' + datos.usuario[i].cedula + '</td><td>' + datos.usuario[i].nombres + '</td><td>' + datos.usuario[i].apellidos + '</td><td>' + datos.usuario[i].nombre_usuario + '</td><td>' + datos.usuario[i].tlf_movil + '</td><td>' + datos.usuario[i].correo_electronico + '</td></tr>';
                     }
                     $('.usuarios').html(html);
 
