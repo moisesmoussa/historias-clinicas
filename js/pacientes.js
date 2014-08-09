@@ -3,11 +3,11 @@
  * - "id_paciente" es el id del paciente y se utiliza para cargarlo en inputs ocultos de los demas formularios del paciente
  *   para que se pueda acceder al id posteriormente
  */
-function successAgregarDatosPaciente(id_paciente) {
+function successAgregarDatosPaciente(idPaciente) {
     var fecha = new Date();
 
     $('.id_paciente').each(function () {
-        $(this).val(id_paciente);
+        $(this).val(idPaciente);
     });
 
     $('.antecedentes-modo-vida').show();
@@ -141,7 +141,7 @@ function cargarPacientes() {
 
                 if (datos.flag === 1) {
                     for (var i in datos.paciente) {
-                        html += '<tr><td class="icono-tabla" data-id="' + datos.paciente[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar" title="Eliminar paciente"></i><i class="fa fa-edit fa-2x icon editar" title="Modificar paciente"></i></td><td>' + datos.paciente[i].nro_historia_clinica + '</td><td>' + datos.paciente[i].documento_identidad + '</td><td>' + datos.paciente[i].nombres + '</td><td>' + datos.paciente[i].apellidos + '</td><td>' + datos.paciente[i].tlf_movil + '</td><td>' + datos.paciente[i].correo_electronico + '</td></tr>';
+                        html += '<tr><td class="icono-tabla" data-id="' + datos.paciente[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar" title="Eliminar paciente"></i><i class="fa fa-edit fa-2x icon editar" title="Modificar paciente"></i><i class="fa fa-medkit fa-2x icon diagnostico" title="Agregar y/o modificar diagnóstico del paciente"></i></td><td>' + datos.paciente[i].nro_historia_clinica + '</td><td>' + datos.paciente[i].documento_identidad + '</td><td>' + datos.paciente[i].nombres + '</td><td>' + datos.paciente[i].apellidos + '</td><td>' + datos.paciente[i].tlf_movil + '</td><td>' + datos.paciente[i].correo_electronico + '</td></tr>';
                     }
                     $('.pacientes').html(html);
 
@@ -155,16 +155,37 @@ function cargarPacientes() {
     });
 }
 
-/* Verifica la edad del paciente a modificar para activar los formularios "desarrollo psicomotor" y "antecedentes perinatales"
+/* Convierte una fecha en formato string a un objeto tipo "date" de javascript
  * Parámetros:
- * - "fechaNacimiento" es la fecha de nacimiento del paciente
+ * - "fecha" es una fecha que se encuentra en string ordenada en formato "Y-M-D"
+ * - "delimitador" es el caracter con el que se separan los datos de la fecha
  */
-function verificarEdad(fechaNacimiento) {
+function fechaObjeto(fecha, delimitador) {
+    fecha = fecha.split(delimitador);
+
+    return new Date(fecha[2] + '-' + fecha[1] + '-' + fecha[0])
+}
+
+/* Calcula la edad de acuerdo a la fecha de nacimiento y la fecha en el momento de ejecutar el proceso
+ * Parámetros:
+ * - "fechaNacimiento" es la fecha de nacimiento de la persona a la cual se le quiere calcular la edad
+ */
+function calcularEdad(fechaNacimiento) {
     var fechaActual = new Date();
     var edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
 
     if (fechaNacimiento.getMonth() > fechaActual.getMonth() || (fechaNacimiento.getMonth() === fechaActual.getMonth() && (fechaNacimiento.getDate() + 1) > fechaActual.getDate()))
         edad--;
+
+    return edad;
+}
+
+/* Verifica la edad del paciente a modificar para activar los formularios "desarrollo psicomotor" y "antecedentes perinatales"
+ * Parámetros:
+ * - "fechaNacimiento" es la fecha de nacimiento del paciente
+ */
+function verificarEdad(fechaNacimiento) {
+    var edad = calcularEdad(fechaNacimiento);
 
     if (edad > 9)
         $('.desarrollo-psicomotor').hide();
@@ -184,7 +205,7 @@ function verificarEdad(fechaNacimiento) {
 function successMostrarPaciente(datos) {
     if (datos.flag === 1) {
         var form;
-        verificarEdad(new Date(datos.paciente.fecha_nacimiento_original));
+        verificarEdad(fechaObjeto(datos.paciente.fecha_nacimiento, '-'));
         datos.paciente.fecha_nacimiento = datos.paciente.fecha_nacimiento.replace(/-/g, '/');
         $('input:radio[name=sexo][value=' + datos.paciente.sexo + ']').prop('checked', true);
 
@@ -268,9 +289,6 @@ function mostrarPaciente(patientId) {
  * - "formulario" es el nombre del formulario cuyos datos se quieren actualizar en la base de datos
  */
 function ajaxActualizarPaciente(archivoPhp, formulario) {
-    if (formulario === 'datos-paciente')
-        var fechaNacimiento = $('#' + formulario + ' #fecha_nacimiento').val().split('/');
-
     $.ajax({
         async: false,
         type: 'POST',
@@ -293,7 +311,7 @@ function ajaxActualizarPaciente(archivoPhp, formulario) {
                     break;
                 case 1:
                     if (formulario === 'datos-paciente')
-                        verificarEdad(new Date(fechaNacimiento[2] + '-' + fechaNacimiento[1] + '-' + fechaNacimiento[0]));
+                        verificarEdad(fechaObjeto($('#' + formulario + ' #fecha_nacimiento').val(), '/'));
                     alert('Actualización de datos exitosa');
                     break;
                 case 2:
@@ -382,6 +400,54 @@ function eliminarPaciente(patientId) {
     });
 }
 
+/* Carga todos los datos del paciente indicado enviados por el servidor para que un usuario los pueda visualizar en la interfaz gráfica del sistema
+ * Parámetros:
+ * - "datos" es toda la información del paciente indicado enviada por el servidor
+ */
+function successMostrarDiagnostico(datos) {
+    if (datos.flag === 1) {
+        datos.paciente.edad = calcularEdad(fechaObjeto(datos.paciente.fecha_nacimiento, '-'));
+        datos.paciente.fecha_nacimiento = datos.paciente.fecha_nacimiento.replace(/-/g, '/');
+
+        //Carga los datos restantes del paciente indicado enviados por el servidor a excepción de los datos del formulario "antecedentes sexuales"
+        for (var i in datos.paciente)
+            $('#' + i).val(datos.paciente[i]);
+
+    } else {
+        alert(datos.msg);
+    }
+}
+
+/* Carga la información de un paciente y la muestra en un formulario para que se puedan modificar
+ * Parámetros:
+ * - "patientId" indica el id del paciente
+ */
+function mostrarDiagnostico(patientId) {
+    $.ajax({
+        async: false,
+        url: basedir + '/json/paciente/diagnostico/cargar.php',
+        type: 'POST',
+        data: {
+            paciente: patientId
+        },
+        error: function () {
+            alert('Error cargando la información');
+        },
+        success: function (paciente) {
+            try {
+                var datos = JSON.parse(paciente);
+                successMostrarDiagnostico(datos);
+                
+                $('.id_paciente').each(function () {
+                    $(this).val(patientId);
+                });
+            } catch (e) {
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
+            }
+        }
+    });
+}
+
 $(document).ready(function () {
     var fechaActual = new Date();
     var url;
@@ -395,6 +461,10 @@ $(document).ready(function () {
     if ((url = window.location.pathname).match(basedir + '/pacientes/modificar/[0-9]+'))
         mostrarPaciente(url.substring(url.lastIndexOf('/') + 1));
 
+    //Si el programa está posicionado en el diagnostico de un paciente, se cargan los datos de dicho paciente seleccionado
+    if ((url = window.location.pathname).match(basedir + '/pacientes/diagnostico/[0-9]+'))
+        mostrarDiagnostico(url.substring(url.lastIndexOf('/') + 1));
+
     //Si esta en el perfil de un paciente para modificar sus datos, se cargan los datos del paciente seleccionado
     if (window.location.pathname === basedir + '/pacientes/registrar') {
         $('.antecedentes-perinatales').hide();
@@ -407,10 +477,10 @@ $(document).ready(function () {
     //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
     $('form').submit(function () {
         if ((url = window.location.pathname).match(basedir + '/pacientes/modificar/[0-9]+')) {
-            var id_paciente = url.substring(url.lastIndexOf('/') + 1);
+            var idPaciente = url.substring(url.lastIndexOf('/') + 1);
 
             $('.id_paciente').each(function () {
-                $(this).val(id_paciente);
+                $(this).val(idPaciente);
             });
             actualizarPaciente($(this).attr('id'));
 
@@ -450,6 +520,10 @@ $(document).ready(function () {
         $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.html');
     });
 
+    $('.boton.modificar').click(function(){
+        window.location.replace(basedir + '/pacientes/modificar/' + $(this).parents().find('.id_paciente').val());
+    });
+    
     //Marca o desmarcar filas de la tabla de pacientes
     $(document).on('click', '.busqueda table td', function (e) {
         if ($(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')
@@ -471,5 +545,10 @@ $(document).ready(function () {
     //Redirige a la página que contiene todos los datos del paciente indicado para que se puedan ver y editar
     $(document).on('click', '.pacientes tr .icono-tabla .editar', function () {
         window.location.replace(basedir + '/pacientes/modificar/' + $(this).parent().attr('data-id'));
+    });
+
+    //Redirige a la página de diagnostico del paciente para agregar datos o ver los existentes y editar
+    $(document).on('click', '.pacientes tr .icono-tabla .diagnostico', function () {
+        window.location.replace(basedir + '/pacientes/diagnostico/' + $(this).parent().attr('data-id'));
     });
 });
