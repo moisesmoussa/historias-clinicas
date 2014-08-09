@@ -1,16 +1,12 @@
 <section class="contenedor-formulario">
     <h2 align="center"><?php echo ($app['action'] === 'registrar')? 'Registro de Usuario': 'Perfil de Usuario'; ?></h2>
+    <br>
+    <label>* Datos Obligatorios</label>
     <form id="<?php echo ($app['action'] === 'registrar')? 'nuevo-usuario': 'actualizar-usuario'; ?>" action="" autocomplete="on">
         <table class="formulario">
             <tr>
                 <td colspan="2">
                     <h3>Datos de la cuenta</h3>
-                    <span>* Datos Obligatorios</span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <br>
                 </td>
             </tr>
             <tr>
@@ -74,12 +70,6 @@
             <tr>
                 <td colspan="2">
                     <h3>Datos Personales</h3>
-                    <span>* Datos Obligatorios</span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <br>
                 </td>
             </tr>
             <tr>
@@ -121,12 +111,6 @@
             <tr>
                 <td colspan="2">
                     <h3>Dirección</h3>
-                    <span>* Datos Obligatorios</span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <br>
                 </td>
             </tr>
             <tr>
@@ -189,12 +173,6 @@
             <tr>
                 <td colspan="2">
                     <h3>Datos de Contacto</h3>
-                    <span>* Datos Obligatorios</span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <br>
                 </td>
             </tr>
             <tr>

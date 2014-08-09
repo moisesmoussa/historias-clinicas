@@ -1,16 +1,12 @@
 <section class="contenedor-formulario">
     <h2 align="center"><?php echo ($app['action'] === 'registrar')? 'Registro de Paciente': 'Perfil de Paciente'; ?></h2>
+    <br>
+    <label>* Datos Obligatorios</label>
     <form id="datos-paciente" action="" autocomplete="on">
         <table class="formulario">
             <tr>
                 <td colspan="2">
                     <h3>Datos Personales</h3>
-                    <span>* Datos Obligatorios</span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <br>
                 </td>
             </tr>
             <tr>
@@ -172,12 +168,6 @@
             <tr>
                 <td colspan="2">
                     <h3>Dirección y Contacto</h3>
-                    <span>* Datos Obligatorios</span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <br>
                 </td>
             </tr>
             <tr>
