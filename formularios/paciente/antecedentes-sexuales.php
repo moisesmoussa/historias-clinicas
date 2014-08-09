@@ -3,9 +3,7 @@
         <table class="formulario">
             <tr>
                 <td colspan="2">
-                    <h3>
-                        <b>Antecedentes Personales Sexuales y Reproductivos</b>
-                    </h3>
+                    <h3>Antecedentes Personales Sexuales y Reproductivos</h3>
                 </td>
             </tr>
             <tr>
@@ -430,9 +428,7 @@
         <table class="formulario">
             <tr>
                 <td colspan="2">
-                    <h3>
-                        <b>Antecedentes Personales Sexuales y Reproductivos</b>
-                    </h3>
+                    <h3>Antecedentes Personales Sexuales y Reproductivos</h3>
                 </td>
             </tr>
             <tr>

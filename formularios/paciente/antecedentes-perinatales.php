@@ -3,9 +3,7 @@
         <table class="formulario">
             <tr>
                 <td colspan="2">
-                    <h3>
-                        <b>Antecedentes Perinatales</b>
-                    </h3>
+                    <h3>Antecedentes Perinatales</h3>
                 </td>
             </tr>
             <tr>

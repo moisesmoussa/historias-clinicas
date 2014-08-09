@@ -4,9 +4,7 @@
         <table class="formulario">
             <tr>
                 <td colspan="2">
-                    <h3>
-                        <b>Datos Personales</b>
-                    </h3>
+                    <h3>Datos Personales</h3>
                     <span>* Datos Obligatorios</span>
                 </td>
             </tr>
@@ -17,7 +15,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="nro_historia_clinica">Número Historia Clínica: *</label>
+                    <label for="nro_historia_clinica">Número de Historia Clínica: *</label>
                     <br>
                     <input type="text" id="nro_historia_clinica" name="nro_historia_clinica" autofocus required>
                 </td>
@@ -154,7 +152,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="ocupacion">Peso:</label>
+                    <label for="peso">Peso:</label>
                     <br>
                     <input type="text" id="peso" name="peso">
                 </td>
@@ -173,9 +171,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <h3>
-                        <b>Dirección y Contacto</b>
-                    </h3>
+                    <h3>Dirección y Contacto</h3>
                 </td>
             </tr>
             <tr>
@@ -235,7 +231,7 @@
                     <b><input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{3}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required></b>
                 </td>
                 <td>
-                    <label for="tlf_casa">Teléfono de Casa: *</label>
+                    <label for="tlf_casa">Teléfono de Habitación: *</label>
                     <br>
                     <b><input class="tlf" name="tlf_casa[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf tlf_casa" name="tlf_casa[]" type="text" pattern="^[0-9]{7}$" required></b>
                 </td>
@@ -267,9 +263,7 @@
         <table class="formulario">
             <tr>
                 <td colspan="2">
-                    <h3>
-                        <b>Antecedentes Personales de Estilo y Modo de Vida</b>
-                    </h3>
+                    <h3>Antecedentes Personales de Estilo y Modo de Vida</h3>
                 </td>
             </tr>
             <tr>
@@ -421,9 +415,7 @@
         <table class="formulario">
             <tr>
                 <td colspan="2">
-                    <h3>
-                        <b>Antecedentes Personales de Patologías</b>
-                    </h3>
+                    <h3>Antecedentes Personales de Patologías</h3>
                 </td>
             </tr>
             <tr>

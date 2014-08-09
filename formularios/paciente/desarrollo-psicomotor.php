@@ -3,9 +3,7 @@
         <table class="formulario">
             <tr>
                 <td colspan="2">
-                    <h3>
-                        <b>Desarrollo Psicomotor</b>
-                    </h3>
+                    <h3>Desarrollo Psicomotor</h3>
                 </td>
             </tr>
             <tr>

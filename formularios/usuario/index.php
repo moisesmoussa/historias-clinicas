@@ -3,10 +3,8 @@
     <form id="<?php echo ($app['action'] === 'registrar')? 'nuevo-usuario': 'actualizar-usuario'; ?>" action="" autocomplete="on">
         <table class="formulario">
             <tr>
-                <td>
-                    <h3>
-                        <b>Datos de la cuenta</b>
-                    </h3>
+                <td colspan="2">
+                    <h3>Datos de la cuenta</h3>
                     <span>* Datos Obligatorios</span>
                 </td>
             </tr>
@@ -74,7 +72,7 @@
             ?>
             
             <tr>
-                <td>
+                <td colspan="2">
                     <h3>Datos Personales</h3>
                 </td>
             </tr>
@@ -115,10 +113,8 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <h3>
-                        <b>Dirección</b>
-                    </h3>
+                <td colspan="2">
+                    <h3>Dirección</h3>
                 </td>
             </tr>
             <tr>
@@ -179,10 +175,8 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <h3>
-                        <b>Datos de Contacto</b>
-                    </h3>
+                <td colspan="2">
+                    <h3>Datos de Contacto</h3>
                 </td>
             </tr>
             <tr>
@@ -192,7 +186,7 @@
                     <b><input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{3}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required></b>
                 </td>
                 <td>
-                    <label for="tlf_casa">Teléfono de Casa: *</label>
+                    <label for="tlf_casa">Teléfono de Habitación: *</label>
                     <br>
                     <b><input class="tlf" name="tlf_casa[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf tlf_casa" name="tlf_casa[]" type="text" pattern="^[0-9]{7}$" required></b>
                 </td>
