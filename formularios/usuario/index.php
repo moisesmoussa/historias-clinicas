@@ -74,6 +74,12 @@
             <tr>
                 <td colspan="2">
                     <h3>Datos Personales</h3>
+                    <span>* Datos Obligatorios</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br>
                 </td>
             </tr>
             <tr>
@@ -115,6 +121,12 @@
             <tr>
                 <td colspan="2">
                     <h3>Dirección</h3>
+                    <span>* Datos Obligatorios</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br>
                 </td>
             </tr>
             <tr>
@@ -177,6 +189,12 @@
             <tr>
                 <td colspan="2">
                     <h3>Datos de Contacto</h3>
+                    <span>* Datos Obligatorios</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br>
                 </td>
             </tr>
             <tr>

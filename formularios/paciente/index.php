@@ -172,6 +172,12 @@
             <tr>
                 <td colspan="2">
                     <h3>Dirección y Contacto</h3>
+                    <span>* Datos Obligatorios</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br>
                 </td>
             </tr>
             <tr>
