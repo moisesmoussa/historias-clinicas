@@ -20,7 +20,6 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         
         if(!empty($resultado['id'])){
             $msg['paciente'] = $resultado;
-            $msg['paciente']['fecha_nacimiento_original'] = $msg['paciente']['fecha_nacimiento'];
             $msg['paciente']['fecha_nacimiento'] = date('d-m-Y', strtotime($msg['paciente']['fecha_nacimiento']));
             $msg['paciente']['tlf_movil'] = explode('-', $msg['paciente']['tlf_movil']);
             $msg['paciente']['tlf_casa'] = explode('-', $msg['paciente']['tlf_casa']);
