@@ -125,8 +125,8 @@ body {
 .formulario {
     margin: 0 auto;
 }
-.formulario tr td {
-    margin-right: 8px;
+.formulario td{
+    padding: 0 10px;
 }
 header a {
     color: #A14C5E;
@@ -170,8 +170,8 @@ header .perfil {
     border-bottom-color: transparent !important;
     text-align: center;
 }
-.icono-tabla .borrar {
-    padding-right: 15px;
+.icono-tabla .editar {
+    padding: 0 15px;
 }
 input {
     border: 4px solid #6FC8E5;
