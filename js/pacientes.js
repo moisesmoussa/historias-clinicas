@@ -400,7 +400,7 @@ function eliminarPaciente(patientId) {
     });
 }
 
-/* Carga todos los datos del paciente indicado enviados por el servidor para que un usuario los pueda visualizar en la interfaz gráfica del sistema
+/* Carga todos los datos de diagnóstico del paciente indicado enviados por el servidor para que un usuario los pueda visualizar en la interfaz gráfica del sistema
  * Parámetros:
  * - "datos" es toda la información del paciente indicado enviada por el servidor
  */
@@ -408,8 +408,12 @@ function successMostrarDiagnostico(datos) {
     if (datos.flag === 1) {
         datos.paciente.edad = calcularEdad(fechaObjeto(datos.paciente.fecha_nacimiento, '-'));
         datos.paciente.fecha_nacimiento = datos.paciente.fecha_nacimiento.replace(/-/g, '/');
+        datos.paciente.fecha_solicitud = datos.paciente.fecha_solicitud.replace(/-/g, '/');
+        datos.paciente.fecha_primer_sintoma = datos.paciente.fecha_primer_sintoma.replace(/-/g, '/');
+        datos.paciente.fecha_diagnostico = datos.paciente.fecha_diagnostico.replace(/-/g, '/');
+        datos.paciente.fecha_inicio_tratamiento = datos.paciente.fecha_inicio_tratamiento.replace(/-/g, '/');
 
-        //Carga los datos restantes del paciente indicado enviados por el servidor a excepción de los datos del formulario "antecedentes sexuales"
+        //Carga los datos restantes del paciente indicado enviados por el servidor
         for (var i in datos.paciente)
             $('#' + i).val(datos.paciente[i]);
 
@@ -418,14 +422,14 @@ function successMostrarDiagnostico(datos) {
     }
 }
 
-/* Carga la información de un paciente y la muestra en un formulario para que se puedan modificar
+/* Carga la información del diagnóstico de un paciente y la muestra en un formulario para que se puedan modificar
  * Parámetros:
  * - "patientId" indica el id del paciente
  */
 function mostrarDiagnostico(patientId) {
     $.ajax({
         async: false,
-        url: basedir + '/json/paciente/diagnostico/cargar.php',
+        url: basedir + '/json/paciente/cargar_diagnostico.php',
         type: 'POST',
         data: {
             paciente: patientId
@@ -437,7 +441,7 @@ function mostrarDiagnostico(patientId) {
             try {
                 var datos = JSON.parse(paciente);
                 successMostrarDiagnostico(datos);
-                
+
                 $('.id_paciente').each(function () {
                     $(this).val(patientId);
                 });
@@ -446,6 +450,68 @@ function mostrarDiagnostico(patientId) {
             }
         }
     });
+}
+
+/* Actualiza en la base de datos los datos de diagnóstico de un paciente provenientes del formulario que se ha indicado
+ * Parámetros:
+ * - "archivoPhp" indica el archivo .php en la carpeta "json" al cual se le envían los datos del formulario para ser actualizados en la base de datos
+ * - "formulario" es el nombre del formulario cuyos datos se quieren actualizar en la base de datos
+ */
+function ajaxActualizarDiagnostico(archivoPhp, formulario) {
+    datos = $('#' + formulario).serialize();
+    
+    if(formulario === 'form-diagnostico')
+        datos += '&nro_historia_clinica=' + $('#nro_historia_clinica').val();
+    
+    $.ajax({
+        async: false,
+        type: 'POST',
+        url: basedir + '/json/paciente/actualizar/' + archivoPhp,
+        data: datos,
+        beforeSend: function () {
+            $('#' + formulario + ' .status').html('<i class="fa fa-spinner fa-spin fa-fw"></i>   Guardando datos').show();
+        },
+        error: function () {
+            $('#' + formulario + ' .status').html('Error cargando la información').show();
+        },
+        success: function (data) {
+            try {
+                $('#' + formulario + ' .status').hide();
+                var r = JSON.parse(data);
+
+                switch (r.flag) {
+                case 0:
+                    alert('Debe llenar todos los campos');
+                    break;
+                case 1:
+                    alert('Actualización de datos exitosa');
+                    break;
+                case 2:
+                    alert('No se pudieron actualizar los datos del diagnóstico del paciente');
+                    break;
+                case 3:
+                    alert('Error de consulta en la base de datos');
+                    break;
+                case 4:
+                    alert('No posee permisos para actualizar los datos del paciente');
+                    break;
+                }
+            } catch (e) {
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
+            }
+        }
+    });
+}
+
+/* Aplica la acción correspondiente de acuerdo al formulario de datos de diagnóstico del paciente que se ha indicado para actualizar
+ * Parámetros:
+ * - "formulario" indica el nombre del formulario cuyos datos se quieren actualizar en la base de datos
+ */
+function actualizarDiagnostico(formulario) {
+    if ('form-diagnostico')
+        ajaxActualizarDiagnostico('diagnostico.php', formulario);
+    else if ('form-medico')
+        ajaxActualizarDiagnostico('medico_tratante.php', formulario);
 }
 
 $(document).ready(function () {
@@ -476,7 +542,11 @@ $(document).ready(function () {
 
     //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
     $('form').submit(function () {
-        if ((url = window.location.pathname).match(basedir + '/pacientes/modificar/[0-9]+')) {
+        if ((url = window.location.pathname) === basedir + '/pacientes/registrar') {
+            if ($(this).prop('data-enable') != 'false')
+                agregarPaciente($(this).attr('id'));
+
+        } else if (url.match(basedir + '/pacientes/modificar/[0-9]+')) {
             var idPaciente = url.substring(url.lastIndexOf('/') + 1);
 
             $('.id_paciente').each(function () {
@@ -484,9 +554,8 @@ $(document).ready(function () {
             });
             actualizarPaciente($(this).attr('id'));
 
-        } else if (url === basedir + '/pacientes/registrar') {
-            if ($(this).prop('data-enable') != 'false')
-                agregarPaciente($(this).attr('id'));
+        } else if (url.match(basedir + '/pacientes/diagnostico/[0-9]+')) {
+            actualizarDiagnostico($(this).attr('id'));
         }
         return false;
     });
@@ -520,10 +589,11 @@ $(document).ready(function () {
         $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.html');
     });
 
-    $('.boton.modificar').click(function(){
+    //Redirige a la página que contiene todos los datos del paciente indicado para que se puedan ver y editar
+    $('.boton.modificar').click(function () {
         window.location.replace(basedir + '/pacientes/modificar/' + $(this).parents().find('.id_paciente').val());
     });
-    
+
     //Marca o desmarcar filas de la tabla de pacientes
     $(document).on('click', '.busqueda table td', function (e) {
         if ($(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')
