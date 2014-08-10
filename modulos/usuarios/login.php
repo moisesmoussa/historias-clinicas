@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <header id='menu'>
+    <header class="menu">
         <div class="contenedor">
             <section class="contenido">
                 <img src="<?php echo $app['basedir'].'/img/logo.png'; ?>" width="247" height="83">
