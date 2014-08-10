@@ -13,7 +13,7 @@
                 <input type="text" id="nro_historia_clinica" readonly="readonly">
             </td>
             <td class="oculto">
-                    <input class="id_paciente" readonly="readonly">
+                <input type="text" class="id_paciente" readonly="readonly">
             </td>
         </tr>
         <tr>
@@ -117,7 +117,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <input type="button" class="boton modificar" value="Modificar Datos"/>
+                <input type="button" class="boton modificar" value="Modificar Datos" />
             </td>
         </tr>
     </table>
@@ -125,7 +125,7 @@
 <section class="contenedor-formulario">
     <br>
     <label>* Datos Obligatorios</label>
-    <form id="datos-paciente" action="" autocomplete="on">
+    <form id="form-diagnostico" action="" autocomplete="on">
         <table class="formulario">
             <tr>
                 <td colspan="2">
@@ -142,6 +142,9 @@
                     <label for="centro_asistencial">Centro Asistencial: *</label>
                     <br>
                     <input type="text" id="centro_asistencial" name="centro_asistencial" required>
+                </td>
+                <td class="oculto">
+                    <input type="text" class="id_paciente" name="id_paciente" readonly="readonly">
                 </td>
             </tr>
             <tr>
@@ -330,9 +333,9 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="linea_tratamiento_1">Línea 1: *</label>
+                    <label for="linea_tratamiento_1">Línea 1:</label>
                     <br>
-                    <textarea id="linea_tratamiento_1" name="linea_tratamiento_1" required></textarea>
+                    <textarea id="linea_tratamiento_1" name="linea_tratamiento_1"></textarea>
                 </td>
             </tr>
             <tr>
@@ -365,14 +368,14 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <h3>Esquema: *</h3>
-                    <textarea id="esquema" name="esquema" required></textarea>
+                    <h3>Esquema:</h3>
+                    <textarea id="esquema" name="esquema"></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <h3>Sobrevida Global a la Fecha: *</h3>
-                    <textarea id="sobrevida_global" name="sobrevida_global" required></textarea>
+                    <h3>Sobrevida Global a la Fecha:</h3>
+                    <textarea id="sobrevida_global" name="sobrevida_global"></textarea>
                 </td>
             </tr>
             <tr>
@@ -382,25 +385,87 @@
             </tr>
             <tr>
                 <td>
-                    <label for="dosis_esquema">Dosis: *</label>
+                    <label for="dosis_esquema">Dosis:</label>
                     <br>
-                    <input type="text" id="dosis_esquema" name="dosis_esquema" required>
+                    <input type="text" id="dosis_esquema" name="dosis_esquema">
                 </td>
                 <td>
-                    <label for="duracion_esquema">Tiempo de Duración: *</label>
+                    <label for="duracion_esquema">Tiempo de Duración:</label>
                     <br>
-                    <input type="text" id="duracion_esquema" name="duracion_esquema" required>
+                    <input type="text" id="duracion_esquema" name="duracion_esquema">
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <h3>Motivo de la Solicitud y Estudios que la Respalden: *</h3>
-                    <textarea id="motivo_solicitud" name="motivo_solicitud" required></textarea>
+                    <h3>Motivo de la Solicitud y Estudios que la Respalden:</h3>
+                    <textarea id="motivo_solicitud" name="motivo_solicitud"></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" class="boton" value="Boton"/>
+                    <input type="submit" class="boton" value="Guardar" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="status"></div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</section>
+<section class="contenedor-formulario">
+    <br>
+    <label>* Datos Obligatorios</label>
+    <form id="form-medico" action="" autocomplete="on">
+        <table class="formulario">
+            <tr>
+                <td colspan="2">
+                    <h3>Datos del Médico Tratante</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="nombres">Nombres: *</label>
+                    <br>
+                    <input type="text" id="nombres" name="nombres" required>
+                </td>
+                <td>
+                    <label for="apellidos">Apellidos: *</label>
+                    <br>
+                    <input type="text" id="apellidos" name="apellidos" required>
+                </td>
+                <td class="oculto">
+                    <input type="text" class="id_paciente" name="id_paciente" readonly="readonly">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="cedula">Cédula: *</label>
+                    <br>
+                    <input type="text" id="cedula" name="cedula" required>
+                </td>
+                <td>
+                    <label for="nro_colegio_medicos">Nº Colegio de Médicos: *</label>
+                    <br>
+                    <input type="text" id="nro_colegio_medicos" name="nro_colegio_medicos" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="nro_registro_mpps">Nº Registro MPPS: *</label>
+                    <br>
+                    <input type="text" id="nro_registro_mpps" name="nro_registro_mpps" required>
+                </td>
+                <td>
+                    <label for="tlf_contacto">Teléfono de Contacto: *</label>
+                    <br>
+                    <b><input class="tlf" name="tlf_contacto[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf" name="tlf_contacto[]" type="text" pattern="^[0-9]{3}$" required> - <input class="tlf" name="tlf_contacto[]" type="text" pattern="^[0-9]{4}$" required></b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" class="boton" value="Guardar" />
                 </td>
             </tr>
             <tr>
