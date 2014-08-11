@@ -50,11 +50,7 @@ function ajaxAgregarPaciente(archivoPhp, formulario) {
                 $('#' + formulario + ' .status').hide();
                 var r = JSON.parse(data);
 
-                switch (r.flag) {
-                case 0:
-                    alert('Debe llenar todos los campos');
-                    break;
-                case 1:
+                if (r.flag === 1) {
                     $('#' + formulario + ' .boton').prop('data-enable', 'false');
                     $('#' + formulario + ' .boton').css('background-color', '#ECECEC');
                     $('#' + formulario + ' .boton').css('cursor', 'default');
@@ -62,33 +58,9 @@ function ajaxAgregarPaciente(archivoPhp, formulario) {
 
                     if (formulario === 'datos-paciente')
                         successAgregarDatosPaciente(r.id);
-
-                    alert('Datos del paciente agregados exitosamente.');
-                    break;
-                case 2:
-                    alert('Error con la base de datos, no se pudieron agregar los datos del paciente');
-                    break;
-                case 3:
-                    if (formulario === 'form-antecedentes-sexuales-m' || formulario === 'form-antecedentes-sexuales-f')
-                        alert('Error de consulta en la base de datos');
-                    else if (formulario === 'datos-paciente')
-                        alert('El documento de identidad indicado del paciente ya existe');
-                    else
-                        alert('No posee permisos para agregar datos de un paciente');
-                    break;
-                case 4:
-                    if (formulario === 'datos-paciente')
-                        alert('El número de historia clínica indicado del paciente ya existe');
-                    else
-                        alert('No posee permisos para agregar datos de un paciente');
-                    break;
-                case 5:
-                    alert('Error de consulta en la base de datos');
-                    break;
-                case 6:
-                    alert('No posee permisos para actualizar los datos del paciente');
-                    break;
                 }
+                alert(r.msg);
+
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
             }
@@ -126,7 +98,7 @@ function agregarPaciente(formulario) {
     }
 }
 
-//Trae algunos datos importantes de todos los pacientes de la base de datos
+//Trae algunos datos importantes de todos los pacientes de la base de datos y los muestra al usuario que los solicitó en una tabla
 function cargarPacientes() {
     $.ajax({
         async: false,
@@ -253,6 +225,9 @@ function successMostrarPaciente(datos) {
         }
     } else {
         alert(datos.msg);
+
+        if (datos.flag === 2)
+            window.location.replace(basedir + '/pacientes');
     }
 }
 
@@ -305,37 +280,11 @@ function ajaxActualizarPaciente(archivoPhp, formulario) {
                 $('#' + formulario + ' .status').hide();
                 var r = JSON.parse(data);
 
-                switch (r.flag) {
-                case 0:
-                    alert('Debe llenar todos los campos');
-                    break;
-                case 1:
-                    if (formulario === 'datos-paciente')
-                        verificarEdad(fechaObjeto($('#' + formulario + ' #fecha_nacimiento').val(), '/'));
-                    alert('Actualización de datos exitosa');
-                    break;
-                case 2:
-                    alert('No se pudieron actualizar los datos del paciente');
-                    break;
-                case 3:
-                    if (formulario === 'datos-paciente')
-                        alert('El documento de identidad indicado del paciente ya existe');
-                    else
-                        alert('Error de consulta en la base de datos');
-                    break;
-                case 4:
-                    if (formulario === 'datos-paciente')
-                        alert('El número de historia clínica indicado del paciente ya existe');
-                    else
-                        alert('No posee permisos para actualizar los datos del paciente');
-                    break;
-                case 5:
-                    alert('Error de consulta en la base de datos');
-                    break;
-                case 6:
-                    alert('No posee permisos para actualizar los datos del paciente');
-                    break;
-                }
+                if (r.flag === 1 && formulario === 'datos-paciente')
+                    verificarEdad(fechaObjeto($('#' + formulario + ' #fecha_nacimiento').val(), '/'));
+
+                alert(r.msg);
+
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
             }
@@ -408,10 +357,22 @@ function successMostrarDiagnostico(datos) {
     if (datos.flag === 1) {
         datos.paciente.edad = calcularEdad(fechaObjeto(datos.paciente.fecha_nacimiento, '-'));
         datos.paciente.fecha_nacimiento = datos.paciente.fecha_nacimiento.replace(/-/g, '/');
-        datos.paciente.fecha_solicitud = datos.paciente.fecha_solicitud.replace(/-/g, '/');
-        datos.paciente.fecha_primer_sintoma = datos.paciente.fecha_primer_sintoma.replace(/-/g, '/');
-        datos.paciente.fecha_diagnostico = datos.paciente.fecha_diagnostico.replace(/-/g, '/');
-        datos.paciente.fecha_inicio_tratamiento = datos.paciente.fecha_inicio_tratamiento.replace(/-/g, '/');
+
+        //Modifica el formato con "-" por "/" de las fechas provenientes de la base de datos para el formulario de datos del diagnóstico del paciente
+        if (typeof (datos.paciente.fecha_solicitud) != 'undefined') {
+            datos.paciente.fecha_solicitud = datos.paciente.fecha_solicitud.replace(/-/g, '/');
+            datos.paciente.fecha_primer_sintoma = datos.paciente.fecha_primer_sintoma.replace(/-/g, '/');
+            datos.paciente.fecha_diagnostico = datos.paciente.fecha_diagnostico.replace(/-/g, '/');
+            datos.paciente.fecha_inicio_tratamiento = datos.paciente.fecha_inicio_tratamiento.replace(/-/g, '/');
+        }
+
+        //Carga el número de contacto del médico tratante en sus correspondientes campos separados
+        if (typeof (datos.paciente.tlf_contacto) != 'undefined') {
+            $('input[name="tlf_contacto[]"]').each(function () {
+                $(this).val(datos.paciente.tlf_contacto[$(this).index()]);
+            });
+            datos.paciente.tlf_contacto = null;
+        }
 
         //Carga los datos restantes del paciente indicado enviados por el servidor
         for (var i in datos.paciente)
@@ -419,6 +380,9 @@ function successMostrarDiagnostico(datos) {
 
     } else {
         alert(datos.msg);
+
+        if (datos.flag === 0 || datos.flag === 2)
+            window.location.replace(basedir + '/pacientes');
     }
 }
 
@@ -459,10 +423,10 @@ function mostrarDiagnostico(patientId) {
  */
 function ajaxActualizarDiagnostico(archivoPhp, formulario) {
     datos = $('#' + formulario).serialize();
-    
-    if(formulario === 'form-diagnostico')
+
+    if (formulario === 'form-diagnostico')
         datos += '&nro_historia_clinica=' + $('#nro_historia_clinica').val();
-    
+
     $.ajax({
         async: false,
         type: 'POST',
@@ -478,24 +442,8 @@ function ajaxActualizarDiagnostico(archivoPhp, formulario) {
             try {
                 $('#' + formulario + ' .status').hide();
                 var r = JSON.parse(data);
+                alert(r.msg);
 
-                switch (r.flag) {
-                case 0:
-                    alert('Debe llenar todos los campos');
-                    break;
-                case 1:
-                    alert('Actualización de datos exitosa');
-                    break;
-                case 2:
-                    alert('No se pudieron actualizar los datos del diagnóstico del paciente');
-                    break;
-                case 3:
-                    alert('Error de consulta en la base de datos');
-                    break;
-                case 4:
-                    alert('No posee permisos para actualizar los datos del paciente');
-                    break;
-                }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
             }
@@ -508,9 +456,9 @@ function ajaxActualizarDiagnostico(archivoPhp, formulario) {
  * - "formulario" indica el nombre del formulario cuyos datos se quieren actualizar en la base de datos
  */
 function actualizarDiagnostico(formulario) {
-    if ('form-diagnostico')
+    if (formulario === 'form-diagnostico')
         ajaxActualizarDiagnostico('diagnostico.php', formulario);
-    else if ('form-medico')
+    else if (formulario === 'form-medico')
         ajaxActualizarDiagnostico('medico_tratante.php', formulario);
 }
 
