@@ -428,12 +428,12 @@
                 <td>
                     <label for="nombres">Nombres: *</label>
                     <br>
-                    <input type="text" id="nombres" name="nombres" required>
+                    <input type="text" id="nombres_medico" name="nombres_medico" required>
                 </td>
                 <td>
                     <label for="apellidos">Apellidos: *</label>
                     <br>
-                    <input type="text" id="apellidos" name="apellidos" required>
+                    <input type="text" id="apellidos_medico" name="apellidos_medico" required>
                 </td>
                 <td class="oculto">
                     <input type="text" class="id_paciente" name="id_paciente" readonly="readonly">
@@ -443,7 +443,7 @@
                 <td>
                     <label for="cedula">Cédula: *</label>
                     <br>
-                    <input type="text" id="cedula" name="cedula" required>
+                    <input type="text" id="cedula_medico" name="cedula_medico" required>
                 </td>
                 <td>
                     <label for="nro_colegio_medicos">Nº Colegio de Médicos: *</label>
