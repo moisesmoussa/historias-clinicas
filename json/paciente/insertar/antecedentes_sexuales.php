@@ -8,6 +8,7 @@
     4 = No posee permisos para realizar la operación
 */
 session_start();
+$msg['msg'] = 'No posee permisos para agregar datos de un paciente';
 $msg['flag'] = 4;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
@@ -88,19 +89,24 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                 $query = $columnas . $valores;
 
                 if(pg_query($query_general) && pg_query($query)) {
+                    $msg['msg'] = 'Datos del paciente agregados exitosamente';
                     $msg['flag'] = 1;
                 } else {
+                    $msg['msg'] = 'Error con la base de datos, no se pudieron agregar los datos del paciente';
                     $msg['flag'] = 2;
                 }
             } else{
+                $msg['msg'] = 'Error de consulta en la base de datos';
                 $msg['flag'] = 3;
             }
         } else{
+            $msg['msg'] = 'Error de consulta en la base de datos';
             $msg['flag'] = 3;
         }
         pg_close($conexion);
         
     } else{
+        $msg['msg'] = 'Debe llenar todos los campos';
         $msg['flag'] = 0;
     }
 }
