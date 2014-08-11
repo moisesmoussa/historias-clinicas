@@ -39,9 +39,12 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     if(!empty($resultado['id_medico_tratante'])){
                         $select = 'SELECT * FROM medico_tratante WHERE id = '.$resultado['id_medico_tratante'];
 
-                        if($query = pg_query($select))
-                            if($resultado = pg_fetch_assoc($query))
+                        if($query = pg_query($select)){
+                            if($resultado = pg_fetch_assoc($query)){
                                 $msg['paciente'] = array_merge($msg['paciente'], $resultado);
+                                $msg['paciente']['tlf_contacto'] = explode('-', $msg['paciente']['tlf_contacto']);
+                            }
+                        }
                     }
                 }
             }
