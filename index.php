@@ -21,7 +21,7 @@ if($app['controller'] === 'usuarios' && $app['action'] === 'logout') {
 	header('Location: '.$app['basedir'].'/');
 }
 
-if(((isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) && ($app['controller'] === 'usuarios' && $app['action'] === 'login') || $app['controller'] == '') || (isset($_SESSION['general']) && $app['controller'] === 'usuarios' && $app['action'] != 'perfil' && $app['action'] != 'cambiar-clave'))
+if( ((isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) && ($app['controller'] === 'usuarios' && $app['action'] === 'login') || $app['controller'] == '') || (isset($_SESSION['general']) && $app['controller'] === 'usuarios' && $app['action'] != 'perfil' && $app['action'] != 'cambiar-clave') || ( ($app['action'] === 'modificar' || $app['action'] === 'diagnostico') && $app['params'] == '') )
     header('Location: '.$app['basedir'].'/pages');
 
 if(!isset($_SESSION['super_administrador']) && !isset($_SESSION['administrador']) && !isset($_SESSION['general'])){
