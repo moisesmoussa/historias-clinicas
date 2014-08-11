@@ -26,6 +26,9 @@ function cargarPerfil(usuario) {
 
         } else {
             alert(datos.msg);
+
+            if (datos.flag === 2)
+                window.location.replace(basedir + '/usuarios');
         }
     } catch (e) {
         alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
@@ -108,7 +111,7 @@ function agregarUsuario() {
     });
 }
 
-//Trae algunos datos importantes de todos los usuarios de la base de datos
+//Trae algunos datos importantes de todos los usuarios de la base de datos y los muestra al usuario que los solicitó en una tabla
 function cargarUsuarios() {
     $.ajax({
         async: false,
