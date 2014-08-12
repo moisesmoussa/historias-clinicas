@@ -1,0 +1,53 @@
+.eliminar-fila-tratamiento {
+    margin: 40px;
+}
+.eliminar-fila-tratamiento:hover {
+    color: #6FC8E5;
+    cursor: pointer;
+}
+.fix {
+    width: 120%;
+}
+.nueva-fila-tratamiento:hover {
+    color: #6FC8E5;
+    cursor: pointer;
+}
+.tratamiento {
+    border-collapse: collapse;
+    margin: auto;
+    width: 100%;
+}
+.tratamiento th {
+    background-color: #6FC8E5;
+    border: 1px solid #FFF;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+}
+.tratamiento th:first-child {
+    border-left: 0;
+    border-top-left-radius: 5px;
+}
+.tratamiento th:last-child {
+    border-right: 0;
+    border-top-right-radius: 5px;
+}
+.tratamiento td {
+    border-bottom: 1px solid #6FC8E5;
+    border-right: 1px solid #6FC8E5;
+    align-content: center;
+    font-size: 18px;
+    padding: 0;
+}
+.tratamiento td:last-child {
+    border-right: 0;
+}
+.tratamiento input {
+    border: 1px solid #FFF;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    width: 95%;
+}
