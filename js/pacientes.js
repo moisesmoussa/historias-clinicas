@@ -98,11 +98,27 @@ function agregarPaciente(formulario) {
     }
 }
 
-//Trae algunos datos importantes de todos los pacientes de la base de datos y los muestra al usuario que los solicitó en una tabla
-function cargarPacientes() {
+/* Trae algunos datos importantes de todos los pacientes o de los pacientes que consiga según una búsqueda indicada en la base de datos y los
+ * muestra al usuario que los solicitó en una tabla
+ * Parámetros:
+ * - "busqueda" contiene la información para filtrar la búsqueda de pacientes
+ */
+function cargarPacientes(busqueda) {
+    var archivo;
+
+    if (typeof (busqueda) === 'undefined') {
+        archivo = 'cargar_todos.php';
+        busqueda = '';
+    } else {
+        archivo = 'buscar.php';
+    }
     $.ajax({
         async: false,
-        url: basedir + '/json/paciente/cargar_todos.php',
+        type: 'POST',
+        url: basedir + '/json/paciente/' + archivo,
+        data: {
+            busqueda: busqueda
+        },
         error: function () {
             alert('Error cargando la información');
         },
@@ -529,7 +545,7 @@ $(document).ready(function () {
     $('.nueva-fila-tratamiento, .eliminar-fila-tratamiento').tooltipster({
         theme: 'tooltipster-theme'
     });
-    
+
     //Si el programa está posicionado en la búsqueda de pacientes, se carga de la base de datos la información necesaria de todos los pacientes registrados
     if (window.location.pathname === basedir + '/pacientes')
         cargarPacientes(); //Trae de la base de datos la información necesaria de todos los pacientes registrados
@@ -550,6 +566,33 @@ $(document).ready(function () {
         $('.antecedentes-patologicos').hide();
         $('.desarrollo-psicomotor').hide();
     }
+
+    //Verifica el evento focusin de la barra de búsqueda para cambiarle el color de borde al ícono de buscar
+    $('.input-buscar').focusin(function () {
+        $('.icono-buscar').css({
+            'background-color': '#4799B4',
+            'border-bottom-color': '#4799B4'
+        });
+    });
+
+    //Verifica el evento focusout de la barra de búsqueda para devolver el ícono de buscar a su color original
+    $('.input-buscar').focusout(function () {
+        $('.icono-buscar').css({
+            'background-color': '#6FC8E5',
+            'border-bottom-color': '#6FC8E5'
+        });
+    });
+
+    //Verifica que presionen la tecla "enter" para buscar pacientes según lo indicado en la barra de búsqueda
+    $('.input-buscar').keypress(function (e) {
+        if (e.which == 13)
+            cargarPacientes($(this).val());
+    });
+
+    //Verifica que se ejecute un click en el ícono de búsqueda para buscar pacientes según lo indicado en la barra de búsqueda
+    $('.icono-buscar').click(function () {
+        cargarPacientes($('.input-buscar').val());
+    });
 
     //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
     $('form').submit(function () {
