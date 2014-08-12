@@ -20,6 +20,7 @@ form {
 }
 .ayuda {
     color: #6FC8E5;
+    font-size: 20px;
 }
 .ayuda:hover {
     color: #4799B4;
@@ -71,7 +72,6 @@ body {
     border-radius: 10px;
     margin: 30px auto;
     padding: 15px 30px;
-    text-align: left;
     width: 85%;
 }
 .busqueda table {
@@ -123,14 +123,13 @@ body {
     display: table;
     margin: 30px auto;
     padding: 15px 150px;
-    text-align: left;
 }
 .enlace-registrar {
     color: #000;
     cursor: pointer;
     font-size: 22px;
+    margin-left: 20px;
     outline: none;
-    text-align: left;
     text-decoration: none;
 }
 .enlace-registrar:hover {
@@ -179,6 +178,18 @@ header .perfil {
 .icon:hover {
     color: #6FC8E5;
 }
+.icono-buscar {
+    background: #6FC8E5;
+    border-bottom: 2px solid #6FC8E5;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #FFF;
+    font-size: 22px;
+    padding: 7px;
+}
+.icono-buscar:hover {
+    cursor: pointer;
+}
 .icono-tabla {
     background-color: #FFF !important;
     border-bottom-color: transparent !important;
@@ -209,6 +220,14 @@ input[type="radio"] {
 }
 input[readonly="readonly"] {
     background-color: #ECECEC;
+}
+.input-buscar {
+    border-right: 0;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    margin-left: 28%;
+    padding: 0 5px;
+    width: 40%;
 }
 .items-perfil {
     position: absolute;
