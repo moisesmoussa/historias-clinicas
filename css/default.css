@@ -97,11 +97,25 @@ body {
     font-weight: normal;
     text-align: center;
 }
+.busqueda table th:first-child {
+    border-left: 0;
+}
+.busqueda table th:last-child {
+    border-right: 0;
+}
 .busqueda table td {
     border-bottom: 1px solid #67B9D4;
+    border-right: 1px solid #67B9D4;
     color: rgba(0, 0, 0, 0.85);
     font-size: 18px;
     padding: auto 2px;
+    text-align: center;
+}
+.busqueda table td:first-child {
+    border-right: 0;
+}
+.busqueda table td:last-child {
+    border-right: 0;
 }
 .contenedor-formulario {
     background-color: #FFF;
