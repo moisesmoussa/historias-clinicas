@@ -35,6 +35,18 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     $msg['paciente']['fecha_primer_sintoma'] = date('d-m-Y', strtotime($msg['paciente']['fecha_primer_sintoma']));
                     $msg['paciente']['fecha_diagnostico'] = date('d-m-Y', strtotime($msg['paciente']['fecha_diagnostico']));
                     $msg['paciente']['fecha_inicio_tratamiento'] = date('d-m-Y', strtotime($msg['paciente']['fecha_inicio_tratamiento']));
+                    $select = 'SELECT producto_farmacologico, presentacion, concentracion, dias_aplicacion FROM tratamiento WHERE id_paciente = '.$_POST['paciente'];
+                    
+                    if($query = pg_query($select)){
+                        $cont = 0;
+        
+                        while($result = pg_fetch_assoc($query)){
+                            $msg['paciente']['producto_farmacologico'][$cont] = $result['producto_farmacologico'];
+                            $msg['paciente']['presentacion'][$cont] = $result['presentacion'];
+                            $msg['paciente']['concentracion'][$cont] = $result['concentracion'];
+                            $msg['paciente']['dias_aplicacion'][$cont++] = $result['dias_aplicacion'];
+                        }
+                    }
                     
                     if(!empty($resultado['id_medico_tratante'])){
                         $select = 'SELECT * FROM medico_tratante WHERE id = '.$resultado['id_medico_tratante'];
