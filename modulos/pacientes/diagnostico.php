@@ -301,8 +301,42 @@
                 </td>
             </tr>
             <tr>
+                <td colspan="2" class="fix">
+                    <p>* Es obligatorio llenar al menos la primera fila de la tabla</p>
+                    <table class="tratamiento">
+                        <tr>
+                            <th>Producto Farmacológico</th>
+                            <th>Presentación</th>
+                            <th>Conc. por M² / Kg. Peso</th>
+                            <th>Días de Aplicación</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" name="producto_farmacologico[]" required>
+                            </td>
+                            <td>
+                                <input type="text" name="presentacion[]" required>
+                            </td>
+                            <td>
+                                <input type="text" name="concentracion[]" required>
+                            </td>
+                            <td>
+                                <input type="text" name="dias_aplicacion[]" required>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>
+                        <span class="nueva-fila-tratamiento" title="Agrega una fila al final de la tabla">
+                            <i class="fa fa-plus fa-fw"></i> Agregar Fila
+                        </span>
+                        <span class="eliminar-fila-tratamiento" title="Elimina la última fila de la tabla">
+                            <i class="fa fa-minus fa-fw"></i> Eliminar Fila
+                        </span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="2">
-                    <br>
                     <label>En caso de ameritar otra línea de dosificación, el médico tratante debe llenar los siguientes datos</label>
                 </td>
             </tr>
