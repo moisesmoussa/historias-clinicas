@@ -111,11 +111,27 @@ function agregarUsuario() {
     });
 }
 
-//Trae algunos datos importantes de todos los usuarios de la base de datos y los muestra al usuario que los solicitó en una tabla
-function cargarUsuarios() {
+/* Trae algunos datos importantes de todos los usuarios o de los usuarios que consiga según una búsqueda indicada en la base de datos y los
+ * muestra al usuario que los solicitó en una tabla
+ * Parámetros:
+ * - "busqueda" contiene la información para filtrar la búsqueda de usuarios
+ */
+function cargarUsuarios(busqueda) {
+    var archivo;
+
+    if (typeof (busqueda) === 'undefined') {
+        archivo = 'cargar_todos.php';
+        busqueda = '';
+    } else {
+        archivo = 'buscar.php';
+    }
     $.ajax({
         async: false,
-        url: basedir + '/json/usuario/cargar_todos.php',
+        url: basedir + '/json/usuario/' + archivo,
+        type: 'POST',
+        data: {
+            busqueda: busqueda
+        },
         error: function () {
             alert('Error cargando la información');
         },
@@ -236,6 +252,33 @@ $(document).ready(function () {
     //Se cargan los datos del usuario si está en su perfil para modificar o ver dichos datos
     if (window.location.pathname === (basedir + '/usuarios/perfil'))
         mostrarPerfil();
+
+    //Verifica el evento focusin de la barra de búsqueda para cambiarle el color de borde al ícono de buscar
+    $('.input-buscar').focusin(function () {
+        $('.icono-buscar').css({
+            'background-color': '#4799B4',
+            'border-bottom-color': '#4799B4'
+        });
+    });
+
+    //Verifica el evento focusout de la barra de búsqueda para devolver el ícono de buscar a su color original
+    $('.input-buscar').focusout(function () {
+        $('.icono-buscar').css({
+            'background-color': '#6FC8E5',
+            'border-bottom-color': '#6FC8E5'
+        });
+    });
+
+    //Verifica que presionen la tecla "enter" para buscar usuarios según lo indicado en la barra de búsqueda
+    $('.input-buscar').keypress(function (e) {
+        if (e.which == 13)
+            cargarUsuarios($(this).val());
+    });
+
+    //Verifica que se ejecute un click en el ícono de búsqueda para buscar usuarios según lo indicado en la barra de búsqueda
+    $('.icono-buscar').click(function () {
+        cargarUsuarios($('.input-buscar').val());
+    });
 
     //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
     $('form').submit(function () {
