@@ -16,6 +16,8 @@
             echo '<link href="'.$app['basedir'].'/css/jquery.datetimepicker.css" rel="stylesheet" type="text/css">';
         if($app['controller'] === 'usuarios')
             echo '<link href="'.$app['basedir'].'/css/usuarios.css" rel="stylesheet" type="text/css">';
+        if($app['controller'] === 'pacientes')
+            echo '<link href="'.$app['basedir'].'/css/pacientes.css" rel="stylesheet" type="text/css">';
     ?>
     
 </head>
