@@ -349,6 +349,23 @@ function eliminarPaciente(patientId) {
     });
 }
 
+/* Agrega las filas faltantes a la tabla de tratamiento para cargar los datos recibidos del servidor si la cantidad de filas indicada está entre 2 y 8
+ * que actualmente es el límite de filas permitidas
+ * Parámetros:
+ * - "len" es la longitud de filas que se necesitan en la tabla de tratamiento
+ */
+function agregarFilasTratamiento(len) {
+    if (len > 1 && len < 9) {
+        var cont = 0;
+        var html = '<tr><td><input type="text" name="producto_farmacologico[]" required></td><td><input type="text" name="presentacion[]" required></td><td><input type="text" name="concentracion[]" required></td><td><input type="text" name="dias_aplicacion[]" required></td></tr>';
+
+        while (cont < len - 1) {
+            cont++;
+            $('.tratamiento').append(html);
+        }
+    }
+}
+
 /* Carga todos los datos de diagnóstico del paciente indicado enviados por el servidor para que un usuario los pueda visualizar en la interfaz gráfica del sistema
  * Parámetros:
  * - "datos" es toda la información del paciente indicado enviada por el servidor
@@ -364,6 +381,47 @@ function successMostrarDiagnostico(datos) {
             datos.paciente.fecha_primer_sintoma = datos.paciente.fecha_primer_sintoma.replace(/-/g, '/');
             datos.paciente.fecha_diagnostico = datos.paciente.fecha_diagnostico.replace(/-/g, '/');
             datos.paciente.fecha_inicio_tratamiento = datos.paciente.fecha_inicio_tratamiento.replace(/-/g, '/');
+        }
+
+        //Carga los productos farmacológicos asignados al paciente en la tabla de tratamiento
+        if (typeof (datos.paciente.producto_farmacologico) != 'undefined') {
+            var cont = 0;
+            agregarFilasTratamiento(datos.paciente.producto_farmacologico.length);
+
+            $('input[name="producto_farmacologico[]"]').each(function () {
+                $(this).val(datos.paciente.producto_farmacologico[cont++]);
+            });
+            datos.paciente.producto_farmacologico = null;
+        }
+
+        //Carga la presentación de los medicamentos asignados al paciente en la tabla de tratamiento
+        if (typeof (datos.paciente.presentacion) != 'undefined') {
+            var cont = 0;
+
+            $('input[name="presentacion[]"]').each(function () {
+                $(this).val(datos.paciente.presentacion[cont++]);
+            });
+            datos.paciente.presentacion = null;
+        }
+
+        //Carga la concentración de los medicamentos asignados al paciente en la tabla de tratamiento
+        if (typeof (datos.paciente.concentracion) != 'undefined') {
+            var cont = 0;
+
+            $('input[name="concentracion[]"]').each(function () {
+                $(this).val(datos.paciente.concentracion[cont++]);
+            });
+            datos.paciente.concentracion = null;
+        }
+
+        //Carga los dias para aplicación de los medicamentos asignados al paciente en la tabla de tratamiento
+        if (typeof (datos.paciente.dias_aplicacion) != 'undefined') {
+            var cont = 0;
+
+            $('input[name="dias_aplicacion[]"]').each(function () {
+                $(this).val(datos.paciente.dias_aplicacion[cont++]);
+            });
+            datos.paciente.dias_aplicacion = null;
         }
 
         //Carga el número de contacto del médico tratante en sus correspondientes campos separados
@@ -467,6 +525,11 @@ $(document).ready(function () {
     var url;
     $('.status').hide();
 
+    //Controla el plugin "tooltipster" para colocar tooltips personalizados sobre tags de HTML en el módulo de pacientes
+    $('.nueva-fila-tratamiento, .eliminar-fila-tratamiento').tooltipster({
+        theme: 'tooltipster-theme'
+    });
+    
     //Si el programa está posicionado en la búsqueda de pacientes, se carga de la base de datos la información necesaria de todos los pacientes registrados
     if (window.location.pathname === basedir + '/pacientes')
         cargarPacientes(); //Trae de la base de datos la información necesaria de todos los pacientes registrados
@@ -540,6 +603,26 @@ $(document).ready(function () {
     //Redirige a la página que contiene todos los datos del paciente indicado para que se puedan ver y editar
     $('.boton.modificar').click(function () {
         window.location.replace(basedir + '/pacientes/modificar/' + $(this).parents().find('.id_paciente').val());
+    });
+
+    //Agrega una nueva fila a la tabla de tratamiento si no ha superado el límite de 8 filas
+    $('.nueva-fila-tratamiento').click(function () {
+        if ($('.tratamiento tr').length <= 8) {
+            var html = '<tr><td><input type="text" name="producto_farmacologico[]" required></td><td><input type="text" name="presentacion[]" required></td><td><input type="text" name="concentracion[]" required></td><td><input type="text" name="dias_aplicacion[]" required></td></tr>';
+
+            $('.tratamiento').append(html);
+        } else {
+            alert('Ha llegado al límite de filas permitidas');
+        }
+    });
+
+    //Elimina la última fila de la tabla tratamiento a excepción de que la primera fila esté como última
+    $('.eliminar-fila-tratamiento').click(function () {
+        if ($('.tratamiento tr').length > 2) {
+            $('.tratamiento tr:last').remove();
+        } else {
+            alert('No se puede eliminar la primera fila');
+        }
     });
 
     //Marca o desmarcar filas de la tabla de pacientes
