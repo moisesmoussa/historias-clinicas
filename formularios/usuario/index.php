@@ -149,6 +149,7 @@
                     <label for="ciudad_residencia">Ciudad: *</label>
                     <br>
                     <select id="ciudad_residencia" name="ciudad_residencia" required></select>
+                    <input type="text" class="otra_ciudad oculto"/>
                 </td>
             </tr>
             <tr>
