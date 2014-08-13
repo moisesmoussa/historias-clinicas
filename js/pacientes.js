@@ -267,6 +267,9 @@ function mostrarPaciente(patientId) {
                 var datos = JSON.parse(paciente);
                 successMostrarPaciente(datos);
 
+                $('.id_paciente').each(function () {
+                    $(this).val(patientId);
+                });
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
@@ -542,7 +545,7 @@ $(document).ready(function () {
     $('.status').hide();
 
     //Controla el plugin "tooltipster" para colocar tooltips personalizados sobre tags de HTML en el módulo de pacientes
-    $('.nueva-fila-tratamiento, .eliminar-fila-tratamiento').tooltipster({
+    $('.nueva-fila-tratamiento, .eliminar-fila-tratamiento, .enlace-diagnostico').tooltipster({
         theme: 'tooltipster-theme'
     });
 
@@ -601,11 +604,6 @@ $(document).ready(function () {
                 agregarPaciente($(this).attr('id'));
 
         } else if (url.match(basedir + '/pacientes/modificar/[0-9]+')) {
-            var idPaciente = url.substring(url.lastIndexOf('/') + 1);
-
-            $('.id_paciente').each(function () {
-                $(this).val(idPaciente);
-            });
             actualizarPaciente($(this).attr('id'));
 
         } else if (url.match(basedir + '/pacientes/diagnostico/[0-9]+')) {
@@ -646,6 +644,11 @@ $(document).ready(function () {
     //Redirige a la página que contiene todos los datos del paciente indicado para que se puedan ver y editar
     $('.boton.modificar').click(function () {
         window.location.replace(basedir + '/pacientes/modificar/' + $(this).parents().find('.id_paciente').val());
+    });
+
+    //Redirige a la página que contiene todos los datos del paciente indicado para que se puedan ver y editar
+    $('.enlace-diagnostico').click(function () {
+        window.location.replace(basedir + '/pacientes/diagnostico/' + $('.id_paciente:first').val());
     });
 
     //Agrega una nueva fila a la tabla de tratamiento si no ha superado el límite de 8 filas

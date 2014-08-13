@@ -5,6 +5,13 @@
     color: #6FC8E5;
     cursor: pointer;
 }
+.enlace-diagnostico {
+    font-size: 22px;
+}
+.enlace-diagnostico:hover {
+    color: #6FC8E5;
+    cursor: pointer;
+}
 .fix {
     width: 120%;
 }

@@ -1,6 +1,14 @@
 <section class="contenedor-formulario">
     <h2 align="center"><?php echo ($app['action'] === 'registrar')? 'Registro de Paciente': 'Perfil de Paciente'; ?></h2>
-    <br>
+    <?php if($app['action'] === 'modificar')
+            echo 
+    '<p>
+        <span class="enlace-diagnostico" title="Agrega o Actualiza el Diagnóstico del Paciente">
+            <i class="fa fa-medkit fa-fw"></i> Diagnóstico
+        </span>
+    </p>';
+    ?>
+    
     <label>* Datos Obligatorios</label>
     <form id="datos-paciente" action="" autocomplete="on">
         <table class="formulario">
