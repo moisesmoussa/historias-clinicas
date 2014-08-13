@@ -114,7 +114,8 @@ function agregarUsuario() {
 /* Trae algunos datos importantes de todos los usuarios o de los usuarios que consiga según una búsqueda indicada en la base de datos y los
  * muestra al usuario que los solicitó en una tabla
  * Parámetros:
- * - "busqueda" contiene la información para filtrar la búsqueda de usuarios
+ * - "busqueda" (opcional) contiene la información para filtrar la búsqueda de usuarios
+ *   + Valor por defecto: ''
  */
 function cargarUsuarios(busqueda) {
     var archivo;
