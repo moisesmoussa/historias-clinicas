@@ -449,7 +449,9 @@
     </form>
 </section>
 <section class="contenedor-formulario">
-    <br>
+    <p>
+        <input type="text" class="input-buscar" placeholder="Buscar Médico" /><i class="fa fa-search fa-fw icono-buscar"></i>
+    </p>
     <label>* Datos Obligatorios</label>
     <form id="form-medico" action="" autocomplete="on">
         <table class="formulario">
