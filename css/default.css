@@ -229,6 +229,9 @@ input[readonly="readonly"] {
     padding: 0 5px;
     width: 40%;
 }
+.input-buscar:focus {
+    border-right: 0;
+}
 .items-perfil {
     position: absolute;
     display: none;
