@@ -67,6 +67,11 @@ body {
 .boton:hover {
     background-color: #4799B4;
 }
+.buscar-instantaneo {
+    height: 18px;
+    margin-left: 30%;
+    width: 18px;
+}
 .busqueda {
     background-color: #FFF;
     border-radius: 10px;
@@ -297,6 +302,11 @@ textarea {
 }
 textarea:focus {
     border: 4px solid #4799B4;
+}
+.texto-checkbox {
+    bottom: 2px;
+    font-size: 18px;
+    position: relative;
 }
 .tlf {
     width: 45px;

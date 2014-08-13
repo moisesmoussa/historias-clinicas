@@ -6,6 +6,9 @@
         </a>
         <br>
         <input type="text" class="input-buscar" placeholder="Buscar Usuarios" /><i class="fa fa-search fa-fw icono-buscar"></i>
+        <br>
+        <input type="checkbox" class="buscar-instantaneo" />
+        <label class="texto-checkbox">Búsqueda Instantánea</label>
     </p>
     <br>
     <table class="usuarios"></table>

@@ -655,6 +655,15 @@ $(document).ready(function () {
             cargarMedico($('.input-buscar').val());
     });
 
+    /* Verifica si el checkbox de búsqueda instantánea está activado en cada momento que se escriben datos en la barra de búsqueda.
+     * Si es cierto, envía inmediatamente los datos en la barra en dicho momento, realiza una búsqueda y actualiza instantáneamente
+     * con los pacientes encontrados, mientras el usuario está escribiendo
+     */
+    $('.input-buscar').on('input', function () {
+        if ($('.buscar-instantaneo').is(':checked'))
+            cargarPacientes($(this).val());
+    });
+
     //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
     $('form').submit(function () {
         if ((url = window.location.pathname) === basedir + '/pacientes/registrar') {
