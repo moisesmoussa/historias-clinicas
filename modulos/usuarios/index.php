@@ -9,6 +9,9 @@
         <br>
         <input type="checkbox" class="buscar-instantaneo" />
         <label class="texto-checkbox">Búsqueda Instantánea</label>
+        <label class="borrar-varios oculto">
+            <i class="fa fa-trash-o fa-fw"></i> Eliminar Seleccionados
+        </label>
     </p>
     <br>
     <table class="usuarios"></table>
