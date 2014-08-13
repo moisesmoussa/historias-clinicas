@@ -1,4 +1,7 @@
-//Copia todos los datos traídos de la base de datos en los campos del formulario del usuario para modificar sus datos
+/* Copia todos los datos traídos de la base de datos en los campos del formulario del usuario para modificar sus datos
+ * Parámetros:
+ * - "usuario" contiene todos los datos del usuario a cargar en la interfaz gráfica
+ */
 function cargarPerfil(usuario) {
     try {
         var datos = JSON.parse(usuario);
@@ -6,8 +9,27 @@ function cargarPerfil(usuario) {
         if (datos.flag === 1) {
             datos.usuario.fecha_nacimiento = datos.usuario.fecha_nacimiento.replace(/-/g, '/');
             datos.usuario.fecha_ingreso = datos.usuario.fecha_ingreso.replace(/-/g, '/');
-            $('#ciudad_residencia').load(basedir + '/ciudades/' + datos.usuario.estado_residencia + '.html', function () {
-                $(this).val(datos.usuario.ciudad_residencia);
+
+            //Carga la ciudad registrada como dirección del usuario, ya sea que esté o no en la lista de ciudades por estado
+            $.ajax({
+                async: false,
+                url: basedir + '/ciudades/' + datos.usuario.estado_residencia + '.html',
+                dataType: 'text',
+                success: function (datosCiudades) {
+                    var ciudades = datosCiudades;
+                    var ciudadSeleccionada = '"' + datos.usuario.ciudad_residencia + '"';
+                    $('#ciudad_residencia').html(ciudades);
+
+                    if (ciudades.match(ciudadSeleccionada)) {
+                        $('#ciudad_residencia').val(datos.usuario.ciudad_residencia);
+                    } else {
+                        $('#ciudad_residencia').after('<br>');
+                        $('#ciudad_residencia').removeAttr('name');
+                        $('.otra_ciudad').val(datos.usuario.ciudad_residencia);
+                        $('.otra_ciudad').attr('name', 'ciudad_residencia').prop('required', true).show();
+                        datos.usuario.ciudad_residencia = '-OTRA-';
+                    }
+                }
             });
 
             //Carga los números telefónicos del usuario indicado en sus correspondientes campos separados
@@ -178,7 +200,10 @@ function mostrarUsuario(userId) {
     });
 }
 
-//Actualiza los datos del perfil del usuario
+/* Actualiza los datos del perfil de un usuario indicado
+ * Parámetros:
+ * - "archivoPhp" indica el archivo hacia el cual se dirige, con ajax, la acción en el servidor
+ */
 function actualizarUsuario(archivoPhp) {
     $.ajax({
         async: false,
@@ -204,8 +229,13 @@ function actualizarUsuario(archivoPhp) {
     });
 }
 
-//Se encarga de eliminar un usuario de la base de datos
-function eliminarUsuario(userId) {
+/* Elimina uno o varios usuarios, seleccionados por el usuario con sesión iniciada en el sistema, de la base de datos
+ * Parámetros:
+ * - "userId" es un arreglo que indica el id de los usuarios a eliminar (Puede tener un solo elemento)
+ */
+function eliminarUsuarios(userId) {
+    var result;
+
     $.ajax({
         async: false,
         url: basedir + '/json/usuario/eliminar.php',
@@ -221,14 +251,14 @@ function eliminarUsuario(userId) {
                 var r = JSON.parse(resultado);
                 alert(r.msg);
 
-                if (r.flag === 1)
-                    cargarUsuarios();
+                result = (r.flag === 1) ? true : false;
 
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
         }
     });
+    return result;
 }
 
 $(document).ready(function () {
@@ -290,6 +320,24 @@ $(document).ready(function () {
             cargarUsuarios($(this).val());
     });
 
+    /* Verifica si se hace click en el botón de eliminar seleccionados y procede a confirmar la eliminación por parte del usuario.
+     * Si es confirmado, procede a eliminar todos los usuarios indicados
+     */
+    $('.borrar-varios').click(function () {
+        var confirmacion = confirm('¿Está seguro que desea eliminar los usuarios seleccionados?');
+
+        if (confirmacion) {
+            var usuarios = new Array();
+
+            $('.busqueda table tr').each(function () {
+                if ($(this).children('td').not('.icono-tabla').css('background-color') == 'rgba(18, 182, 235, 0.2)')
+                    usuarios.push($(this).children('td.icono-tabla').attr('data-id'))
+            });
+            if (eliminarUsuarios(usuarios))
+                cargarUsuarios(); //Refresca la lista de usuarios
+        }
+    });
+
     //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
     $('form').submit(function () {
         if ((url = window.location.pathname) == basedir + '/usuarios/perfil') {
@@ -324,21 +372,52 @@ $(document).ready(function () {
         $('#ciudad_residencia').load(basedir + '/ciudades/' + $(this).val() + '.html');
     });
 
+    /* Verifica si se indica que se va a ingresar otra ciudad que no está en la lista de ciudades por estado, según el estado seleccionado, para
+     * habilitar otro input inmediatamente por debajo del selector de ciudades, de manera que el usuario pueda indicar cual es la ciudad.
+     * Si no se selecciona la opción de otro ciudad, simplemente se mantiene el selector de ciudades y no se muestra el input extra
+     */
+    $('#ciudad_residencia').change(function () {
+        if ($(this).val() === '-OTRA-') {
+            $(this).removeAttr('name');
+            $(this).after('<br>');
+            $('.otra_ciudad').attr('name', 'ciudad_residencia').prop('required', true).show();
+
+        } else {
+            if ($(this).attr('name') != 'ciudad_residencia') {
+                $(this).siblings('br:last').remove();
+                $(this).attr('name', 'ciudad_residencia');
+            }
+            if ($('.otra_ciudad').attr('name') === 'ciudad_residencia')
+                $('.otra_ciudad').removeAttr('name').prop('required', false).hide();
+        }
+    });
+
     //Marca o desmarcar filas de la tabla de usuarios
-    $(document).on('click', '.busqueda table td', function (e) {
-        if ($(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')
-            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(18, 182, 235, 0.2)');
+    $(document).on('click', '.busqueda table td', function () {
+        var cont = 0;
+
+        if ($(this).closest('tr').children('td').not('.icono-tabla').css('background-color') == 'rgba(0, 0, 0, 0)')
+            $(this).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(18, 182, 235, 0.2)');
         else
-            $(e.target).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(0,0,0,0)');
+            $(this).closest('tr').children('td').not('.icono-tabla').css('background-color', 'rgba(0,0,0,0)');
+
+        $('.busqueda table tr').each(function () {
+            if ($(this).children('td').not('.icono-tabla').css('background-color') == 'rgba(18, 182, 235, 0.2)')
+                cont++;
+        });
+
+        if (cont > 1)
+            $('.borrar-varios').show();
+        else
+            $('.borrar-varios').hide();
     });
 
     //Verifica la eliminación de un usuario de la base de datos. Si es aceptada, se procede a eliminar el usuario indicado
     $(document).on('click', '.usuarios tr .icono-tabla .borrar', function () {
         var confirmacion = confirm('¿Está seguro que desea eliminar este usuario?');
-        if (confirmacion) {
-            eliminarUsuario($(this).parent().attr('data-id'));
+
+        if (confirmacion && eliminarUsuarios([$(this).parent().attr('data-id')]))
             cargarUsuarios(); //Refresca la lista de usuarios
-        }
     });
 
     //Redirige a la página que contiene todos los datos del usuario indicado para que se puedan visualizar y editar
