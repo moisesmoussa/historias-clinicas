@@ -46,6 +46,16 @@ body {
     margin: 0;
     padding: 0;
 }
+.borrar-varios {
+    cursor: pointer;
+    font-size: 18px;
+}
+.borrar-varios:hover {
+    color: #6FC8E5;
+}
+.borrar-varios i {
+    font-size: 26px;
+}
 .boton {
     background-color: #6FC8E5;
     border: none;
@@ -304,9 +314,8 @@ textarea:focus {
     border: 4px solid #4799B4;
 }
 .texto-checkbox {
-    bottom: 2px;
     font-size: 18px;
-    position: relative;
+    vertical-align: 2px;
 }
 .tlf {
     width: 45px;
