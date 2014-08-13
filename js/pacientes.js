@@ -101,7 +101,8 @@ function agregarPaciente(formulario) {
 /* Trae algunos datos importantes de todos los pacientes o de los pacientes que consiga según una búsqueda indicada en la base de datos y los
  * muestra al usuario que los solicitó en una tabla
  * Parámetros:
- * - "busqueda" contiene la información para filtrar la búsqueda de pacientes
+ * - "busqueda" (opcional) contiene la información para filtrar la búsqueda de pacientes
+ *   + Valor por defecto: ''
  */
 function cargarPacientes(busqueda) {
     var archivo;
@@ -358,9 +359,55 @@ function eliminarPaciente(patientId) {
                 var r = JSON.parse(resultado);
                 alert(r.msg);
 
-                if (r.flag === 1)
-                    cargarPacientes();
+                return (r.flag === 1) ? true : false;
 
+            } catch (e) {
+                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
+            }
+        }
+    });
+}
+
+/* Carga los datos de un médico en el diagnóstico de un paciente según la búsqueda indicada por el usuario
+ * Parámetros:
+ * - "busqueda" (opcional) contiene la información para filtrar la búsqueda de pacientes
+ *   + Valor por defecto: ''
+ */
+function cargarMedico(busqueda) {
+    $.ajax({
+        async: false,
+        url: basedir + '/json/paciente/buscar_medico.php',
+        type: 'POST',
+        data: {
+            busqueda: busqueda
+        },
+        beforeSend: function () {
+            $('#form-medico .status').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Buscando datos').show();
+        },
+        error: function () {
+            alert('Error buscando los datos del médico según la búsqueda indicada');
+        },
+        success: function (medico) {
+            try {
+                $('#form-medico .status').hide();
+                alert(medico);
+                var datos = JSON.parse(medico);
+
+                if (datos.flag === 1) {
+
+                    //Carga los números telefónicos del médico tratante en sus correspondientes campos separados
+                    $('input[name="tlf_contacto[]"]').each(function () {
+                        $(this).val(datos.medico.tlf_contacto[$(this).index()]);
+                    });
+                    datos.medico.tlf_contacto = null;
+
+                    //Carga los datos restantes del médico indicado enviados por el servidor
+                    for (var i in datos.medico)
+                        $('#' + i).val(datos.medico[i]);
+
+                } else {
+                    alert(datos.msg);
+                }
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
@@ -586,15 +633,26 @@ $(document).ready(function () {
         });
     });
 
-    //Verifica que presionen la tecla "enter" para buscar pacientes según lo indicado en la barra de búsqueda
+    /* Verifica que presionen la tecla "enter" para buscar pacientes o un médico según la sección en que se encuentre
+     * el usuario y lo indicado en la barra de búsqueda
+     */
     $('.input-buscar').keypress(function (e) {
-        if (e.which == 13)
-            cargarPacientes($(this).val());
+        if (e.which == 13) {
+            if ((url = window.location.pathname) === basedir + '/pacientes')
+                cargarPacientes($(this).val());
+            else if (url.match(basedir + '/pacientes/diagnostico/[0-9]+'))
+                cargarMedico($(this).val());
+        }
     });
 
-    //Verifica que se ejecute un click en el ícono de búsqueda para buscar pacientes según lo indicado en la barra de búsqueda
+    /* Verifica que se ejecute un click en el ícono de búsqueda para buscar pacientes o un médico según la sección en que se encuentre
+     * el usuario y lo indicado en la barra de búsqueda
+     */
     $('.icono-buscar').click(function () {
-        cargarPacientes($('.input-buscar').val());
+        if ((url = window.location.pathname) === basedir + '/pacientes')
+            cargarPacientes($('.input-buscar').val());
+        else if (url.match(basedir + '/pacientes/diagnostico/[0-9]+'))
+            cargarMedico($('.input-buscar').val());
     });
 
     //Verifica cual es la acción correspondiente al formulario cuyo evento "submit" ha sido activado y aplica la acción correspondiente
@@ -683,10 +741,8 @@ $(document).ready(function () {
     $(document).on('click', '.pacientes tr .icono-tabla .borrar', function () {
         var confirmacion = confirm('¿Está seguro que desea eliminar este paciente?');
 
-        if (confirmacion) {
-            eliminarPaciente($(this).parent().attr('data-id'));
+        if (confirmacion && eliminarPaciente($(this).parent().attr('data-id')))
             cargarPacientes(); //Refresca la lista de pacientes
-        }
     });
 
     //Redirige a la página que contiene todos los datos del paciente indicado para que se puedan ver y editar
