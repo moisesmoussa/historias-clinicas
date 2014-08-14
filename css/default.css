@@ -186,6 +186,7 @@ header label {
 header .perfil {
     float: right;
     padding: 32px 50px;
+    width: 184px;
 }
 .icon {
     cursor: pointer;
@@ -258,8 +259,21 @@ input[readonly="readonly"] {
     border-right: 2px solid #A14C5E;
 }
 .items-perfil a {
-    display: block;
     color: #A14C5E;
+    display: block;
+    -webkit-transition: background-color 300ms linear;
+    -moz-transition: background-color 300ms linear;
+    -o-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+}
+.items-perfil a:hover {
+    background-color: #ECECEC;
+    -webkit-transition: background-color 300ms linear;
+    -moz-transition: background-color 300ms linear;
+    -o-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
 }
 .menu {
     position: relative;
