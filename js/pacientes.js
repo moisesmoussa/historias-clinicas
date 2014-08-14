@@ -415,7 +415,6 @@ function cargarMedico(busqueda) {
         success: function (medico) {
             try {
                 $('#form-medico .status').hide();
-                alert(medico);
                 var datos = JSON.parse(medico);
 
                 if (datos.flag === 1) {
