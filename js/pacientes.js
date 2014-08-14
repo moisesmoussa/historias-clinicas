@@ -211,21 +211,21 @@ function successMostrarPaciente(datos) {
         //Carga la ciudad registrada como dirección del paciente, ya sea que esté o no en la lista de ciudades por estado
         $.ajax({
             async: false,
-            url: basedir + '/ciudades/' + datos.usuario.estado_residencia + '.html',
+            url: basedir + '/ciudades/' + datos.paciente.estado_residencia + '.html',
             dataType: 'text',
             success: function (datosCiudades) {
                 var ciudades = datosCiudades;
-                var ciudadSeleccionada = '"' + datos.usuario.ciudad_residencia + '"';
+                var ciudadSeleccionada = '"' + datos.paciente.ciudad_residencia + '"';
                 $('#ciudad_residencia').html(ciudades);
 
                 if (ciudades.match(ciudadSeleccionada)) {
-                    $('#ciudad_residencia').val(datos.usuario.ciudad_residencia);
+                    $('#ciudad_residencia').val(datos.paciente.ciudad_residencia);
                 } else {
                     $('#ciudad_residencia').after('<br>');
                     $('#ciudad_residencia').removeAttr('name');
-                    $('.otra_ciudad').val(datos.usuario.ciudad_residencia);
+                    $('.otra_ciudad').val(datos.paciente.ciudad_residencia);
                     $('.otra_ciudad').attr('name', 'ciudad_residencia').prop('required', true).show();
-                    datos.usuario.ciudad_residencia = '-OTRA-';
+                    datos.paciente.ciudad_residencia = '-OTRA-';
                 }
             }
         });
@@ -260,9 +260,7 @@ function successMostrarPaciente(datos) {
         }
     } else {
         alert(datos.msg);
-
-        if (datos.flag === 2)
-            window.location.replace(basedir + '/pacientes');
+        window.location.replace(basedir + '/pacientes');
     }
 }
 
@@ -291,6 +289,7 @@ function mostrarPaciente(patientId) {
                 });
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
+                window.location.replace(basedir + '/pacientes');
             }
         }
     });
@@ -530,9 +529,7 @@ function successMostrarDiagnostico(datos) {
 
     } else {
         alert(datos.msg);
-
-        if (datos.flag === 0 || datos.flag === 2)
-            window.location.replace(basedir + '/pacientes');
+        window.location.replace(basedir + '/pacientes');
     }
 }
 
@@ -561,6 +558,7 @@ function mostrarDiagnostico(patientId) {
                 });
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
+                window.location.replace(basedir + '/pacientes');
             }
         }
     });

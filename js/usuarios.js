@@ -48,12 +48,11 @@ function cargarPerfil(usuario) {
 
         } else {
             alert(datos.msg);
-
-            if (datos.flag === 2)
-                window.location.replace(basedir + '/usuarios');
+            window.location.replace(basedir + '/usuarios');
         }
     } catch (e) {
         alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
+        window.location.replace(basedir + '/usuarios');
     }
 }
 
