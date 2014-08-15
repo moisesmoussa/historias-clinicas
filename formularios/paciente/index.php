@@ -118,6 +118,7 @@
                     <br>
                     <select id="educacion" name="educacion" required>
                         <option value=""></option>
+                        <option value="Ninguna">Ninguna</option>
                         <option value="Primaria">Primaria</option>
                         <option value="Secundaria">Secundaria</option>
                         <option value="Diversificada">Diversificada</option>
