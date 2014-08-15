@@ -108,8 +108,8 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                             $mail->Host = 'smtp.gmail.com';                       // Especifica los servidores SMTP principal y el de respaldo es opcional
                             $mail->Port = 465;                                    // 465: SSL - 587: TLS
                             $mail->SMTPAuth = true;                               // Habilita la autenticación SMTP
-                            $mail->Username = 'darkerzds@gmail.com';              // Nombre de usuario SMTP
-                            $mail->Password = 'bri:_light8';                      // Contraseña SMTP
+                            $mail->Username = $app['email'];                      // Nombre de usuario SMTP
+                            $mail->Password = $app['email_password'];             // Contraseña SMTP
                             $mail->From = 'FUNDAHOG';
                             $mail->SMTPSecure = 'ssl';                            // Habilita la encriptación, también se puede colocar 'tls'
                             $mail->addAddress($_POST['correo_electronico']);      // Agrega dirección de correo del receptor
