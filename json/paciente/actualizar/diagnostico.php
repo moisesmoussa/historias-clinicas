@@ -56,6 +56,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             if(empty($respuesta['id_paciente'])){
                 $columnas = 'INSERT INTO diagnostico (fecha_ua, usuario_ua, creador, ';
                 $valores = 'VALUES (\''.date('Y-m-d').'\', '.$id_usuario.', '.$id_usuario.', ';
+                $last_value = ');';
                 
             } else {
                 $delete = 'DELETE FROM tratamiento where id_paciente = '.$_POST['id_paciente'];
@@ -63,11 +64,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                 $valores = '= (\''.date('Y-m-d').'\', '.$id_usuario.', ';
                 $last_value = ') WHERE id_paciente = '.$_POST['id_paciente'].';';
                 unset($_POST['id_paciente']);
-                
-                if(pg_query($delete))
-                    $flag_delete = true;
-                else
-                    $flag_delete = false;
+                pg_query($delete);
             }
             $cont = 0;
             $len = count($_POST);
@@ -85,39 +82,35 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
             }
             $query = $columnas . $valores;
             
-            if($flag_delete){
-                $cont_col = 0;
-                $len_col = count($tratamiento);
-                $len = count($tratamiento['producto_farmacologico']);
-                $columnas = array_fill(0, $len, '');
-                $valores = array_fill(0, $len, '');
-                $query_tratamiento = array_fill(0, $len, '');
-                
-                foreach ($tratamiento as $clave => $valor_i){
-                    $cont = 0;
-                    foreach ($tratamiento[$clave] as $valor_j){
-                        if($cont_col === $len_col - 1) {
-                            $columnas[$cont] .= $clave.') ';
-                            $valores[$cont++] .= '\''.$valor_j.'\');';
+            $cont_col = 0;
+            $len_col = count($tratamiento);
+            $len = count($tratamiento['producto_farmacologico']);
+            $columnas = array_fill(0, $len, '');
+            $valores = array_fill(0, $len, '');
+            $query_tratamiento = array_fill(0, $len, '');
 
-                        } else {
-                            $columnas[$cont] .= $clave.',';
-                            $valores[$cont++] .= '\''.$valor_j.'\',';
-                        }
+            foreach ($tratamiento as $clave => $valor_i){
+                $cont = 0;
+                foreach ($tratamiento[$clave] as $valor_j){
+                    if($cont_col === $len_col - 1) {
+                        $columnas[$cont] .= $clave.') ';
+                        $valores[$cont++] .= '\''.$valor_j.'\');';
+
+                    } else {
+                        $columnas[$cont] .= $clave.',';
+                        $valores[$cont++] .= '\''.$valor_j.'\',';
                     }
-                    $cont_col++;
-                }   
+                }
+                $cont_col++;
             }
 
             if(pg_query($query)) {
-                if($flag_delete){
-                    $flag_query = true;
-                    
-                    foreach ($query_tratamiento as $clave => $valor){
-                        $query_tratamiento[$clave] .= $columnas_tratamiento . $columnas[$clave] . $valores_tratamiento . $valores[$clave];
-                        if(!pg_query($query_tratamiento[$clave]))
-                            $flag_query = false;
-                    }
+                $flag_query = true;
+                
+                foreach ($query_tratamiento as $clave => $valor){
+                    $query_tratamiento[$clave] .= $columnas_tratamiento . $columnas[$clave] . $valores_tratamiento . $valores[$clave];
+                    if(!pg_query($query_tratamiento[$clave]))
+                        $flag_query = false;
                 }
                 $msg['msg'] = ($flag_query) ? 'Actualización de datos exitosa' : 'No se pudieron ingresar o actualizar alguno(s) de los datos de la tabla de tratamiento';
                 $msg['flag'] = 1;
