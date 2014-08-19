@@ -234,19 +234,19 @@
                 <td>
                     <label for="tlf_movil">Teléfono Móvil: *</label>
                     <br>
-                    <b><input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{3}$" required> - <input class="tlf" name="tlf_movil[]" type="text" pattern="^[0-9]{4}$" required></b>
+                    <b><input class="tlf" name="tlf_movil[]" type="text" placeholder="04XX" pattern="^[0-9]{4}$" required> - <input class="tlf" name="tlf_movil[]" type="text" placeholder="123" pattern="^[0-9]{3}$" required> - <input class="tlf" name="tlf_movil[]" type="text" placeholder="4567" pattern="^[0-9]{4}$" required></b>
                 </td>
                 <td>
                     <label for="tlf_casa">Teléfono de Habitación: *</label>
                     <br>
-                    <b><input class="tlf" name="tlf_casa[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf tlf_casa" name="tlf_casa[]" type="text" pattern="^[0-9]{7}$" required></b>
+                    <b><input class="tlf" name="tlf_casa[]" type="text" placeholder="02XX" pattern="^[0-9]{4}$" required> - <input class="tlf tlf_casa" name="tlf_casa[]" type="text" placeholder="1234567" pattern="^[0-9]{7}$" required></b>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="correo_electronico">Correo Electrónico: *</label>
+                    <label for="correo_electronico">Correo Electrónico:</label>
                     <br>
-                    <input type="text" id="correo_electronico" name="correo_electronico" placeholder="nombrecorreo@dominio" required>
+                    <input type="text" id="correo_electronico" name="correo_electronico" placeholder="nombrecorreo@dominio">
                 </td>
             </tr>
             <tr>
