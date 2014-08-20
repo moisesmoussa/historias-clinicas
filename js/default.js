@@ -1,4 +1,34 @@
 $(document).ready(function () {
+    var url = '';
+
+    //Si el sistema se encuentra posicionado en la página principal de entrada se aplica sombra al título de la sección
+    if ((url = window.location.pathname) === basedir + '/pages') {
+        $('.navcontainer a:first').css({
+            'text-shadow': '1px 1px 8px #A14C5E'
+        });
+    }
+    //Si el sistema se encuentra posicionado en la página principal del módulo de usuarios se aplica sombra al título de la sección
+    else if (url === basedir + '/usuarios') {
+        $('.navcontainer a:nth-child(2)').css({
+            'text-shadow': '1px 1px 8px #A14C5E'
+        });
+    }
+    //Si el sistema se encuentra posicionado en la página principal del módulo de pacientes se aplica sombra al título de la sección
+    else if (url === basedir + '/pacientes') {
+        $('.navcontainer a:last').css({
+            'text-shadow': '1px 1px 8px #A14C5E'
+        });
+    }
+    /* Si el sistema se encuentra posicionado en la página de modificación de perfil del usuario con sesión iniciada en el sistema
+     * se aplica sombra al título de la sección
+     */
+    else if (url === basedir + '/usuarios/perfil') {
+        $('.perfil').css({
+            'text-shadow': '1px 1px 8px #A14C5E'
+        });
+    }
+
+    //Verifica el scroll para cambiar la barra de menú y permitir que se mueva junto con la página o dejarla en su posición estándar
     $(window).scroll(function () {
         var offset = 83;
         var $e = $('.menu');
@@ -28,6 +58,35 @@ $(document).ready(function () {
 
             $busqueda.css('margin-top', parseInt(marginBusqueda) - offset + 'px');
             $formulario.css('margin-top', parseInt(marginFormulario) - offset + 'px');
+        }
+    });
+
+    //Verifica si el mouse está sobre el perfil del usuario con sesión iniciada en el sistema para mostrar las opciones del menú de pefil
+    $('.perfil').mouseenter(function () {
+        if ($('.items-perfil').css('display') == 'none')
+            $('.items-perfil').slideToggle();
+    });
+
+    /* Verifica si el mouse está sobre las opciones del perfil del usuario con sesión iniciada en el sistema para dejar la sombra fija
+     * sobre el perfil del usuario
+     */
+    $('.menu-perfil').mouseenter(function () {
+        $('.perfil').css({
+            'text-shadow': '1px 1px 8px #A14C5E'
+        });
+    });
+
+    /* Verifica si el mouse no está sobre el perfil del usuario con sesión iniciada en el sistema para esconder las opciones del menú de pefil
+     * y para quitar la sombra del perfil del usuario
+     */
+    $('.menu-perfil').mouseleave(function () {
+        if ($('.items-perfil').css('display') != 'none')
+            $('.items-perfil').slideToggle();
+
+        if (url != basedir + '/usuarios/perfil') {
+            $('.perfil').css({
+                'text-shadow': 'none'
+            });
         }
     });
 });
