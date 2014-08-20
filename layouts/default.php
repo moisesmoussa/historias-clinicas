@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -38,7 +38,7 @@
                 
             </div>
             <?php
-        echo '<nav class="area-perfil"><a class="perfil" href="javascript:void(0);" title="Nombre de usuario"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre_usuario'].'</a>
+        echo '<nav class="menu-perfil"><a class="perfil" href="javascript:void(0);" title="Nombre de usuario"><i class="fa fa-user fa-fw"></i>'.$_SESSION['nombre_usuario'].'</a>
                 <nav class="items-perfil">
                     <ul>
                         <li>
