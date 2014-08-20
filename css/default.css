@@ -163,6 +163,13 @@ header a {
     padding: 32px 30px;
     text-decoration: none;
 }
+header .navcontainer a:hover {
+    -webkit-transition: text-shadow 300ms linear;
+    -moz-transition: text-shadow 300ms linear;
+    -o-transition: text-shadow 300ms linear;
+    -ms-transition: text-shadow 300ms linear;
+    text-shadow: 1px 1px 8px #A14C5E;
+}
 header .contenedor {
     background-color: #67B9D4;
     border-bottom: 2px solid #A14C5E;
@@ -187,6 +194,13 @@ header .perfil {
     float: right;
     padding: 32px 50px;
     width: 184px;
+}
+header .perfil:hover {
+    -webkit-transition: text-shadow 300ms linear;
+    -moz-transition: text-shadow 300ms linear;
+    -o-transition: text-shadow 300ms linear;
+    -ms-transition: text-shadow 300ms linear;
+    text-shadow: 1px 1px 8px #A14C5E;
 }
 .icon {
     cursor: pointer;
