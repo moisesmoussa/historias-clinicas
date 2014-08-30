@@ -162,6 +162,10 @@ header a {
     font-size: 22px;
     padding: 32px 30px;
     text-decoration: none;
+    -webkit-transition: text-shadow 300ms linear;
+    -moz-transition: text-shadow 300ms linear;
+    -o-transition: text-shadow 300ms linear;
+    -ms-transition: text-shadow 300ms linear;
 }
 header .navcontainer a:hover {
     -webkit-transition: text-shadow 300ms linear;
@@ -194,6 +198,10 @@ header .perfil {
     float: right;
     padding: 32px 50px;
     width: 184px;
+    -webkit-transition: text-shadow 300ms linear;
+    -moz-transition: text-shadow 300ms linear;
+    -o-transition: text-shadow 300ms linear;
+    -ms-transition: text-shadow 300ms linear;
 }
 header .perfil:hover {
     -webkit-transition: text-shadow 300ms linear;
@@ -249,7 +257,7 @@ input[type="radio"] {
     width: 15px;
 }
 input[readonly="readonly"] {
-    background-color: #ECECEC;
+    color: #666;
 }
 .input-buscar {
     border-right: 0;
