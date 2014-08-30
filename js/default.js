@@ -61,32 +61,21 @@ $(document).ready(function () {
         }
     });
 
-    //Verifica si el mouse está sobre el perfil del usuario con sesión iniciada en el sistema para mostrar las opciones del menú de pefil
-    $('.perfil').mouseenter(function () {
-        if ($('.items-perfil').css('display') == 'none')
-            $('.items-perfil').slideToggle();
-    });
-
-    /* Verifica si el mouse está sobre las opciones del perfil del usuario con sesión iniciada en el sistema para dejar la sombra fija
-     * sobre el perfil del usuario
+    /* Verifica si el mouse está o no sobre el perfil del usuario con sesión iniciada en el sistema para mostrar las opciones del menú de pefil
+     * y dejar o no la sombra fija sobre el perfil del usuario
      */
-    $('.menu-perfil').mouseenter(function () {
-        $('.perfil').css({
-            'text-shadow': '1px 1px 8px #A14C5E'
-        });
-    });
+    $('.menu-perfil').hover(function () {
+            if ($('.items-perfil').css('display') == 'none')
+                $('.items-perfil').slideToggle();
 
-    /* Verifica si el mouse no está sobre el perfil del usuario con sesión iniciada en el sistema para esconder las opciones del menú de pefil
-     * y para quitar la sombra del perfil del usuario
-     */
-    $('.menu-perfil').mouseleave(function () {
-        if ($('.items-perfil').css('display') != 'none')
-            $('.items-perfil').slideToggle();
+            $('.perfil').css('text-shadow', '1px 1px 8px #A14C5E')
+        },
+        function () {
+            if ($('.items-perfil').css('display') != 'none')
+                $('.items-perfil').slideToggle();
 
-        if (url != basedir + '/usuarios/perfil') {
-            $('.perfil').css({
-                'text-shadow': 'none'
-            });
+            if (url != basedir + '/usuarios/perfil')
+                $('.perfil').css('text-shadow', 'none');
         }
-    });
+    );
 });
