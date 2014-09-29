@@ -4,18 +4,24 @@
     <label>* Datos Obligatorios</label>
     <form id="<?php echo ($app['action'] === 'registrar')? 'nuevo-usuario': 'actualizar-usuario'; ?>" action="" autocomplete="on">
         <table class="formulario">
-            <tr>
+            <?php if($app['action'] === 'perfil' || isset($_SESSION['super_administrador']))
+                        echo
+            '<tr>
                 <td colspan="2">
                     <h3>Datos de la cuenta</h3>
                 </td>
-            </tr>
+            </tr>';
+            ?>
+            
             <tr>
-                <td>
+                <?php if($app['action'] === 'perfil')
+                        echo
+                '<td>
                     <label for="nombre_usuario">Usuario: *<i class="fa fa-question-circle fa-fw ayuda" title="<b>Puede estar formado por:</b><br>Mínimo 4 caracteres<br>Máximo 16 caracteres<br>Letras mayúsculas y minúsculas<br>Números<br>Caracteres: _ -"></i></label>
                     <br>
                     <input id="nombre_usuario" name="nombre_usuario" type="text" pattern="^[a-zA-Z0-9_-]{4,16}$" autofocus required>
-                </td>
-                <?php if(isset($_SESSION['super_administrador']) && $app['action'] != 'perfil')
+                </td>';
+                      else if(isset($_SESSION['super_administrador']))
                           echo
                 '<td>
                     <label for="tipo_usuario">Tipo de Usuario: *</label>
@@ -26,13 +32,6 @@
                         <option value="General">General</option>
                     </select>
                 </td>';
-                      else if($app['action'] != 'registrar')
-                          echo
-                '<td>
-                    <label for="fecha_ingreso">Fecha de Ingreso:</label>
-                    <br>
-                    <input class="calendario" id="fecha_ingreso" name="fecha_ingreso" type="text" readonly="readonly" required>
-                </td>';
                       if($app['action'] === 'modificar')
                           echo
                 '
@@ -42,31 +41,6 @@
                 ?>
 
             </tr>
-            <?php if($app['action'] === 'registrar')
-                    echo
-            '<tr>
-                <td>
-                    <label for="clave">Contraseña: *<i class="fa fa-question-circle fa-fw ayuda" title="<b>Puede estar formado por:</b><br>Mínimo 6 caracteres<br>Máximo 18 caracteres<br>Letras mayúsculas y minúsculas<br>Números<br>Caracteres: * + / : . , $ % & # _ -"></i></label>
-                    <br>
-                    <input id="clave" name="clave" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" autocomplete="off" required>
-                </td>
-                <td>
-                    <label for="clave2">Repetir Contraseña: *</label>
-                    <br>
-                    <input id="clave2" name="clave2" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" autocomplete="off" required>
-                </td>
-            </tr>';
-            else if(isset($_SESSION['super_administrador']) && $app['action'] === 'modificar')
-                    echo
-            '<tr>
-                <td colspan="2">
-                    <label for="fecha_ingreso">Fecha de Ingreso:</label>
-                    <br>
-                    <input class="calendario" id="fecha_ingreso" name="fecha_ingreso" type="text" readonly="readonly" required>
-                </td>
-            </tr>';
-            ?>
-            
             <tr>
                 <td colspan="2">
                     <h3>Datos Personales</h3>
@@ -98,9 +72,9 @@
             </tr>
             <tr>
                 <td>
-                    <label for="cedula">Cédula: *</label>
+                    <label for="cedula">Cédula: *<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 numero entero<br>- Máximo 9 números enteros"></i></label>
                     <br>
-                    <input id="cedula" name="cedula" class="numeros" type="text" required>
+                    <input id="cedula" name="cedula" type="text" pattern="^[0-9]{1,9}$" required>
                 </td>
                 <td>
                     <label for="especialidad">Especialidad:</label>
@@ -161,7 +135,7 @@
                 <td>
                     <label for="codigo_postal">Código Postal:</label>
                     <br>
-                    <input id="codigo_postal" name="codigo_postal" class="numeros" type="text">
+                    <input id="codigo_postal" name="codigo_postal" type="text">
                 </td>
             </tr>
             <tr>
@@ -185,19 +159,19 @@
                 <td>
                     <label for="tlf_casa">Teléfono de Habitación: *</label>
                     <br>
-                    <b><input class="tlf" name="tlf_casa[]" type="text" placeholder="02XX" pattern="^[0-9]{4}$" required> - <input class="tlf tlf_casa" name="tlf_casa[]" type="text" placeholder="1234567" pattern="^[0-9]{7}$" required></b>
+                    <b><input class="tlf" name="tlf_casa[]" type="text" placeholder="02XX" pattern="^[0-9]{4}$" required> - <input class="tlf_casa" name="tlf_casa[]" type="text" placeholder="1234567" pattern="^[0-9]{7}$" required></b>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="correo_electronico">Correo Electrónico: *</label>
+                    <label for="correo_electronico">Correo Electrónico: *<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Letras mayúsculas, minúsculas, números enteros<br>&emsp;y los caracteres: ._%+- están permitidos<br>&emsp;antes del @<br>- Un solo símbolo @<br>- Letras mayúsculas, minúsculas y<br>&emsp;números enteros después del @<br>- Un punto en el dominio<br>- Mínimo 2 letras al final después<br>&emsp;del punto (Ej: .com)<br>- Máximo 4 letras al final después<br>&emsp;del punto (Ej: .com)<br>- Ejemplo válido: nombre@hotmail.com"></i></label>
                     <br>
-                    <input id="correo_electronico" name="correo_electronico" type="text" placeholder="nombrecorreo@dominio" required>
+                    <input id="correo_electronico" name="correo_electronico" type="text" placeholder="nombrecorreo@dominio" pattern="^[A-Za-z0-9._%+-]+@([A-Za-z0-9]+\.)+.[A-Za-z]{2,4}$" required>
                 </td>
                 <td>
-                    <label for="correo_alternativo">Correo Electrónico Alternativo:</label>
+                    <label for="correo_alternativo">Correo Electrónico Alternativo:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Letras mayúsculas, minúsculas, números enteros<br>&emsp;y los caracteres: ._%+- están permitidos<br>&emsp;antes del @<br>- Un solo símbolo @<br>- Letras mayúsculas, minúsculas y<br>&emsp;números enteros después del @<br>- Un punto en el dominio<br>- Mínimo 2 letras al final después<br>&emsp;del punto (Ej: .com)<br>- Máximo 4 letras al final después<br>&emsp;del punto (Ej: .com)<br>- Ejemplo válido: nombre@hotmail.com"></i></label>
                     <br>
-                    <input id="correo_alternativo" name="correo_alternativo" type="text" placeholder="nombrecorreo@dominio">
+                    <input id="correo_alternativo" name="correo_alternativo" type="text" placeholder="nombrecorreo@dominio" pattern="^[A-Za-z0-9._%+-]+@([A-Za-z0-9]+\.)+.[A-Za-z]{2,4}$">
                 </td>
             </tr>
             <tr>
