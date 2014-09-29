@@ -60,7 +60,7 @@
         </form>
     </section>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
-    <?php echo '<script src="'.$app['basedir'].'/js/jquery-2.0.0.min.js"></script>'; 
+    <?php echo '<script src="'.$app['basedir'].'/js/jquery-2.1.1.min.js"></script>'; 
           echo '<script async defer src="'.$app['basedir'].'/js/login.js"></script>';
     ?>
 </body>
