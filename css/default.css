@@ -150,6 +150,10 @@ body {
 .enlace-registrar:hover {
     color: #67B9D4;
 }
+.float {
+    text-align: right;
+    width: 70px;
+}
 .formulario {
     margin: 0 auto;
 }
@@ -195,9 +199,17 @@ header label {
     padding: 25px 100px;
 }
 header .perfil {
+    display: inline-block;
     float: right;
-    padding: 32px 50px;
-    width: 184px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    padding-bottom: 30px;
+    padding-top: 28px;
+    text-align: center;
+    text-overflow: ellipsis;
+    width: 290px;
+    white-space: nowrap;
     -webkit-transition: text-shadow 300ms linear;
     -moz-transition: text-shadow 300ms linear;
     -o-transition: text-shadow 300ms linear;
@@ -243,6 +255,7 @@ input {
     height: 30px;
     margin: 8px 0px;
     outline: none;
+    padding: 0 4px;
     width: 240px;
 }
 input:-webkit-autofill {
@@ -353,7 +366,8 @@ textarea:focus {
     font-size: 18px;
     vertical-align: 2px;
 }
-.tlf {
+.tlf,
+.num {
     width: 45px;
 }
 .tlf_casa {
@@ -370,4 +384,7 @@ textarea:focus {
     font-size: 14px;
     line-height: 16px;
     padding: 8px 10px;
+}
+.unit {
+    text-align: right;
 }
