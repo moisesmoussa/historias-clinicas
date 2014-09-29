@@ -68,7 +68,6 @@
     <script src="<?php echo $app['basedir'].'/js/jquery-2.1.1.min.js'; ?>"></script>
     <script src="<?php echo $app['basedir'].'/js/jquery.tooltipster.min.js'; ?>"></script>
     <script src="<?php echo $app['basedir'].'/js/default.js'; ?>"></script>
-    <script src="<?php echo $app['basedir'].'/js/validaciones.js'; ?>"></script>
     <script>basedir = '<?php echo $app['basedir']; ?>';</script>
 	<?php
         if($app['controller'] === 'usuarios' || $app['controller'] === 'pacientes')
