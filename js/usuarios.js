@@ -120,7 +120,7 @@ function agregarUsuario() {
                 var r = JSON.parse(data);
                 alert(r.msg.replace('\\n', '\n'));
 
-                if (r.flag === 2) {
+                if (r.flag === 1) {
                     $('#nuevo-usuario').each(function () {
                         this.reset();
                     });
@@ -220,6 +220,9 @@ function actualizarUsuario(archivoPhp) {
                 $('.status').hide();
                 var r = JSON.parse(data);
                 alert(r.msg);
+
+                if (r.flag === 1)
+                    $('.perfil').html(r.usuario);
 
             } catch (e) {
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al insertar los datos');
@@ -326,7 +329,7 @@ $(document).ready(function () {
         var confirmacion = confirm('¿Está seguro que desea eliminar los usuarios seleccionados?');
 
         if (confirmacion) {
-            var usuarios = new Array();
+            var usuarios = [];
 
             $('.busqueda table tr').each(function () {
                 if ($(this).children('td').not('.icono-tabla').css('background-color') == 'rgba(18, 182, 235, 0.2)')
