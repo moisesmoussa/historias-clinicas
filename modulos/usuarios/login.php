@@ -43,7 +43,7 @@
                     <td>
                         <label for="clave">Contraseña:</label>
                         <br>
-                        <input id="clave" name="clave" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#_-]{6,18}$" autocomplete="off" required>
+                        <input id="clave" name="clave" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#\{\}_-]{6,18}$" autocomplete="off" required>
                     </td>
                 </tr>
                 <tr>
