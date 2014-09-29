@@ -22,7 +22,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         $administrador = ' AND tipo_usuario != \'Administrador\'';
     }
 
-    $select = 'SELECT id, cedula, apellidos, nombres, nombre_usuario, tlf_movil, correo_electronico FROM usuario WHERE id != '.$id_usuario.' AND tipo_usuario != \'Super Administrador\''.$administrador;
+    $select = 'SELECT id, cedula, apellidos, nombres, nombre_usuario, tlf_movil, correo_electronico FROM usuario WHERE id != '.$id_usuario.' AND tipo_usuario != \'Super Administrador\''.$administrador.' ORDER BY cedula::int';
     
     if($query = pg_query($select)){
         unset($msg['msg']);
