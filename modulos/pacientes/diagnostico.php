@@ -71,19 +71,22 @@
             <td>
                 <label for="peso">Peso:</label>
                 <br>
-                <input type="text" id="peso" readonly="readonly">
+                <input type="text" class="float" id="peso" readonly="readonly">
+                <span>kg</span>
             </td>
             <td>
                 <label for="estatura">Estatura:</label>
                 <br>
-                <input type="text" id="estatura" readonly="readonly">
+                <input type="text" class="float" id="estatura" readonly="readonly">
+                <span>cm</span>
             </td>
         </tr>
         <tr>
             <td>
                 <label for="superficie_corporal">Superficie Corporal:</label>
                 <br>
-                <input type="text" id="superficie_corporal" readonly="readonly">
+                <input type="text" class="float" id="superficie_corporal" readonly="readonly">
+                <span>m<sup>2</sup></span>
             </td>
             <td>
                 <label for="direccion">Dirección:</label>
@@ -278,19 +281,19 @@
                 <td>
                     <label for="ciclos_estimados">Nº de Ciclos Estimados: *</label>
                     <br>
-                    <input type="text" id="ciclos_estimados" name="ciclos_estimados" required>
+                    <input type="text" class="num" id="ciclos_estimados" name="ciclos_estimados" pattern="^[0-9]{1,2}$" required>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="ciclos_aplicados">Nº de Ciclos Aplicados: *</label>
                     <br>
-                    <input type="text" id="ciclos_aplicados" name="ciclos_aplicados" required>
+                    <input type="text" class="num" id="ciclos_aplicados" name="ciclos_aplicados" pattern="^[0-9]{1,2}$" required>
                 </td>
                 <td>
                     <label for="ciclos_pendientes">Nº de Ciclos Pendientes: *</label>
                     <br>
-                    <input type="text" id="ciclos_pendientes" name="ciclos_pendientes" required>
+                    <input type="text" class="num" id="ciclos_pendientes" name="ciclos_pendientes" pattern="^[0-9]{1,2}$" required>
                 </td>
             </tr>
             <tr>
@@ -477,9 +480,9 @@
             </tr>
             <tr>
                 <td>
-                    <label for="cedula">Cédula: *</label>
+                    <label for="cedula">Cédula: *<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 numero entero<br>- Máximo 9 números enteros"></i></label>
                     <br>
-                    <input type="text" id="cedula_medico" name="cedula_medico" required>
+                    <input type="text" id="cedula_medico" name="cedula_medico" pattern="^[0-9]{1,9}$" required>
                 </td>
                 <td>
                     <label for="nro_colegio_medicos">Nº Colegio de Médicos: *</label>
@@ -496,7 +499,7 @@
                 <td>
                     <label for="tlf_contacto">Teléfono de Contacto: *</label>
                     <br>
-                    <b><input class="tlf" name="tlf_contacto[]" type="text" pattern="^[0-9]{4}$" required> - <input class="tlf" name="tlf_contacto[]" type="text" pattern="^[0-9]{3}$" required> - <input class="tlf" name="tlf_contacto[]" type="text" pattern="^[0-9]{4}$" required></b>
+                    <b><input class="tlf" name="tlf_contacto[]" type="text" placeholder="04XX" pattern="^[0-9]{4}$" required> - <input class="tlf" name="tlf_contacto[]" type="text" placeholder="123" pattern="^[0-9]{3}$" required> - <input class="tlf" name="tlf_contacto[]" type="text" placeholder="4567"pattern="^[0-9]{4}$" required></b>
                 </td>
             </tr>
             <tr>
