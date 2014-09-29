@@ -4,58 +4,26 @@
             <tr>
                 <td colspan="2">
                     <h3>Antecedentes Personales Sexuales y Reproductivos</h3>
+                    <label>* Todos los datos de este formulario son obligatorios</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="pubarquia">Edad en la que se presentó la Pubarquia:</label>
+                    <label for="pubarquia"><strong>1 - </strong>Edad en la que se presentó la Pubarquia:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
-                    <select id="pubarquia" name="pubarquia" required>
-                        <option value=""></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                    </select>
+                    <input class="num unit" id="pubarquia" name="pubarquia" pattern="^[0-9]{1,2}$" required>
+                    <span>Años</span>
                 </td>
                 <td>
-                    <label for="telarquia">Edad en la que se presentó la Telarquia</label>
+                    <label for="telarquia"><strong>2 - </strong>Edad en la que se presentó la Telarquia:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
-                    <select id="telarquia" name="telarquia" required>
-                        <option value=""></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                    </select>
+                    <input class="num unit" id="telarquia" name="telarquia" pattern="^[0-9]{1,2}$" required>
+                    <span>Años</span>
                 </td>
                 <td class="oculto">
                     <input class="id_paciente" name="id_paciente" type="text">
@@ -63,175 +31,45 @@
             </tr>
             <tr>
                 <td>
-                    <label for="menarquia">Edad en la que se presentó la Menarquia</label>
+                    <label for="menarquia"><strong>3 - </strong>Edad en la que se presentó la Menarquia:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
-                    <select id="menarquia" name="menarquia" required>
-                        <option value=""></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                    </select>
+                    <input class="num unit" id="menarquia" name="menarquia" pattern="^[0-9]{1,2}$" required>
+                    <span>Años</span>
                 </td>
                 <td>
-                    <label for="ciclo_menstrual">Edad en la que se estableció un ciclo menstrual</label>
+                    <label for="ciclo_menstrual"><strong>4 - </strong>Edad en la que se estableció un ciclo menstrual:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
-                    <select id="ciclo_menstrual" name="ciclo_menstrual" required>
-                        <option value=""></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                    </select>
+                    <input class="num unit" id="ciclo_menstrual" name="ciclo_menstrual" pattern="^[0-9]{1,2}$" required>
+                    <span>Años</span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="numero_gestas">Cantidad de gestas que ha tenido:</label>
+                    <label for="numero_gestas"><strong>5 - </strong>Cantidad de gestas que ha tenido:<i class="fa fa-question-circle fa-fw ayuda" title="Sólo 1 número entero"></i></label>
                     <br>
-                    <select id="numero_gestas" name="numero_gestas" required>
-                        <option value=""></option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                    </select>
+                    <input class="num" id="numero_gestas" name="numero_gestas" pattern="^[0-9]{1}$" required>
                 </td>
                 <td>
-                    <label for="numero_partos">Cantidad de partos que ha tenido:</label>
+                    <label for="numero_partos"><strong>6 - </strong>Cantidad de partos que ha tenido:<i class="fa fa-question-circle fa-fw ayuda" title="Sólo 1 número entero"></i></label>
                     <br>
-                    <select id="numero_partos" name="numero_partos" required>
-                        <option value=""></option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                    </select>
+                    <input class="num" id="numero_partos" name="numero_partos" pattern="^[0-9]{1}$" required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="numero_cesareas">Cantidad de cesáreas que ha tenido:</label>
+                    <label for="numero_cesareas"><strong>7 - </strong>Cantidad de cesáreas que ha tenido:<i class="fa fa-question-circle fa-fw ayuda" title="Sólo 1 número entero"></i></label>
                     <br>
-                    <select id="numero_cesareas" name="numero_cesareas" required>
-                        <option value=""></option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                    </select>
+                    <input class="num" id="numero_cesareas" name="numero_cesareas" pattern="^[0-9]{1}$" required>
                 </td>
                 <td>
-                    <label for="numero_abortos">Cantidad de abortos que ha tenido:</label>
+                    <label for="numero_abortos"><strong>8 - </strong>Cantidad de abortos que ha tenido:<i class="fa fa-question-circle fa-fw ayuda" title="Sólo 1 número entero"></i></label>
                     <br>
-                    <select id="numero_abortos" name="numero_abortos" required>
-                        <option value=""></option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                    </select>
+                    <input class="num" id="numero_abortos" name="numero_abortos" pattern="^[0-9]{1}$" required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="legrado_uterino">¿Se ha realizado un legrado uterino?</label>
+                    <label for="legrado_uterino"><strong>9 - </strong>¿Se ha realizado un legrado uterino?</label>
                     <br>
                     <input type="radio" name="legrado_uterino" value="TRUE" required>
                     <label>Sí</label>
@@ -239,7 +77,7 @@
                     <label>No</label>
                 </td>
                 <td>
-                    <label for="menopausia">¿Presentó o presenta menopausia?</label>
+                    <label for="menopausia"><strong>10 - </strong>¿Presentó o presenta menopausia?</label>
                     <br>
                     <input type="radio" name="menopausia" value="TRUE" required>
                     <label>Sí</label>
@@ -249,119 +87,25 @@
             </tr>
             <tr>
                 <td>
-                    <label for="primera_relacion_sexual">Edad en la que se tuvo la primera relación sexual:</label>
+                    <label for="primera_relacion_sexual"><strong>11 - </strong>Edad en la que se tuvo la primera relación sexual:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
-                    <select id="primera_relacion_sexual" name="primera_relacion_sexual" required>
-                        <option value=""></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
-                        <option value="32">32</option>
-                        <option value="33">33</option>
-                        <option value="34">34</option>
-                        <option value="35">35</option>
-                        <option value="36">36</option>
-                    </select>
+                    <input class="num unit" id="primera_relacion_sexual" name="primera_relacion_sexual" pattern="^[0-9]{1,2}$" required>
+                    <span>Años</span>
                 </td>
                 <td>
-                    <label for="frecuencia_relaciones_sexuales_mes">Cantidad promedio de relaciones sexuales al mes:</label>
+                    <label for="frecuencia_relaciones_sexuales_mes"><strong>12 - </strong>Cantidad promedio de relaciones sexuales al mes:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 3 números enteros"></i></label>
                     <br>
-                    <select id="frecuencia_relaciones_sexuales_mes" name="frecuencia_relaciones_sexuales_mes" required>
-                        <option value=""></option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
-                    </select>
+                    <input class="num" id="frecuencia_relaciones_sexuales_mes" name="frecuencia_relaciones_sexuales_mes" pattern="^[0-9]{1,3}$" required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="num_parejas_ultimo_anio">Cantidad de parejas sexuales en el último año:</label>
+                    <label for="num_parejas_ultimo_anio"><strong>13 - </strong>Cantidad de parejas sexuales en el último año:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 3 números enteros"></i></label>
                     <br>
-                    <select id="num_parejas_ultimo_anio" name="num_parejas_ultimo_anio" required>
-                        <option value=""></option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                    </select>
+                    <input class="num" id="num_parejas_ultimo_anio" name="num_parejas_ultimo_anio" pattern="^[0-9]{1,3}$" required>
                 </td>
                 <td>
-                    <label for="relacion_sexual_satisfactoria">¿Relaciones sexuales satisfactorias?</label>
+                    <label for="relacion_sexual_satisfactoria"><strong>14 - </strong>¿Relaciones sexuales satisfactorias?</label>
                     <br>
                     <input type="radio" name="relacion_sexual_satisfactoria" value="TRUE" required>
                     <label>Sí</label>
@@ -371,7 +115,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="anticonceptivo">¿Ha utilizado algún método anticonceptivo?</label>
+                    <label for="anticonceptivo"><strong>15 - </strong>¿Ha utilizado algún método anticonceptivo?</label>
                     <br>
                     <input type="radio" name="anticonceptivo" value="TRUE" required>
                     <label>Sí</label>
@@ -379,7 +123,7 @@
                     <label>No</label>
                 </td>
                 <td>
-                    <label for="aco_oral">¿Ha utilizado métodos anticonceptivos orales (ACO)?</label>
+                    <label for="aco_oral"><strong>16 - </strong>¿Ha utilizado métodos anticonceptivos orales?</label>
                     <br>
                     <input type="radio" name="aco_oral" value="TRUE" required>
                     <label>Sí</label>
@@ -389,7 +133,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="diu">¿Ha utilizado métodos anticonceptivos intrauterinos (DIU)?</label>
+                    <label for="diu"><strong>17 - </strong>¿Ha utilizado métodos anticonceptivos intrauterinos?</label>
                     <br>
                     <input type="radio" name="diu" value="TRUE" required>
                     <label>Sí</label>
@@ -397,7 +141,7 @@
                     <label>No</label>
                 </td>
                 <td>
-                    <label for="otro_anticonceptivo">¿Ha utilizado algún otro método anticonceptivo?</label>
+                    <label for="otro_anticonceptivo"><strong>18 - </strong>¿Ha utilizado algún otro método anticonceptivo?</label>
                     <br>
                     <input type="radio" name="otro_anticonceptivo" value="TRUE" required>
                     <label>Sí</label>
@@ -407,7 +151,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="otros_antecedentes_sexuales">Indique, si existen, otros antecedentes sexuales:</label>
+                    <label for="otros_antecedentes_sexuales"><strong>19 - </strong>Indique, si existen, otros antecedentes sexuales:</label>
                     <br>
                     <textarea id="otros_antecedentes_sexuales" name="otros_antecedentes_sexuales" required></textarea>
                 </td>
@@ -429,56 +173,26 @@
             <tr>
                 <td colspan="2">
                     <h3>Antecedentes Personales Sexuales y Reproductivos</h3>
+                    <label>* Todos los datos de este formulario son obligatorios</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="pubarquia">Edad en la que se presentó la Pubarquia:</label>
+                    <label for="pubarquia"><strong>1 - </strong>Edad en la que se presentó la pubarquia:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
-                    <select id="pubarquia" name="pubarquia" required>
-                        <option value=""></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                    </select>
+                    <input class="num unit" id="pubarquia" name="pubarquia" pattern="^[0-9]{1,2}$" required>
+                    <span>Años</span>
                 </td>
                 <td>
-                    <label for="inicio_crecimiento_testicular">Edad en la que se inició el crecimiento testicular:</label>
+                    <label for="inicio_crecimiento_testicular"><strong>2 - </strong>Edad en la que se inició el crecimiento testicular:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
-                    <select id="inicio_crecimiento_testicular" name="inicio_crecimiento_testicular" required>
-                        <option value=""></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                    </select>
+                    <input class="num unit" id="inicio_crecimiento_testicular" name="inicio_crecimiento_testicular" pattern="^[0-9]{1,2}$" required>
+                    <span>Años</span>
                 </td>
                 <td class="oculto">
                     <input class="id_paciente" name="id_paciente" type="text">
@@ -486,7 +200,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="andropausia">¿Presentó o presenta andropausia?</label>
+                    <label for="andropausia"><strong>3 - </strong>¿Presentó o presenta andropausia?</label>
                     <br>
                     <input type="radio" name="andropausia" value="TRUE" required>
                     <label>Sí</label>
@@ -494,121 +208,27 @@
                     <label>No</label>
                 </td>
                 <td>
-                    <label for="primera_relacion_sexual">Edad en la que se tuvo la primera relación sexual:</label>
+                    <label for="primera_relacion_sexual"><strong>4 - </strong>Edad en la que se tuvo la primera relación sexual:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
-                    <select id="primera_relacion_sexual" name="primera_relacion_sexual" required>
-                        <option value=""></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
-                        <option value="32">32</option>
-                        <option value="33">33</option>
-                        <option value="34">34</option>
-                        <option value="35">35</option>
-                        <option value="36">36</option>
-                    </select>
+                    <input class="num unit" id="primera_relacion_sexual" name="primera_relacion_sexual" pattern="^[0-9]{1,2}$" required>
+                    <span>Años</span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="frecuencia_relaciones_sexuales_mes">Cantidad promedio de relaciones sexuales al mes:</label>
+                    <label for="frecuencia_relaciones_sexuales_mes"><strong>5 - </strong>Cantidad promedio de relaciones sexuales al mes:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 3 números enteros"></i></label>
                     <br>
-                    <select id="frecuencia_relaciones_sexuales_mes" name="frecuencia_relaciones_sexuales_mes" required>
-                        <option value=""></option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
-                    </select>
+                    <input class="num" id="frecuencia_relaciones_sexuales_mes" name="frecuencia_relaciones_sexuales_mes" pattern="^[0-9]{1,3}$" required>
                 </td>
                 <td>
-                    <label for="num_parejas_ultimo_anio">Cantidad de parejas sexuales en el último año:</label>
+                    <label for="num_parejas_ultimo_anio"><strong>6 - </strong>Cantidad de parejas sexuales en el último año:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 3 números enteros"></i></label>
                     <br>
-                    <select id="num_parejas_ultimo_anio" name="num_parejas_ultimo_anio" required>
-                        <option value=""></option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                    </select>
+                    <input class="num" id="num_parejas_ultimo_anio" name="num_parejas_ultimo_anio" pattern="^[0-9]{1,3}$" required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="relacion_sexual_satisfactoria">¿Relaciones sexuales satisfactorias?</label>
+                    <label for="relacion_sexual_satisfactoria"><strong>7 - </strong>¿Relaciones sexuales satisfactorias?</label>
                     <br>
                     <input type="radio" name="relacion_sexual_satisfactoria" value="TRUE" required>
                     <label>Sí</label>
@@ -616,7 +236,7 @@
                     <label>No</label>
                 </td>
                 <td>
-                    <label for="anticonceptivo">¿Ha utilizado algún método anticonceptivo?</label>
+                    <label for="anticonceptivo"><strong>8 - </strong>¿Ha utilizado algún método anticonceptivo?</label>
                     <br>
                     <input type="radio" name="anticonceptivo" value="TRUE" required>
                     <label>Sí</label>
@@ -626,7 +246,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="otros_antecedentes_sexuales">Indique, si existen, otros antecedentes sexuales:</label>
+                    <label for="otros_antecedentes_sexuales"><strong>9 - </strong>Indique, si existen, otros antecedentes sexuales:</label>
                     <br>
                     <textarea id="otros_antecedentes_sexuales" name="otros_antecedentes_sexuales" required></textarea>
                 </td>
