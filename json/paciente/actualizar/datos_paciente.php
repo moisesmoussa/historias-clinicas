@@ -18,7 +18,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
     
     foreach ($_POST as $clave => $valor){
         if(!isset($valor) || empty($valor)){
-            if($clave != 'etnia' && $clave != 'analfabeta' && $clave != 'codigo_postal' && $clave != 'peso' && $clave != 'estatura' && $clave != 'superficie_corporal' && $clave != 'empresa'){
+            if($clave != 'etnia' && $clave != 'analfabeta' && $clave != 'codigo_postal' && $clave != 'peso' && $clave != 'estatura' && $clave != 'superficie_corporal' && $clave != 'empresa' && $clave != 'correo_electronico'){
                 $flag = 0;
                 break;
             } else if($clave === 'peso' || $clave === 'estatura' || $clave === 'superficie_corporal'){
