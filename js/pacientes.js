@@ -618,6 +618,10 @@ $(document).ready(function () {
     $('.nueva-fila-tratamiento, .eliminar-fila-tratamiento, .enlace-diagnostico').tooltipster({
         theme: 'tooltipster-theme'
     });
+    $('.ayuda').tooltipster({
+        contentAsHTML: true,
+        theme: 'tooltipster-theme'
+    });
 
     //Si el programa está posicionado en la búsqueda de pacientes, se carga de la base de datos la información necesaria de todos los pacientes registrados
     if (window.location.pathname === basedir + '/pacientes')
@@ -694,7 +698,7 @@ $(document).ready(function () {
         var confirmacion = confirm('¿Está seguro que desea eliminar los pacientes seleccionados?');
 
         if (confirmacion) {
-            var pacientes = new Array();
+            var pacientes = [];
 
             $('.busqueda table tr').each(function () {
                 if ($(this).children('td').not('.icono-tabla').css('background-color') == 'rgba(18, 182, 235, 0.2)')
