@@ -71,6 +71,22 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                         else if(isset($_SESSION['general']))
                             $id_usuario = $_SESSION['general'];
 
+                        $select = 'SELECT sexo FROM paciente WHERE nro_historia_clinica = \''.$_POST['nro_historia_clinica'].'\'';
+                        $respuesta = pg_fetch_assoc(pg_query($select));
+                        $sexo = $respuesta['sexo'];
+                        
+                        if(!empty($sexo) && $sexo != $_POST['sexo']) {
+                            $sexoFlag = 1;
+                            
+                            if($_POST['sexo'] === 'Masculino')
+                                $sexoLetter = 'm';
+                            else if($_POST['sexo'] === 'Femenino')
+                                $sexoLetter = 'f';
+                                
+                        } else {
+                            $sexoFlag = 0;
+                        }
+                            
                         date_default_timezone_set('Etc/GMT+4');
                         $columnas = 'UPDATE paciente SET (fecha_ua, usuario_ua, ';
                         $valores = '= (\''.date('Y-m-d').'\', '.$id_usuario.', ';
@@ -93,8 +109,13 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                         $query = $columnas . $valores;
 
                         if(pg_query($query)) {
+                            if($sexoFlag)
+                                $msg['sexoLetter'] = $sexoLetter;
+
+                            $msg['sexoFlag'] = $sexoFlag;
                             $msg['msg'] = 'Actualización de datos exitosa';
                             $msg['flag'] = 1;
+                            
                         } else {
                             $msg['msg'] = 'No se pudieron actualizar los datos del paciente';
                             $msg['flag'] = 2;
