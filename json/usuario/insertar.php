@@ -123,7 +123,7 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                     if($mail->send())
                         $msg['msg'] = 'Usuario agregado exitosamente.\\nCorreo con los datos de la cuenta enviado';
                     else 
-                        $msg['msg'] = 'Usuario agregado exitosamente.\\nNo se pudo enviar el correo con los datos de la cuenta';
+                        $msg['msg'] = 'Usuario agregado exitosamente.\\nNo se pudo enviar el correo con los datos de la cuenta, por favor tome nota de los datos:\\nUsuario: ' . $_POST['nombre_usuario'] . '\\nContraseña: ' . $password;
 
                 } else {
                     $msg['msg'] = 'Error con la base de datos, no se pudo agregar el usuario';
