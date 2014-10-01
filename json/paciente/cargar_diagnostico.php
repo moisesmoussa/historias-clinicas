@@ -35,6 +35,10 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                     $msg['paciente']['fecha_primer_sintoma'] = date('d-m-Y', strtotime($msg['paciente']['fecha_primer_sintoma']));
                     $msg['paciente']['fecha_diagnostico'] = date('d-m-Y', strtotime($msg['paciente']['fecha_diagnostico']));
                     $msg['paciente']['fecha_inicio_tratamiento'] = date('d-m-Y', strtotime($msg['paciente']['fecha_inicio_tratamiento']));
+                    
+                    if(isset($msg['paciente']['fecha_ultima_menstruacion']))
+                        $msg['paciente']['fecha_ultima_menstruacion'] = date('d-m-Y', strtotime($msg['paciente']['fecha_ultima_menstruacion']));
+                    
                     $select = 'SELECT producto_farmacologico, presentacion, concentracion, dias_aplicacion FROM tratamiento WHERE id_paciente = '.$_POST['paciente'];
                     
                     if($query = pg_query($select)){

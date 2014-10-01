@@ -27,6 +27,9 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
         $_POST['fecha_diagnostico'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_diagnostico'])));
         $_POST['fecha_inicio_tratamiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_inicio_tratamiento'])));
         
+        if(isset($_POST['fecha_ultima_menstruacion']))
+            $_POST['fecha_ultima_menstruacion'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_ultima_menstruacion'])));
+        
         require_once('../../../config.php');
         $conexion = pg_connect('host='.$app['db']['host'].' port='.$app['db']['port'].' dbname='.$app['db']['name'].' user='.$app['db']['user'].' password='.$app['db']['pass']) OR die('Error de conexión con la base de datos');
 
