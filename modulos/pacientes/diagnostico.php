@@ -279,25 +279,25 @@
                     <input type="text" class="calendario" id="fecha_inicio_tratamiento" name="fecha_inicio_tratamiento" readonly="readonly" required>
                 </td>
                 <td>
-                    <label for="ciclos_estimados">Nº de Ciclos Estimados: *</label>
+                    <label for="ciclos_estimados">Nº de Ciclos Estimados: *<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 numero entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
                     <input type="text" class="num" id="ciclos_estimados" name="ciclos_estimados" pattern="^[0-9]{1,2}$" required>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="ciclos_aplicados">Nº de Ciclos Aplicados: *</label>
+                    <label for="ciclos_aplicados">Nº de Ciclos Aplicados: *<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 numero entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
                     <input type="text" class="num" id="ciclos_aplicados" name="ciclos_aplicados" pattern="^[0-9]{1,2}$" required>
                 </td>
                 <td>
-                    <label for="ciclos_pendientes">Nº de Ciclos Pendientes: *</label>
+                    <label for="ciclos_pendientes">Nº de Ciclos Pendientes: *<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 numero entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
                     <input type="text" class="num" id="ciclos_pendientes" name="ciclos_pendientes" pattern="^[0-9]{1,2}$" required>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td id="td-intervalo">
                     <label for="intervalo">Intervalo: *</label>
                     <br>
                     <input type="text" id="intervalo" name="intervalo" required>
