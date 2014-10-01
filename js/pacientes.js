@@ -21,10 +21,10 @@ function successAgregarDatosPaciente(idPaciente) {
         $('#form-antecedentes-sexuales-m').hide();
 
     //Verifica la edad del paciente a registrar para activar los formularios "desarrollo psicomotor" y "antecedentes perinatales"
-    if (edad < 10)
+    if (edad <= 12)
         $('.desarrollo-psicomotor').show();
 
-    if (edad < 19)
+    if (edad <= 18)
         $('.antecedentes-perinatales').show();
 }
 
@@ -176,7 +176,7 @@ function calcularEdad(fechaNacimiento) {
 function verificarEdad(fechaNacimiento) {
     var edad = calcularEdad(fechaNacimiento);
 
-    if (edad > 9)
+    if (edad > 12)
         $('.desarrollo-psicomotor').hide();
     else
         $('.desarrollo-psicomotor').show();
@@ -317,8 +317,19 @@ function ajaxActualizarPaciente(archivoPhp, formulario) {
                 $('#' + formulario + ' .status').hide();
                 var r = JSON.parse(data);
 
-                if (r.flag === 1 && formulario === 'datos-paciente')
+                if (r.flag === 1 && formulario === 'datos-paciente') {
                     verificarEdad(fechaObjeto($('#' + formulario + ' #fecha_nacimiento').val(), '/'));
+
+                    if (r.sexoFlag === 1)
+                        if (r.sexoLetter === 'm') {
+                            $('#form-antecedentes-sexuales-f').hide();
+                            $('#form-antecedentes-sexuales-m').show();
+
+                        } else {
+                            $('#form-antecedentes-sexuales-m').hide();
+                            $('#form-antecedentes-sexuales-f').show();
+                        }
+                }
 
                 alert(r.msg);
 
@@ -471,6 +482,17 @@ function successMostrarDiagnostico(datos) {
             datos.paciente.fecha_primer_sintoma = datos.paciente.fecha_primer_sintoma.replace(/-/g, '/');
             datos.paciente.fecha_diagnostico = datos.paciente.fecha_diagnostico.replace(/-/g, '/');
             datos.paciente.fecha_inicio_tratamiento = datos.paciente.fecha_inicio_tratamiento.replace(/-/g, '/');
+        }
+
+        //Muestra el campo fecha de última menstruación solo si el paciente es de sexo femenino
+        if (datos.paciente.sexo === 'Femenino') {
+            $('#td-intervalo').after('<td><label for="fecha_ultima_menstruacion">Fecha de la Última Menstruación: *</label><br><input type="text" class="calendario" id="fecha_ultima_menstruacion" name="fecha_ultima_menstruacion" readonly="readonly" required></td>');
+
+            if (typeof (datos.paciente.fecha_ultima_menstruacion) != 'undefined')
+                datos.paciente.fecha_ultima_menstruacion = datos.paciente.fecha_ultima_menstruacion.replace(/-/g, '/');
+
+        } else {
+            $('#td-intervalo').attr('colspan', 2);
         }
 
         //Carga los productos farmacológicos asignados al paciente en la tabla de tratamiento
@@ -785,7 +807,7 @@ $(document).ready(function () {
 
     //Agrega una nueva fila a la tabla de tratamiento si no ha superado el límite de 8 filas
     $('.nueva-fila-tratamiento').click(function () {
-        if ($('.tratamiento tr').length <= 8) {
+        if ($('.tratamiento tr').length <= 12) {
             var html = '<tr><td><input type="text" name="producto_farmacologico[]" required></td><td><input type="text" name="presentacion[]" required></td><td><input type="text" name="concentracion[]" required></td><td><input type="text" name="dias_aplicacion[]" required></td></tr>';
 
             $('.tratamiento').append(html);
