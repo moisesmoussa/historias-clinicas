@@ -118,7 +118,7 @@ function agregarUsuario() {
             try {
                 $('.status').hide();
                 var r = JSON.parse(data);
-                alert(r.msg.replace('\\n', '\n'));
+                alert(r.msg.replace(/\\n/g, '\n'));
 
                 if (r.flag === 1) {
                     $('#nuevo-usuario').each(function () {
