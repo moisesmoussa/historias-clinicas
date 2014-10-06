@@ -366,6 +366,9 @@ textarea:focus {
     font-size: 18px;
     vertical-align: 2px;
 }
+.th-field:hover {
+    cursor: pointer;
+}
 .tlf,
 .num {
     width: 45px;
