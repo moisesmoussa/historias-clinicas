@@ -103,9 +103,12 @@ function agregarPaciente(formulario) {
  * Parámetros:
  * - "busqueda" (opcional) contiene la información para filtrar la búsqueda de pacientes
  *   + Valor por defecto: ''
+ * - "order" (opcional) indica el campo por el cual se van a ordenar los resultados y además contiene el tipo de ordenamiento
+ *   que puede ser ascendente o descendentemente
  */
-function cargarPacientes(busqueda) {
+function cargarPacientes(busqueda, order) {
     var archivo;
+    var arrow = '<i class="fa fa-caret-up fa-fw"></i>';
 
     if (typeof (busqueda) === 'undefined') {
         archivo = 'cargar_todos.php';
@@ -113,12 +116,19 @@ function cargarPacientes(busqueda) {
     } else {
         archivo = 'buscar.php';
     }
+
+    if (typeof (order) === 'undefined')
+        order = '';
+    else
+        arrow = '';
+
     $.ajax({
         async: false,
         type: 'POST',
         url: basedir + '/json/paciente/' + archivo,
         data: {
-            busqueda: busqueda
+            busqueda: busqueda,
+            order: order
         },
         error: function () {
             alert('Error cargando la información');
@@ -126,7 +136,7 @@ function cargarPacientes(busqueda) {
         success: function (pacientes) {
             try {
                 var datos = JSON.parse(pacientes);
-                var html = '<tr><th class="icono-tabla"></th><th>Número de Historia Clínica</th><th>Documento de Identidad</th><th>Nombres</th><th>Apellidos</th><th>Móvil</th><th>Email</th></tr>';
+                var html = '<tr><th class="icono-tabla"></th><th class="th-field">Número de Historia Clínica' + arrow + '</th><th class="th-field">Documento de Identidad</th><th class="th-field">Nombres</th><th class="th-field">Apellidos</th><th class="th-field">Móvil</th><th class="th-field">Email</th></tr>';
 
                 if (datos.flag === 1) {
                     for (var i in datos.paciente) {
@@ -823,6 +833,30 @@ $(document).ready(function () {
         } else {
             alert('No se puede eliminar la primera fila');
         }
+    });
+
+    /* Verifica si un header de la tabla de búsqueda del módulo de pacientes es marcado para ordenar ascendente o descendentemente 
+     * las filas de dicha tabla utilizando el campo indicado por el usuario
+     */
+    $(document).on('click', '.th-field', function () {
+        var arrow;
+        var order;
+
+        if ($(this).find('i').hasClass('fa-caret-up')) {
+            arrow = 'down';
+            order = {
+                field: $(this).text(),
+                type: 'DESC'
+            };
+        } else {
+            arrow = 'up';
+            order = {
+                field: $(this).text(),
+                type: ''
+            };
+        }
+        cargarPacientes($('.input-buscar').val(), order);
+        $('.pacientes .th-field:nth-child(' + ($(this).index() + 1) + ')').append('<i class="fa fa-caret-' + arrow + ' fa-fw"></i>');
     });
 
     //Marca o desmarcar filas de la tabla de pacientes
