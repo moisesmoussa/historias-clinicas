@@ -23,7 +23,32 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
         $administrador = ' AND tipo_usuario != \'Administrador\'';
     }
 
-    $select = 'SELECT id, cedula, apellidos, nombres, nombre_usuario, tlf_movil, correo_electronico FROM usuario WHERE id != '.$id_usuario.' AND tipo_usuario != \'Super Administrador\''.$administrador.' AND ( cedula LIKE \'%'.$_POST['busqueda'].'%\' OR nombres LIKE \'%'.$_POST['busqueda'].'%\' OR apellidos LIKE \'%'.$_POST['busqueda'].'%\' OR nombre_usuario LIKE \'%'.$_POST['busqueda'].'%\' OR tlf_movil LIKE \'%'.$_POST['busqueda'].'%\' OR correo_electronico LIKE \'%'.$_POST['busqueda'].'%\') ORDER BY cedula::int';
+    if(!empty($order = $_POST['order'])) {
+        switch($order['field']) {
+            case 'Cédula':
+                $order = 'cedula::int ' . $order['type'];
+                break;
+            case 'Nombres':
+                $order = 'nombres ' . $order['type'];
+                break;
+            case 'Apellidos':
+                $order = 'apellidos ' . $order['type'];
+                break;
+            case 'Usuario':
+                $order = 'nombre_usuario ' . $order['type'];
+                break;
+            case 'Móvil':
+                $order = 'tlf_movil ' . $order['type'];
+                break;
+            case 'Email':
+                $order = 'correo_electronico ' . $order['type'];
+                break;
+        }
+    } else {
+        $order = 'cedula::int';
+    }
+    
+    $select = 'SELECT id, cedula, apellidos, nombres, nombre_usuario, tlf_movil, correo_electronico FROM usuario WHERE id != '.$id_usuario.' AND tipo_usuario != \'Super Administrador\''.$administrador.' AND ( cedula LIKE \'%'.$_POST['busqueda'].'%\' OR nombres LIKE \'%'.$_POST['busqueda'].'%\' OR apellidos LIKE \'%'.$_POST['busqueda'].'%\' OR nombre_usuario LIKE \'%'.$_POST['busqueda'].'%\' OR tlf_movil LIKE \'%'.$_POST['busqueda'].'%\' OR correo_electronico LIKE \'%'.$_POST['busqueda'].'%\') ORDER BY ' . $order;
     
     if($query = pg_query($select)){
         $cont = 0;
