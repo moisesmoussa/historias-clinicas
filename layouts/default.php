@@ -71,11 +71,11 @@
     <script>basedir = '<?php echo $app['basedir']; ?>';</script>
 	<?php
         if($app['controller'] === 'usuarios' || $app['controller'] === 'pacientes')
-			echo '<script async defer src="'.$app['basedir'].'/js/jquery.datetimepicker.js"></script>';
+			echo '<script src="'.$app['basedir'].'/js/jquery.datetimepicker.js"></script>';
         if($app['controller'] === 'usuarios')
-			echo '<script async defer src="'.$app['basedir'].'/js/usuarios.js"></script>';
+			echo '<script src="'.$app['basedir'].'/js/usuarios.js"></script>';
         if($app['controller'] === 'pacientes')
-			echo '<script async defer src="'.$app['basedir'].'/js/pacientes.js"></script>';
+			echo '<script src="'.$app['basedir'].'/js/pacientes.js"></script>';
 	?>
     
 </body>
