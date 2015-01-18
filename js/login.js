@@ -24,6 +24,8 @@ function login() {
                     alert(resultado.msg);
 
             } catch (e) {
+                console.log(data)
+                console.log(e)
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
             }
         }
