@@ -14,11 +14,14 @@ $msg['flag'] = 4;
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     $flag = 1;
     
-    foreach ($_POST as $valor)
+    foreach ($_POST as $clave => $valor){
         if(!isset($valor) || empty($valor)){
-            $flag = 0;
-            break;
+            if($clave != 'otras_patologias'){
+                $flag = 0;
+                break;
+            }
         }
+    }
 
     if($flag){
         require_once('../../../config.php');

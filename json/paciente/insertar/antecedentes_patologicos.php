@@ -13,11 +13,16 @@ $msg['flag'] = 3;
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     $flag = 1;
     
-    foreach ($_POST as $valor)
+    foreach ($_POST as $clave => $valor){
         if(!isset($valor) || empty($valor)){
-            $flag = 0;
-            break;
+            if($clave != 'otras_patologias'){
+                $flag = 0;
+                break;
+            } else {
+                unset($_POST[$clave]);
+            }
         }
+    }
     
     if($flag){
         $_POST['grupo_sanguineo'] = ucfirst($_POST['grupo_sanguineo']);
