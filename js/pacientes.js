@@ -203,7 +203,8 @@ function verificarEdad(fechaNacimiento) {
  */
 function successMostrarPaciente(datos) {
     if (datos.flag === 1) {
-        var form;
+        var flag_antecedentes_sexuales = typeof (datos.antecedentes_sexuales) !== 'undefined',
+            form;
         verificarEdad(fechaObjeto(datos.paciente.fecha_nacimiento, '-'));
         datos.paciente.fecha_nacimiento = datos.paciente.fecha_nacimiento.replace(/-/g, '/');
         $('input:radio[name=sexo][value=' + datos.paciente.sexo + ']').prop('checked', true);
@@ -240,14 +241,140 @@ function successMostrarPaciente(datos) {
             }
         });
 
-        //Verifica el sexo indicado de un paciente para activar el formulario de antecedentes sexuales de acuerdo a la opción seleccionada
+        /* Verifica el sexo indicado de un paciente para activar el formulario de antecedentes sexuales de acuerdo a la opción seleccionada
+         * y se carga parte de la información del formulario correspondiente que viene del servidor
+         */
         if (datos.paciente.sexo === 'Masculino') {
             form = '#form-antecedentes-sexuales-m ';
             $('#form-antecedentes-sexuales-f').hide();
+
+            if (flag_antecedentes_sexuales) {
+                var crecimiento_testicular = $('input[name="inicio_crecimiento_testicular"]');
+
+                if (datos.paciente.inicio_crecimiento_testicular != 0) {
+                    crecimiento_testicular.prop('disabled', false);
+                    $('input[name="crecimiento_testicular_radio"][value="TRUE"]').prop('checked', true);
+
+                } else {
+                    crecimiento_testicular.prop('disabled', true);
+                    $('input[name="crecimiento_testicular_radio"][value="FALSE"]').prop('checked', true);
+                    datos.paciente.inicio_crecimiento_testicular = 'NA';
+                }
+            }
         } else {
             form = '#form-antecedentes-sexuales-f ';
             $('#form-antecedentes-sexuales-m').hide();
+
+            if (flag_antecedentes_sexuales) {
+                var telarquia = $('input[name="telarquia"]'),
+                    menarquia = $('input[name="menarquia"]'),
+                    ciclo_menstrual = $('input[name="ciclo_menstrual"]');
+
+                if (datos.paciente.telarquia != 0) {
+                    telarquia.prop('disabled', false);
+                    $('input[name="telarquia_radio"][value="TRUE"]').prop('checked', true);
+
+                } else {
+                    telarquia.prop('disabled', true);
+                    $('input[name="telarquia_radio"][value="FALSE"]').prop('checked', true);
+                    datos.paciente.telarquia = 'NA';
+                }
+
+                if (datos.paciente.menarquia != 0) {
+                    menarquia.prop('disabled', false);
+                    $('input[name="menarquia_radio"][value="TRUE"]').prop('checked', true);
+
+                } else {
+                    menarquia.prop('disabled', true);
+                    $('input[name="menarquia_radio"][value="FALSE"]').prop('checked', true);
+                    datos.paciente.menarquia = 'NA';
+                }
+
+                if (datos.paciente.ciclo_menstrual != 0) {
+                    ciclo_menstrual.prop('disabled', false);
+                    $('input[name="ciclo_menstrual_radio"][value="TRUE"]').prop('checked', true);
+
+                } else {
+                    ciclo_menstrual.prop('disabled', true);
+                    $('input[name="ciclo_menstrual_radio"][value="FALSE"]').prop('checked', true);
+                    datos.paciente.ciclo_menstrual = 'NA';
+                }
+            }
         }
+
+        if (flag_antecedentes_sexuales) {
+            var pubarquia = $(form + 'input[name="pubarquia"]'),
+                primera_relacion = $(form + 'input[name="primera_relacion_sexual"]'),
+                relaciones_mes = $(form + 'input[name="frecuencia_relaciones_sexuales_mes"]'),
+                num_parejas = $(form + 'input[name="num_parejas_ultimo_anio"]'),
+                relacion_satisfacoria = $(form + 'input[name="relacion_sexual_satisfactoria"]');
+
+            if (datos.antecedentes_sexuales.pubarquia != 0) {
+                pubarquia.prop('disabled', false);
+                $(form + 'input[name="pubarquia_radio"][value="TRUE"]').prop('checked', true);
+
+            } else {
+                pubarquia.prop('disabled', true);
+                $(form + 'input[name="pubarquia_radio"][value="FALSE"]').prop('checked', true);
+                datos.antecedentes_sexuales.pubarquia = 'NA';
+            }
+
+            if (datos.antecedentes_sexuales.primera_relacion_sexual != 0) {
+                primera_relacion.prop('disabled', false);
+                $(form + 'input[name="primera_relacion_radio"][value="TRUE"]').prop('checked', true);
+                relaciones_mes.prop('disabled', false);
+                num_parejas.prop('disabled', false);
+                relacion_satisfacoria.prop('disabled', false);
+
+            } else {
+                primera_relacion.prop('disabled', true);
+                $(form + 'input[name="primera_relacion_radio"][value="FALSE"]').prop('checked', true);
+                datos.antecedentes_sexuales.primera_relacion_sexual = 'NA';
+                relaciones_mes.prop('disabled', true);
+                datos.antecedentes_sexuales.frecuencia_relaciones_sexuales_mes = '0';
+                num_parejas.prop('disabled', true);
+                datos.antecedentes_sexuales.num_parejas_sexuales_anio = '0';
+                relacion_satisfacoria.prop('disabled', true);
+                relacion_satisfacoria.prop('checked', false);
+                datos.antecedentes_sexuales.relacion_sexual_satisfactoria = null;
+            }
+        }
+
+        //Verifica si el paciente fuma y/o toma alcohol para activar las opciones que permiten indicar cuanto fuma y cuanto consume regularmente
+        var fuma_desde = $('input[name="fuma_desde"]'),
+            cigarrillos_diarios = $('input[name="cigarrillos_diarios"]'),
+            alcohol_semanal = $('input[name="alcohol_semanal"]');
+
+        if (datos.paciente.fuma === 't') {
+            fuma_desde.prop('disabled', false);
+            cigarrillos_diarios.prop('disabled', false);
+
+        } else if (datos.paciente.fuma === 'f') {
+            fuma_desde.prop('disabled', true);
+            fuma_desde.val('NA');
+            cigarrillos_diarios.prop('disabled', true);
+            cigarrillos_diarios.val('0');
+        }
+
+        if (datos.paciente.alcohol === 't') {
+            alcohol_semanal.prop('disabled', false);
+
+        } else if (datos.paciente.alcohol === 'f') {
+            alcohol_semanal.prop('disabled', true);
+            alcohol_semanal.val('0');
+        }
+
+        /* Verifica si algunos campos que pueden estar vacíos son igual a 0, lo cual indica que están vacíos y por lo tanto, se les asigna vacío
+         * o el símbolo equivalente para indicar que la opción está vacía o no aplica para el paciente dado
+         */
+        if (datos.paciente.peso == 0)
+            datos.paciente.peso = ''
+        if (datos.paciente.estatura == 0)
+            datos.paciente.estatura = ''
+        if (datos.paciente.superficie_corporal == 0)
+            datos.paciente.superficie_corporal = ''
+        if (datos.paciente.fuma_desde == 0)
+            datos.paciente.fuma_desde = 'NA'
 
         //Carga los datos restantes del paciente indicado enviados por el servidor a excepción de los datos del formulario "antecedentes sexuales"
         for (var i in datos.paciente) {
@@ -298,6 +425,7 @@ function mostrarPaciente(patientId) {
                     $(this).val(patientId);
                 });
             } catch (e) {
+                console.log(e);
                 alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
                 window.location.replace(basedir + '/pacientes');
             }
@@ -802,6 +930,163 @@ $(document).ready(function () {
             }
             if ($('.otra_ciudad').attr('name') === 'ciudad_residencia')
                 $('.otra_ciudad').removeAttr('name').prop('required', false).hide();
+        }
+    });
+
+    /* Verificación de los campos que aplican o no para responder en un formulario. Se ejecutan las acciones correspondientes dependiendo si el campo aplica
+     * o no para el paciente indicado
+     */
+    $('input[name="fuma"]').change(function () {
+        var fuma_desde = $('input[name="fuma_desde"]'),
+            cigarrillos_diarios = $('input[name="cigarrillos_diarios"]');
+
+        if ($(this).val() === 'TRUE') {
+            fuma_desde.prop('disabled', false);
+            fuma_desde.val('');
+            cigarrillos_diarios.prop('disabled', false);
+            cigarrillos_diarios.val('');
+
+        } else if ($(this).val() === 'FALSE') {
+            fuma_desde.prop('disabled', true);
+            fuma_desde.val('NA');
+            cigarrillos_diarios.prop('disabled', true);
+            cigarrillos_diarios.val('0');
+        }
+    });
+    $('input[name="alcohol"]').change(function () {
+        var alcohol_semanal = $('input[name="alcohol_semanal"]');
+
+        if ($(this).val() === 'TRUE') {
+            alcohol_semanal.prop('disabled', false);
+            alcohol_semanal.val('');
+
+        } else if ($(this).val() === 'FALSE') {
+            alcohol_semanal.prop('disabled', true);
+            alcohol_semanal.val('0');
+        }
+    });
+    $('#form-antecedentes-sexuales-f input[name="pubarquia_radio"]').change(function () {
+        var pubarquia = $('#form-antecedentes-sexuales-f input[name="pubarquia"]');
+
+        if ($(this).val() === 'TRUE') {
+            pubarquia.prop('disabled', false);
+            pubarquia.val('');
+
+        } else if ($(this).val() === 'FALSE') {
+            pubarquia.prop('disabled', true);
+            pubarquia.val('NA');
+        }
+    });
+    $('input[name="telarquia_radio"]').change(function () {
+        var telarquia = $('input[name="telarquia"]');
+
+        if ($(this).val() === 'TRUE') {
+            telarquia.prop('disabled', false);
+            telarquia.val('');
+
+        } else if ($(this).val() === 'FALSE') {
+            telarquia.prop('disabled', true);
+            telarquia.val('NA');
+        }
+    });
+    $('input[name="menarquia_radio"]').change(function () {
+        var menarquia = $('input[name="menarquia"]');
+
+        if ($(this).val() === 'TRUE') {
+            menarquia.prop('disabled', false);
+            menarquia.val('');
+
+        } else if ($(this).val() === 'FALSE') {
+            menarquia.prop('disabled', true);
+            menarquia.val('NA');
+        }
+    });
+    $('input[name="ciclo_menstrual_radio"]').change(function () {
+        var ciclo_menstrual = $('input[name="ciclo_menstrual"]');
+
+        if ($(this).val() === 'TRUE') {
+            ciclo_menstrual.prop('disabled', false);
+            ciclo_menstrual.val('');
+
+        } else if ($(this).val() === 'FALSE') {
+            ciclo_menstrual.prop('disabled', true);
+            ciclo_menstrual.val('NA');
+        }
+    });
+    $('#form-antecedentes-sexuales-f input[name="primera_relacion_radio"]').change(function () {
+        var primera_relacion = $('#form-antecedentes-sexuales-f input[name="primera_relacion_sexual"]'),
+            relaciones_mes = $('#form-antecedentes-sexuales-f input[name="frecuencia_relaciones_sexuales_mes"]'),
+            num_parejas = $('#form-antecedentes-sexuales-f input[name="num_parejas_ultimo_anio"]'),
+            relacion_satisfacoria = $('#form-antecedentes-sexuales-f input[name="relacion_sexual_satisfactoria"]');
+        relacion_satisfacoria.prop('checked', false);
+
+        if ($(this).val() === 'TRUE') {
+            primera_relacion.prop('disabled', false);
+            primera_relacion.val('');
+            relaciones_mes.prop('disabled', false);
+            relaciones_mes.val('');
+            num_parejas.prop('disabled', false);
+            num_parejas.val('');
+            relacion_satisfacoria.prop('disabled', false);
+
+        } else if ($(this).val() === 'FALSE') {
+            primera_relacion.prop('disabled', true);
+            primera_relacion.val('NA');
+            relaciones_mes.prop('disabled', true);
+            relaciones_mes.val('0');
+            num_parejas.prop('disabled', true);
+            num_parejas.val('0');
+            relacion_satisfacoria.prop('disabled', true);
+        }
+    });
+    $('#form-antecedentes-sexuales-m input[name="pubarquia_radio"]').change(function () {
+        var pubarquia = $('#form-antecedentes-sexuales-m input[name="pubarquia"]');
+
+        if ($(this).val() === 'TRUE') {
+            pubarquia.prop('disabled', false);
+            pubarquia.val('');
+
+        } else if ($(this).val() === 'FALSE') {
+            pubarquia.prop('disabled', true);
+            pubarquia.val('NA');
+        }
+    });
+    $('input[name="crecimiento_testicular_radio"]').change(function () {
+        var crecimiento_testicular = $('input[name="inicio_crecimiento_testicular"]');
+
+        if ($(this).val() === 'TRUE') {
+            crecimiento_testicular.prop('disabled', false);
+            crecimiento_testicular.val('');
+
+        } else if ($(this).val() === 'FALSE') {
+            crecimiento_testicular.prop('disabled', true);
+            crecimiento_testicular.val('NA');
+        }
+    });
+    $('#form-antecedentes-sexuales-m input[name="primera_relacion_radio"]').change(function () {
+        var primera_relacion = $('#form-antecedentes-sexuales-m input[name="primera_relacion_sexual"]'),
+            relaciones_mes = $('#form-antecedentes-sexuales-m input[name="frecuencia_relaciones_sexuales_mes"]'),
+            num_parejas = $('#form-antecedentes-sexuales-m input[name="num_parejas_ultimo_anio"]'),
+            relacion_satisfacoria = $('#form-antecedentes-sexuales-m input[name="relacion_sexual_satisfactoria"]');
+        relacion_satisfacoria.prop('checked', false);
+
+        if ($(this).val() === 'TRUE') {
+            primera_relacion.prop('disabled', false);
+            primera_relacion.val('');
+            relaciones_mes.prop('disabled', false);
+            relaciones_mes.val('');
+            num_parejas.prop('disabled', false);
+            num_parejas.val('');
+            relacion_satisfacoria.prop('disabled', false);
+
+        } else if ($(this).val() === 'FALSE') {
+            primera_relacion.prop('disabled', true);
+            primera_relacion.val('NA');
+            relaciones_mes.prop('disabled', true);
+            relaciones_mes.val('0');
+            num_parejas.prop('disabled', true);
+            num_parejas.val('0');
+            relacion_satisfacoria.prop('disabled', true);
         }
     });
 
