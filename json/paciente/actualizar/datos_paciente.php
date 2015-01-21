@@ -78,11 +78,31 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                         if(!empty($sexo) && $sexo != $_POST['sexo']) {
                             $sexoFlag = 1;
                             
-                            if($_POST['sexo'] === 'Masculino')
+                            if(!pg_query('DELETE from antecedentes_sexuales WHERE id_paciente = '.$_POST['id_paciente'])) {
+                                $msg['msg'] = 'Error de consulta en la base de datos';
+                                $msg['flag'] = 5;
+                                echo json_encode($msg);
+                                die();
+                            }
+                            
+                            if($_POST['sexo'] === 'Masculino') {
                                 $sexoLetter = 'm';
-                            else if($_POST['sexo'] === 'Femenino')
-                                $sexoLetter = 'f';
+                                if(!pg_query('DELETE from antecedentes_sexuales_mujer WHERE id_paciente = '.$_POST['id_paciente'])) {
+                                    $msg['msg'] = 'Error de consulta en la base de datos';
+                                    $msg['flag'] = 5;
+                                    echo json_encode($msg);
+                                    die();
+                                }
                                 
+                            } else if($_POST['sexo'] === 'Femenino') {
+                                $sexoLetter = 'f';
+                                if(!pg_query('DELETE from antecedentes_sexuales_hombre WHERE id_paciente = '.$_POST['id_paciente'])) {
+                                    $msg['msg'] = 'Error de consulta en la base de datos';
+                                    $msg['flag'] = 5;
+                                    echo json_encode($msg);
+                                    die();
+                                }
+                            }
                         } else {
                             $sexoFlag = 0;
                         }
