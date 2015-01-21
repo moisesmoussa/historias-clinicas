@@ -14,11 +14,20 @@ $msg['flag'] = 4;
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     $flag = 1;
     
-    foreach ($_POST as $valor)
+    foreach ($_POST as $clave => $valor){
         if(!isset($valor) || empty($valor)){
-            $flag = 0;
-            break;
+            if($clave != 'otros_estilos_vida'){
+                $flag = 0;
+                break;
+            }
         }
+    }
+    if(!isset($_POST['fuma_desde']))
+        $_POST['fuma_desde'] = 0;
+    if(!isset($_POST['cigarrillos_diarios']))
+        $_POST['cigarrillos_diarios'] = 0;
+    if(!isset($_POST['alcohol_semanal']))
+        $_POST['alcohol_semanal'] = 0;
 
     if($flag){
         require_once('../../../config.php');
