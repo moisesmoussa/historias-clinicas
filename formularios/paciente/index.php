@@ -273,7 +273,7 @@
             <tr>
                 <td colspan="2">
                     <h3>Antecedentes Personales de Estilo y Modo de Vida</h3>
-                    <label>* Todos los datos de este formulario son obligatorios</label>
+                    <label>* Datos Obligatorios</label>
                 </td>
             </tr>
             <tr>
@@ -283,10 +283,10 @@
             </tr>
             <tr>
                 <td>
-                    <label for="fuma"><strong>1 - </strong>¿Es fumador?</label>
+                    <label for="fuma"><strong>1 - </strong>¿Es fumador? *</label>
                     <br>
                     <input type="radio" name="fuma" value="TRUE" required>
-                    <label>Si</label>
+                    <label>Sí</label>
                     <input type="radio" name="fuma" value="FALSE" required>
                     <label>No</label>
                 </td>
@@ -302,12 +302,12 @@
             </tr>
             <tr>
                 <td>
-                    <label for="cigarrillos_diarios"><strong>3 - </strong>Cantidad promedio de cigarrillos que fuma al día:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
+                    <label for="cigarrillos_diarios"><strong>3 - </strong>Cantidad promedio de cigarrillos que fuma al día: *<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
                     <input class="num" id="cigarrillos_diarios" name="cigarrillos_diarios" pattern="^[0-9]{1,2}$" required>
                 </td>
                 <td>
-                    <label for="alcohol"><strong>4 - </strong>¿Consume alcohol?</label>
+                    <label for="alcohol"><strong>4 - </strong>¿Consume alcohol? *</label>
                     <br>
                     <input type="radio" name="alcohol" value="TRUE" required>
                     <label>Sí</label>
@@ -317,12 +317,12 @@
             </tr>
             <tr>
                 <td>
-                    <label for="alcohol_semanal"><strong>5 - </strong>Cantidad promedio de veces que consume alcohol a la semana:<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
+                    <label for="alcohol_semanal"><strong>5 - </strong>Cantidad promedio de veces que consume alcohol a la semana: *<i class="fa fa-question-circle fa-fw ayuda" title="<strong>Puede estar formado por:</strong><br>- Mínimo 1 número entero<br>- Máximo 2 números enteros"></i></label>
                     <br>
                     <input class="num" id="alcohol_semanal" name="alcohol_semanal" pattern="^[0-9]{1,2}$" required>
                 </td>
                 <td>
-                    <label for="drogas_ilicitas"><strong>6 - </strong>¿Consume drogas ilícitas?</label>
+                    <label for="drogas_ilicitas"><strong>6 - </strong>¿Consume drogas ilícitas? *</label>
                     <br>
                     <input type="radio" name="drogas_ilicitas" value="TRUE" required>
                     <label>Sí</label>
@@ -332,7 +332,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="sedentarismo"><strong>7 - </strong>¿Lleva una vida sedentaria?</label>
+                    <label for="sedentarismo"><strong>7 - </strong>¿Lleva una vida sedentaria? *</label>
                     <br>
                     <input type="radio" name="sedentarismo" value="TRUE" required>
                     <label>Sí</label>
@@ -340,7 +340,7 @@
                     <label>No</label>
                 </td>
                 <td>
-                    <label for="actividad_fisica"><strong>8 - </strong>¿Realiza actividad física?</label>
+                    <label for="actividad_fisica"><strong>8 - </strong>¿Realiza actividad física? *</label>
                     <br>
                     <input type="radio" name="actividad_fisica" value="TRUE" required>
                     <label>Sí</label>
@@ -350,7 +350,7 @@
             </tr>
             <tr>
                 <td>
-                    <label for="manejo_estres"><strong>9 - </strong>¿Presenta problemas para manejar el estrés?</label>
+                    <label for="manejo_estres"><strong>9 - </strong>¿Presenta problemas para manejar el estrés? *</label>
                     <br>
                     <input type="radio" name="manejo_estres" value="TRUE" required>
                     <label>Sí</label>
@@ -360,7 +360,7 @@
                 <td>
                     <label for="otros_estilos_vida"><strong>10 - </strong>Indique, si los hay, otros antecedentes de estilo y modo de vida:</label>
                     <br>
-                    <textarea id="otros_estilos_vida" name="otros_estilos_vida" required></textarea>
+                    <textarea id="otros_estilos_vida" name="otros_estilos_vida"></textarea>
                 </td>
             </tr>
             <tr>
@@ -744,7 +744,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <label for="intervencion_quirurgica"><strong>39 - </strong>Intervenciones quirúrjicas</label>
+                    <label for="intervencion_quirurgica"><strong>39 - </strong>Intervenciones quirúrgicas</label>
                     <br>
                     <input type="radio" name="intervencion_quirurgica" value="TRUE" required>
                     <label>Sí</label>
@@ -756,7 +756,7 @@
                 <td colspan="2">
                     <label for="otras_patologias"><strong>40 - </strong>Indique, si las hay, otras patologías que padezca o haya padecido:</label>
                     <br>
-                    <textarea id="otras_patologias" name="otras_patologias" required></textarea>
+                    <textarea id="otras_patologias" name="otras_patologias"></textarea>
                 </td>
             </tr>
             <tr>
