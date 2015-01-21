@@ -13,12 +13,29 @@ $msg['flag'] = 4;
 
 if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general'])) {
     $flag = 1;
+    unset($_POST['pubarquia_radio']);
+    unset($_POST['telarquia_radio']);
+    unset($_POST['menarquia_radio']);
+    unset($_POST['ciclo_menstrual_radio']);
+    unset($_POST['crecimiento_testicular_radio']);
+    unset($_POST['primera_relacion_radio']);
     
-    foreach ($_POST as $valor)
-        if(!isset($valor) || (empty($valor) && $valor != '0')){
-            $flag = 0;
-            break;
+    foreach ($_POST as $clave => $valor){
+        if(!isset($valor) || empty($valor) && $valor != '0'){
+            if($clave != 'otros_antecedentes_sexuales'){
+                $flag = 0;
+                break;
+            }
         }
+    }
+    if(!isset($_POST['pubarquia']))
+        $_POST['pubarquia'] = 0;
+    if(!isset($_POST['primera_relacion_sexual']))
+        $_POST['primera_relacion_sexual'] = 0;
+    if(!isset($_POST['frecuencia_relaciones_sexuales_mes']))
+        $_POST['frecuencia_relaciones_sexuales_mes'] = 0;
+    if(!isset($_POST['num_parejas_ultimo_anio']))
+        $_POST['num_parejas_ultimo_anio'] = 0;
     
     if($flag){     
         require_once('../../../config.php');
@@ -33,10 +50,20 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) 
                 if($respuesta['sexo'] === 'Masculino'){
                     $columnas = 'INSERT INTO antecedentes_sexuales_hombre (';
                     $valores = 'VALUES (';
+                    
+                    if(!isset($_POST['inicio_crecimiento_testicular']))
+                        $_POST['inicio_crecimiento_testicular'] = 0;
 
                 } else {
                     $columnas = 'INSERT INTO antecedentes_sexuales_mujer (';
                     $valores = 'VALUES (';
+                    
+                    if(!isset($_POST['telarquia']))
+                        $_POST['telarquia'] = 0;
+                    if(!isset($_POST['menarquia']))
+                        $_POST['menarquia'] = 0;
+                    if(!isset($_POST['ciclo_menstrual']))
+                        $_POST['ciclo_menstrual'] = 0;
                 }
 
                 if(isset($_SESSION['super_administrador']))
