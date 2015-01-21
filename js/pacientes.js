@@ -142,7 +142,7 @@ function cargarPacientes(busqueda, order) {
                     for (var i in datos.paciente) {
                         html += '<tr><td class="icono-tabla" data-id="' + datos.paciente[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar" title="Eliminar paciente"></i><i class="fa fa-edit fa-2x icon editar" title="Modificar paciente"></i><i class="fa fa-medkit fa-2x icon diagnostico" title="Agregar y/o modificar diagnóstico del paciente"></i></td><td>' + datos.paciente[i].nro_historia_clinica + '</td><td>' + datos.paciente[i].documento_identidad + '</td><td>' + datos.paciente[i].nombres + '</td><td>' + datos.paciente[i].apellidos + '</td><td>' + datos.paciente[i].tlf_movil + '</td><td>';
                     }
-                    if(datos.paciente[i].correo_electronico != 'null')
+                    if(datos.paciente[i].correo_electronico != null)
                         html += datos.paciente[i].correo_electronico;
                     
                     html +=  '</td></tr>';
