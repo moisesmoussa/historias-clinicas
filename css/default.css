@@ -161,7 +161,7 @@ body {
     padding: 0 10px;
 }
 header a {
-    color: #A14C5E;
+    color: #08088A;
     display: inline-block;
     font-size: 22px;
     padding: 32px 30px;
@@ -176,16 +176,16 @@ header .navcontainer a:hover {
     -moz-transition: text-shadow 300ms linear;
     -o-transition: text-shadow 300ms linear;
     -ms-transition: text-shadow 300ms linear;
-    text-shadow: 1px 1px 8px #A14C5E;
+    text-shadow: 1px 1px 8px #08088A;
 }
 header .contenedor {
     background-color: #67B9D4;
-    border-bottom: 2px solid #A14C5E;
+    border-bottom: 2px solid #08088A;
     height: auto;
     min-height: 83px;
 }
 header .contenido {
-    color: #A14C5E;
+    color: #08088A;
     float: left;
     font-size: 28px;
     max-width: 100%;
@@ -193,7 +193,7 @@ header .contenido {
     padding: 0 5px;
 }
 header label {
-    color: #A14C5E;
+    color: #08088A;
     display: inline-block;
     font-size: 30px;
     padding: 25px 100px;
@@ -220,7 +220,7 @@ header .perfil:hover {
     -moz-transition: text-shadow 300ms linear;
     -o-transition: text-shadow 300ms linear;
     -ms-transition: text-shadow 300ms linear;
-    text-shadow: 1px 1px 8px #A14C5E;
+    text-shadow: 1px 1px 8px #08088A;
 }
 .icon {
     cursor: pointer;
@@ -289,12 +289,12 @@ input[readonly="readonly"] {
     background: #FFF;
     right: 0;
     top: 83px;
-    border-bottom: 2px solid #A14C5E;
-    border-left: 2px solid #A14C5E;
-    border-right: 2px solid #A14C5E;
+    border-bottom: 2px solid #08088A;
+    border-left: 2px solid #08088A;
+    border-right: 2px solid #08088A;
 }
 .items-perfil a {
-    color: #A14C5E;
+    color: #08088A;
     display: block;
     -webkit-transition: background-color 300ms linear;
     -moz-transition: background-color 300ms linear;
@@ -378,7 +378,7 @@ textarea:focus {
 }
 .tooltipster-theme {
     background: #6FC8E5;
-    border: 2px solid #A14C5E;
+    border: 2px solid #08088A;
     border-radius: 5px;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
     color: #FFF;
