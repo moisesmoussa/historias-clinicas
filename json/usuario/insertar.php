@@ -48,10 +48,26 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
                     $insert_usuario_g = 'tipo_usuario, ';
                     $values_usuario_g = '\'General\', ';
                 }
-                $_POST['fecha_nacimiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
-                $password = com_create_guid();
+                
+                if (function_exists('com_create_guid')){
+                    $password = com_create_guid();
+                } else {
+                    mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
+                    $charid = strtoupper(md5(uniqid(rand(), true)));
+                    $hyphen = chr(45);// "-"
+                    $uuid = chr(123)// "{"
+                            .substr($charid, 0, 8).$hyphen
+                            .substr($charid, 8, 4).$hyphen
+                            .substr($charid,12, 4).$hyphen
+                            .substr($charid,16, 4).$hyphen
+                            .substr($charid,20,12)
+                            .chr(125);// "}"
+                    $password = $uuid;
+                }
+                
                 $password = substr($password, 0, 17) . substr($password, strlen($password)-1, 1);
                 $_POST['clave'] = md5($password);
+                $_POST['fecha_nacimiento'] = date('Y-m-d', strtotime(str_replace('/','-',$_POST['fecha_nacimiento'])));
                 $tlf_movil = '';
                 $tlf_casa = '';
 
