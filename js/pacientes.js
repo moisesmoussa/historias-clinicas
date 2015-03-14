@@ -35,7 +35,7 @@ function successAgregarDatosPaciente(idPaciente) {
  */
 function ajaxAgregarPaciente(archivoPhp, formulario) {
     $.ajax({
-        async: false,
+        async: true,
         type: 'POST',
         url: basedir + '/json/paciente/insertar/' + archivoPhp,
         data: $('#' + formulario).serialize(), // Adjuntar los campos del formulario a enviar.
@@ -98,65 +98,189 @@ function agregarPaciente(formulario) {
     }
 }
 
-/* Trae algunos datos importantes de todos los pacientes o de los pacientes que consiga según una búsqueda indicada en la base de datos y los
- * muestra al usuario que los solicitó en una tabla
+/* Muestra los pacientes encontrados según los parámetros indicados por el usuario con sesión iniciada en el sistema.
+ * Se incluye todo el proceso de paginación para indicar la página correspondiente de la lista de pacientes
+ * en la cual se obtuvieron los resultados
  * Parámetros:
- * - "busqueda" (opcional) contiene la información para filtrar la búsqueda de pacientes
- *   + Valor por defecto: ''
- * - "order" (opcional) indica el campo por el cual se van a ordenar los resultados y además contiene el tipo de ordenamiento
- *   que puede ser ascendente o descendentemente
+ * - "pacientes" lista de pacientes
+ * - "activePage" (Opcional) número de página actual
+ *   + Valor por defecto: 1
  */
-function cargarPacientes(busqueda, order) {
-    var archivo;
-    var arrow = '<i class="fa fa-caret-up fa-fw"></i>';
+function mostrarPacientesObtenidos(pacientes, activePage) {
+    try {
+        var datos = JSON.parse(pacientes),
+            totalPages = datos.countPages,
+            pageBarSize = (totalPages <= 6) ? totalPages : 5,
+            paginationHtml = '',
+            nextButtonHtml = '',
+            tableHtml = '<tr><th class="icono-tabla"></th><th class="th-field">Número de Historia Clínica</th><th class="th-field">Documento de Identidad</th><th class="th-field">Nombres</th><th class="th-field">Apellidos</th><th class="th-field">Móvil</th><th class="th-field">Email</th></tr>';
 
-    if (typeof (busqueda) === 'undefined') {
+        if (typeof (activePage) === 'undefined')
+            activePage = 1;
+
+        if (totalPages === 1) {
+            paginationHtml += '<li class="previous page-disable"><a href="javascript:void(0);"><span><i class="fa fa-chevron-left fa-fw"></i>Previo</span></a></li>';
+            nextButtonHtml += '<li class="next page-disable"><a href="javascript:void(0);"><span>Siguiente<i class="fa fa-chevron-right fa-fw"></i></span></a></li>';
+
+        } else if (activePage === 1) {
+            paginationHtml += '<li class="previous page-disable"><a href="javascript:void(0);"><span><i class="fa fa-chevron-left fa-fw"></i>Previo</span></a></li>';
+            nextButtonHtml += '<li class="next"><a href="javascript:void(0);"><span>Siguiente<i class="fa fa-chevron-right fa-fw"></i></span></a></li>';
+
+        } else if (activePage === totalPages) {
+            paginationHtml += '<li class="previous"><a href="javascript:void(0);"><span><i class="fa fa-chevron-left fa-fw"></i>Previo</span></a></li>';
+            nextButtonHtml += '<li class="next page-disable"><a href="javascript:void(0);"><span>Siguiente<i class="fa fa-chevron-right fa-fw"></i></span></a></li>';
+
+        } else {
+            paginationHtml += '<li class="previous"><a href="javascript:void(0);"><span><i class="fa fa-chevron-left fa-fw"></i>Previo</span></a></li>';
+            nextButtonHtml += '<li class="next"><a href="javascript:void(0);"><span>Siguiente<i class="fa fa-chevron-right fa-fw"></i></span></a></li>';
+        }
+        var startPage,
+            pageNumber,
+            flag = (activePage - 1) > 3,
+            pagesToEnd = totalPages - activePage;
+
+        if (flag && totalPages > 6) {
+            paginationHtml += '<li><a href="javascript:void(0);">1</a></li><li><a href="javascript:void(0);">...</a></li>';
+
+            if (pagesToEnd === 0) {
+                startPage = activePage - 4;
+            } else if (pagesToEnd === 1) {
+                startPage = activePage - 3;
+            } else if (pagesToEnd > 1) {
+                startPage = activePage - 2;
+            }
+        } else {
+            startPage = 1;
+        }
+
+        for (var i = 0; i < pageBarSize; i++) {
+            pageNumber = startPage + i;
+
+            if (pageNumber === activePage) {
+                paginationHtml += '<li class="page-active"><a href="javascript:void(0);">' + pageNumber.toString() + '</a></li>';
+            } else {
+                paginationHtml += '<li><a href="javascript:void(0);">' + pageNumber.toString() + '</a></li>';
+            }
+        }
+
+        if (totalPages > 6) {
+            if (pagesToEnd === 3 && !flag) {
+                paginationHtml += '<li><a href="javascript:void(0);">' + (totalPages - 1).toString() + '</a></li><li><a href="javascript:void(0);">' + totalPages + '</a></li>';
+            } else if (pagesToEnd === 3) {
+                paginationHtml += '<li><a href="javascript:void(0);">' + totalPages + '</a></li>';
+            } else if (pagesToEnd > 3) {
+                paginationHtml += '<li><a href="javascript:void(0);">...</a></li><li><a href="javascript:void(0);">' + totalPages + '</a></li>';
+            }
+        }
+
+        var startFrom = datos.offset + 1,
+            show = parseInt(datos.show),
+            endAt = datos.offset,
+            totalResults = datos.totalResults,
+            showLabel = '';
+
+        if (datos.show === 'ALL' || totalResults < show || activePage === totalPages) {
+            endAt = totalResults;
+        } else if (startFrom === totalResults) {
+            endAt = startFrom;
+        } else {
+            endAt += show;
+        }
+        showLabel = '<i class="fa fa-file-text-o fa-fw"></i>Mostrando ' + startFrom + ' - ' + endAt + ' de ' + datos.totalResults + ' pacientes'
+        paginationHtml += nextButtonHtml;
+        $('.showing').html(showLabel);
+        $('.pagination').html(paginationHtml);
+
+        if (datos.flag === 1) {
+            for (var i in datos.paciente) {
+                tableHtml += '<tr><td class="icono-tabla" data-id="' + datos.paciente[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar" title="Eliminar paciente"></i><i class="fa fa-edit fa-2x icon editar" title="Modificar paciente"></i><i class="fa fa-medkit fa-2x icon diagnostico" title="Agregar y/o modificar diagnóstico del paciente"></i></td><td>' + datos.paciente[i].nro_historia_clinica + '</td><td>' + datos.paciente[i].documento_identidad + '</td><td>' + datos.paciente[i].nombres + '</td><td>' + datos.paciente[i].apellidos + '</td><td>' + datos.paciente[i].tlf_movil + '</td><td>';
+
+                if (datos.paciente[i].correo_electronico != null)
+                    tableHtml += datos.paciente[i].correo_electronico;
+
+                tableHtml += '</td></tr>';
+            }
+
+            $('.pacientes').html(tableHtml);
+
+        } else {
+            alert(datos.msg);
+        }
+    } catch (e) {
+        alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
+    }
+}
+
+/* Trae algunos datos importantes de todos los pacientes o de los pacientes encontrados según una búsqueda indicada en la base de datos y los
+ * muestra al usuario que los solicitó en una tabla. Los resultados se muestran según el orden y la cantidad de resultados
+ * que quiera obtener el usuario
+ * Parámetros:
+ * - "activePage" (Opcional) número de página actual
+ *   + Valor por defecto: 1
+ */
+function cargarPacientes(activePage) {
+    var archivo,
+        offset,
+        search = $('.input-buscar').val().trim(),
+        show = $('.show').val(),
+        option = $('.order-by').val().split('-'),
+        order = {
+            field: option[0],
+            type: option[1]
+        };
+    $('.borrar-varios').hide();
+
+    if (typeof (activePage) === 'undefined')
+        activePage = 1;
+
+    if (!search) {
         archivo = 'cargar_todos.php';
-        busqueda = '';
     } else {
         archivo = 'buscar.php';
     }
-
-    if (typeof (order) === 'undefined')
-        order = '';
-    else
-        arrow = '';
+    offset = (show === 'ALL') ? '' : parseInt(show) * (activePage - 1);
 
     $.ajax({
-        async: false,
+        async: true,
         type: 'POST',
         url: basedir + '/json/paciente/' + archivo,
         data: {
-            busqueda: busqueda,
-            order: order
+            busqueda: search,
+            order: order,
+            show: show,
+            offset: offset
         },
         error: function () {
             alert('Error cargando la información');
         },
         success: function (pacientes) {
-            try {
-                console.log(pacientes);
-                var datos = JSON.parse(pacientes);
-                var html = '<tr><th class="icono-tabla"></th><th class="th-field">Número de Historia Clínica' + arrow + '</th><th class="th-field">Documento de Identidad</th><th class="th-field">Nombres</th><th class="th-field">Apellidos</th><th class="th-field">Móvil</th><th class="th-field">Email</th></tr>';
+            mostrarPacientesObtenidos(pacientes, activePage);
+        }
+    });
+}
 
-                if (datos.flag === 1) {
-                    for (var i in datos.paciente) {
-                        html += '<tr><td class="icono-tabla" data-id="' + datos.paciente[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar" title="Eliminar paciente"></i><i class="fa fa-edit fa-2x icon editar" title="Modificar paciente"></i><i class="fa fa-medkit fa-2x icon diagnostico" title="Agregar y/o modificar diagnóstico del paciente"></i></td><td>' + datos.paciente[i].nro_historia_clinica + '</td><td>' + datos.paciente[i].documento_identidad + '</td><td>' + datos.paciente[i].nombres + '</td><td>' + datos.paciente[i].apellidos + '</td><td>' + datos.paciente[i].tlf_movil + '</td><td>';
-
-                        if (datos.paciente[i].correo_electronico != null)
-                            html += datos.paciente[i].correo_electronico;
-
-                        html += '</td></tr>';
-                    }
-
-                    $('.pacientes').html(html);
-
-                } else {
-                    alert(datos.msg);
-                }
-            } catch (e) {
-                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
-            }
+/* 
+ * Trae algunos datos importantes de los pacientes registrados en el sistema de acuerdo a la configuración de búsqueda por defecto.
+ * Esta configuración incluye los siguientes valores:
+ * - Orden de los resultados: Por cédula de menor a mayor (Ascendente)
+ * - Cantidad de resultados mostrados: 10 por página
+ * - Cantidad de resultados que hay que saltar: 0
+ */
+function cargarPacientesPorDefecto() {
+    $.ajax({
+        async: true,
+        url: basedir + '/json/paciente/cargar_todos.php',
+        type: 'POST',
+        data: {
+            order: '',
+            show: '',
+            offset: ''
+        },
+        error: function () {
+            alert('Error cargando la información');
+        },
+        success: function (pacientes) {
+            mostrarPacientesObtenidos(pacientes);
         }
     });
 }
@@ -165,6 +289,7 @@ function cargarPacientes(busqueda, order) {
  * Parámetros:
  * - "fecha" es una fecha que se encuentra en string ordenada en formato "Y-M-D"
  * - "delimitador" es el caracter con el que se separan los datos de la fecha
+ * Valor de retorno: (date) fecha indicada con formato adecuado de javascript
  */
 function fechaObjeto(fecha, delimitador) {
     fecha = fecha.split(delimitador);
@@ -175,6 +300,7 @@ function fechaObjeto(fecha, delimitador) {
 /* Calcula la edad de acuerdo a la fecha de nacimiento y la fecha en el momento de ejecutar el proceso
  * Parámetros:
  * - "fechaNacimiento" es la fecha de nacimiento de la persona a la cual se le quiere calcular la edad
+ * Valor de retorno: (int) edad según fecha de nacimiento
  */
 function calcularEdad(fechaNacimiento) {
     var fechaActual = new Date();
@@ -228,7 +354,7 @@ function successMostrarPaciente(datos) {
 
         //Carga la ciudad registrada como dirección del paciente, ya sea que esté o no en la lista de ciudades por estado
         $.ajax({
-            async: false,
+            async: true,
             url: basedir + '/ciudades/' + datos.paciente.estado_residencia + '.html',
             dataType: 'text',
             success: function (datosCiudades) {
@@ -414,7 +540,7 @@ function successMostrarPaciente(datos) {
  */
 function mostrarPaciente(patientId) {
     $.ajax({
-        async: false,
+        async: true,
         url: basedir + '/json/paciente/cargar.php',
         type: 'POST',
         data: {
@@ -447,7 +573,7 @@ function mostrarPaciente(patientId) {
  */
 function ajaxActualizarPaciente(archivoPhp, formulario) {
     $.ajax({
-        async: false,
+        async: true,
         type: 'POST',
         url: basedir + '/json/paciente/actualizar/' + archivoPhp,
         data: $('#' + formulario).serialize(),
@@ -525,7 +651,7 @@ function eliminarPacientes(patientId) {
     var result;
 
     $.ajax({
-        async: false,
+        async: true,
         url: basedir + '/json/paciente/eliminar.php',
         type: 'POST',
         data: {
@@ -556,7 +682,7 @@ function eliminarPacientes(patientId) {
  */
 function cargarMedico(busqueda) {
     $.ajax({
-        async: false,
+        async: true,
         url: basedir + '/json/paciente/buscar_medico.php',
         type: 'POST',
         data: {
@@ -705,7 +831,7 @@ function successMostrarDiagnostico(datos) {
  */
 function mostrarDiagnostico(patientId) {
     $.ajax({
-        async: false,
+        async: true,
         url: basedir + '/json/paciente/cargar_diagnostico.php',
         type: 'POST',
         data: {
@@ -742,7 +868,7 @@ function ajaxActualizarDiagnostico(archivoPhp, formulario) {
         datos += '&nro_historia_clinica=' + $('#nro_historia_clinica').val();
 
     $.ajax({
-        async: false,
+        async: true,
         type: 'POST',
         url: basedir + '/json/paciente/actualizar/' + archivoPhp,
         data: datos,
@@ -776,6 +902,38 @@ function actualizarDiagnostico(formulario) {
         ajaxActualizarDiagnostico('medico_tratante.php', formulario);
 }
 
+/* Esta función se encarga de determinar cual es la página actual de la lista de pacientes obtenida
+ * Valor de retorno: (int) página actual
+ */
+function getActivePage() {
+    var activePage;
+
+    $('.pagination li').each(function () {
+        var currentPage = $(this).children('a').text();
+
+        if ($(this).hasClass('page-active')) {
+            activePage = parseInt(currentPage);
+            return false;
+        }
+    });
+    return activePage;
+}
+
+/* Esta función se encarga de determinar cual es la cantidad de páginas que posee la lista de pacientes obtenida
+ * Valor de retorno: (int) cantidad de páginas
+ */
+function getNumberPages() {
+    var pages = [];
+
+    $('.pagination li').each(function () {
+        var currentPage = $(this).children('a').text();
+
+        if (currentPage != 'Previo' && currentPage != 'Siguiente' && currentPage != '...')
+            pages.push(currentPage);
+    });
+    return parseInt(pages[pages.length - 1]);
+}
+
 $(document).ready(function () {
     var fechaActual = new Date();
     var url;
@@ -792,7 +950,7 @@ $(document).ready(function () {
 
     //Si el programa está posicionado en la búsqueda de pacientes, se carga de la base de datos la información necesaria de todos los pacientes registrados
     if (window.location.pathname === basedir + '/pacientes')
-        cargarPacientes(); //Trae de la base de datos la información necesaria de todos los pacientes registrados
+        cargarPacientesPorDefecto(); //Trae de la base de datos la información necesaria de todos los pacientes registrados
 
     //Si el programa está posicionado en el perfil de un paciente para modificar o ver sus datos, se cargan los datos de dicho paciente seleccionado
     if ((url = window.location.pathname).match(basedir + '/pacientes/modificar/[0-9]+'))
@@ -833,7 +991,7 @@ $(document).ready(function () {
     $('.input-buscar').keypress(function (e) {
         if (e.which == 13) {
             if ((url = window.location.pathname) === basedir + '/pacientes')
-                cargarPacientes($(this).val());
+                cargarPacientes();
             else if (url.match(basedir + '/pacientes/diagnostico/[0-9]+'))
                 cargarMedico($(this).val());
         }
@@ -844,7 +1002,7 @@ $(document).ready(function () {
      */
     $('.icono-buscar').click(function () {
         if ((url = window.location.pathname) === basedir + '/pacientes')
-            cargarPacientes($('.input-buscar').val());
+            cargarPacientes();
         else if (url.match(basedir + '/pacientes/diagnostico/[0-9]+'))
             cargarMedico($('.input-buscar').val());
     });
@@ -854,8 +1012,27 @@ $(document).ready(function () {
      * con los pacientes encontrados, mientras el usuario está escribiendo
      */
     $('.input-buscar').on('input', function () {
+        var input = $(this).val();
+
+        if (input.charAt(0) === ' ' || (input.charAt(input.length - 2) === ' ' && input.charAt(input.length - 1) === ' '))
+            $(this).val(input.trim());
+
         if ($('.buscar-instantaneo').is(':checked'))
-            cargarPacientes($(this).val());
+            cargarPacientes();
+    });
+
+    /* Verifica el campo select "Ordenar por" cada vez que cambia, para ordenar ascendente o descendentemente 
+     * las filas de dicha tabla utilizando el campo indicado por el usuario
+     */
+    $('.order-by').change(function () {
+        cargarPacientes();
+    });
+
+    /* Verifica el campo select "Mostrar" cada vez que cambia, para mostrar la cantidad de filas
+     * que indique el usuario a través de este campo en el resultado
+     */
+    $('.show').change(function () {
+        cargarPacientes();
     });
 
     /* Verifica si se hace click en el botón de eliminar seleccionados y procede a confirmar la eliminación por parte del usuario.
@@ -938,6 +1115,37 @@ $(document).ready(function () {
             if ($('.otra_ciudad').attr('name') === 'ciudad_residencia')
                 $('.otra_ciudad').removeAttr('name').prop('required', false).hide();
         }
+    });
+
+    /* Evento que se activa cuando el usuario hace click en el botón "Previo" para luego mostrar a dicho usuario
+     * la página anterior de resultados de la lista de pacientes si está disponible
+     */
+    $(document).on('click', '.previous', function () {
+        var activePage = getActivePage();
+
+        if (activePage > 1)
+            cargarPacientes(activePage - 1);
+    });
+
+    /* Evento que se activa cuando el usuario hace click en el botón "Siguiente" para luego mostrar a dicho usuario
+     * la página siguiente de resultados de la lista de pacientes si está disponible
+     */
+    $(document).on('click', '.next', function () {
+        var activePage = getActivePage(),
+            countPages = getNumberPages();
+
+        if (activePage < countPages)
+            cargarPacientes(activePage + 1);
+    });
+
+    /* Evento que se activa cuando el usuario hace click en alguna de los números de página de la barra de paginación
+     * para luego mostrar a dicho usuario la página de resultados que él está indicando de la lista de pacientes
+     */
+    $(document).on('click', '.pagination li', function () {
+        var clickPage = $(this).text();
+
+        if (getActivePage() != clickPage && clickPage !== 'Previo' && clickPage !== 'Siguiente' && clickPage !== '...')
+            cargarPacientes(parseInt(clickPage));
     });
 
     /* Verificación de los campos que aplican o no para responder en un formulario. Se ejecutan las acciones correspondientes dependiendo si el campo aplica
@@ -1125,30 +1333,6 @@ $(document).ready(function () {
         } else {
             alert('No se puede eliminar la primera fila');
         }
-    });
-
-    /* Verifica si un header de la tabla de búsqueda del módulo de pacientes es marcado para ordenar ascendente o descendentemente 
-     * las filas de dicha tabla utilizando el campo indicado por el usuario
-     */
-    $(document).on('click', '.th-field', function () {
-        var arrow;
-        var order;
-
-        if ($(this).find('i').hasClass('fa-caret-up')) {
-            arrow = 'down';
-            order = {
-                field: $(this).text(),
-                type: 'DESC'
-            };
-        } else {
-            arrow = 'up';
-            order = {
-                field: $(this).text(),
-                type: ''
-            };
-        }
-        cargarPacientes($('.input-buscar').val(), order);
-        $('.pacientes .th-field:nth-child(' + ($(this).index() + 1) + ')').append('<i class="fa fa-caret-' + arrow + ' fa-fw"></i>');
     });
 
     //Marca o desmarcar filas de la tabla de pacientes
