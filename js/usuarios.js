@@ -12,7 +12,7 @@ function cargarPerfil(usuario) {
 
             //Carga la ciudad registrada como dirección del usuario, ya sea que esté o no en la lista de ciudades por estado
             $.ajax({
-                async: false,
+                async: true,
                 url: basedir + '/ciudades/' + datos.usuario.estado_residencia + '.html',
                 dataType: 'text',
                 success: function (datosCiudades) {
@@ -59,7 +59,7 @@ function cargarPerfil(usuario) {
 //Carga la información de un usuario y la muestra en un formulario para que se puedan modificar
 function mostrarPerfil() {
     $.ajax({ //Trae de la base de datos todos los datos del usuario
-        async: false,
+        async: true,
         url: basedir + '/json/perfil/cargar.php',
         error: function () {
             $('.status').html('Error cargando la información').show();
@@ -73,7 +73,7 @@ function mostrarPerfil() {
 //Actualiza la clave de un usuario en la base de datos
 function actualizarClave() {
     $.ajax({
-        async: false,
+        async: true,
         url: basedir + '/json/perfil/actualizar_clave.php',
         type: 'POST',
         data: $('#nueva-clave').serialize(),
@@ -104,7 +104,7 @@ function actualizarClave() {
 //Se encarga de ingresar los datos de un nuevo usuario en la base de datos
 function agregarUsuario() {
     $.ajax({
-        async: false,
+        async: true,
         url: basedir + '/json/usuario/insertar.php',
         type: 'POST',
         data: $('#nuevo-usuario').serialize(),
@@ -132,58 +132,183 @@ function agregarUsuario() {
     });
 }
 
-/* Trae algunos datos importantes de todos los usuarios o de los usuarios que consiga según una búsqueda indicada en la base de datos y los
- * muestra al usuario que los solicitó en una tabla
+/* Muestra los usuarios encontrados según los parámetros indicados por el usuario con sesión iniciada en el sistema.
+ * Se incluye todo el proceso de paginación para indicar la página correspondiente de la lista de usuarios
+ * en la cual se obtuvieron los resultados
  * Parámetros:
- * - "busqueda" (opcional) contiene la información para filtrar la búsqueda de usuarios
- *   + Valor por defecto: ''
- * - "order" (opcional) indica el campo por el cual se van a ordenar los resultados y además contiene el tipo de ordenamiento
- *   que puede ser ascendente o descendentemente
+ * - "usuarios" lista de usuarios
+ * - "activePage" (Opcional) número de página actual
+ *   + Valor por defecto: 1
  */
-function cargarUsuarios(busqueda, order) {
-    var archivo;
-    var arrow = '<i class="fa fa-caret-up fa-fw"></i>';
+function mostrarUsuariosObtenidos(usuarios, activePage) {
+    try {
+        var datos = JSON.parse(usuarios),
+            totalPages = datos.countPages,
+            pageBarSize = (totalPages <= 6) ? totalPages : 5,
+            paginationHtml = '',
+            nextButtonHtml = '',
+            tableHtml = '<tr><th class="icono-tabla"></th><th class="th-field">Cédula</th><th class="th-field">Nombres</th><th class="th-field">Apellidos</th><th class="th-field">Usuario</th><th class="th-field">Móvil</th><th class="th-field">Email</th></tr>';
 
-    if (typeof (busqueda) === 'undefined') {
+        if (typeof (activePage) === 'undefined')
+            activePage = 1;
+
+        if (totalPages === 1) {
+            paginationHtml += '<li class="previous page-disable"><a href="javascript:void(0);"><span><i class="fa fa-chevron-left fa-fw"></i>Previo</span></a></li>';
+            nextButtonHtml += '<li class="next page-disable"><a href="javascript:void(0);"><span>Siguiente<i class="fa fa-chevron-right fa-fw"></i></span></a></li>';
+
+        } else if (activePage === 1) {
+            paginationHtml += '<li class="previous page-disable"><a href="javascript:void(0);"><span><i class="fa fa-chevron-left fa-fw"></i>Previo</span></a></li>';
+            nextButtonHtml += '<li class="next"><a href="javascript:void(0);"><span>Siguiente<i class="fa fa-chevron-right fa-fw"></i></span></a></li>';
+
+        } else if (activePage === totalPages) {
+            paginationHtml += '<li class="previous"><a href="javascript:void(0);"><span><i class="fa fa-chevron-left fa-fw"></i>Previo</span></a></li>';
+            nextButtonHtml += '<li class="next page-disable"><a href="javascript:void(0);"><span>Siguiente<i class="fa fa-chevron-right fa-fw"></i></span></a></li>';
+
+        } else {
+            paginationHtml += '<li class="previous"><a href="javascript:void(0);"><span><i class="fa fa-chevron-left fa-fw"></i>Previo</span></a></li>';
+            nextButtonHtml += '<li class="next"><a href="javascript:void(0);"><span>Siguiente<i class="fa fa-chevron-right fa-fw"></i></span></a></li>';
+        }
+        var startPage,
+            pageNumber,
+            flag = (activePage - 1) > 3,
+            pagesToEnd = totalPages - activePage;
+
+        if (flag && totalPages > 6) {
+            paginationHtml += '<li><a href="javascript:void(0);">1</a></li><li><a href="javascript:void(0);">...</a></li>';
+
+            if (pagesToEnd === 0) {
+                startPage = activePage - 4;
+            } else if (pagesToEnd === 1) {
+                startPage = activePage - 3;
+            } else if (pagesToEnd > 1) {
+                startPage = activePage - 2;
+            }
+        } else {
+            startPage = 1;
+        }
+
+        for (var i = 0; i < pageBarSize; i++) {
+            pageNumber = startPage + i;
+
+            if (pageNumber === activePage) {
+                paginationHtml += '<li class="page-active"><a href="javascript:void(0);">' + pageNumber.toString() + '</a></li>';
+            } else {
+                paginationHtml += '<li><a href="javascript:void(0);">' + pageNumber.toString() + '</a></li>';
+            }
+        }
+
+        if (totalPages > 6) {
+            if (pagesToEnd === 3 && !flag) {
+                paginationHtml += '<li><a href="javascript:void(0);">' + (totalPages - 1).toString() + '</a></li><li><a href="javascript:void(0);">' + totalPages + '</a></li>';
+            } else if (pagesToEnd === 3) {
+                paginationHtml += '<li><a href="javascript:void(0);">' + totalPages + '</a></li>';
+            } else if (pagesToEnd > 3) {
+                paginationHtml += '<li><a href="javascript:void(0);">...</a></li><li><a href="javascript:void(0);">' + totalPages + '</a></li>';
+            }
+        }
+
+        var startFrom = datos.offset + 1,
+            show = parseInt(datos.show),
+            endAt = datos.offset,
+            totalResults = datos.totalResults,
+            showLabel = '';
+
+        if (datos.show === 'ALL' || totalResults < show || activePage === totalPages) {
+            endAt = totalResults;
+        } else if (startFrom === totalResults) {
+            endAt = startFrom;
+        } else {
+            endAt += show;
+        }
+        showLabel = '<i class="fa fa-file-text-o fa-fw"></i>Mostrando ' + startFrom + ' - ' + endAt + ' de ' + datos.totalResults + ' usuarios'
+        paginationHtml += nextButtonHtml;
+        $('.showing').html(showLabel);
+        $('.pagination').html(paginationHtml);
+
+        if (datos.flag === 1) {
+            for (var i in datos.usuario) {
+                tableHtml += '<tr><td class="icono-tabla" data-id="' + datos.usuario[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar" title="Eliminar usuario"></i><i class="fa fa-edit fa-2x icon editar" title="Modificar usuario"></i></td><td>' + datos.usuario[i].cedula + '</td><td>' + datos.usuario[i].nombres + '</td><td>' + datos.usuario[i].apellidos + '</td><td>' + datos.usuario[i].nombre_usuario + '</td><td>' + datos.usuario[i].tlf_movil + '</td><td>' + datos.usuario[i].correo_electronico + '</td></tr>';
+            }
+            $('.usuarios').html(tableHtml);
+
+        } else {
+            alert(datos.msg);
+        }
+    } catch (e) {
+        alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
+    }
+}
+
+/* Trae algunos datos importantes de todos los usuarios o de los usuarios que consiga según una búsqueda indicada en la base de datos y los
+ * muestra al usuario que los solicitó en una tabla. Los resultados se muestran según el orden y la cantidad de resultados
+ * que quiera obtener el usuario
+ * Parámetros:
+ * - "activePage" (Opcional) número de página actual
+ *   + Valor por defecto: 1
+ */
+function cargarUsuarios(activePage) {
+    var archivo,
+        offset,
+        search = $('.input-buscar').val().trim(),
+        show = $('.show').val(),
+        option = $('.order-by').val().split('-'),
+        order = {
+            field: option[0],
+            type: option[1]
+        };
+    $('.borrar-varios').hide();
+
+    if (typeof (activePage) === 'undefined')
+        activePage = 1;
+
+    if (!search) {
         archivo = 'cargar_todos.php';
-        busqueda = '';
     } else {
         archivo = 'buscar.php';
     }
-
-    if (typeof (order) === 'undefined')
-        order = '';
-    else
-        arrow = '';
+    offset = (show === 'ALL') ? '' : parseInt(show) * (activePage - 1);
 
     $.ajax({
-        async: false,
+        async: true,
         url: basedir + '/json/usuario/' + archivo,
         type: 'POST',
         data: {
-            busqueda: busqueda,
-            order: order
+            busqueda: search,
+            order: order,
+            show: show,
+            offset: offset
         },
         error: function () {
             alert('Error cargando la información');
         },
         success: function (usuarios) {
-            try {
-                var datos = JSON.parse(usuarios);
-                var html = '<tr><th class="icono-tabla"></th><th class="th-field">Cédula' + arrow + '</th><th class="th-field">Nombres</th><th class="th-field">Apellidos</th><th class="th-field">Usuario</th><th class="th-field">Móvil</th><th class="th-field">Email</th></tr>';
+            mostrarUsuariosObtenidos(usuarios, activePage);
+        }
+    });
+}
 
-                if (datos.flag === 1) {
-                    for (var i in datos.usuario) {
-                        html += '<tr><td class="icono-tabla" data-id="' + datos.usuario[i].id + '"><i class="fa fa-trash-o fa-2x icon borrar" title="Eliminar usuario"></i><i class="fa fa-edit fa-2x icon editar" title="Modificar usuario"></i></td><td>' + datos.usuario[i].cedula + '</td><td>' + datos.usuario[i].nombres + '</td><td>' + datos.usuario[i].apellidos + '</td><td>' + datos.usuario[i].nombre_usuario + '</td><td>' + datos.usuario[i].tlf_movil + '</td><td>' + datos.usuario[i].correo_electronico + '</td></tr>';
-                    }
-                    $('.usuarios').html(html);
-
-                } else {
-                    alert(datos.msg);
-                }
-            } catch (e) {
-                alert('Error en la información recibida del servidor, no es válida. Esto indica un error en el servidor al solicitar los datos');
-            }
+/* 
+ * Trae algunos datos importantes de los usuarios registrados en el sistema de acuerdo a la configuración de búsqueda por defecto.
+ * Esta configuración incluye los siguientes valores:
+ * - Orden de los resultados: Por cédula de menor a mayor (Ascendente)
+ * - Cantidad de resultados mostrados: 10 por página
+ * - Cantidad de resultados que hay que saltar: 0
+ */
+function cargarUsuariosPorDefecto() {
+    $.ajax({
+        async: true,
+        url: basedir + '/json/usuario/cargar_todos.php',
+        type: 'POST',
+        data: {
+            order: '',
+            show: '',
+            offset: ''
+        },
+        error: function () {
+            alert('Error cargando la información');
+        },
+        success: function (usuarios) {
+            mostrarUsuariosObtenidos(usuarios);
         }
     });
 }
@@ -194,7 +319,7 @@ function cargarUsuarios(busqueda, order) {
  */
 function mostrarUsuario(userId) {
     $.ajax({
-        async: false,
+        async: true,
         url: basedir + '/json/usuario/cargar.php',
         type: 'POST',
         data: {
@@ -215,7 +340,7 @@ function mostrarUsuario(userId) {
  */
 function actualizarUsuario(archivoPhp) {
     $.ajax({
-        async: false,
+        async: true,
         url: basedir + '/json/' + archivoPhp,
         type: 'POST',
         data: $('#actualizar-usuario').serialize(),
@@ -244,12 +369,13 @@ function actualizarUsuario(archivoPhp) {
 /* Elimina uno o varios usuarios, seleccionados por el usuario con sesión iniciada en el sistema, de la base de datos
  * Parámetros:
  * - "userId" es un arreglo que indica el id de los usuarios a eliminar (Puede tener un solo elemento)
+ * Valor de retorno: (boolean) usuarios eliminados o no
  */
 function eliminarUsuarios(userId) {
     var result;
 
     $.ajax({
-        async: false,
+        async: true,
         url: basedir + '/json/usuario/eliminar.php',
         type: 'POST',
         data: {
@@ -273,6 +399,38 @@ function eliminarUsuarios(userId) {
     return result;
 }
 
+/* Esta función se encarga de determinar cual es la página actual de la lista de usuarios obtenida
+ * Valor de retorno: (int) página actual
+ */
+function getActivePage() {
+    var activePage;
+
+    $('.pagination li').each(function () {
+        var currentPage = $(this).children('a').text();
+
+        if ($(this).hasClass('page-active')) {
+            activePage = parseInt(currentPage);
+            return false;
+        }
+    });
+    return activePage;
+}
+
+/* Esta función se encarga de determinar cual es la cantidad de páginas que posee la lista de usuarios obtenida
+ * Valor de retorno: (int) cantidad de páginas
+ */
+function getNumberPages() {
+    var pages = [];
+
+    $('.pagination li').each(function () {
+        var currentPage = $(this).children('a').text();
+
+        if (currentPage != 'Previo' && currentPage != 'Siguiente' && currentPage != '...')
+            pages.push(currentPage);
+    });
+    return parseInt(pages[pages.length - 1]);
+}
+
 $(document).ready(function () {
     var fechaActual = new Date();
     var url;
@@ -286,7 +444,7 @@ $(document).ready(function () {
 
     //Si el programa está posicionado en la búsqueda de usuarios, se carga de la base de datos la información necesaria de todos los usuarios registrados
     if (window.location.pathname === basedir + '/usuarios')
-        cargarUsuarios();
+        cargarUsuariosPorDefecto();
 
     //Si el programa está posicionado en el perfil de un usuario para modificar o ver sus datos, se cargan los datos de dicho usuario seleccionado
     if ((url = window.location.pathname).match(basedir + '/usuarios/modificar/[0-9]+'))
@@ -315,12 +473,12 @@ $(document).ready(function () {
     //Verifica que presionen la tecla "enter" para buscar usuarios según lo indicado en la barra de búsqueda
     $('.input-buscar').keypress(function (e) {
         if (e.which == 13)
-            cargarUsuarios($(this).val());
+            cargarUsuarios();
     });
 
     //Verifica que se ejecute un click en el ícono de búsqueda para buscar usuarios según lo indicado en la barra de búsqueda
     $('.icono-buscar').click(function () {
-        cargarUsuarios($('.input-buscar').val());
+        cargarUsuarios();
     });
 
     /* Verifica si el checkbox de búsqueda instantánea está activado en cada momento que se escriben datos en la barra de búsqueda.
@@ -328,8 +486,27 @@ $(document).ready(function () {
      * con los usuarios encontrados, mientras el usuario está escribiendo
      */
     $('.input-buscar').on('input', function () {
+        var input = $(this).val();
+
+        if (input.charAt(0) === ' ' || (input.charAt(input.length - 2) === ' ' && input.charAt(input.length - 1) === ' '))
+            $(this).val(input.trim());
+
         if ($('.buscar-instantaneo').is(':checked'))
-            cargarUsuarios($(this).val());
+            cargarUsuarios();
+    });
+
+    /* Verifica el campo select "Ordenar por" cada vez que cambia, para ordenar ascendente o descendentemente 
+     * las filas de dicha tabla utilizando el campo indicado por el usuario
+     */
+    $('.order-by').change(function () {
+        cargarUsuarios();
+    });
+
+    /* Verifica el campo select "Mostrar" cada vez que cambia, para mostrar la cantidad de filas
+     * que indique el usuario a través de este campo en el resultado
+     */
+    $('.show').change(function () {
+        cargarUsuarios();
     });
 
     /* Verifica si se hace click en el botón de eliminar seleccionados y procede a confirmar la eliminación por parte del usuario.
@@ -404,28 +581,35 @@ $(document).ready(function () {
         }
     });
 
-    /* Verifica si un header de la tabla de búsqueda del módulo de usuarios es marcado para ordenar ascendente o descendentemente 
-     * las filas de dicha tabla utilizando el campo indicado por el usuario
+    /* Evento que se activa cuando el usuario hace click en el botón "Previo" para luego mostrar a dicho usuario
+     * la página anterior de resultados de la lista de usuarios si está disponible
      */
-    $(document).on('click', '.th-field', function () {
-        var arrow;
-        var order;
+    $(document).on('click', '.previous', function () {
+        var activePage = getActivePage();
 
-        if ($(this).find('i').hasClass('fa-caret-up')) {
-            arrow = 'down';
-            order = {
-                field: $(this).text(),
-                type: 'DESC'
-            };
-        } else {
-            arrow = 'up';
-            order = {
-                field: $(this).text(),
-                type: ''
-            };
-        }
-        cargarUsuarios($('.input-buscar').val(), order);
-        $('.usuarios .th-field:nth-child(' + ($(this).index() + 1) + ')').append('<i class="fa fa-caret-' + arrow + ' fa-fw"></i>');
+        if (activePage > 1)
+            cargarUsuarios(activePage - 1);
+    });
+
+    /* Evento que se activa cuando el usuario hace click en el botón "Siguiente" para luego mostrar a dicho usuario
+     * la página siguiente de resultados de la lista de usuarios si está disponible
+     */
+    $(document).on('click', '.next', function () {
+        var activePage = getActivePage(),
+            countPages = getNumberPages();
+
+        if (activePage < countPages)
+            cargarUsuarios(activePage + 1);
+    });
+
+    /* Evento que se activa cuando el usuario hace click en alguna de los números de página de la barra de paginación
+     * para luego mostrar a dicho usuario la página de resultados que él está indicando de la lista de usuarios
+     */
+    $(document).on('click', '.pagination li', function () {
+        var clickPage = $(this).text();
+
+        if (getActivePage() != clickPage && clickPage !== 'Previo' && clickPage !== 'Siguiente' && clickPage !== '...')
+            cargarUsuarios(parseInt(clickPage));
     });
 
     //Marca o desmarcar filas de la tabla de usuarios
