@@ -23,34 +23,45 @@ if(isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']))
     }
     
     if(!empty($order = $_POST['order'])) {
-        switch($order['field']) {
-            case 'Cédula':
-                $order = 'cedula::int ' . $order['type'];
-                break;
-            case 'Nombres':
-                $order = 'nombres ' . $order['type'];
-                break;
-            case 'Apellidos':
-                $order = 'apellidos ' . $order['type'];
-                break;
-            case 'Usuario':
-                $order = 'nombre_usuario ' . $order['type'];
-                break;
-            case 'Móvil':
-                $order = 'tlf_movil ' . $order['type'];
-                break;
-            case 'Email':
-                $order = 'correo_electronico ' . $order['type'];
-                break;
+        if($order['field'] === 'cedula') {
+            $order['field'] .= '::int';
         }
+        $order = $order['field'] . ' ' . $order['type'];
+        
     } else {
-        $order = 'cedula::int';
+        $order = 'cedula::int ASC';
     }
     
-    $select = 'SELECT id, cedula, apellidos, nombres, nombre_usuario, tlf_movil, correo_electronico FROM usuario WHERE id != '.$id_usuario.' AND tipo_usuario != \'Super Administrador\''.$administrador.' ORDER BY ' . $order;
+    if(empty($show = $_POST['show']))
+        $show = '10';
+    
+    if(empty($offset = $_POST['offset']))
+        $offset = '0';
+    
+    $totalResults = 0;
+    $count = 'SELECT COUNT(*) FROM usuario WHERE id != '.$id_usuario.' AND tipo_usuario != \'Super Administrador\''.$administrador;
+    $select = 'SELECT id, cedula, apellidos, nombres, nombre_usuario, tlf_movil, correo_electronico FROM usuario WHERE id != '.$id_usuario.' AND tipo_usuario != \'Super Administrador\''.$administrador.' ORDER BY ' . $order . ' LIMIT ' . $show . ' OFFSET ' . $offset;
+
+    if($query = pg_query($count)){
+        $totalResults = pg_fetch_assoc($query)['count'];
+        
+        if($show !== 'ALL')
+            $msg['countPages'] = ceil($totalResults/$show);
+        else
+            $msg['countPages'] = 1;
+        
+    } else {
+        $msg['msg'] = 'Error de consulta en la base de datos';
+        $msg['flag'] = 0;
+        pg_close($conexion);
+        return json_encode($msg);
+    }
     
     if($query = pg_query($select)){
         unset($msg['msg']);
+        $msg['show'] = $show;
+        $msg['totalResults'] = (int) $totalResults;
+        $msg['offset'] = (int) $offset;
         $msg['flag'] = 1;
         $cont = 0;
         
