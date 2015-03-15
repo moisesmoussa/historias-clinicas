@@ -24,4 +24,4 @@
         </table>
     </form>
 </section>
-<?php echo '<script async defer src="'.$app[ 'basedir']. '/js/forgot-password.js"></script>'; ?>
+<?php echo '<script defer src="'.$app[ 'basedir']. '/js/forgot-password.js"></script>'; ?>
