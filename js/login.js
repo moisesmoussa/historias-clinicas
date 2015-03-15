@@ -1,21 +1,23 @@
 /* Envía la información suministrada por el usuario al servidor y valida que los datos estén almacenados y sean correctos para
  * iniciar la sesión del usuario en el sistema
+ * - Valor de retorno: (boolean) indica que el formulario no genere la acción submit, ya que, eso se realiza con AJAX
  */
 function login() {
     $.ajax({
-        async: false,
-        url: basedir + '/json/login.php',
+        async: true,
+        url: basedir + '/json/usuario/login.php',
         type: 'POST',
         data: $('#form-login').serialize(),
         beforeSend: function () {
             $('.status').html('<i class="fa fa-spinner fa-spin fa-fw"></i>   Verificando información').show();
         },
         error: function () {
+            $('.status').hide();
             alert('Error iniciando sesión.');
         },
         success: function (data) {
+            $('.status').hide();
             try {
-                $('.status').hide();
                 var resultado = JSON.parse(data);
 
                 if (resultado.flag === 1)
