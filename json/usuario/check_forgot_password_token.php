@@ -12,7 +12,7 @@ $query = 'SELECT token, created_at FROM password_resets WHERE token = \''.$app['
 if($answer = pg_query($query)) {
     $result = pg_fetch_assoc($answer);
 
-    if(!empty($result['token'])){
+    if(!empty($token = $result['token'])){
         date_default_timezone_set('UTC');
         $timeout = 30;
         $storeTimestamp = strtotime($result['created_at']);
@@ -24,7 +24,7 @@ if($answer = pg_query($query)) {
             require_once('modulos/'.str_replace('-', '_', $app['controller'].'/'.$app['action'].'.php'));
         } else {
             //Código 2
-            $query = 'DELETE FROM password_resets WHERE token = \''.$result['token'].'\'';
+            $query = 'DELETE FROM password_resets WHERE token = \'' . $token . '\'';
             if(pg_query($query)) {
                 require_once('modulos/errores/timeout_token.php');
             } else {
