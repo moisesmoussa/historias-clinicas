@@ -28,6 +28,11 @@
                     <div class="status"></div>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <a href="javascript:void(0);" class="link forgot-password">¿Olvidó su contraseña?</a>
+                </td>
+            </tr>
         </table>
     </form>
 </section>
