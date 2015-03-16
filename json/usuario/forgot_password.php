@@ -24,9 +24,8 @@ if($flag){
         $result = pg_fetch_assoc($answer);
 
         if(!empty($result['id'])){
-            date_default_timezone_set('UTC');
             $token = md5(uniqid(mt_rand(), true));
-            $timestamp = date('c');
+            $timestamp = gmdate('Y-m-d H:i:s');
             $query = 'INSERT INTO password_resets (email, token, created_at) VALUES(\'' . $_POST['email'] . '\', \'' . $token . '\', \'' . $timestamp . '\');';
             
             if(pg_query($query)) {
