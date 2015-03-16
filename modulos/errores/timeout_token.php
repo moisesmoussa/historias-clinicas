@@ -1,0 +1,1 @@
+<h1 align="center">Error: Enlace para reestablecimiento de contraseña caducado</h1><h2 align="center">El enlace indicado para reestablecimiento de contraseña ha caducado.<br>Para recuperar su contraseña debe solicitar un nuevo correo de reestablecimiento de contraseña</h2>
