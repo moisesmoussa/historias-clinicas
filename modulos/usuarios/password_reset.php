@@ -7,7 +7,7 @@
                     <label for="clave_nueva">Contraseña Nueva: <i class="fa fa-question-circle fa-fw ayuda" title="<b>Puede estar formado por:</b><br>Mínimo 6 caracteres<br>Máximo 18 caracteres<br>Letras mayúsculas y minúsculas<br>Números<br>Caracteres: * + / : . , $ % & # { } _ -"></i>
                     </label>
                     <br>
-                    <input id="clave_nueva" name="clave_nueva" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#\{\}_-]{6,18}$" required>
+                    <input id="clave_nueva" name="clave_nueva" type="password" pattern="^[a-zA-Z0-9\*\+\/\:\.\,\$\%\&\#\{\}_-]{6,18}$" autofocus required>
                 </td>
             </tr>
             <tr>
@@ -30,3 +30,4 @@
         </table>
     </form>
 </section>
+<?php echo '<script defer src="'.$app[ 'basedir']. '/js/password-reset.js"></script>'; ?>
