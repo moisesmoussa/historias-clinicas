@@ -44,7 +44,7 @@ if($flag){
                 $mail->addAddress($_POST['email']);                   // Agrega dirección de correo del receptor
                 $mail->isHTML(true);                                  // Configura el formato del email a HTML
                 $mail->Subject = utf8_encode('=?UTF-8?B?' . base64_encode('FUNDAHOG - Reestablecimiento de Contraseña') .  '?=');
-                $mail->Body    = '<p>Estimado usuario, para reestablecimiento de su contraseña haga click en el siguiente enlace:<br><br>http://' . $app['domain'] . $app['basedir'] . '/usuarios/password-reset/' . $token . '<br><br>Saludos de parte de FUNDAHOG</p>';
+                $mail->Body    = '<p>Estimado usuario, para el reestablecimiento de su contraseña haga click en el siguiente enlace:<br><br>http://' . $app['domain'] . $app['basedir'] . '/usuarios/password-reset/' . $token . '<br><br>El enlace caducará o vencerá dentro de los próximos 30 minutos, después de dicho tiempo deberá generar una nueva solicituda de reestablecimiento de su contraseña.<br><br>Saludos de parte de FUNDAHOG</p>';
 
                 if($mail->send()) {
                     $msg['msg'] = 'Correo para reestablecimiento de contraseña enviado exitosamente';
