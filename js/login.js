@@ -58,6 +58,13 @@ $(document).ready(function () {
         claveModificada = true;
     });
 
+    /* Evento que verifica si se hace un click en el enlace para ir a la sección de olvidó contraseña. Se encarga de redirigir
+     * el usuario a la sección de olvidó su contraseña
+     */
+    $('.forgot-password').click(function () {
+        window.location = basedir + '/usuarios/forgot-password';
+    });
+
     //Verifica cuando se envían los datos del formulario "form-login" por medio del evento "Submit" y procede a llamar a la función de iniciar sesión
     $('#form-login').submit(function () {
         return login();
