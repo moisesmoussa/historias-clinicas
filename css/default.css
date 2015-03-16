@@ -375,6 +375,17 @@ input[readonly="readonly"] {
     transition: background-color 300ms linear;
 }
 
+.link {
+    color: #08088A;
+    outline: none;
+    text-decoration: none;
+}
+
+.link:focus,
+.link:hover {
+    text-decoration: underline;
+}
+
 .menu {
     position: relative;
 }
