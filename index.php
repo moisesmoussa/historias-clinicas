@@ -24,10 +24,10 @@ if($app['controller'] === 'usuarios' && $app['action'] === 'logout') {
 $flagLogin = isset($_SESSION['super_administrador']) || isset($_SESSION['administrador']) || isset($_SESSION['general']);
 $flagNotLogin = !isset($_SESSION['super_administrador']) && !isset($_SESSION['administrador']) && !isset($_SESSION['general']);
 
-if( ((isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) && (($app['controller'] === 'usuarios' && $app['action'] === 'login') || $app['controller'] == '')) || (isset($_SESSION['general']) && $app['controller'] === 'usuarios' && $app['action'] != 'perfil' && $app['action'] != 'cambiar-clave') || ($flagLogin && ($app['action'] === 'modificar' || $app['action'] === 'diagnostico') && $app['params'] == '') )
+if( ((isset($_SESSION['super_administrador']) || isset($_SESSION['administrador'])) && (($app['controller'] === 'usuarios' && $app['action'] === 'login') || $app['controller'] == '')) || (isset($_SESSION['general']) && $app['controller'] === 'usuarios' && $app['action'] != 'perfil' && $app['action'] != 'cambiar-clave') || ($flagLogin && ($app['action'] === 'modificar' || $app['action'] === 'diagnostico') && empty($app['params'])) )
     header('Location: '.$app['basedir'].'/usuarios/home');
 
-if($flagNotLogin && $app['controller'] === 'usuarios' && ($app['action'] === 'login' || $app['action'] === 'forgot-password')) {
+if($flagNotLogin && $app['controller'] === 'usuarios' && ($app['action'] === 'login' || $app['action'] === 'forgot-password' || $app['action'] === 'password-reset')) {
     require_once('layouts/guest.php');
 } else if($flagNotLogin){
     header('Location: '.$app['basedir'].'/usuarios/login');
