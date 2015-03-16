@@ -10,8 +10,9 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
     <link href="<?php echo $app['basedir'].'/img/ivss.ico'; ?>" rel="icon" type="image/ico"/>
     <link href='<?php echo $app['basedir'].'/css/default.css'; ?>' rel='stylesheet' type='text/css'>
-    <link href='<?php echo $app['basedir'].'/css/usuarios.css'; ?>' rel='stylesheet' type='text/css'>
     <link href='<?php echo $app['basedir'].'/css/font-awesome.min.css'?>' rel='stylesheet' type='text/css'>
+    <link href="<?php echo $app['basedir'].'/css/tooltipster.css';?>" rel="stylesheet" type="text/css">
+    <link href='<?php echo $app['basedir'].'/css/usuarios.css'; ?>' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -31,11 +32,16 @@
         /*
          * Aquí se renderizan las vistas de usuarios sin sesión iniciada (invitados) o un error 404.
          */
-        if(!@include_once('modulos/'.str_replace('-', '_', $app['controller'].'/'.$app['action'].'.php')))
+        if($app['action'] === 'password-reset') {
+            require_once('json/usuario/check_forgot_password_token.php');
+        } else if(!@include_once('modulos/'.str_replace('-', '_', $app['controller'].'/'.$app['action'].'.php')))
             require_once('modulos/errores/404.php');
     ?>
 	<script>basedir = '<?php echo $app['basedir']; ?>';</script>
-    <?php echo '<script src="'.$app['basedir'].'/js/jquery-2.1.1.min.js"></script>'; ?>
+    <?php
+        echo '<script src="'.$app['basedir'].'/js/jquery-2.1.1.min.js"></script>';
+        echo '<script src="'.$app['basedir'].'/js/jquery.tooltipster.min.js"></script>';
+    ?>
 </body>
 
 </html>
