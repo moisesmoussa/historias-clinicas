@@ -1,0 +1,1 @@
+<h1 align="center">Error: Enlace para reestablecimiento de contraseña inválido</h1><h2 align="center">El enlace indicado para reestablecimiento de contraseña no existe<br>Para recuperar su contraseña debe solicitar un correo de reestablecimiento de contraseña</h2>
